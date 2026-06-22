@@ -1,0 +1,164 @@
+{
+  "program_id": "SG303M",
+  "record_id": "SG303M",
+  "cobol_source": "      *HEADER,COBOL,SG303M                                                            \n000100 IDENTIFICATION DIVISION.                                         SG3034.2\n000200 PROGRAM-ID.                                                      SG3034.2\n000300     SG303M.                                                      SG3034.2\n000400*THE FOLLOWING PROGRAM TESTS THE FLAGGING OF                      SG3034.2\n000500*OBSOLETE FEATURES THAT ARE USED IN SEGMENTATION LEVEL 2.         SG3034.2\n000600 ENVIRONMENT DIVISION.                                            SG3034.2\n000700 CONFIGURATION SECTION.                                           SG3034.2\n000800 SOURCE-COMPUTER.                                                 SG3034.2\n000900     XXXXX082.                                                    SG3034.2\n001000 OBJECT-COMPUTER.                                                 SG3034.2\n001100     XXXXX083                                                     SG3034.2\n001200     SEGMENT-LIMIT IS 20.                                         SG3034.2\n001300*Message expected for above statement: OBSOLETE                   SG3034.2\n001400 DATA DIVISION.                                                   SG3034.2\n001500 PROCEDURE DIVISION.                                              SG3034.2\n001600                                                                  SG3034.2\n001700 NUMBER1 SECTION 18.                                              SG3034.2\n001800*Message expected for above statement: OBSOLETE                   SG3034.2\n001900                                                                  SG3034.2\n002000 SG303M-CONTROL.                                                  SG3034.2\n002100     EXIT.                                                        SG3034.2\n002200                                                                  SG3034.2\n002300 NUMBER2 SECTION 19.                                              SG3034.2\n002400*Message expected for above statement: OBSOLETE                   SG3034.2\n002500                                                                  SG3034.2\n002600 SG303M-DUMMY1.                                                   SG3034.2\n002700     DISPLAY \"THIS IS A DUMMY PARAGRAPH\".                         SG3034.2\n002800                                                                  SG3034.2\n002900 NUMBER3 SECTION 18.                                              SG3034.2\n003000*Message expected for above statement: OBSOLETE                   SG3034.2\n003100                                                                  SG3034.2\n003200 SG303M-DUMMY2.                                                   SG3034.2\n003300     DISPLAY \"THIS IS A DUMMY PARAGRAPH TOO!\".                    SG3034.2\n003400                                                                  SG3034.2\n003500                                                                  SG3034.2\n003600                                                                  SG3034.2\n003700*TOTAL NUMBER OF FLAGS EXPECTED = 4.                              SG3034.2\n      *END-OF,SG303M                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "SG303M",
+  "stage1_division_count": 4,
+  "stage1_paragraph_count": 3,
+  "stage1_token_count": 57,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {
+      "program_id": "SG303M"
+    },
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 4,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 11,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "DATA"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 12,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 16,
+            "attributes": {
+              "name": "SG303M-CONTROL"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 17,
+                "attributes": {
+                  "verb": "EXIT",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 21,
+            "attributes": {
+              "name": "SG303M-DUMMY1"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 22,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\"THIS IS A DUMMY PARAGRAPH\""
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 26,
+            "attributes": {
+              "name": "SG303M-DUMMY2"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 27,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\"THIS IS A DUMMY PARAGRAPH TOO!\""
+                  ]
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "complexity_tier": "simple",
+  "complexity_score": 1.9,
+  "ast_depth": 4,
+  "unique_verbs": 2,
+  "cross_refs": 0,
+  "stage2_source": "rule-based",
+  "stage2_rule_based_code": "\"\"\"Translated from COBOL program SG303M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\nstate: _State = _State()\n\ndef sg303m_control() -> None:\n    return\n\ndef sg303m_dummy1() -> None:\n    print(\"THIS IS A DUMMY PARAGRAPH\")\n\ndef sg303m_dummy2() -> None:\n    print(\"THIS IS A DUMMY PARAGRAPH TOO!\")\n\nif __name__ == \"__main__\":\n    try:\n        sg303m_control()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_neural_code": "",
+  "stage2_final_code": "\"\"\"Translated from COBOL program SG303M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\nstate: _State = _State()\n\ndef sg303m_control() -> None:\n    return\n\ndef sg303m_dummy1() -> None:\n    print(\"THIS IS A DUMMY PARAGRAPH\")\n\ndef sg303m_dummy2() -> None:\n    print(\"THIS IS A DUMMY PARAGRAPH TOO!\")\n\nif __name__ == \"__main__\":\n    try:\n        sg303m_control()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_warnings": [],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": false,
+  "stage3_refined_code": "",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "",
+  "stage3_error": "",
+  "verdict": "INCONCLUSIVE",
+  "verdict_summary": "3 structural check(s) passed, but no behavioural signal (execution_match / llm_judge) was available.",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": ""
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "3/3 paragraphs found as Python functions",
+      "skipped_reason": ""
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "COBOL program had no data items to cover.",
+      "skipped_reason": ""
+    }
+  ],
+  "timestamp": 1779639232.731742
+}

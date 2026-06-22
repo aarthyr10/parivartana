@@ -1,0 +1,499 @@
+{
+  "program_id": "IC105A",
+  "record_id": "IC105A",
+  "cobol_source": "      *HEADER,COBOL,IC103A,SUBRTN,IC105A                                              \n000100 IDENTIFICATION DIVISION.                                         IC1054.2\n000200 PROGRAM-ID.                                                      IC1054.2\n000300     IC105A.                                                      IC1054.2\n000400****************************************************************  IC1054.2\n000500*                                                              *  IC1054.2\n000600*    VALIDATION FOR:-                                          *  IC1054.2\n000700*                                                              *  IC1054.2\n000800*    \"ON-SITE VALIDATION, NATIONAL INSTITUTE OF STD & TECH.     \".IC1054.2\n000900*                                                              *  IC1054.2\n001000*    \"COBOL 85 VERSION 4.2, Apr  1993 SSVG                      \".IC1054.2\n001100*                                                              *  IC1054.2\n001200****************************************************************  IC1054.2\n001300*                                                              *  IC1054.2\n001400*      X-CARDS USED BY THIS PROGRAM ARE :-                     *  IC1054.2\n001500*                                                              *  IC1054.2\n001600*        X-55  - SYSTEM PRINTER NAME.                          *  IC1054.2\n001700*        X-82  - SOURCE COMPUTER NAME.                         *  IC1054.2\n001800*        X-83  - OBJECT COMPUTER NAME.                         *  IC1054.2\n001900*                                                              *  IC1054.2\n002000****************************************************************  IC1054.2\n002100*        THE SUBPROGRAM IC105 HAS TWO OPERANDS IN THE             IC1054.2\n002200*    PROCEDURE DIVISION HEADER AND THE ROUTINE CONTAINS           IC1054.2\n002300*    FOUR EXIT PROGRAM STATEMENTS.  THE CALLING PROGRAM           IC1054.2\n002400*    IS IC103.                                                    IC1054.2\n002500 ENVIRONMENT DIVISION.                                            IC1054.2\n002600 CONFIGURATION SECTION.                                           IC1054.2\n002700 SOURCE-COMPUTER.                                                 IC1054.2\n002800     XXXXX082.                                                    IC1054.2\n002900 OBJECT-COMPUTER.                                                 IC1054.2\n003000     XXXXX083.                                                    IC1054.2\n003100 DATA DIVISION.                                                   IC1054.2\n003200 LINKAGE SECTION.                                                 IC1054.2\n003300 77  DN1 PICTURE 999.                                             IC1054.2\n003400 77  DN2 PICTURE S99 COMPUTATIONAL.                               IC1054.2\n003500 PROCEDURE DIVISION  USING DN1 DN2.                               IC1054.2\n003600*        THIS SUBPROGRAM CONTANS FOUR EXIT PROGRAM STATEMENTS.    IC1054.2\n003700*    REFERENCE  X3.23-1974, SECTION XII, 3.4.                     IC1054.2\n003800 SECT-IC105-0001 SECTION.                                         IC1054.2\n003900 EXIT-TEST-001.                                                   IC1054.2\n004000     IF DN1 IS NOT EQUAL TO 1                                     IC1054.2\n004100          GO TO EXIT-TEST-002.                                    IC1054.2\n004200     MOVE 1 TO DN2.                                               IC1054.2\n004300 EXIT-STATEMENT-001.                                              IC1054.2\n004400     EXIT PROGRAM.                                                IC1054.2\n004500 EXIT-TEST-002.                                                   IC1054.2\n004600     IF DN1 IS NOT EQUAL TO 2                                     IC1054.2\n004700          GO TO EXIT-TEST-003.                                    IC1054.2\n004800     MOVE 2 TO DN2.                                               IC1054.2\n004900 EXIT-STATEMENT-002.                                              IC1054.2\n005000     EXIT PROGRAM.                                                IC1054.2\n005100 EXIT-TEST-003.                                                   IC1054.2\n005200     IF DN1 NOT EQUAL TO 3                                        IC1054.2\n005300          GO TO EXIT-TEST-004.                                    IC1054.2\n005400     MOVE 3 TO DN2.                                               IC1054.2\n005500 EXIT-STATEMENT-003.                                              IC1054.2\n005600     EXIT PROGRAM.                                                IC1054.2\n005700 EXIT-TEST-004.                                                   IC1054.2\n005800     MOVE 4 TO DN2.                                               IC1054.2\n005900     GO TO EXIT-STATEMENT-004.                                    IC1054.2\n006000 EXTRANEOUS-PARAGRAPH.                                            IC1054.2\n006100*        THIS PARAGRAPH IS NEVER EXECUTED.                        IC1054.2\n006200     MOVE 5 TO DN2.                                               IC1054.2\n006300 EXIT-STATEMENT-004.                                              IC1054.2\n006400     EXIT PROGRAM.                                                IC1054.2\n      *END-OF,IC105A                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "IC105A",
+  "stage1_division_count": 4,
+  "stage1_paragraph_count": 10,
+  "stage1_token_count": 139,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {
+      "program_id": "IC105A"
+    },
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 4,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 10,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "DATA"
+        },
+        "children": [
+          {
+            "node_type": "DataItem",
+            "line": 12,
+            "attributes": {
+              "level": 77,
+              "name": "DN1",
+              "pic": "999"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 13,
+            "attributes": {
+              "level": 77,
+              "name": "DN2",
+              "pic": "S99"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 14,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 14,
+            "attributes": {
+              "name": "DN2"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 16,
+            "attributes": {
+              "name": "EXIT-TEST-001"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 17,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "DN1",
+                    "IS",
+                    "NOT",
+                    "EQUAL",
+                    "TO",
+                    "1"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 18,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "EXIT-TEST-002"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 19,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "1",
+                    "TO",
+                    "DN2"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 20,
+            "attributes": {
+              "name": "EXIT-STATEMENT-001"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 21,
+                "attributes": {
+                  "verb": "EXIT",
+                  "operands": [
+                    "PROGRAM"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 22,
+            "attributes": {
+              "name": "EXIT-TEST-002"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 23,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "DN1",
+                    "IS",
+                    "NOT",
+                    "EQUAL",
+                    "TO",
+                    "2"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 24,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "EXIT-TEST-003"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 25,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "2",
+                    "TO",
+                    "DN2"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 26,
+            "attributes": {
+              "name": "EXIT-STATEMENT-002"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 27,
+                "attributes": {
+                  "verb": "EXIT",
+                  "operands": [
+                    "PROGRAM"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 28,
+            "attributes": {
+              "name": "EXIT-TEST-003"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 29,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "DN1",
+                    "NOT",
+                    "EQUAL",
+                    "TO",
+                    "3"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 30,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "EXIT-TEST-004"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 31,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "3",
+                    "TO",
+                    "DN2"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 32,
+            "attributes": {
+              "name": "EXIT-STATEMENT-003"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 33,
+                "attributes": {
+                  "verb": "EXIT",
+                  "operands": [
+                    "PROGRAM"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 34,
+            "attributes": {
+              "name": "EXIT-TEST-004"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 35,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "4",
+                    "TO",
+                    "DN2"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 36,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "EXIT-STATEMENT-004"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 37,
+            "attributes": {
+              "name": "EXTRANEOUS-PARAGRAPH"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 38,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "5",
+                    "TO",
+                    "DN2"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 39,
+            "attributes": {
+              "name": "EXIT-STATEMENT-004"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 40,
+                "attributes": {
+                  "verb": "EXIT",
+                  "operands": [
+                    "PROGRAM"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "stage1_cobc_status": "accepted",
+  "stage1_cobc_stderr": "",
+  "complexity_tier": "simple",
+  "complexity_score": 6.9,
+  "ast_depth": 4,
+  "unique_verbs": 4,
+  "cross_refs": 0,
+  "stage2_source": "rule-based",
+  "stage2_rule_based_code": "\"\"\"Translated from COBOL program IC105A.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'dn1': 0,\n    'dn2': 0,\n})\n\ndef dn2() -> None:\n    pass\n\ndef exit_test_001() -> None:\n    if state['dn1'] != 1:\n        exit_test_002()\n        return\n        state['dn2'] = 1\n\ndef exit_statement_001() -> None:\n    return\n\ndef exit_test_002() -> None:\n    if state['dn1'] != 2:\n        exit_test_003()\n        return\n        state['dn2'] = 2\n\ndef exit_statement_002() -> None:\n    return\n\ndef exit_test_003() -> None:\n    if state['dn1'] != 3:\n        exit_test_004()\n        return\n        state['dn2'] = 3\n\ndef exit_statement_003() -> None:\n    return\n\ndef exit_test_004() -> None:\n    state['dn2'] = 4\n    exit_statement_004()\n    return\n\ndef extraneous_paragraph() -> None:\n    state['dn2'] = 5\n\ndef exit_statement_004() -> None:\n    return\n\nif __name__ == \"__main__\":\n    try:\n        dn2()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_neural_code": "",
+  "stage2_final_code": "\"\"\"Translated from COBOL program IC105A.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'dn1': 0,\n    'dn2': 0,\n})\n\ndef dn2() -> None:\n    pass\n\ndef exit_test_001() -> None:\n    if state['dn1'] != 1:\n        exit_test_002()\n        return\n        state['dn2'] = 1\n\ndef exit_statement_001() -> None:\n    return\n\ndef exit_test_002() -> None:\n    if state['dn1'] != 2:\n        exit_test_003()\n        return\n        state['dn2'] = 2\n\ndef exit_statement_002() -> None:\n    return\n\ndef exit_test_003() -> None:\n    if state['dn1'] != 3:\n        exit_test_004()\n        return\n        state['dn2'] = 3\n\ndef exit_statement_003() -> None:\n    return\n\ndef exit_test_004() -> None:\n    state['dn2'] = 4\n    exit_statement_004()\n    return\n\ndef extraneous_paragraph() -> None:\n    state['dn2'] = 5\n\ndef exit_statement_004() -> None:\n    return\n\nif __name__ == \"__main__\":\n    try:\n        dn2()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_warnings": [],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": false,
+  "stage3_refined_code": "",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "",
+  "stage3_error": "",
+  "verdict": "STRUCTURAL_PASS",
+  "verdict_summary": "4 structural check(s) passed; behavioural checks skipped due to environment (execution_match, llm_judge).",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "10/10 paragraphs found as Python functions",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "DN2",
+          "EXIT-TEST-001",
+          "EXIT-STATEMENT-001",
+          "EXIT-TEST-002",
+          "EXIT-STATEMENT-002",
+          "EXIT-TEST-003",
+          "EXIT-STATEMENT-003",
+          "EXIT-TEST-004",
+          "EXTRANEOUS-PARAGRAPH",
+          "EXIT-STATEMENT-004"
+        ],
+        "missing": [],
+        "total": 10
+      }
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "2/2 identifiers traced into the Python",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "DN1",
+          "DN2"
+        ],
+        "missing": [],
+        "total": 2
+      }
+    },
+    {
+      "name": "body_non_trivial",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "4/4 paragraphs have non-trivial bodies",
+      "skipped_reason": "",
+      "extra": {
+        "non_trivial": [
+          "EXIT-TEST-001",
+          "EXIT-TEST-002",
+          "EXIT-TEST-003",
+          "EXIT-TEST-004"
+        ],
+        "trivial": [],
+        "exempt": [
+          "DN2",
+          "EXIT-STATEMENT-001",
+          "EXIT-STATEMENT-002",
+          "EXIT-STATEMENT-003",
+          "EXTRANEOUS-PARAGRAPH",
+          "EXIT-STATEMENT-004"
+        ],
+        "total_eligible": 4
+      }
+    },
+    {
+      "name": "execution_match",
+      "ran": false,
+      "passed": null,
+      "score": null,
+      "detail": "skipped: cobol side could not be executed (stdout_mismatch; rc=1)",
+      "skipped_reason": "cobol side could not be executed (stdout_mismatch; rc=1)",
+      "extra": {
+        "cobol_stdout": "/var/folders/rl/r9ygvg0x7_l7sdtfq9pq99fm0000gn/T/tmpv51us058/program.cob:39: error: executable program requested but PROCEDURE/ENTRY has USING clause\n   37 | 003600*        THIS SUBPROGRAM CONTANS FOUR EXIT PROGRAM STATEMENTS.    I..\n   38 | 003700*    REFERENCE  X3.23-1974, SECTION XII, 3.4.                     I..\n   39 > 003800 SECT-IC105-0001 SECTION.                                         I.",
+        "cobol_returncode": 1
+      }
+    },
+    {
+      "name": "llm_judge",
+      "ran": false,
+      "passed": null,
+      "score": null,
+      "detail": "skipped: openai: judge call failed (Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}) | anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-",
+      "skipped_reason": "openai: judge call failed (Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}) | anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CbUfZdBX4jzox9TjwnDxi'})",
+      "extra": {
+        "providers_tried": [
+          "openai: judge call failed (Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}})",
+          "anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CbUfZdBX4jzox9TjwnDxi'})"
+        ]
+      }
+    }
+  ],
+  "timestamp": 1779957556.690112
+}

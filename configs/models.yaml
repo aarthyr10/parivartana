@@ -1,0 +1,68 @@
+stage1_parser:
+  parser: recursive-descent
+  fixed_format: true
+  resolve_copy_includes: false
+  build_data_dependency_graph: true
+
+stage2_neural:
+  backbone: Salesforce/codet5p-220m
+  alternative_backbones:
+    - Salesforce/codet5p-770m
+    - FPT-AI-LAB/cobol-coder-7b
+  tokenizer:
+    pretrained: Salesforce/codet5p-220m
+    add_special_tokens:
+      - "[DIV]"
+      - "[SEC]"
+      - "[PARA]"
+      - "[STMT]"
+      - "[EXPR]"
+    max_input_length: 1024
+    max_output_length: 512
+  training:
+    optimizer: adamw
+    learning_rate: 5.0e-5
+    weight_decay: 0.01
+    warmup_ratio: 0.06
+    batch_size: 16
+    gradient_accumulation_steps: 4
+    max_epochs: 20
+    early_stopping_patience: 3
+    fp16: true
+  curriculum:
+    enabled: true
+    pacing: exponential
+    plateau_epochs: 3
+    tier_release_metric: codebleu_validation
+    initial_tier: simple
+    final_tier: high
+  structural_embeddings:
+    enabled: true
+    embedding_dim: 64
+    derived_from: ast_node_type
+
+stage3_llm:
+  default_provider: openai
+  providers:
+    openai:
+      model: gpt-4o
+      temperature: 0.1
+      max_tokens: 2048
+      top_p: 0.9
+    anthropic:
+      model: claude-opus-4-7
+      temperature: 0.1
+      max_tokens: 2048
+  modules:
+    identifier_renaming:
+      use_dictionary_first: true
+      fallback_to_llm: true
+    docstring_generation:
+      style: google
+      include_examples: false
+    semantic_verification:
+      validator: deberta_v3_nli
+      threshold_supported: 0.70
+      flag_refuted: true
+    todo_annotation:
+      enabled_for_tier: high

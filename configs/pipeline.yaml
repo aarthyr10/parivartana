@@ -1,0 +1,58 @@
+project:
+  name: parivartana
+  version: 0.1.0
+  seed: 42
+
+paths:
+  data_dir: ./data
+  raw_dir: ./data/raw
+  interim_dir: ./data/interim
+  processed_dir: ./data/processed
+  samples_dir: ./data/samples
+  artifacts_dir: ./artifacts
+  models_dir: ./artifacts/models
+  checkpoints_dir: ./artifacts/checkpoints
+  outputs_dir: ./artifacts/outputs
+  logs_dir: ./logs
+
+pipeline:
+  stages:
+    - stage1_parser
+    - stage2_neural
+    - stage3_llm
+
+complexity_buckets:
+  weights:
+    ast_depth: 0.35
+    unique_verb_count: 0.25
+    cross_ref_count: 0.25
+    high_tier_flag: 0.15
+  thresholds:
+    simple_max: 12
+    medium_max: 28
+  expected_distribution:
+    simple: 0.65
+    medium: 0.25
+    high: 0.10
+
+preprocessing:
+  fixed_format:
+    sequence_cols: [1, 6]
+    indicator_col: 7
+    area_a_cols: [8, 11]
+    area_b_cols: [12, 72]
+    discard_cols: [73, 80]
+  encoding:
+    source: cp037
+    target: utf-8
+    normalisation: NFKC
+  tokenisation:
+    max_input_tokens: 1024
+    max_output_tokens: 512
+    truncation: structural
+
+logging:
+  level: INFO
+  format: "{time:YYYY-MM-DD HH:mm:ss} | {level} | {name} | {message}"
+  rotation: 10 MB
+  retention: 14 days

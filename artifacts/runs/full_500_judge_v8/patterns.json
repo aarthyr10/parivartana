@@ -1,0 +1,188 @@
+{
+  "stage1_cobc_status": [
+    {
+      "reason": "rejected",
+      "count": 269
+    },
+    {
+      "reason": "accepted",
+      "count": 190
+    }
+  ],
+  "our_parser_accepted_cobc_rejected": [
+    {
+      "reason": "SM106A",
+      "count": 1
+    },
+    {
+      "reason": "IX302M",
+      "count": 1
+    },
+    {
+      "reason": "RL302M",
+      "count": 1
+    },
+    {
+      "reason": "SQ302M",
+      "count": 1
+    },
+    {
+      "reason": "SM301M",
+      "count": 1
+    },
+    {
+      "reason": "IF402M",
+      "count": 1
+    },
+    {
+      "reason": "SM401M",
+      "count": 1
+    },
+    {
+      "reason": "CM401M",
+      "count": 1
+    },
+    {
+      "reason": "SQ401M",
+      "count": 1
+    },
+    {
+      "reason": "ST120A",
+      "count": 1
+    },
+    {
+      "reason": "ST116A",
+      "count": 1
+    },
+    {
+      "reason": "ST110A",
+      "count": 1
+    },
+    {
+      "reason": "ST113M",
+      "count": 1
+    },
+    {
+      "reason": "ST102A",
+      "count": 1
+    },
+    {
+      "reason": "ST123A",
+      "count": 1
+    },
+    {
+      "reason": "NC302M",
+      "count": 1
+    },
+    {
+      "reason": "CM201M",
+      "count": 1
+    },
+    {
+      "reason": "IC115A",
+      "count": 1
+    },
+    {
+      "reason": "CM103M",
+      "count": 1
+    },
+    {
+      "reason": "CM104M",
+      "count": 1
+    }
+  ],
+  "stage3_skipped": [
+    {
+      "reason": "tier=simple below medium",
+      "count": 62
+    }
+  ],
+  "failed_execution_match": [
+    {
+      "reason": "stdout mismatch (stdout_mismatch)",
+      "count": 4
+    }
+  ],
+  "failed_body_non_trivial": [
+    {
+      "reason": "25/31 paragraphs have non-trivial bodies; stubbed: TEST-2, TEST-2-2, TEST-2-3, T",
+      "count": 2
+    },
+    {
+      "reason": "45/51 paragraphs have non-trivial bodies; stubbed: SEQ-TEST-WR-01-LOOP, SEQ-TEST",
+      "count": 2
+    },
+    {
+      "reason": "28/33 paragraphs have non-trivial bodies; stubbed: REL-TEST-003-R, REL-TEST-004-",
+      "count": 2
+    },
+    {
+      "reason": "8/9 paragraphs have non-trivial bodies; stubbed: RECEIVE-ECHO-AND-LOG",
+      "count": 1
+    },
+    {
+      "reason": "8/10 paragraphs have non-trivial bodies; stubbed: CM104M-POLL-1, CM104M-POLL-2",
+      "count": 1
+    },
+    {
+      "reason": "3/7 paragraphs have non-trivial bodies; stubbed: NC401M-ARITHEXP, NC401M-SIGCOND",
+      "count": 1
+    },
+    {
+      "reason": "46/52 paragraphs have non-trivial bodies; stubbed: WRITE-TEST-001-01, WRITE-TEST",
+      "count": 1
+    },
+    {
+      "reason": "39/47 paragraphs have non-trivial bodies; stubbed: SEQ-TEST-001, SEQ-TEST-002, S",
+      "count": 1
+    },
+    {
+      "reason": "32/36 paragraphs have non-trivial bodies; stubbed: REL-TEST-001, REL-INIT-1, REL",
+      "count": 1
+    },
+    {
+      "reason": "37/44 paragraphs have non-trivial bodies; stubbed: INDEX-TEST-1, INDEX-TEST-2, I",
+      "count": 1
+    },
+    {
+      "reason": "45/52 paragraphs have non-trivial bodies; stubbed: TABLE-INIT, TH2-TEST-GF-1, TH",
+      "count": 1
+    },
+    {
+      "reason": "41/47 paragraphs have non-trivial bodies; stubbed: WRITE-TEST-GF-01-R, READ-TEST",
+      "count": 1
+    },
+    {
+      "reason": "37/45 paragraphs have non-trivial bodies; stubbed: F-INTOFDAY-TEST-01, F-INTOFDA",
+      "count": 1
+    },
+    {
+      "reason": "37/45 paragraphs have non-trivial bodies; stubbed: F-DAYOFINT-TEST-01, F-DAYOFIN",
+      "count": 1
+    },
+    {
+      "reason": "37/45 paragraphs have non-trivial bodies; stubbed: F-DATEOFINT-TEST-01, F-DATEOF",
+      "count": 1
+    },
+    {
+      "reason": "46/52 paragraphs have non-trivial bodies; stubbed: F-RANDOM-TEST-01, F-RANDOM-02",
+      "count": 1
+    },
+    {
+      "reason": "41/50 paragraphs have non-trivial bodies; stubbed: WRITE-TEST-GF-01-R, READ-TEST",
+      "count": 1
+    },
+    {
+      "reason": "30/36 paragraphs have non-trivial bodies; stubbed: REL-TEST-003-R, REL-TEST-004-",
+      "count": 1
+    },
+    {
+      "reason": "35/39 paragraphs have non-trivial bodies; stubbed: READ-TEST-F2-01-R, RWRT-TEST-",
+      "count": 1
+    },
+    {
+      "reason": "39/48 paragraphs have non-trivial bodies; stubbed: F-FACTORIAL-TEST-01, F-FACTOR",
+      "count": 1
+    }
+  ]
+}

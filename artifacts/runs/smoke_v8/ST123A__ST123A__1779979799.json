@@ -1,0 +1,531 @@
+{
+  "program_id": "ST123A",
+  "record_id": "ST123A",
+  "cobol_source": "      *HEADER,COBOL,ST122A,SUBPRG,ST123A                                              \n000100 IDENTIFICATION DIVISION.                                         ST1234.2\n000200 PROGRAM-ID.                                                      ST1234.2\n000300     ST123A.                                                      ST1234.2\n000400****************************************************************  ST1234.2\n000500*                                                              *  ST1234.2\n000600*    VALIDATION FOR:-                                          *  ST1234.2\n000700*                                                              *  ST1234.2\n000800*    \"ON-SITE VALIDATION, NATIONAL INSTITUTE OF STD & TECH.     \".ST1234.2\n000900*                                                              *  ST1234.2\n001000*    \"COBOL 85 VERSION 4.2, Apr  1993 SSVG                      \".ST1234.2\n001100*                                                              *  ST1234.2\n001200****************************************************************  ST1234.2\n001300*                                                              *  ST1234.2\n001400*      X-CARDS USED BY THIS PROGRAM ARE :-                     *  ST1234.2\n001500*                                                              *  ST1234.2\n001600*        X-01                                                  *  ST1234.2\n001700*        X-02                                                  *  ST1234.2\n001800*        X-27                                                  *  ST1234.2\n001900*        X-55  - SYSTEM PRINTER NAME.                          *  ST1234.2\n002000*        X-69                                                  *  ST1234.2\n002100*        X-74                                                  *  ST1234.2\n002200*        X-75                                                  *  ST1234.2\n002300*        X-76                                                  *  ST1234.2\n002400*        X-82  - SOURCE COMPUTER NAME.                         *  ST1234.2\n002500*        X-83  - OBJECT COMPUTER NAME.                         *  ST1234.2\n002600*                                                              *  ST1234.2\n002700****************************************************************  ST1234.2\n002800*                                                              *  ST1234.2\n002900*    PROGRAM ST123A TESTS THE SORTING OF VARIABLE LENGTH       *  ST1234.2\n003000*    RECORDS.  THIS PROGRAM CAN BE USED ONLY IF LEVEL 2 OF THE *  ST1234.2\n003100*    SEQUENTIAL I-O MODULE IS SUPPORTED AS THE                 *  ST1234.2\n003200*    \"RECORD IS VARYING IN SIZE\" CLAUSE IS USED IN THE SD      *  ST1234.2\n003300*    ENTRY.  (ST123A WILL BE RUN AS PART OF THE SET ST122A,    *  ST1234.2\n003400*    ST123A, ST124A).                                          *  ST1234.2\n003500*                                                              *  ST1234.2\n003600****************************************************************  ST1234.2\n003700 ENVIRONMENT DIVISION.                                            ST1234.2\n003800 CONFIGURATION SECTION.                                           ST1234.2\n003900 SOURCE-COMPUTER.                                                 ST1234.2\n004000     XXXXX082.                                                    ST1234.2\n004100 OBJECT-COMPUTER.                                                 ST1234.2\n004200     XXXXX083.                                                    ST1234.2\n004300 INPUT-OUTPUT SECTION.                                            ST1234.2\n004400 FILE-CONTROL.                                                    ST1234.2\n004500     SELECT PRINT-FILE ASSIGN TO                                  ST1234.2\n004600     XXXXX055.                                                    ST1234.2\n004700     SELECT   SORTIN-1J ASSIGN TO                                 ST1234.2\n004800     XXXXD001.                                                    ST1234.2\n004900     SELECT   SORTOUT-1J ASSIGN TO                                ST1234.2\n005000     XXXXP002.                                                    ST1234.2\n005100     SELECT   SORTFILE-1J ASSIGN TO                               ST1234.2\n005200     XXXXX027.                                                    ST1234.2\n005300 DATA DIVISION.                                                   ST1234.2\n005400 FILE SECTION.                                                    ST1234.2\n005500 FD  PRINT-FILE.                                                  ST1234.2\n005600 01  PRINT-REC PICTURE X(120).                                    ST1234.2\n005700 01  DUMMY-RECORD PICTURE X(120).                                 ST1234.2\n005800 FD  SORTIN-1J                                                    ST1234.2\n005900     LABEL RECORDS STANDARD                                       ST1234.2\n006000C    VALUE OF                                                     ST1234.2\n006100C    XXXXX074                                                     ST1234.2\n006200C    IS                                                           ST1234.2\n006300C    XXXXX075                                                     ST1234.2\n006400*    XXXXX069                                                     ST1234.2\n006500     RECORD IS VARYING IN SIZE                                    ST1234.2\n006600     DATA RECORDS ARE SHORT-IN                                    ST1234.2\n006700                      MEDIUM-IN                                   ST1234.2\n006800                      LONG-IN.                                    ST1234.2\n006900 01  SHORT-IN           PICTURE X(50).                            ST1234.2\n007000 01  MEDIUM-IN          PICTURE X(75).                            ST1234.2\n007100 01  LONG-IN.                                                     ST1234.2\n007200     02 FALSE-LENGTH-1  PICTURE X(25).                            ST1234.2\n007300     02 FALSE-LENGTH-2  PICTURE A(20).                            ST1234.2\n007400     02 FALSE-LENGTH-3  PICTURE 9(15).                            ST1234.2\n007500     02 FALSE-LENGTH-4  PICTURE X(40).                            ST1234.2\n007600 FD  SORTOUT-1J                                                   ST1234.2\n007700     LABEL RECORDS ARE STANDARD                                   ST1234.2\n007800C    VALUE OF                                                     ST1234.2\n007900C    XXXXX074                                                     ST1234.2\n008000C    IS                                                           ST1234.2\n008100C    XXXXX076                                                     ST1234.2\n008200*    XXXXX069                                                     ST1234.2\n008300     RECORD IS VARYING IN SIZE                                    ST1234.2\n008400     DATA RECORD SHORT-OUT                                        ST1234.2\n008500                 MEDIUM-OUT                                       ST1234.2\n008600                 LONG-OUT.                                        ST1234.2\n008700 01  SHORT-OUT.                                                   ST1234.2\n008800     02 FAKE-LENGTH-1   PICTURE X(10).                            ST1234.2\n008900     02 FAKE-LENGTH-2   PICTURE A(10).                            ST1234.2\n009000     02 FAKE-LENGTH-3   PICTURE 9(10).                            ST1234.2\n009100     02 FAKE-LENGTH-4   PICTURE X(20).                            ST1234.2\n009200 01  MEDIUM-OUT         PICTURE X(75).                            ST1234.2\n009300 01  LONG-OUT           PICTURE X(100).                           ST1234.2\n009400 SD  SORTFILE-1J                                                  ST1234.2\n009500     RECORD IS VARYING IN SIZE                                    ST1234.2\n009600     DATA RECORD SHORT-SORT                                       ST1234.2\n009700                 MEDIUM-SORT                                      ST1234.2\n009800                 LONG-SORT.                                       ST1234.2\n009900 01  SHORT-SORT.                                                  ST1234.2\n010000     02 SHORT-NON-KEY   PICTURE XX.                               ST1234.2\n010100     02 SHORT-KEY-1     PICTURE X(10).                            ST1234.2\n010200     02 SHORT-KEY-2     PICTURE X(38).                            ST1234.2\n010300 01  MEDIUM-SORT.                                                 ST1234.2\n010400     02 MEDIUM-NON-KEY  PICTURE XX.                               ST1234.2\n010500     02 MEDIUM-KEY-1    PICTURE X(10).                            ST1234.2\n010600     02 MEDIUM-KEY-2    PICTURE X(38).                            ST1234.2\n010700     02 MEDIUM-FILLER   PICTURE X(25).                            ST1234.2\n010800 01  LONG-SORT.                                                   ST1234.2\n010900     02 LONG-NON-KEY    PICTURE XX.                               ST1234.2\n011000     02 LONG-KEY-1      PICTURE X(10).                            ST1234.2\n011100     02 LONG-KEY-2      PICTURE X(38).                            ST1234.2\n011200     02 LONG-FILLER     PICTURE X(50).                            ST1234.2\n011300 PROCEDURE    DIVISION.                                           ST1234.2\n011400 SORT-PARAGRAPH.                                                  ST1234.2\n011500     SORT     SORTFILE-1J                                         ST1234.2\n011600              DESCENDING KEY                                      ST1234.2\n011700              MEDIUM-KEY-1                                        ST1234.2\n011800              MEDIUM-KEY-2                                        ST1234.2\n011900              USING SORTIN-1J                                     ST1234.2\n012000              GIVING SORTOUT-1J.                                  ST1234.2\n012100     STOP     RUN.                                                ST1234.2\n      *END-OF,ST123A                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "ST123A",
+  "stage1_division_count": 4,
+  "stage1_paragraph_count": 1,
+  "stage1_token_count": 342,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {
+      "program_id": "ST123A"
+    },
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 4,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 20,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "DATA"
+        },
+        "children": [
+          {
+            "node_type": "DataItem",
+            "line": 23,
+            "attributes": {
+              "level": 1,
+              "name": "PRINT-REC",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 24,
+            "attributes": {
+              "level": 1,
+              "name": "DUMMY-RECORD",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 35,
+            "attributes": {
+              "level": 1,
+              "name": "SHORT-IN",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 36,
+            "attributes": {
+              "level": 1,
+              "name": "MEDIUM-IN",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 37,
+            "attributes": {
+              "level": 1,
+              "name": "LONG-IN"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 38,
+            "attributes": {
+              "level": 2,
+              "name": "FALSE-LENGTH-1",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 39,
+            "attributes": {
+              "level": 2,
+              "name": "FALSE-LENGTH-2",
+              "pic": "A"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 40,
+            "attributes": {
+              "level": 2,
+              "name": "FALSE-LENGTH-3",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 41,
+            "attributes": {
+              "level": 2,
+              "name": "FALSE-LENGTH-4",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 52,
+            "attributes": {
+              "level": 1,
+              "name": "SHORT-OUT"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 53,
+            "attributes": {
+              "level": 2,
+              "name": "FAKE-LENGTH-1",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 54,
+            "attributes": {
+              "level": 2,
+              "name": "FAKE-LENGTH-2",
+              "pic": "A"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 55,
+            "attributes": {
+              "level": 2,
+              "name": "FAKE-LENGTH-3",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 56,
+            "attributes": {
+              "level": 2,
+              "name": "FAKE-LENGTH-4",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 57,
+            "attributes": {
+              "level": 1,
+              "name": "MEDIUM-OUT",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 58,
+            "attributes": {
+              "level": 1,
+              "name": "LONG-OUT",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 64,
+            "attributes": {
+              "level": 1,
+              "name": "SHORT-SORT"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 65,
+            "attributes": {
+              "level": 2,
+              "name": "SHORT-NON-KEY",
+              "pic": "XX"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 66,
+            "attributes": {
+              "level": 2,
+              "name": "SHORT-KEY-1",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 67,
+            "attributes": {
+              "level": 2,
+              "name": "SHORT-KEY-2",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 68,
+            "attributes": {
+              "level": 1,
+              "name": "MEDIUM-SORT"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 69,
+            "attributes": {
+              "level": 2,
+              "name": "MEDIUM-NON-KEY",
+              "pic": "XX"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 70,
+            "attributes": {
+              "level": 2,
+              "name": "MEDIUM-KEY-1",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 71,
+            "attributes": {
+              "level": 2,
+              "name": "MEDIUM-KEY-2",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 72,
+            "attributes": {
+              "level": 2,
+              "name": "MEDIUM-FILLER",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 73,
+            "attributes": {
+              "level": 1,
+              "name": "LONG-SORT"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 74,
+            "attributes": {
+              "level": 2,
+              "name": "LONG-NON-KEY",
+              "pic": "XX"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 75,
+            "attributes": {
+              "level": 2,
+              "name": "LONG-KEY-1",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 76,
+            "attributes": {
+              "level": 2,
+              "name": "LONG-KEY-2",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 77,
+            "attributes": {
+              "level": 2,
+              "name": "LONG-FILLER",
+              "pic": "X"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 78,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 79,
+            "attributes": {
+              "name": "SORT-PARAGRAPH"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 80,
+                "attributes": {
+                  "verb": "SORT",
+                  "operands": [
+                    "SORTFILE-1J",
+                    "DESCENDING",
+                    "KEY",
+                    "MEDIUM-KEY-1",
+                    "MEDIUM-KEY-2",
+                    "USING",
+                    "SORTIN-1J",
+                    "GIVING",
+                    "SORTOUT-1J"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 86,
+                "attributes": {
+                  "verb": "STOP",
+                  "operands": [
+                    "RUN"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "stage1_cobc_status": "",
+  "stage1_cobc_stderr": "",
+  "complexity_tier": "simple",
+  "complexity_score": 6.4,
+  "ast_depth": 4,
+  "unique_verbs": 2,
+  "cross_refs": 0,
+  "stage2_source": "rule-based",
+  "stage2_rule_based_code": "\"\"\"Translated from COBOL program ST123A.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'print_rec': '',\n    'dummy_record': '',\n    'short_in': '',\n    'medium_in': '',\n    'long_in': None,\n    'false_length_1': '',\n    'false_length_2': '',\n    'false_length_3': 0,\n    'false_length_4': '',\n    'short_out': None,\n    'fake_length_1': '',\n    'fake_length_2': '',\n    'fake_length_3': 0,\n    'fake_length_4': '',\n    'medium_out': '',\n    'long_out': '',\n    'short_sort': None,\n    'short_non_key': '',\n    'short_key_1': '',\n    'short_key_2': '',\n    'medium_sort': None,\n    'medium_non_key': '',\n    'medium_key_1': '',\n    'medium_key_2': '',\n    'medium_filler': '',\n    'long_sort': None,\n    'long_non_key': '',\n    'long_key_1': '',\n    'long_key_2': '',\n    'long_filler': '',\n})\n\ndef sort_paragraph() -> None:\n    state['sortfile_1j'] = sorted(state['sortfile_1j']) if isinstance(state['sortfile_1j'], (list, tuple)) else state['sortfile_1j']\n    return\n\nif __name__ == \"__main__\":\n    try:\n        sort_paragraph()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_neural_code": "",
+  "stage2_final_code": "\"\"\"Translated from COBOL program ST123A.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'print_rec': '',\n    'dummy_record': '',\n    'short_in': '',\n    'medium_in': '',\n    'long_in': None,\n    'false_length_1': '',\n    'false_length_2': '',\n    'false_length_3': 0,\n    'false_length_4': '',\n    'short_out': None,\n    'fake_length_1': '',\n    'fake_length_2': '',\n    'fake_length_3': 0,\n    'fake_length_4': '',\n    'medium_out': '',\n    'long_out': '',\n    'short_sort': None,\n    'short_non_key': '',\n    'short_key_1': '',\n    'short_key_2': '',\n    'medium_sort': None,\n    'medium_non_key': '',\n    'medium_key_1': '',\n    'medium_key_2': '',\n    'medium_filler': '',\n    'long_sort': None,\n    'long_non_key': '',\n    'long_key_1': '',\n    'long_key_2': '',\n    'long_filler': '',\n})\n\ndef sort_paragraph() -> None:\n    state['sortfile_1j'] = sorted(state['sortfile_1j']) if isinstance(state['sortfile_1j'], (list, tuple)) else state['sortfile_1j']\n    return\n\nif __name__ == \"__main__\":\n    try:\n        sort_paragraph()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_warnings": [],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": false,
+  "stage3_refined_code": "",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "",
+  "stage3_error": "",
+  "verdict": "PASS",
+  "verdict_summary": "All 5 active check(s) passed.",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "1/1 paragraphs found as Python functions",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "SORT-PARAGRAPH"
+        ],
+        "missing": [],
+        "total": 1
+      }
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "30/30 identifiers traced into the Python",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "PRINT-REC",
+          "DUMMY-RECORD",
+          "SHORT-IN",
+          "MEDIUM-IN",
+          "LONG-IN",
+          "FALSE-LENGTH-1",
+          "FALSE-LENGTH-2",
+          "FALSE-LENGTH-3",
+          "FALSE-LENGTH-4",
+          "SHORT-OUT",
+          "FAKE-LENGTH-1",
+          "FAKE-LENGTH-2",
+          "FAKE-LENGTH-3",
+          "FAKE-LENGTH-4",
+          "MEDIUM-OUT",
+          "LONG-OUT",
+          "SHORT-SORT",
+          "SHORT-NON-KEY",
+          "SHORT-KEY-1",
+          "SHORT-KEY-2",
+          "MEDIUM-SORT",
+          "MEDIUM-NON-KEY",
+          "MEDIUM-KEY-1",
+          "MEDIUM-KEY-2",
+          "MEDIUM-FILLER",
+          "LONG-SORT",
+          "LONG-NON-KEY",
+          "LONG-KEY-1",
+          "LONG-KEY-2",
+          "LONG-FILLER"
+        ],
+        "missing": [],
+        "total": 30
+      }
+    },
+    {
+      "name": "body_non_trivial",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "1/1 paragraphs have non-trivial bodies",
+      "skipped_reason": "",
+      "extra": {
+        "non_trivial": [
+          "SORT-PARAGRAPH"
+        ],
+        "trivial": [],
+        "exempt": [],
+        "total_eligible": 1
+      }
+    },
+    {
+      "name": "python_smoke",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "ran cleanly",
+      "skipped_reason": "",
+      "extra": {
+        "exit_code": 0,
+        "stdout_bytes": 0,
+        "stderr_bytes": 0,
+        "stderr_head": ""
+      }
+    },
+    {
+      "name": "llm_judge",
+      "ran": false,
+      "passed": null,
+      "score": null,
+      "detail": "skipped: openai: no API key in env | anthropic: no API key in env",
+      "skipped_reason": "openai: no API key in env | anthropic: no API key in env",
+      "extra": {
+        "providers_tried": [
+          "openai: no API key in env",
+          "anthropic: no API key in env"
+        ]
+      }
+    }
+  ],
+  "timestamp": 1779979799.4473944
+}

@@ -1,0 +1,243 @@
+{
+  "program_id": "IC215A",
+  "record_id": "IC215A",
+  "cobol_source": "      *HEADER,COBOL,IC213A,SUBRTN,IC215A                                              \n000100 IDENTIFICATION DIVISION.                                         IC2154.2\n000200 PROGRAM-ID.                                                      IC2154.2\n000300     IC215A.                                                      IC2154.2\n000400****************************************************************  IC2154.2\n000500*                                                              *  IC2154.2\n000600*    VALIDATION FOR:-                                          *  IC2154.2\n000700*                                                              *  IC2154.2\n000800*    \"ON-SITE VALIDATION, NATIONAL INSTITUTE OF STD & TECH.     \".IC2154.2\n000900*                                                              *  IC2154.2\n001000*    \"COBOL 85 VERSION 4.2, Apr  1993 SSVG                      \".IC2154.2\n001100*                                                              *  IC2154.2\n001200****************************************************************  IC2154.2\n001300*                                                              *  IC2154.2\n001400*      X-CARDS USED BY THIS PROGRAM ARE :-                     *  IC2154.2\n001500*                                                              *  IC2154.2\n001600*        X-55  - SYSTEM PRINTER NAME.                          *  IC2154.2\n001700*        X-82  - SOURCE COMPUTER NAME.                         *  IC2154.2\n001800*        X-83  - OBJECT COMPUTER NAME.                         *  IC2154.2\n001900*                                                              *  IC2154.2\n002000****************************************************************  IC2154.2\n002100*    THIS IS SUBPROGRAM IC215.                                    IC2154.2\n002200****************************************************************  IC2154.2\n002300 ENVIRONMENT DIVISION.                                            IC2154.2\n002400 CONFIGURATION SECTION.                                           IC2154.2\n002500 SOURCE-COMPUTER.                                                 IC2154.2\n002600     XXXXX082.                                                    IC2154.2\n002700 OBJECT-COMPUTER.                                                 IC2154.2\n002800     XXXXX083.                                                    IC2154.2\n002900 DATA DIVISION.                                                   IC2154.2\n003000 LINKAGE SECTION.                                                 IC2154.2\n003100 01  DN2                         PICTURE S9.                      IC2154.2\n003200 01  DN3                         PICTURE S9.                      IC2154.2\n003300 PROCEDURE DIVISION USING DN2, DN3.                               IC2154.2\n003400 CALL-TEST-2.                                                     IC2154.2\n003500     MOVE 1 TO DN2.                                               IC2154.2\n003600 CANCEL-TEST-1.                                                   IC2154.2\n003700     CANCEL \"IC214A\".                                             IC2154.2\n003800     MOVE 1 TO DN3.                                               IC2154.2\n003900 IC215-EXIT.                                                      IC2154.2\n004000     EXIT PROGRAM.                                                IC2154.2\n      *END-OF,IC215A                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "IC215A",
+  "stage1_division_count": 4,
+  "stage1_paragraph_count": 4,
+  "stage1_token_count": 67,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {
+      "program_id": "IC215A"
+    },
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 4,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 10,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "DATA"
+        },
+        "children": [
+          {
+            "node_type": "DataItem",
+            "line": 12,
+            "attributes": {
+              "level": 1,
+              "name": "DN2",
+              "pic": "S9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 13,
+            "attributes": {
+              "level": 1,
+              "name": "DN3",
+              "pic": "S9"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 14,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 14,
+            "attributes": {
+              "name": "DN3"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 15,
+            "attributes": {
+              "name": "CALL-TEST-2"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 16,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "1",
+                    "TO",
+                    "DN2"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 17,
+            "attributes": {
+              "name": "CANCEL-TEST-1"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 18,
+                "attributes": {
+                  "verb": "CANCEL",
+                  "operands": [
+                    "\"IC214A\""
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 19,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "1",
+                    "TO",
+                    "DN3"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 20,
+            "attributes": {
+              "name": "IC215-EXIT"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 21,
+                "attributes": {
+                  "verb": "EXIT",
+                  "operands": [
+                    "PROGRAM"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "complexity_tier": "simple",
+  "complexity_score": 2.15,
+  "ast_depth": 4,
+  "unique_verbs": 3,
+  "cross_refs": 0,
+  "stage2_source": "rule-based",
+  "stage2_rule_based_code": "\"\"\"Translated from COBOL program IC215A.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'dn2': 0,\n    'dn3': 0,\n})\n\ndef dn3() -> None:\n    pass\n\ndef call_test_2() -> None:\n    state['dn2'] = 1\n\ndef cancel_test_1() -> None:\n    pass  # CANCEL (no-op in Python)\n    state['dn3'] = 1\n\ndef ic215_exit() -> None:\n    return\n\nif __name__ == \"__main__\":\n    try:\n        dn3()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_neural_code": "",
+  "stage2_final_code": "\"\"\"Translated from COBOL program IC215A.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'dn2': 0,\n    'dn3': 0,\n})\n\ndef dn3() -> None:\n    pass\n\ndef call_test_2() -> None:\n    state['dn2'] = 1\n\ndef cancel_test_1() -> None:\n    pass  # CANCEL (no-op in Python)\n    state['dn3'] = 1\n\ndef ic215_exit() -> None:\n    return\n\nif __name__ == \"__main__\":\n    try:\n        dn3()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_warnings": [],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": true,
+  "stage3_refined_code": "\"\"\"Translated from COBOL program IC215A.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'dn2': 0,\n    'dn3': 0,\n})\n\ndef dn3() -> None:\n    pass\n\ndef call_test_2() -> None:\n    state['dn2'] = 1\n\ndef cancel_test_1() -> None:\n    pass\n    state['dn3'] = 1\n\ndef ic215_exit() -> None:\n    return\n\nif __name__ == \"__main__\":\n    try:\n        dn3()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "openai",
+  "stage3_error": "",
+  "verdict": "INCONCLUSIVE",
+  "verdict_summary": "3 structural check(s) passed, but no behavioural signal (execution_match / llm_judge) was available. llm_judge skipped: openai: judge call failed (Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}) | anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CbPff71DS4o7yBzmT54cg'})",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "4/4 paragraphs found as Python functions",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "DN3",
+          "CALL-TEST-2",
+          "CANCEL-TEST-1",
+          "IC215-EXIT"
+        ],
+        "missing": [],
+        "total": 4
+      }
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "2/2 identifiers traced into the Python",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "DN2",
+          "DN3"
+        ],
+        "missing": [],
+        "total": 2
+      }
+    },
+    {
+      "name": "llm_judge",
+      "ran": false,
+      "passed": null,
+      "score": null,
+      "detail": "skipped: openai: judge call failed (Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}) | anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-",
+      "skipped_reason": "openai: judge call failed (Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}) | anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CbPff71DS4o7yBzmT54cg'})",
+      "extra": {
+        "providers_tried": [
+          "openai: judge call failed (Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}})",
+          "anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CbPff71DS4o7yBzmT54cg'})"
+        ]
+      }
+    }
+  ],
+  "timestamp": 1779729450.832896
+}

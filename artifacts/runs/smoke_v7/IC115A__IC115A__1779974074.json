@@ -1,0 +1,1591 @@
+{
+  "program_id": "IC115A",
+  "record_id": "IC115A",
+  "cobol_source": "      *HEADER,COBOL,IC114A,SUBRTN,IC115A                                              \n000100 IDENTIFICATION DIVISION.                                         IC1154.2\n000200 PROGRAM-ID.                                                      IC1154.2\n000300     IC115A.                                                      IC1154.2\n000400****************************************************************  IC1154.2\n000500*                                                              *  IC1154.2\n000600*    VALIDATION FOR:-                                          *  IC1154.2\n000700*                                                              *  IC1154.2\n000800*    \"ON-SITE VALIDATION, NATIONAL INSTITUTE OF STD & TECH.     \".IC1154.2\n000900*                                                              *  IC1154.2\n001000*    \"COBOL 85 VERSION 4.2, Apr  1993 SSVG                      \".IC1154.2\n001100*                                                              *  IC1154.2\n001200****************************************************************  IC1154.2\n001300*                                                              *  IC1154.2\n001400*      X-CARDS USED BY THIS PROGRAM ARE :-                     *  IC1154.2\n001500*                                                              *  IC1154.2\n001600*        X-55  - SYSTEM PRINTER NAME.                          *  IC1154.2\n001700*        X-82  - SOURCE COMPUTER NAME.                         *  IC1154.2\n001800*        X-83  - OBJECT COMPUTER NAME.                         *  IC1154.2\n001900*                                                              *  IC1154.2\n002000****************************************************************  IC1154.2\n002100*                                                                 IC1154.2\n002200*         THE ROUTINE IC115 IS A SUBPROGRAM CALLED BY IC114.      IC1154.2\n002300*    THIS SUBPROGRAM CONTAINS A FILE SECTION, A WORKING-STORAGE   IC1154.2\n002400*    SECTION AND A LINKAGE SECTION.  THE FILE SQ-FS3 IS CREATED   IC1154.2\n002500*    AND VERIFIED IN THIS ROUTINE.  THE FILE IS OPENED AND READ   IC1154.2\n002600*    AGAIN.  EACH RECORD IS CHECKED BY MOVING IT TO THE LINKAGE   IC1154.2\n002700*    SECTION AND RETURNING TO THE MAIN PROGRAM TO VERIFY THE      IC1154.2\n002800*    RECORD CONTENTS.  THE PRINTING OF THE OUTPUT REPORT FOR THE  IC1154.2\n002900*    TEST RESULTS IS PERFORMED BY RETURNING TO THE MAIN PROGRAM   IC1154.2\n003000*    IC114.                                                       IC1154.2\n003100*                                                                 IC1154.2\n003200*         THIS SUBPROGRAM IS ADAPTED FROM THE SEQUENTIAL I-O      IC1154.2\n003300*    ROUTINE SQ104.  IF THAT ROUTINE DOES NOT PERFORM CORRECTLY   IC1154.2\n003400*    THEN THE RESULTS OF THESE TESTS ARE INCONCLUSIVE.            IC1154.2\n003500*                                                                 IC1154.2\n003600********************************************                      IC1154.2\n003700 ENVIRONMENT DIVISION.                                            IC1154.2\n003800 CONFIGURATION SECTION.                                           IC1154.2\n003900 SOURCE-COMPUTER.                                                 IC1154.2\n004000     XXXXX082.                                                    IC1154.2\n004100 OBJECT-COMPUTER.                                                 IC1154.2\n004200     XXXXX083.                                                    IC1154.2\n004300 INPUT-OUTPUT SECTION.                                            IC1154.2\n004400 FILE-CONTROL.                                                    IC1154.2\n004500     SELECT SQ-FS3 ASSIGN TO                                      IC1154.2\n004600     XXXXX014                                                     IC1154.2\n004700     ORGANIZATION IS SEQUENTIAL                                   IC1154.2\n004800     ACCESS MODE IS SEQUENTIAL.                                   IC1154.2\n004900 DATA DIVISION.                                                   IC1154.2\n005000 FILE SECTION.                                                    IC1154.2\n005100 FD  SQ-FS3                                                       IC1154.2\n005200     BLOCK CONTAINS 120 CHARACTERS                                IC1154.2\n005300     RECORD CONTAINS 120 CHARACTERS                               IC1154.2\n005400     LABEL RECORDS ARE STANDARD                                   IC1154.2\n005500C    VALUE OF                                                     IC1154.2\n005600C    XXXXX074                                                     IC1154.2\n005700C    IS                                                           IC1154.2\n005800C    XXXXX075                                                     IC1154.2\n005900*    XXXXX069                                                     IC1154.2\n006000     DATA RECORD SQ-FS3R1-F-G-120.                                IC1154.2\n006100 01  SQ-FS3R1-F-G-120.                                            IC1154.2\n006200     02  FILLER PIC X(120).                                       IC1154.2\n006300 WORKING-STORAGE SECTION.                                         IC1154.2\n006400 01  FILE-RECORD-INFORMATION-REC.                                 IC1154.2\n006500     03 FILE-RECORD-INFO-SKELETON.                                IC1154.2\n006600        05 FILLER                 PICTURE X(48)       VALUE       IC1154.2\n006700             \"FILE=      ,RECORD=      /0,RECNO=000000,UPDT=00\".  IC1154.2\n006800        05 FILLER                 PICTURE X(46)       VALUE       IC1154.2\n006900             \",ODO=0000,PGM=     ,LRECL=000000,BLKSIZ  =0000\".    IC1154.2\n007000        05 FILLER                 PICTURE X(26)       VALUE       IC1154.2\n007100             \",LFIL=000000,ORG=  ,LBLR= \".                        IC1154.2\n007200        05 FILLER                 PICTURE X(37)       VALUE       IC1154.2\n007300             \",RECKEY=                             \".             IC1154.2\n007400        05 FILLER                 PICTURE X(38)       VALUE       IC1154.2\n007500             \",ALTKEY1=                             \".            IC1154.2\n007600        05 FILLER                 PICTURE X(38)       VALUE       IC1154.2\n007700             \",ALTKEY2=                             \".            IC1154.2\n007800        05 FILLER                 PICTURE X(7)        VALUE SPACE.IC1154.2\n007900     03 FILE-RECORD-INFO          OCCURS  10  TIMES.              IC1154.2\n008000        05 FILE-RECORD-INFO-P1-120.                               IC1154.2\n008100           07 FILLER              PIC X(5).                       IC1154.2\n008200           07 XFILE-NAME           PIC X(6).                      IC1154.2\n008300           07 FILLER              PIC X(8).                       IC1154.2\n008400           07 XRECORD-NAME         PIC X(6).                      IC1154.2\n008500           07 FILLER              PIC X(1).                       IC1154.2\n008600           07 REELUNIT-NUMBER     PIC 9(1).                       IC1154.2\n008700           07 FILLER              PIC X(7).                       IC1154.2\n008800           07 XRECORD-NUMBER       PIC 9(6).                      IC1154.2\n008900           07 FILLER              PIC X(6).                       IC1154.2\n009000           07 UPDATE-NUMBER       PIC 9(2).                       IC1154.2\n009100           07 FILLER              PIC X(5).                       IC1154.2\n009200           07 ODO-NUMBER          PIC 9(4).                       IC1154.2\n009300           07 FILLER              PIC X(5).                       IC1154.2\n009400           07 XPROGRAM-NAME        PIC X(5).                      IC1154.2\n009500           07 FILLER              PIC X(7).                       IC1154.2\n009600           07 XRECORD-LENGTH       PIC 9(6).                      IC1154.2\n009700           07 FILLER              PIC X(7).                       IC1154.2\n009800           07 CHARS-OR-RECORDS    PIC X(2).                       IC1154.2\n009900           07 FILLER              PIC X(1).                       IC1154.2\n010000           07 XBLOCK-SIZE          PIC 9(4).                      IC1154.2\n010100           07 FILLER              PIC X(6).                       IC1154.2\n010200           07 RECORDS-IN-FILE     PIC 9(6).                       IC1154.2\n010300           07 FILLER              PIC X(5).                       IC1154.2\n010400           07 XFILE-ORGANIZATION   PIC X(2).                      IC1154.2\n010500           07 FILLER              PIC X(6).                       IC1154.2\n010600           07 XLABEL-TYPE          PIC X(1).                      IC1154.2\n010700        05 FILE-RECORD-INFO-P121-240.                             IC1154.2\n010800           07 FILLER              PIC X(8).                       IC1154.2\n010900           07 XRECORD-KEY          PIC X(29).                     IC1154.2\n011000           07 FILLER              PIC X(9).                       IC1154.2\n011100           07 ALTERNATE-KEY1      PIC X(29).                      IC1154.2\n011200           07 FILLER              PIC X(9).                       IC1154.2\n011300           07 ALTERNATE-KEY2      PIC X(29).                      IC1154.2\n011400           07 FILLER              PIC X(7).                       IC1154.2\n011500 01  CCVS-PGM-ID PIC X(6) VALUE                                   IC1154.2\n011600     \"IC115A\".                                                    IC1154.2\n011700 LINKAGE SECTION.                                                 IC1154.2\n011800 01  GROUP-LINKAGE-VARIABLES.                                     IC1154.2\n011900         02  COUNT-OF-RECORDS  PICTURE 9(6).                      IC1154.2\n012000     02  RECORDS-IN-ERROR  PICTURE 9(6).                          IC1154.2\n012100     02  ERROR-FLAG  PICTURE 9.                                   IC1154.2\n012200     02  EOF-FLAG  PICTURE 9.                                     IC1154.2\n012300     02  CALL-FLAG  PICTURE 9.                                    IC1154.2\n012400 01  FILE-REC-SQ-FS3.                                             IC1154.2\n012500     02  FILLER  PICTURE X(120).                                  IC1154.2\n012600 PROCEDURE DIVISION USING GROUP-LINKAGE-VARIABLES                 IC1154.2\n012700                          FILE-REC-SQ-FS3.                        IC1154.2\n012800 SECT-IC115-0001 SECTION.                                         IC1154.2\n012900 INIT-PARAGRAPH.                                                  IC1154.2\n013000     GO TO SECT-IC115-0002 SECT-IC115-0003 SECT-IC115-0004        IC1154.2\n013100           SECT-IC115-0005 SECT-IC115-0006                        IC1154.2\n013200              DEPENDING ON CALL-FLAG.                             IC1154.2\n013300*        THE IDENTIFIER CALL-FLAG CONTROLS THE SUBPROGRAM         IC1154.2\n013400*    PROCESSING AND IT IS SET BY THE CALLING PROGRAM IC114.       IC1154.2\n013500 SECT-IC115-0002 SECTION.                                         IC1154.2\n013600 LINK-INIT-10.                                                    IC1154.2\n013700     MOVE FILE-RECORD-INFO-SKELETON TO                            IC1154.2\n013800              FILE-RECORD-INFO (1).                               IC1154.2\n013900     MOVE \"SQ-FS3\" TO XFILE-NAME (1).                             IC1154.2\n014000     MOVE \"R1-F-G\" TO XRECORD-NAME (1).                           IC1154.2\n014100     MOVE CCVS-PGM-ID TO XPROGRAM-NAME (1).                       IC1154.2\n014200     MOVE 120 TO XRECORD-LENGTH (1).                              IC1154.2\n014300     MOVE \"CH\" TO CHARS-OR-RECORDS (1).                           IC1154.2\n014400     MOVE 120 TO XBLOCK-SIZE (1).                                 IC1154.2\n014500     MOVE 000649 TO RECORDS-IN-FILE (1).                          IC1154.2\n014600     MOVE \"SQ\" TO XFILE-ORGANIZATION (1).                         IC1154.2\n014700     MOVE \"S\" TO XLABEL-TYPE (1).                                 IC1154.2\n014800     MOVE 000001 TO XRECORD-NUMBER (1).                           IC1154.2\n014900     OPEN OUTPUT SQ-FS3.                                          IC1154.2\n015000 LINK-TEST-10.                                                    IC1154.2\n015100     MOVE FILE-RECORD-INFO-P1-120 (1) TO SQ-FS3R1-F-G-120.        IC1154.2\n015200     WRITE SQ-FS3R1-F-G-120.                                      IC1154.2\n015300     IF XRECORD-NUMBER (1) EQUAL TO 649                           IC1154.2\n015400              GO TO LINK-TEST-10-01.                              IC1154.2\n015500     ADD 1 TO XRECORD-NUMBER (1).                                 IC1154.2\n015600     GO TO LINK-TEST-10.                                          IC1154.2\n015700 LINK-TEST-10-01.                                                 IC1154.2\n015800     CLOSE SQ-FS3.                                                IC1154.2\n015900     MOVE XRECORD-NUMBER (1) TO COUNT-OF-RECORDS.                 IC1154.2\n016000*         A MASS STORAGE SEQUENTIAL FILE WITH 120 CHARACTERS PER  IC1154.2\n016100*    RECORD HAS BEEN CREATED.  THE FILE CONTAINS 649 RECORDS.     IC1154.2\n016200 LINK-EXIT-10.                                                    IC1154.2\n016300     EXIT PROGRAM.                                                IC1154.2\n016400 SECT-IC115-0003 SECTION.                                         IC1154.2\n016500 LINK-INIT-11.                                                    IC1154.2\n016600*         THIS TEST READS AND CHECKS THE FILE CREATED IN          IC1154.2\n016700*    SECT-IC115-0002.                                             IC1154.2\n016800     OPEN INPUT SQ-FS3.                                           IC1154.2\n016900 LINK-TEST-11.                                                    IC1154.2\n017000     READ SQ-FS3 RECORD                                           IC1154.2\n017100              AT END GO TO LINK-CLOSE-11.                         IC1154.2\n017200     MOVE SQ-FS3R1-F-G-120 TO FILE-RECORD-INFO-P1-120 (1).        IC1154.2\n017300     ADD 1 TO COUNT-OF-RECORDS.                                   IC1154.2\n017400     IF COUNT-OF-RECORDS GREATER THAN 649                         IC1154.2\n017500              MOVE 1 TO ERROR-FLAG                                IC1154.2\n017600              GO TO LINK-CLOSE-11.                                IC1154.2\n017700     IF COUNT-OF-RECORDS NOT EQUAL TO XRECORD-NUMBER (1)          IC1154.2\n017800              GO TO LINK-FAIL-11.                                 IC1154.2\n017900     IF XFILE-NAME (1) NOT EQUAL TO \"SQ-FS3\"                      IC1154.2\n018000              GO TO LINK-FAIL-11.                                 IC1154.2\n018100     IF XLABEL-TYPE (1) NOT EQUAL TO \"S\"                          IC1154.2\n018200              GO TO LINK-FAIL-11.                                 IC1154.2\n018300     GO TO LINK-TEST-11.                                          IC1154.2\n018400 LINK-FAIL-11.                                                    IC1154.2\n018500     ADD 1 TO RECORDS-IN-ERROR.                                   IC1154.2\n018600     MOVE 1 TO ERROR-FLAG.                                        IC1154.2\n018700 LINK-CLOSE-11.                                                   IC1154.2\n018800     CLOSE SQ-FS3.                                                IC1154.2\n018900 LINK-EXIT-11.                                                    IC1154.2\n019000     EXIT PROGRAM.                                                IC1154.2\n019100 SECT-IC115-0004 SECTION.                                         IC1154.2\n019200 LINK-INIT-12.                                                    IC1154.2\n019300     OPEN INPUT SQ-FS3.                                           IC1154.2\n019400 LINK-INIT-12-EXIT.                                               IC1154.2\n019500     EXIT PROGRAM.                                                IC1154.2\n019600 SECT-IC115-0005 SECTION.                                         IC1154.2\n019700 LINK-TEST-12.                                                    IC1154.2\n019800     READ SQ-FS3 RECORD                                           IC1154.2\n019900           AT END MOVE 1 TO EOF-FLAG.                             IC1154.2\n020000     MOVE SQ-FS3R1-F-G-120 TO FILE-REC-SQ-FS3.                    IC1154.2\n020100*                                                                 IC1154.2\n020200*         THE MAIN PROGRAM IC114 REPEATLY CALLS THE SUBPROGRAM    IC1154.2\n020300*    IC115 TO READ THE FILE SQ-FS3.  THE DATA RECORD IS MOVED     IC1154.2\n020400*    TO A LINKAGE RECORD FOR CHECKING OF THE CONTENTS BY THE      IC1154.2\n020500*    MAIN PROGRAM.                                                IC1154.2\n020600*                                                                 IC1154.2\n020700 LINK-EXIT-12.                                                    IC1154.2\n020800     EXIT PROGRAM.                                                IC1154.2\n020900 SECT-IC115-0006 SECTION.                                         IC1154.2\n021000 LINK-CLOSE-12.                                                   IC1154.2\n021100     CLOSE SQ-FS3.                                                IC1154.2\n021200 LINK-CLOSE-EXIT-12.                                              IC1154.2\n021300     EXIT PROGRAM.                                                IC1154.2\n      *END-OF,IC115A                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "IC115A",
+  "stage1_division_count": 4,
+  "stage1_paragraph_count": 17,
+  "stage1_token_count": 823,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {
+      "program_id": "IC115A"
+    },
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 4,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 16,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "DATA"
+        },
+        "children": [
+          {
+            "node_type": "DataItem",
+            "line": 27,
+            "attributes": {
+              "level": 1,
+              "name": "SQ-FS3R1-F-G-120"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 28,
+            "attributes": {
+              "level": 2,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 30,
+            "attributes": {
+              "level": 1,
+              "name": "FILE-RECORD-INFORMATION-REC"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 31,
+            "attributes": {
+              "level": 3,
+              "name": "FILE-RECORD-INFO-SKELETON"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 32,
+            "attributes": {
+              "level": 5,
+              "pic": "X",
+              "value": "\"FILE=      ,RECORD=      /0,RECNO=000000,UPDT=00\""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 34,
+            "attributes": {
+              "level": 5,
+              "pic": "X",
+              "value": "\",ODO=0000,PGM=     ,LRECL=000000,BLKSIZ  =0000\""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 36,
+            "attributes": {
+              "level": 5,
+              "pic": "X",
+              "value": "\",LFIL=000000,ORG=  ,LBLR= \""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 38,
+            "attributes": {
+              "level": 5,
+              "pic": "X",
+              "value": "\",RECKEY=                             \""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 40,
+            "attributes": {
+              "level": 5,
+              "pic": "X",
+              "value": "\",ALTKEY1=                             \""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 42,
+            "attributes": {
+              "level": 5,
+              "pic": "X",
+              "value": "\",ALTKEY2=                             \""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 44,
+            "attributes": {
+              "level": 5,
+              "pic": "X",
+              "value": "SPACE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 45,
+            "attributes": {
+              "level": 3,
+              "name": "FILE-RECORD-INFO"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 46,
+            "attributes": {
+              "level": 5,
+              "name": "FILE-RECORD-INFO-P1-120"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 47,
+            "attributes": {
+              "level": 7,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 48,
+            "attributes": {
+              "level": 7,
+              "name": "XFILE-NAME",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 49,
+            "attributes": {
+              "level": 7,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 50,
+            "attributes": {
+              "level": 7,
+              "name": "XRECORD-NAME",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 51,
+            "attributes": {
+              "level": 7,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 52,
+            "attributes": {
+              "level": 7,
+              "name": "REELUNIT-NUMBER",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 53,
+            "attributes": {
+              "level": 7,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 54,
+            "attributes": {
+              "level": 7,
+              "name": "XRECORD-NUMBER",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 55,
+            "attributes": {
+              "level": 7,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 56,
+            "attributes": {
+              "level": 7,
+              "name": "UPDATE-NUMBER",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 57,
+            "attributes": {
+              "level": 7,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 58,
+            "attributes": {
+              "level": 7,
+              "name": "ODO-NUMBER",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 59,
+            "attributes": {
+              "level": 7,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 60,
+            "attributes": {
+              "level": 7,
+              "name": "XPROGRAM-NAME",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 61,
+            "attributes": {
+              "level": 7,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 62,
+            "attributes": {
+              "level": 7,
+              "name": "XRECORD-LENGTH",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 63,
+            "attributes": {
+              "level": 7,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 64,
+            "attributes": {
+              "level": 7,
+              "name": "CHARS-OR-RECORDS",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 65,
+            "attributes": {
+              "level": 7,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 66,
+            "attributes": {
+              "level": 7,
+              "name": "XBLOCK-SIZE",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 67,
+            "attributes": {
+              "level": 7,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 68,
+            "attributes": {
+              "level": 7,
+              "name": "RECORDS-IN-FILE",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 69,
+            "attributes": {
+              "level": 7,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 70,
+            "attributes": {
+              "level": 7,
+              "name": "XFILE-ORGANIZATION",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 71,
+            "attributes": {
+              "level": 7,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 72,
+            "attributes": {
+              "level": 7,
+              "name": "XLABEL-TYPE",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 73,
+            "attributes": {
+              "level": 5,
+              "name": "FILE-RECORD-INFO-P121-240"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 74,
+            "attributes": {
+              "level": 7,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 75,
+            "attributes": {
+              "level": 7,
+              "name": "XRECORD-KEY",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 76,
+            "attributes": {
+              "level": 7,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 77,
+            "attributes": {
+              "level": 7,
+              "name": "ALTERNATE-KEY1",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 78,
+            "attributes": {
+              "level": 7,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 79,
+            "attributes": {
+              "level": 7,
+              "name": "ALTERNATE-KEY2",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 80,
+            "attributes": {
+              "level": 7,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 81,
+            "attributes": {
+              "level": 1,
+              "name": "CCVS-PGM-ID",
+              "pic": "X",
+              "value": "\"IC115A\""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 84,
+            "attributes": {
+              "level": 1,
+              "name": "GROUP-LINKAGE-VARIABLES"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 85,
+            "attributes": {
+              "level": 2,
+              "name": "COUNT-OF-RECORDS",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 86,
+            "attributes": {
+              "level": 2,
+              "name": "RECORDS-IN-ERROR",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 87,
+            "attributes": {
+              "level": 2,
+              "name": "ERROR-FLAG",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 88,
+            "attributes": {
+              "level": 2,
+              "name": "EOF-FLAG",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 89,
+            "attributes": {
+              "level": 2,
+              "name": "CALL-FLAG",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 90,
+            "attributes": {
+              "level": 1,
+              "name": "FILE-REC-SQ-FS3"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 91,
+            "attributes": {
+              "level": 2,
+              "pic": "X"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 92,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 93,
+            "attributes": {
+              "name": "FILE-REC-SQ-FS3"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 95,
+            "attributes": {
+              "name": "INIT-PARAGRAPH"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 96,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "SECT-IC115-0002",
+                    "SECT-IC115-0003",
+                    "SECT-IC115-0004",
+                    "SECT-IC115-0005",
+                    "SECT-IC115-0006",
+                    "DEPENDING",
+                    "ON",
+                    "CALL-FLAG"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 100,
+            "attributes": {
+              "name": "LINK-INIT-10"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 101,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "FILE-RECORD-INFO-SKELETON",
+                    "TO",
+                    "FILE-RECORD-INFO",
+                    "(",
+                    "1",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 103,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"SQ-FS3\"",
+                    "TO",
+                    "XFILE-NAME",
+                    "(",
+                    "1",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 104,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"R1-F-G\"",
+                    "TO",
+                    "XRECORD-NAME",
+                    "(",
+                    "1",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 105,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "CCVS-PGM-ID",
+                    "TO",
+                    "XPROGRAM-NAME",
+                    "(",
+                    "1",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 106,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "120",
+                    "TO",
+                    "XRECORD-LENGTH",
+                    "(",
+                    "1",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 107,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"CH\"",
+                    "TO",
+                    "CHARS-OR-RECORDS",
+                    "(",
+                    "1",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 108,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "120",
+                    "TO",
+                    "XBLOCK-SIZE",
+                    "(",
+                    "1",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 109,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "000649",
+                    "TO",
+                    "RECORDS-IN-FILE",
+                    "(",
+                    "1",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 110,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"SQ\"",
+                    "TO",
+                    "XFILE-ORGANIZATION",
+                    "(",
+                    "1",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 111,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"S\"",
+                    "TO",
+                    "XLABEL-TYPE",
+                    "(",
+                    "1",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 112,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "000001",
+                    "TO",
+                    "XRECORD-NUMBER",
+                    "(",
+                    "1",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 113,
+                "attributes": {
+                  "verb": "OPEN",
+                  "operands": [
+                    "OUTPUT",
+                    "SQ-FS3"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 114,
+            "attributes": {
+              "name": "LINK-TEST-10"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 115,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "FILE-RECORD-INFO-P1-120",
+                    "(",
+                    "1",
+                    ")",
+                    "TO",
+                    "SQ-FS3R1-F-G-120"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 116,
+                "attributes": {
+                  "verb": "WRITE",
+                  "operands": [
+                    "SQ-FS3R1-F-G-120"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 117,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "XRECORD-NUMBER",
+                    "(",
+                    "1",
+                    ")",
+                    "EQUAL",
+                    "TO",
+                    "649"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 118,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "LINK-TEST-10-01"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 119,
+                "attributes": {
+                  "verb": "ADD",
+                  "operands": [
+                    "1",
+                    "TO",
+                    "XRECORD-NUMBER",
+                    "(",
+                    "1",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 120,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "LINK-TEST-10"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 121,
+            "attributes": {
+              "name": "LINK-TEST-10-01"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 122,
+                "attributes": {
+                  "verb": "CLOSE",
+                  "operands": [
+                    "SQ-FS3"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 123,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "XRECORD-NUMBER",
+                    "(",
+                    "1",
+                    ")",
+                    "TO",
+                    "COUNT-OF-RECORDS"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 124,
+            "attributes": {
+              "name": "LINK-EXIT-10"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 125,
+                "attributes": {
+                  "verb": "EXIT",
+                  "operands": [
+                    "PROGRAM"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 127,
+            "attributes": {
+              "name": "LINK-INIT-11"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 128,
+                "attributes": {
+                  "verb": "OPEN",
+                  "operands": [
+                    "INPUT",
+                    "SQ-FS3"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 129,
+            "attributes": {
+              "name": "LINK-TEST-11"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 130,
+                "attributes": {
+                  "verb": "READ",
+                  "operands": [
+                    "SQ-FS3",
+                    "RECORD"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 131,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "LINK-CLOSE-11"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 132,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "SQ-FS3R1-F-G-120",
+                    "TO",
+                    "FILE-RECORD-INFO-P1-120",
+                    "(",
+                    "1",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 133,
+                "attributes": {
+                  "verb": "ADD",
+                  "operands": [
+                    "1",
+                    "TO",
+                    "COUNT-OF-RECORDS"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 134,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "COUNT-OF-RECORDS",
+                    "GREATER",
+                    "THAN",
+                    "649"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 135,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "1",
+                    "TO",
+                    "ERROR-FLAG"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 136,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "LINK-CLOSE-11"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 137,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "COUNT-OF-RECORDS",
+                    "NOT",
+                    "EQUAL",
+                    "TO",
+                    "XRECORD-NUMBER",
+                    "(",
+                    "1",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 138,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "LINK-FAIL-11"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 139,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "XFILE-NAME",
+                    "(",
+                    "1",
+                    ")",
+                    "NOT",
+                    "EQUAL",
+                    "TO",
+                    "\"SQ-FS3\""
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 140,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "LINK-FAIL-11"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 141,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "XLABEL-TYPE",
+                    "(",
+                    "1",
+                    ")",
+                    "NOT",
+                    "EQUAL",
+                    "TO",
+                    "\"S\""
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 142,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "LINK-FAIL-11"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 143,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "LINK-TEST-11"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 144,
+            "attributes": {
+              "name": "LINK-FAIL-11"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 145,
+                "attributes": {
+                  "verb": "ADD",
+                  "operands": [
+                    "1",
+                    "TO",
+                    "RECORDS-IN-ERROR"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 146,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "1",
+                    "TO",
+                    "ERROR-FLAG"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 147,
+            "attributes": {
+              "name": "LINK-CLOSE-11"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 148,
+                "attributes": {
+                  "verb": "CLOSE",
+                  "operands": [
+                    "SQ-FS3"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 149,
+            "attributes": {
+              "name": "LINK-EXIT-11"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 150,
+                "attributes": {
+                  "verb": "EXIT",
+                  "operands": [
+                    "PROGRAM"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 152,
+            "attributes": {
+              "name": "LINK-INIT-12"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 153,
+                "attributes": {
+                  "verb": "OPEN",
+                  "operands": [
+                    "INPUT",
+                    "SQ-FS3"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 154,
+            "attributes": {
+              "name": "LINK-INIT-12-EXIT"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 155,
+                "attributes": {
+                  "verb": "EXIT",
+                  "operands": [
+                    "PROGRAM"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 157,
+            "attributes": {
+              "name": "LINK-TEST-12"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 158,
+                "attributes": {
+                  "verb": "READ",
+                  "operands": [
+                    "SQ-FS3",
+                    "RECORD"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 159,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "1",
+                    "TO",
+                    "EOF-FLAG"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 160,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "SQ-FS3R1-F-G-120",
+                    "TO",
+                    "FILE-REC-SQ-FS3"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 161,
+            "attributes": {
+              "name": "LINK-EXIT-12"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 162,
+                "attributes": {
+                  "verb": "EXIT",
+                  "operands": [
+                    "PROGRAM"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 164,
+            "attributes": {
+              "name": "LINK-CLOSE-12"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 165,
+                "attributes": {
+                  "verb": "CLOSE",
+                  "operands": [
+                    "SQ-FS3"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 166,
+            "attributes": {
+              "name": "LINK-CLOSE-EXIT-12"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 167,
+                "attributes": {
+                  "verb": "EXIT",
+                  "operands": [
+                    "PROGRAM"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "stage1_cobc_status": "",
+  "stage1_cobc_stderr": "",
+  "complexity_tier": "simple",
+  "complexity_score": 8.15,
+  "ast_depth": 4,
+  "unique_verbs": 9,
+  "cross_refs": 0,
+  "stage2_source": "rule-based",
+  "stage2_rule_based_code": "\"\"\"Translated from COBOL program IC115A.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'sq_fs3r1_f_g_120': None,\n    'file_record_information_rec': None,\n    'file_record_info_skeleton': None,\n    'file_record_info': None,\n    'file_record_info_p1_120': None,\n    'xfile_name': '',\n    'xrecord_name': '',\n    'reelunit_number': 0,\n    'xrecord_number': 0,\n    'update_number': 0,\n    'odo_number': 0,\n    'xprogram_name': '',\n    'xrecord_length': 0,\n    'chars_or_records': '',\n    'xblock_size': 0,\n    'records_in_file': 0,\n    'xfile_organization': '',\n    'xlabel_type': '',\n    'file_record_info_p121_240': None,\n    'xrecord_key': '',\n    'alternate_key1': '',\n    'alternate_key2': '',\n    'ccvs_pgm_id': \"IC115A\",\n    'group_linkage_variables': None,\n    'count_of_records': 0,\n    'records_in_error': 0,\n    'error_flag': 0,\n    'eof_flag': 0,\n    'call_flag': 0,\n    'file_rec_sq_fs3': None,\n})\n\ndef file_rec_sq_fs3() -> None:\n    pass\n\ndef init_paragraph() -> None:\n    _branches = (sect_ic115_0002, sect_ic115_0003, sect_ic115_0004, sect_ic115_0005, sect_ic115_0006,)\n    try:\n        _branches[int(state['call_flag']) - 1]()\n    except (IndexError, TypeError, ValueError):\n        pass\n    return\n\ndef link_init_10() -> None:\n    state['file_record_info'] = state['file_record_info_skeleton']\n    state['p_1'] = state['file_record_info_skeleton']\n    state['xfile_name'] = \"SQ-FS3\"\n    state['p_1'] = \"SQ-FS3\"\n    state['xrecord_name'] = \"R1-F-G\"\n    state['p_1'] = \"R1-F-G\"\n    state['xprogram_name'] = state['ccvs_pgm_id']\n    state['p_1'] = state['ccvs_pgm_id']\n    state['xrecord_length'] = 120\n    state['p_1'] = 120\n    state['chars_or_records'] = \"CH\"\n    state['p_1'] = \"CH\"\n    state['xblock_size'] = 120\n    state['p_1'] = 120\n    state['records_in_file'] = 649\n    state['p_1'] = 649\n    state['xfile_organization'] = \"SQ\"\n    state['p_1'] = \"SQ\"\n    state['xlabel_type'] = \"S\"\n    state['p_1'] = \"S\"\n    state['xrecord_number'] = 1\n    state['p_1'] = 1\n    state['sq_fs3'] = open('sq_fs3', 'w')\n\ndef link_test_10() -> None:\n    pass  # TODO: malformed Stage-1 output (state['sq_fs3r1_f_g_120'] = 1)\ndef link_test_10_01() -> None:\n    if hasattr(state['sq_fs3'], 'close'): state['sq_fs3'].close()\n    state['count_of_records'] = 1\n\ndef link_exit_10() -> None:\n    return\n\ndef link_init_11() -> None:\n    state['sq_fs3'] = open('sq_fs3', 'r')\n\ndef link_test_11() -> None:\n    state['sq_fs3'] = state['sq_fs3'].readline() if hasattr(state['sq_fs3'], 'readline') else ''\n    link_close_11()\n    return\n    state['file_record_info_p1_120'] = state['sq_fs3r1_f_g_120']\n    state['p_1'] = state['sq_fs3r1_f_g_120']\n    state['count_of_records'] = state['count_of_records'] + 1\n    if state['count_of_records'] > 649:\n        state['error_flag'] = 1\n        link_close_11()\n        return\n        if state['count_of_records'] != state['xrecord_number'] ( 1 ):\n            link_fail_11()\n            return\n            if state['xfile_name'] ( 1 ) != \"SQ-FS3\":\n                link_fail_11()\n                return\n                if state['xlabel_type'] ( 1 ) != \"S\":\n                    link_fail_11()\n                    return\n                    link_test_11()\n                    return\n\ndef link_fail_11() -> None:\n    state['records_in_error'] = state['records_in_error'] + 1\n    state['error_flag'] = 1\n\ndef link_close_11() -> None:\n    if hasattr(state['sq_fs3'], 'close'): state['sq_fs3'].close()\n\ndef link_exit_11() -> None:\n    return\n\ndef link_init_12() -> None:\n    state['sq_fs3'] = open('sq_fs3', 'r')\n\ndef link_init_12_exit() -> None:\n    return\n\ndef link_test_12() -> None:\n    state['sq_fs3'] = state['sq_fs3'].readline() if hasattr(state['sq_fs3'], 'readline') else ''\n    state['eof_flag'] = 1\n    state['file_rec_sq_fs3'] = state['sq_fs3r1_f_g_120']\n\ndef link_exit_12() -> None:\n    return\n\ndef link_close_12() -> None:\n    if hasattr(state['sq_fs3'], 'close'): state['sq_fs3'].close()\n\ndef link_close_exit_12() -> None:\n    return\n\nif __name__ == \"__main__\":\n    try:\n        file_rec_sq_fs3()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_neural_code": "",
+  "stage2_final_code": "\"\"\"Translated from COBOL program IC115A.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'sq_fs3r1_f_g_120': None,\n    'file_record_information_rec': None,\n    'file_record_info_skeleton': None,\n    'file_record_info': None,\n    'file_record_info_p1_120': None,\n    'xfile_name': '',\n    'xrecord_name': '',\n    'reelunit_number': 0,\n    'xrecord_number': 0,\n    'update_number': 0,\n    'odo_number': 0,\n    'xprogram_name': '',\n    'xrecord_length': 0,\n    'chars_or_records': '',\n    'xblock_size': 0,\n    'records_in_file': 0,\n    'xfile_organization': '',\n    'xlabel_type': '',\n    'file_record_info_p121_240': None,\n    'xrecord_key': '',\n    'alternate_key1': '',\n    'alternate_key2': '',\n    'ccvs_pgm_id': \"IC115A\",\n    'group_linkage_variables': None,\n    'count_of_records': 0,\n    'records_in_error': 0,\n    'error_flag': 0,\n    'eof_flag': 0,\n    'call_flag': 0,\n    'file_rec_sq_fs3': None,\n})\n\ndef file_rec_sq_fs3() -> None:\n    pass\n\ndef init_paragraph() -> None:\n    _branches = (sect_ic115_0002, sect_ic115_0003, sect_ic115_0004, sect_ic115_0005, sect_ic115_0006,)\n    try:\n        _branches[int(state['call_flag']) - 1]()\n    except (IndexError, TypeError, ValueError):\n        pass\n    return\n\ndef link_init_10() -> None:\n    state['file_record_info'] = state['file_record_info_skeleton']\n    state['p_1'] = state['file_record_info_skeleton']\n    state['xfile_name'] = \"SQ-FS3\"\n    state['p_1'] = \"SQ-FS3\"\n    state['xrecord_name'] = \"R1-F-G\"\n    state['p_1'] = \"R1-F-G\"\n    state['xprogram_name'] = state['ccvs_pgm_id']\n    state['p_1'] = state['ccvs_pgm_id']\n    state['xrecord_length'] = 120\n    state['p_1'] = 120\n    state['chars_or_records'] = \"CH\"\n    state['p_1'] = \"CH\"\n    state['xblock_size'] = 120\n    state['p_1'] = 120\n    state['records_in_file'] = 649\n    state['p_1'] = 649\n    state['xfile_organization'] = \"SQ\"\n    state['p_1'] = \"SQ\"\n    state['xlabel_type'] = \"S\"\n    state['p_1'] = \"S\"\n    state['xrecord_number'] = 1\n    state['p_1'] = 1\n    state['sq_fs3'] = open('sq_fs3', 'w')\n\ndef link_test_10() -> None:\n    pass  # TODO: malformed Stage-1 output (state['sq_fs3r1_f_g_120'] = 1)\ndef link_test_10_01() -> None:\n    if hasattr(state['sq_fs3'], 'close'): state['sq_fs3'].close()\n    state['count_of_records'] = 1\n\ndef link_exit_10() -> None:\n    return\n\ndef link_init_11() -> None:\n    state['sq_fs3'] = open('sq_fs3', 'r')\n\ndef link_test_11() -> None:\n    state['sq_fs3'] = state['sq_fs3'].readline() if hasattr(state['sq_fs3'], 'readline') else ''\n    link_close_11()\n    return\n    state['file_record_info_p1_120'] = state['sq_fs3r1_f_g_120']\n    state['p_1'] = state['sq_fs3r1_f_g_120']\n    state['count_of_records'] = state['count_of_records'] + 1\n    if state['count_of_records'] > 649:\n        state['error_flag'] = 1\n        link_close_11()\n        return\n        if state['count_of_records'] != state['xrecord_number'] ( 1 ):\n            link_fail_11()\n            return\n            if state['xfile_name'] ( 1 ) != \"SQ-FS3\":\n                link_fail_11()\n                return\n                if state['xlabel_type'] ( 1 ) != \"S\":\n                    link_fail_11()\n                    return\n                    link_test_11()\n                    return\n\ndef link_fail_11() -> None:\n    state['records_in_error'] = state['records_in_error'] + 1\n    state['error_flag'] = 1\n\ndef link_close_11() -> None:\n    if hasattr(state['sq_fs3'], 'close'): state['sq_fs3'].close()\n\ndef link_exit_11() -> None:\n    return\n\ndef link_init_12() -> None:\n    state['sq_fs3'] = open('sq_fs3', 'r')\n\ndef link_init_12_exit() -> None:\n    return\n\ndef link_test_12() -> None:\n    state['sq_fs3'] = state['sq_fs3'].readline() if hasattr(state['sq_fs3'], 'readline') else ''\n    state['eof_flag'] = 1\n    state['file_rec_sq_fs3'] = state['sq_fs3r1_f_g_120']\n\ndef link_exit_12() -> None:\n    return\n\ndef link_close_12() -> None:\n    if hasattr(state['sq_fs3'], 'close'): state['sq_fs3'].close()\n\ndef link_close_exit_12() -> None:\n    return\n\nif __name__ == \"__main__\":\n    try:\n        file_rec_sq_fs3()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_warnings": [
+    "function 'def link_test_10() -> None:': body replaced with pass+TODO",
+    "repaired 1 unparseable line(s)"
+  ],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": false,
+  "stage3_refined_code": "",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "",
+  "stage3_error": "",
+  "verdict": "STRUCTURAL_PASS",
+  "verdict_summary": "4 structural check(s) passed; behavioural checks skipped due to environment (python_smoke, llm_judge).",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "17/17 paragraphs found as Python functions",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "FILE-REC-SQ-FS3",
+          "INIT-PARAGRAPH",
+          "LINK-INIT-10",
+          "LINK-TEST-10",
+          "LINK-TEST-10-01",
+          "LINK-EXIT-10",
+          "LINK-INIT-11",
+          "LINK-TEST-11",
+          "LINK-FAIL-11",
+          "LINK-CLOSE-11",
+          "LINK-EXIT-11",
+          "LINK-INIT-12",
+          "LINK-INIT-12-EXIT",
+          "LINK-TEST-12",
+          "LINK-EXIT-12",
+          "LINK-CLOSE-12",
+          "LINK-CLOSE-EXIT-12"
+        ],
+        "missing": [],
+        "total": 17
+      }
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "30/30 identifiers traced into the Python",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "SQ-FS3R1-F-G-120",
+          "FILE-RECORD-INFORMATION-REC",
+          "FILE-RECORD-INFO-SKELETON",
+          "FILE-RECORD-INFO",
+          "FILE-RECORD-INFO-P1-120",
+          "XFILE-NAME",
+          "XRECORD-NAME",
+          "REELUNIT-NUMBER",
+          "XRECORD-NUMBER",
+          "UPDATE-NUMBER",
+          "ODO-NUMBER",
+          "XPROGRAM-NAME",
+          "XRECORD-LENGTH",
+          "CHARS-OR-RECORDS",
+          "XBLOCK-SIZE",
+          "RECORDS-IN-FILE",
+          "XFILE-ORGANIZATION",
+          "XLABEL-TYPE",
+          "FILE-RECORD-INFO-P121-240",
+          "XRECORD-KEY",
+          "ALTERNATE-KEY1",
+          "ALTERNATE-KEY2",
+          "CCVS-PGM-ID",
+          "GROUP-LINKAGE-VARIABLES",
+          "COUNT-OF-RECORDS",
+          "RECORDS-IN-ERROR",
+          "ERROR-FLAG",
+          "EOF-FLAG",
+          "CALL-FLAG",
+          "FILE-REC-SQ-FS3"
+        ],
+        "missing": [],
+        "total": 30
+      }
+    },
+    {
+      "name": "body_non_trivial",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "6/6 paragraphs have non-trivial bodies",
+      "skipped_reason": "",
+      "extra": {
+        "non_trivial": [
+          "LINK-INIT-10",
+          "LINK-TEST-10",
+          "LINK-TEST-10-01",
+          "LINK-TEST-11",
+          "LINK-FAIL-11",
+          "LINK-TEST-12"
+        ],
+        "trivial": [],
+        "exempt": [
+          "FILE-REC-SQ-FS3",
+          "INIT-PARAGRAPH",
+          "LINK-EXIT-10",
+          "LINK-INIT-11",
+          "LINK-CLOSE-11",
+          "LINK-EXIT-11",
+          "LINK-INIT-12",
+          "LINK-INIT-12-EXIT",
+          "LINK-EXIT-12",
+          "LINK-CLOSE-12",
+          "LINK-CLOSE-EXIT-12"
+        ],
+        "total_eligible": 6
+      }
+    },
+    {
+      "name": "python_smoke",
+      "ran": false,
+      "passed": null,
+      "score": null,
+      "detail": "skipped: uses I/O verbs requiring environment (CLOSE, OPEN, READ, WRITE)",
+      "skipped_reason": "uses I/O verbs requiring environment (CLOSE, OPEN, READ, WRITE)",
+      "extra": {}
+    },
+    {
+      "name": "llm_judge",
+      "ran": false,
+      "passed": null,
+      "score": null,
+      "detail": "skipped: openai: no API key in env | anthropic: no API key in env",
+      "skipped_reason": "openai: no API key in env | anthropic: no API key in env",
+      "extra": {
+        "providers_tried": [
+          "openai: no API key in env",
+          "anthropic: no API key in env"
+        ]
+      }
+    }
+  ],
+  "timestamp": 1779974074.5254326
+}

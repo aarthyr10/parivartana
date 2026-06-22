@@ -1,0 +1,701 @@
+{
+  "program_id": "CM201M",
+  "record_id": "CM201M",
+  "cobol_source": "      *HEADER,COBOL,CM201M                                                            \n000100 IDENTIFICATION DIVISION.                                         CM2014.2\n000200 PROGRAM-ID.                                                      CM2014.2\n000300     CM201M.                                                      CM2014.2\n000400 AUTHOR.                                                          CM2014.2\n000500     FEDERAL COMPILER TESTING CENTER.                             CM2014.2\n000600 INSTALLATION.                                                    CM2014.2\n000700     GENERAL SERVICES ADMINISTRATION                              CM2014.2\n000800*     AUTOMATED DATA AND TELECOMMUNICATION SERVICE.                CM2014.2\n000900     SOFTWARE DEVELOPMENT OFFICE.                                 CM2014.2\n001000     5203 LEESBURG PIKE  SUITE 1100                               CM2014.2\n001100     FALLS CHURCH VIRGINIA 22041.                                 CM2014.2\n001200                                                                  CM2014.2\n001300     PHONE   (703) 756-6153                                       CM2014.2\n001400                                                                  CM2014.2\n001500     \" HIGH       \".                                              CM2014.2\n001600 DATE-WRITTEN.                                                    CM2014.2\n001700     CCVS-74 VERSION 4.0 - 1980 JULY 1.                           CM2014.2\n001800     CREATION DATE     /    VALIDATION DATE                       CM2014.2\n001900     \"4.2 \".                                                      CM2014.2\n002000 SECURITY.                                                        CM2014.2\n002100     NONE.                                                        CM2014.2\n002200 ENVIRONMENT DIVISION.                                            CM2014.2\n002300 CONFIGURATION SECTION.                                           CM2014.2\n002400 SOURCE-COMPUTER.                                                 CM2014.2\n002500     XXXXX082.                                                    CM2014.2\n002600 OBJECT-COMPUTER.                                                 CM2014.2\n002700     XXXXX083.                                                    CM2014.2\n002800 DATA DIVISION.                                                   CM2014.2\n002900 WORKING-STORAGE SECTION.                                         CM2014.2\n003000 77  MSG-72 PIC X(72).                                            CM2014.2\n003100 01  RECOGNITION-MSG-1.                                           CM2014.2\n003200     02  FILLER PIC X(32) VALUE                                   CM2014.2\n003300         \"RECEIPT OF MESSAGE FROM DEVICE \"\"\".                     CM2014.2\n003400     02 DEVICE-NAME PIC X(12).                                    CM2014.2\n003500     02  FILLER PIC X(18) VALUE                                   CM2014.2\n003600         \"\"\" IS ACKNOWLEDGED.\".                                   CM2014.2\n003700 01  RECOGNITION-MSG-2.                                           CM2014.2\n003800     02  FILLER PIC X(20) VALUE                                   CM2014.2\n003900         \"QUEUE INVOLVED WAS \"\"\".                                 CM2014.2\n004000     02  QUEUE-INVOLVED PIC X(48).                                CM2014.2\n004100     02  FILLER PIC XX VALUE \"\"\".\".                               CM2014.2\n004200 01  RECOGNITION-MSG-3 PIC X(41) VALUE                            CM2014.2\n004300     \"CM201M INVOKED BUT NO DATA WAS AVAILABLE.\".                 CM2014.2\n004400 COMMUNICATION SECTION.                                           CM2014.2\n004500 CD  CM-INQUE-1 FOR INITIAL INPUT.                                CM2014.2\n004600 01  INQUE-1-RECORD.                                              CM2014.2\n004700     02  QUEUE-SET PIC X(48).                                     CM2014.2\n004800     02  FILLER PIC X(14).                                        CM2014.2\n004900     02  SYM-SOURCE PIC X(12).                                    CM2014.2\n005000     02  IN-LENGTH PIC 9(4).                                      CM2014.2\n005100     02  FILLER PIC XXX.                                          CM2014.2\n005200     02  MSG-COUNT PIC 9(6).                                      CM2014.2\n005300 CD  CM-OUTQUE-1 FOR OUTPUT.                                      CM2014.2\n005400 01  OUTQUE-1-RECORD.                                             CM2014.2\n005500     02  FILLER PIC 9999 VALUE 1.                                 CM2014.2\n005600     02  OUT-LENGTH PIC 9999.                                     CM2014.2\n005700     02  FILLER PIC XXX.                                          CM2014.2\n005800     02  SYM-DEST PIC X(12) VALUE                                 CM2014.2\n005900     XXXXX032.                                                    CM2014.2\n006000 PROCEDURE    DIVISION.                                           CM2014.2\n006100 SECT-CM201M-0001 SECTION.                                        CM2014.2\n006200 CM201M-INIT.                                                     CM2014.2\n006300     ENABLE OUTPUT CM-OUTQUE-1 WITH KEY                           CM2014.2\n006400     XXXXX033.                                                    CM2014.2\n006500 TAKE-NEXT-MSG.                                                   CM2014.2\n006600     RECEIVE CM-INQUE-1 MESSAGE INTO MSG-72                       CM2014.2\n006700         NO DATA GO TO SOMETHING-IS-WRONG-HERE.                   CM2014.2\n006800     MOVE QUEUE-SET TO QUEUE-INVOLVED.                            CM2014.2\n006900     MOVE SYM-SOURCE TO DEVICE-NAME.                              CM2014.2\n007000     MOVE 62 TO OUT-LENGTH.                                       CM2014.2\n007100     SEND CM-OUTQUE-1 FROM RECOGNITION-MSG-1 WITH EMI.            CM2014.2\n007200     MOVE 70 TO OUT-LENGTH.                                       CM2014.2\n007300     SEND CM-OUTQUE-1 FROM RECOGNITION-MSG-2 WITH EMI.            CM2014.2\n007400     MOVE IN-LENGTH TO OUT-LENGTH.                                CM2014.2\n007500     SEND CM-OUTQUE-1 FROM MSG-72 WITH EGI.                       CM2014.2\n007600     ACCEPT CM-INQUE-1 MESSAGE COUNT.                             CM2014.2\n007700     IF MSG-COUNT IS EQUAL TO 0 STOP RUN                          CM2014.2\n007800         ELSE GO TO TAKE-NEXT-MSG.                                CM2014.2\n007900 SOMETHING-IS-WRONG-HERE.                                         CM2014.2\n008000     MOVE 40 TO OUT-LENGTH.                                       CM2014.2\n008100     SEND CM-OUTQUE-1 FROM RECOGNITION-MSG-3 WITH EMI.            CM2014.2\n008200     MOVE QUEUE-SET TO QUEUE-INVOLVED.                            CM2014.2\n008300     MOVE 70 TO OUT-LENGTH.                                       CM2014.2\n008400     SEND CM-OUTQUE-1 FROM RECOGNITION-MSG-2 WITH EGI.            CM2014.2\n008500     STOP RUN.                                                    CM2014.2\n      *END-OF,CM201M                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "CM201M",
+  "stage1_division_count": 4,
+  "stage1_paragraph_count": 4,
+  "stage1_token_count": 382,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {
+      "program_id": "CM201M",
+      "metadata": {
+        "author": "FEDERAL COMPILER TESTING CENTER",
+        "installation": "GENERAL SERVICES ADMINISTRATION SOFTWARE DEVELOPMENT OFFICE 5203 LEESBURG PIKE SUITE 1100 FALLS CHURCH VIRGINIA 22041 PHONE 703  HIGH",
+        "date-written": "CCVS-74 VERSION 4 0 1980 JULY 1 CREATION DATE VALIDATION DATE 4.2",
+        "security": "NONE ENVIRONMENT"
+      }
+    },
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 21,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 27,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "DATA"
+        },
+        "children": [
+          {
+            "node_type": "DataItem",
+            "line": 29,
+            "attributes": {
+              "level": 77,
+              "name": "MSG-72",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 30,
+            "attributes": {
+              "level": 1,
+              "name": "RECOGNITION-MSG-1"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 31,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "\"RECEIPT OF MESSAGE FROM DEVICE \""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 33,
+            "attributes": {
+              "level": 2,
+              "name": "DEVICE-NAME",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 34,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "\"\""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 36,
+            "attributes": {
+              "level": 1,
+              "name": "RECOGNITION-MSG-2"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 37,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "\"QUEUE INVOLVED WAS \""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 39,
+            "attributes": {
+              "level": 2,
+              "name": "QUEUE-INVOLVED",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 40,
+            "attributes": {
+              "level": 2,
+              "pic": "XX",
+              "value": "\"\""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 41,
+            "attributes": {
+              "level": 1,
+              "name": "RECOGNITION-MSG-3",
+              "pic": "X",
+              "value": "\"CM201M INVOKED BUT NO DATA WAS AVAILABLE.\""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 45,
+            "attributes": {
+              "level": 1,
+              "name": "INQUE-1-RECORD"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 46,
+            "attributes": {
+              "level": 2,
+              "name": "QUEUE-SET",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 47,
+            "attributes": {
+              "level": 2,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 48,
+            "attributes": {
+              "level": 2,
+              "name": "SYM-SOURCE",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 49,
+            "attributes": {
+              "level": 2,
+              "name": "IN-LENGTH",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 50,
+            "attributes": {
+              "level": 2,
+              "pic": "XXX"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 51,
+            "attributes": {
+              "level": 2,
+              "name": "MSG-COUNT",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 53,
+            "attributes": {
+              "level": 1,
+              "name": "OUTQUE-1-RECORD"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 54,
+            "attributes": {
+              "level": 2,
+              "pic": "9999",
+              "value": "1"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 55,
+            "attributes": {
+              "level": 2,
+              "name": "OUT-LENGTH",
+              "pic": "9999"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 56,
+            "attributes": {
+              "level": 2,
+              "pic": "XXX"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 57,
+            "attributes": {
+              "level": 2,
+              "name": "SYM-DEST",
+              "pic": "X"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 59,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 61,
+            "attributes": {
+              "name": "CM201M-INIT"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 63,
+            "attributes": {
+              "name": "XXXXX033"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 64,
+            "attributes": {
+              "name": "TAKE-NEXT-MSG"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 65,
+                "attributes": {
+                  "verb": "RECEIVE",
+                  "operands": [
+                    "CM-INQUE-1",
+                    "MESSAGE",
+                    "INTO",
+                    "MSG-72",
+                    "NO",
+                    "DATA"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 66,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "SOMETHING-IS-WRONG-HERE"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 67,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "QUEUE-SET",
+                    "TO",
+                    "QUEUE-INVOLVED"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 68,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "SYM-SOURCE",
+                    "TO",
+                    "DEVICE-NAME"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 69,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "62",
+                    "TO",
+                    "OUT-LENGTH"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 70,
+                "attributes": {
+                  "verb": "SEND",
+                  "operands": [
+                    "CM-OUTQUE-1",
+                    "FROM",
+                    "RECOGNITION-MSG-1",
+                    "WITH",
+                    "EMI"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 71,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "70",
+                    "TO",
+                    "OUT-LENGTH"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 72,
+                "attributes": {
+                  "verb": "SEND",
+                  "operands": [
+                    "CM-OUTQUE-1",
+                    "FROM",
+                    "RECOGNITION-MSG-2",
+                    "WITH",
+                    "EMI"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 73,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "IN-LENGTH",
+                    "TO",
+                    "OUT-LENGTH"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 74,
+                "attributes": {
+                  "verb": "SEND",
+                  "operands": [
+                    "CM-OUTQUE-1",
+                    "FROM",
+                    "MSG-72",
+                    "WITH",
+                    "EGI"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 75,
+                "attributes": {
+                  "verb": "ACCEPT",
+                  "operands": [
+                    "CM-INQUE-1",
+                    "MESSAGE",
+                    "COUNT"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 76,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "MSG-COUNT",
+                    "IS",
+                    "EQUAL",
+                    "TO",
+                    "0"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 76,
+                "attributes": {
+                  "verb": "STOP",
+                  "operands": [
+                    "RUN"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 77,
+                "attributes": {
+                  "verb": "ELSE",
+                  "operands": []
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 77,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "TAKE-NEXT-MSG"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 78,
+            "attributes": {
+              "name": "SOMETHING-IS-WRONG-HERE"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 79,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "40",
+                    "TO",
+                    "OUT-LENGTH"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 80,
+                "attributes": {
+                  "verb": "SEND",
+                  "operands": [
+                    "CM-OUTQUE-1",
+                    "FROM",
+                    "RECOGNITION-MSG-3",
+                    "WITH",
+                    "EMI"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 81,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "QUEUE-SET",
+                    "TO",
+                    "QUEUE-INVOLVED"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 82,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "70",
+                    "TO",
+                    "OUT-LENGTH"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 83,
+                "attributes": {
+                  "verb": "SEND",
+                  "operands": [
+                    "CM-OUTQUE-1",
+                    "FROM",
+                    "RECOGNITION-MSG-2",
+                    "WITH",
+                    "EGI"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 84,
+                "attributes": {
+                  "verb": "STOP",
+                  "operands": [
+                    "RUN"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "stage1_cobc_status": "",
+  "stage1_cobc_stderr": "",
+  "complexity_tier": "simple",
+  "complexity_score": 7.9,
+  "ast_depth": 4,
+  "unique_verbs": 8,
+  "cross_refs": 0,
+  "stage2_source": "rule-based",
+  "stage2_rule_based_code": "\"\"\"Translated from COBOL program CM201M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'msg_72': '',\n    'recognition_msg_1': None,\n    'device_name': '',\n    'recognition_msg_2': None,\n    'queue_involved': '',\n    'recognition_msg_3': \"CM201M INVOKED BUT NO DATA WAS AVAILABLE.\",\n    'inque_1_record': None,\n    'queue_set': '',\n    'sym_source': '',\n    'in_length': 0,\n    'msg_count': 0,\n    'outque_1_record': None,\n    'out_length': 0,\n    'sym_dest': '',\n})\n\ndef cm201m_init() -> None:\n    pass\n\ndef xxxxx033() -> None:\n    pass\n\ndef take_next_msg() -> None:\n    state['_cd_received'] = True  # RECEIVE (communication)\n    something_is_wrong_here()\n    return\n    state['queue_involved'] = state['queue_set']\n    state['device_name'] = state['sym_source']\n    state['out_length'] = 62\n    state['_cd_sent'] = True  # SEND (communication)\n    state['out_length'] = 70\n    state['_cd_sent'] = True  # SEND (communication)\n    state['out_length'] = state['in_length']\n    state['_cd_sent'] = True  # SEND (communication)\n    state['cm_inque_1'] = input()\n    if state['msg_count'] == 0:\n        return\n    else:\n        take_next_msg()\n        return\n\ndef something_is_wrong_here() -> None:\n    state['out_length'] = 40\n    state['_cd_sent'] = True  # SEND (communication)\n    state['queue_involved'] = state['queue_set']\n    state['out_length'] = 70\n    state['_cd_sent'] = True  # SEND (communication)\n    return\n\nif __name__ == \"__main__\":\n    try:\n        cm201m_init()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_neural_code": "",
+  "stage2_final_code": "\"\"\"Translated from COBOL program CM201M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'msg_72': '',\n    'recognition_msg_1': None,\n    'device_name': '',\n    'recognition_msg_2': None,\n    'queue_involved': '',\n    'recognition_msg_3': \"CM201M INVOKED BUT NO DATA WAS AVAILABLE.\",\n    'inque_1_record': None,\n    'queue_set': '',\n    'sym_source': '',\n    'in_length': 0,\n    'msg_count': 0,\n    'outque_1_record': None,\n    'out_length': 0,\n    'sym_dest': '',\n})\n\ndef cm201m_init() -> None:\n    pass\n\ndef xxxxx033() -> None:\n    pass\n\ndef take_next_msg() -> None:\n    state['_cd_received'] = True  # RECEIVE (communication)\n    something_is_wrong_here()\n    return\n    state['queue_involved'] = state['queue_set']\n    state['device_name'] = state['sym_source']\n    state['out_length'] = 62\n    state['_cd_sent'] = True  # SEND (communication)\n    state['out_length'] = 70\n    state['_cd_sent'] = True  # SEND (communication)\n    state['out_length'] = state['in_length']\n    state['_cd_sent'] = True  # SEND (communication)\n    state['cm_inque_1'] = input()\n    if state['msg_count'] == 0:\n        return\n    else:\n        take_next_msg()\n        return\n\ndef something_is_wrong_here() -> None:\n    state['out_length'] = 40\n    state['_cd_sent'] = True  # SEND (communication)\n    state['queue_involved'] = state['queue_set']\n    state['out_length'] = 70\n    state['_cd_sent'] = True  # SEND (communication)\n    return\n\nif __name__ == \"__main__\":\n    try:\n        cm201m_init()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_warnings": [],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": false,
+  "stage3_refined_code": "",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "",
+  "stage3_error": "",
+  "verdict": "STRUCTURAL_PASS",
+  "verdict_summary": "4 structural check(s) passed; behavioural checks skipped due to environment (python_smoke).",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "4/4 paragraphs found as Python functions",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "CM201M-INIT",
+          "XXXXX033",
+          "TAKE-NEXT-MSG",
+          "SOMETHING-IS-WRONG-HERE"
+        ],
+        "missing": [],
+        "total": 4
+      }
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "14/14 identifiers traced into the Python",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "MSG-72",
+          "RECOGNITION-MSG-1",
+          "DEVICE-NAME",
+          "RECOGNITION-MSG-2",
+          "QUEUE-INVOLVED",
+          "RECOGNITION-MSG-3",
+          "INQUE-1-RECORD",
+          "QUEUE-SET",
+          "SYM-SOURCE",
+          "IN-LENGTH",
+          "MSG-COUNT",
+          "OUTQUE-1-RECORD",
+          "OUT-LENGTH",
+          "SYM-DEST"
+        ],
+        "missing": [],
+        "total": 14
+      }
+    },
+    {
+      "name": "body_non_trivial",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "2/2 paragraphs have non-trivial bodies",
+      "skipped_reason": "",
+      "extra": {
+        "non_trivial": [
+          "TAKE-NEXT-MSG",
+          "SOMETHING-IS-WRONG-HERE"
+        ],
+        "trivial": [],
+        "exempt": [
+          "CM201M-INIT",
+          "XXXXX033"
+        ],
+        "total_eligible": 2
+      }
+    },
+    {
+      "name": "python_smoke",
+      "ran": false,
+      "passed": null,
+      "score": null,
+      "detail": "skipped: uses I/O verbs requiring environment (ACCEPT)",
+      "skipped_reason": "uses I/O verbs requiring environment (ACCEPT)",
+      "extra": {}
+    }
+  ],
+  "timestamp": 1780033816.3205533
+}

@@ -1,0 +1,47 @@
+# PARIVARTANA — runtime dependencies
+# Only direct imports are listed. pip resolves transitives automatically.
+# Audited from `ast` walk over all .py files outside .venv/data/artifacts.
+
+# ── UI ──────────────────────────────────────────────────────────────────
+streamlit>=1.57
+
+# ── Data / config ───────────────────────────────────────────────────────
+pandas>=2.2
+pydantic>=2.0
+PyYAML>=6.0
+python-dotenv>=1.0
+loguru>=0.7
+
+# ── COBOL grammar ───────────────────────────────────────────────────────
+# Removed in v11 per P3 feedback: the full ANTLR4 COBOL-85 grammar was
+# dropped in favour of the thin regex preprocessor + recursive-descent
+# parser (src/pipeline/stage1_parser). No ANTLR4 runtime import remains
+# anywhere in src/, so the dependency is gone. src/grammars/ stays empty.
+
+# ── HuggingFace / training stack ────────────────────────────────────────
+# transformers 5.x ships with current tokenizers; pin lower bounds so
+# the warmup_steps/eval_strategy/processing_class fixes in
+# training.py keep working.
+torch>=2.2
+transformers>=4.44,<6
+tokenizers>=0.20
+datasets>=2.18
+# accelerate is required by transformers.Trainer at runtime; without it
+# the trainer raises ImportError("Using the `Trainer` with `PyTorch` requires
+# `accelerate>=1.1.0`"). Pinning the floor at 1.1.0 matches transformers' check.
+accelerate>=1.1.0
+huggingface_hub>=0.23
+safetensors>=0.4
+sentencepiece>=0.2
+
+# ── LLM providers (Stage 3) ─────────────────────────────────────────────
+openai>=1.40
+anthropic>=0.34
+
+# ── Evaluation ──────────────────────────────────────────────────────────
+sacrebleu>=2.4
+codebleu>=0.6
+
+# ── Tests ───────────────────────────────────────────────────────────────
+pytest>=8.0
+pytest-cov>=5.0

@@ -1,0 +1,3833 @@
+{
+  "program_id": "SQ138A",
+  "record_id": "SQ138A",
+  "cobol_source": "      *HEADER,COBOL,SQ138A                                                            \n000100 IDENTIFICATION DIVISION.                                         SQ1384.2\n000200 PROGRAM-ID.                                                      SQ1384.2\n000300     SQ138A.                                                      SQ1384.2\n000400****************************************************************  SQ1384.2\n000500*                                                              *  SQ1384.2\n000600*    VALIDATION FOR:-                                          *  SQ1384.2\n000700*    \"ON-SITE VALIDATION, NATIONAL INSTITUTE OF STD & TECH.     \".SQ1384.2\n000800*    USING CCVS85 VERSION 1.0 ISSUED IN JANUARY 1986.          *  SQ1384.2\n000900*                             REVISED 1986, AUGUST             *  SQ1384.2\n001000*                                                              *  SQ1384.2\n001100*    CREATION DATE     /     VALIDATION DATE                   *  SQ1384.2\n001200*    \"COBOL 85 VERSION 4.2, Apr  1993 SSVG                      \".SQ1384.2\n001300*                                                              *  SQ1384.2\n001400****************************************************************  SQ1384.2\n001500*                                                              *  SQ1384.2\n001600*      X-CARDS USED BY THIS PROGRAM ARE :-                     *  SQ1384.2\n001700*                                                              *  SQ1384.2\n001800*            X-14   SEQUENTIAL MASS STORAGE FILE               *  SQ1384.2\n001900*            X-55   SYSTEM PRINTER                             *  SQ1384.2\n002000*            X-82   SOURCE-COMPUTER                            *  SQ1384.2\n002100*            X-83   OBJECT-COMPUTER.                           *  SQ1384.2\n002200*                                                              *  SQ1384.2\n002300****************************************************************  SQ1384.2\n002400*                                                              *  SQ1384.2\n002500*    SPLIT FROM SQ122A, THIS PROGRAM REPEATS THE SEQUENCE OF   *  SQ1384.2\n002600*    FILE HANDLING ROUTINES IN ORDER TO CARRY OUT THE ISOLATED *  SQ1384.2\n002700*    SPLIT TEST THAT CHECKS FOR THE CORRECT RESPONSE TO READING*  SQ1384.2\n002800*    PAST THE END OF A FILE.  (SEE SQ122A).                    *  SQ1384.2\n002900*                                                              *  SQ1384.2\n003000****************************************************************  SQ1384.2\n003100*                                                                 SQ1384.2\n003200 ENVIRONMENT DIVISION.                                            SQ1384.2\n003300 CONFIGURATION SECTION.                                           SQ1384.2\n003400 SOURCE-COMPUTER.                                                 SQ1384.2\n003500     XXXXX082.                                                    SQ1384.2\n003600 OBJECT-COMPUTER.                                                 SQ1384.2\n003700     XXXXX083.                                                    SQ1384.2\n003800*                                                                 SQ1384.2\n003900 INPUT-OUTPUT SECTION.                                            SQ1384.2\n004000 FILE-CONTROL.                                                    SQ1384.2\n004100     SELECT PRINT-FILE ASSIGN TO                                  SQ1384.2\n004200     XXXXX055.                                                    SQ1384.2\n004300*                                                                 SQ1384.2\n004400*    SELECT RAW-DATA   ASSIGN TO                                  SQ1384.2\n004500*    XXXXX062                                                     SQ1384.2\n004600*          ORGANIZATION IS INDEXED                                SQ1384.2\n004700*          ACCESS MODE  IS RANDOM                                 SQ1384.2\n004800*          RECORD-KEY   IS RAW-DATA-KEY.                          SQ1384.2\n004900*                                                                 SQ1384.2\n005000     SELECT SQ-FS4 ASSIGN                                         SQ1384.2\n005100     XXXXX014                                                     SQ1384.2\n005200            FILE STATUS IS SQ-FS4-STATUS.                         SQ1384.2\n005300*                                                                 SQ1384.2\n005400*                                                                 SQ1384.2\n005500 DATA DIVISION.                                                   SQ1384.2\n005600 FILE SECTION.                                                    SQ1384.2\n005700 FD  PRINT-FILE                                                   SQ1384.2\n005800C    LABEL RECORDS                                                SQ1384.2\n005900C    XXXXX084                                                     SQ1384.2\n006000C    DATA RECORD IS PRINT-REC DUMMY-RECORD                        SQ1384.2\n006100               .                                                  SQ1384.2\n006200 01  PRINT-REC    PICTURE X(120).                                 SQ1384.2\n006300 01  DUMMY-RECORD PICTURE X(120).                                 SQ1384.2\n006400*                                                                 SQ1384.2\n006500*FD  RAW-DATA.                                                    SQ1384.2\n006600*01  RAW-DATA-SATZ.                                               SQ1384.2\n006700*    05  RAW-DATA-KEY        PIC X(6).                            SQ1384.2\n006800*    05  C-DATE              PIC 9(6).                            SQ1384.2\n006900*    05  C-TIME              PIC 9(8).                            SQ1384.2\n007000*    05  NO-OF-TESTS         PIC 99.                              SQ1384.2\n007100*    05  C-OK                PIC 999.                             SQ1384.2\n007200*    05  C-ALL               PIC 999.                             SQ1384.2\n007300*    05  C-FAIL              PIC 999.                             SQ1384.2\n007400*    05  C-DELETED           PIC 999.                             SQ1384.2\n007500*    05  C-INSPECT           PIC 999.                             SQ1384.2\n007600*    05  C-NOTE              PIC X(13).                           SQ1384.2\n007700*    05  C-INDENT            PIC X.                               SQ1384.2\n007800*    05  C-ABORT             PIC X(8).                            SQ1384.2\n007900*                                                                 SQ1384.2\n008000 FD  SQ-FS4                                                       SQ1384.2\n008100C    LABEL RECORD IS STANDARD                                     SQ1384.2\n008200     BLOCK  2 RECORDS                                             SQ1384.2\n008300     RECORD 125                                                   SQ1384.2\n008400                .                                                 SQ1384.2\n008500 01  SQ-FS4R1-F-G-125.                                            SQ1384.2\n008600     05  SQ-FS4-FIRST  PIC X(120).                                SQ1384.2\n008700     05  SQ-FS4-REC-NO PIC 99999.                                 SQ1384.2\n008800*                                                                 SQ1384.2\n008900 WORKING-STORAGE SECTION.                                         SQ1384.2\n009000*                                                                 SQ1384.2\n009100***************************************************************   SQ1384.2\n009200*                                                             *   SQ1384.2\n009300*    WORKING-STORAGE DATA ITEMS SPECIFIC TO THIS TEST SUITE   *   SQ1384.2\n009400*                                                             *   SQ1384.2\n009500***************************************************************   SQ1384.2\n009600*                                                                 SQ1384.2\n009700 01  SQ-FS4-STATUS.                                               SQ1384.2\n009800   03  SQ-FS4-KEY-1   PIC X.                                      SQ1384.2\n009900   03  SQ-FS4-KEY-2   PIC X.                                      SQ1384.2\n010000*                                                                 SQ1384.2\n010100 01  DELETE-SW.                                                   SQ1384.2\n010200     03  DELETE-SW-1 PIC X.                                       SQ1384.2\n010300     03  DELETE-SW-1-GROUP.                                       SQ1384.2\n010400         05  DELETE-SW-2 PIC X.                                   SQ1384.2\n010500*                                                                 SQ1384.2\n010600 01  DECL-EXEC-I  PIC X(12).                                      SQ1384.2\n010700 01  DECL-EXEC-O  PIC X(12).                                      SQ1384.2\n010800 01  DECL-EXEC-SW PIC X.                                          SQ1384.2\n010900*                                                                 SQ1384.2\n011000***************************************************************   SQ1384.2\n011100*                                                             *   SQ1384.2\n011200*    WORKING-STORAGE DATA ITEMS USED BY THE CCVS              *   SQ1384.2\n011300*                                                             *   SQ1384.2\n011400***************************************************************   SQ1384.2\n011500*                                                                 SQ1384.2\n011600 01  REC-SKEL-SUB   PIC 99.                                       SQ1384.2\n011700*                                                                 SQ1384.2\n011800 01  FILE-RECORD-INFORMATION-REC.                                 SQ1384.2\n011900     03 FILE-RECORD-INFO-SKELETON.                                SQ1384.2\n012000        05 FILLER                 PICTURE X(48)       VALUE       SQ1384.2\n012100             \"FILE=      ,RECORD=      /0,RECNO=000000,UPDT=00\".  SQ1384.2\n012200        05 FILLER                 PICTURE X(46)       VALUE       SQ1384.2\n012300             \",ODO=0000,PGM=     ,LRECL=000000,BLKSIZ  =0000\".    SQ1384.2\n012400        05 FILLER                 PICTURE X(26)       VALUE       SQ1384.2\n012500             \",LFIL=000000,ORG=  ,LBLR= \".                        SQ1384.2\n012600        05 FILLER                 PICTURE X(37)       VALUE       SQ1384.2\n012700             \",RECKEY=                             \".             SQ1384.2\n012800        05 FILLER                 PICTURE X(38)       VALUE       SQ1384.2\n012900             \",ALTKEY1=                             \".            SQ1384.2\n013000        05 FILLER                 PICTURE X(38)       VALUE       SQ1384.2\n013100             \",ALTKEY2=                             \".            SQ1384.2\n013200        05 FILLER                 PICTURE X(7)        VALUE SPACE.SQ1384.2\n013300     03 FILE-RECORD-INFO          OCCURS  10  TIMES.              SQ1384.2\n013400        05 FILE-RECORD-INFO-P1-120.                               SQ1384.2\n013500           07 FILLER              PIC X(5).                       SQ1384.2\n013600           07 XFILE-NAME          PIC X(6).                       SQ1384.2\n013700           07 FILLER              PIC X(8).                       SQ1384.2\n013800           07 XRECORD-NAME        PIC X(6).                       SQ1384.2\n013900           07 FILLER              PIC X(1).                       SQ1384.2\n014000           07 REELUNIT-NUMBER     PIC 9(1).                       SQ1384.2\n014100           07 FILLER              PIC X(7).                       SQ1384.2\n014200           07 XRECORD-NUMBER      PIC 9(6).                       SQ1384.2\n014300           07 FILLER              PIC X(6).                       SQ1384.2\n014400           07 UPDATE-NUMBER       PIC 9(2).                       SQ1384.2\n014500           07 FILLER              PIC X(5).                       SQ1384.2\n014600           07 ODO-NUMBER          PIC 9(4).                       SQ1384.2\n014700           07 FILLER              PIC X(5).                       SQ1384.2\n014800           07 XPROGRAM-NAME       PIC X(5).                       SQ1384.2\n014900           07 FILLER              PIC X(7).                       SQ1384.2\n015000           07 XRECORD-LENGTH      PIC 9(6).                       SQ1384.2\n015100           07 FILLER              PIC X(7).                       SQ1384.2\n015200           07 CHARS-OR-RECORDS    PIC X(2).                       SQ1384.2\n015300           07 FILLER              PIC X(1).                       SQ1384.2\n015400           07 XBLOCK-SIZE         PIC 9(4).                       SQ1384.2\n015500           07 FILLER              PIC X(6).                       SQ1384.2\n015600           07 RECORDS-IN-FILE     PIC 9(6).                       SQ1384.2\n015700           07 FILLER              PIC X(5).                       SQ1384.2\n015800           07 XFILE-ORGANIZATION  PIC X(2).                       SQ1384.2\n015900           07 FILLER              PIC X(6).                       SQ1384.2\n016000           07 XLABEL-TYPE         PIC X(1).                       SQ1384.2\n016100        05 FILE-RECORD-INFO-P121-240.                             SQ1384.2\n016200           07 FILLER              PIC X(8).                       SQ1384.2\n016300           07 XRECORD-KEY         PIC X(29).                      SQ1384.2\n016400           07 FILLER              PIC X(9).                       SQ1384.2\n016500           07 ALTERNATE-KEY1      PIC X(29).                      SQ1384.2\n016600           07 FILLER              PIC X(9).                       SQ1384.2\n016700           07 ALTERNATE-KEY2      PIC X(29).                      SQ1384.2\n016800           07 FILLER              PIC X(7).                       SQ1384.2\n016900*                                                                 SQ1384.2\n017000 01  TEST-RESULTS.                                                SQ1384.2\n017100     02 FILLER              PIC X      VALUE SPACE.               SQ1384.2\n017200     02  PAR-NAME.                                                SQ1384.2\n017300       03 FILLER              PIC X(14)  VALUE SPACE.             SQ1384.2\n017400       03 PARDOT-X            PIC X      VALUE SPACE.             SQ1384.2\n017500       03 DOTVALUE            PIC 99     VALUE ZERO.              SQ1384.2\n017600     02 FILLER              PIC X      VALUE SPACE.               SQ1384.2\n017700     02 FEATURE             PIC X(24)  VALUE SPACE.               SQ1384.2\n017800     02 FILLER              PIC X      VALUE SPACE.               SQ1384.2\n017900     02 P-OR-F              PIC X(5)   VALUE SPACE.               SQ1384.2\n018000     02 FILLER              PIC X(9)   VALUE SPACE.               SQ1384.2\n018100     02 RE-MARK             PIC X(61).                            SQ1384.2\n018200 01  TEST-COMPUTED.                                               SQ1384.2\n018300   02 FILLER  PIC X(30)  VALUE SPACE.                             SQ1384.2\n018400   02 FILLER  PIC X(17)  VALUE \"      COMPUTED =\".                SQ1384.2\n018500   02 COMPUTED-X.                                                 SQ1384.2\n018600     03 COMPUTED-A    PIC X(20)  VALUE SPACE.                     SQ1384.2\n018700     03 COMPUTED-N    REDEFINES COMPUTED-A PIC -9(9).9(9).        SQ1384.2\n018800     03 COMPUTED-0V18 REDEFINES COMPUTED-A PIC -.9(18).           SQ1384.2\n018900     03 COMPUTED-4V14 REDEFINES COMPUTED-A PIC -9(4).9(14).       SQ1384.2\n019000     03 COMPUTED-14V4 REDEFINES COMPUTED-A PIC -9(14).9(4).       SQ1384.2\n019100     03       CM-18V0 REDEFINES COMPUTED-A.                       SQ1384.2\n019200        04 COMPUTED-18V0                   PIC -9(18).            SQ1384.2\n019300        04 FILLER                          PIC X.                 SQ1384.2\n019400     03 FILLER PIC X(50) VALUE SPACE.                             SQ1384.2\n019500 01  TEST-CORRECT.                                                SQ1384.2\n019600     02 FILLER PIC X(30) VALUE SPACE.                             SQ1384.2\n019700     02 FILLER PIC X(17) VALUE \"       CORRECT =\".                SQ1384.2\n019800     02 CORRECT-X.                                                SQ1384.2\n019900     03 CORRECT-A                  PIC X(20) VALUE SPACE.         SQ1384.2\n020000     03 CORRECT-N    REDEFINES CORRECT-A     PIC -9(9).9(9).      SQ1384.2\n020100     03 CORRECT-0V18 REDEFINES CORRECT-A     PIC -.9(18).         SQ1384.2\n020200     03 CORRECT-4V14 REDEFINES CORRECT-A     PIC -9(4).9(14).     SQ1384.2\n020300     03 CORRECT-14V4 REDEFINES CORRECT-A     PIC -9(14).9(4).     SQ1384.2\n020400     03      CR-18V0 REDEFINES CORRECT-A.                         SQ1384.2\n020500         04 CORRECT-18V0                     PIC -9(18).          SQ1384.2\n020600         04 FILLER                           PIC X.               SQ1384.2\n020700     03 FILLER PIC X(2) VALUE SPACE.                              SQ1384.2\n020800     03 COR-ANSI-REFERENCE             PIC X(48) VALUE SPACE.     SQ1384.2\n020900*                                                                 SQ1384.2\n021000 01  CCVS-C-1.                                                    SQ1384.2\n021100     02 FILLER  PIC IS X        VALUE  SPACE.                     SQ1384.2\n021200     02 FILLER  PIC IS X(17)    VALUE \"PARAGRAPH-NAME\".           SQ1384.2\n021300     02 FILLER  PIC IS X        VALUE  SPACE.                     SQ1384.2\n021400     02 FILLER  PIC IS X(24)    VALUE IS \"FEATURE\".               SQ1384.2\n021500     02 FILLER  PIC IS X        VALUE  SPACE.                     SQ1384.2\n021600     02 FILLER  PIC IS X(5)     VALUE \"PASS \".                    SQ1384.2\n021700     02 FILLER  PIC IS X(9)     VALUE  SPACE.                     SQ1384.2\n021800     02 FILLER  PIC IS X(62)    VALUE \"REMARKS\".                  SQ1384.2\n021900 01  CCVS-C-2.                                                    SQ1384.2\n022000     02 FILLER  PIC X(19)  VALUE  SPACE.                          SQ1384.2\n022100     02 FILLER  PIC X(6)   VALUE \"TESTED\".                        SQ1384.2\n022200     02 FILLER  PIC X(19)  VALUE  SPACE.                          SQ1384.2\n022300     02 FILLER  PIC X(4)   VALUE \"FAIL\".                          SQ1384.2\n022400     02 FILLER  PIC X(72)  VALUE  SPACE.                          SQ1384.2\n022500*                                                                 SQ1384.2\n022600 01  REC-SKL-SUB       PIC 9(2)     VALUE ZERO.                   SQ1384.2\n022700 01  REC-CT            PIC 99       VALUE ZERO.                   SQ1384.2\n022800 01  DELETE-COUNTER    PIC 999      VALUE ZERO.                   SQ1384.2\n022900 01  ERROR-COUNTER     PIC 999      VALUE ZERO.                   SQ1384.2\n023000 01  INSPECT-COUNTER   PIC 999      VALUE ZERO.                   SQ1384.2\n023100 01  PASS-COUNTER      PIC 999      VALUE ZERO.                   SQ1384.2\n023200 01  TOTAL-ERROR       PIC 999      VALUE ZERO.                   SQ1384.2\n023300 01  ERROR-HOLD        PIC 999      VALUE ZERO.                   SQ1384.2\n023400 01  DUMMY-HOLD        PIC X(120)   VALUE SPACE.                  SQ1384.2\n023500 01  RECORD-COUNT      PIC 9(5)     VALUE ZERO.                   SQ1384.2\n023600 01  ANSI-REFERENCE    PIC X(48)    VALUE SPACES.                 SQ1384.2\n023700 01  CCVS-H-1.                                                    SQ1384.2\n023800     02  FILLER          PIC X(39)    VALUE SPACES.               SQ1384.2\n023900     02  FILLER          PIC X(42)    VALUE                       SQ1384.2\n024000     \"OFFICIAL COBOL COMPILER VALIDATION SYSTEM\".                 SQ1384.2\n024100     02  FILLER          PIC X(39)    VALUE SPACES.               SQ1384.2\n024200 01  CCVS-H-2A.                                                   SQ1384.2\n024300   02  FILLER            PIC X(40)  VALUE SPACE.                  SQ1384.2\n024400   02  FILLER            PIC X(7)   VALUE \"CCVS85 \".              SQ1384.2\n024500   02  FILLER            PIC XXXX   VALUE                         SQ1384.2\n024600     \"4.2 \".                                                      SQ1384.2\n024700   02  FILLER            PIC X(28)  VALUE                         SQ1384.2\n024800            \" COPY - NOT FOR DISTRIBUTION\".                       SQ1384.2\n024900   02  FILLER            PIC X(41)  VALUE SPACE.                  SQ1384.2\n025000*                                                                 SQ1384.2\n025100 01  CCVS-H-2B.                                                   SQ1384.2\n025200   02  FILLER            PIC X(15)  VALUE \"TEST RESULT OF \".      SQ1384.2\n025300   02  TEST-ID           PIC X(9).                                SQ1384.2\n025400   02  FILLER            PIC X(4)   VALUE \" IN \".                 SQ1384.2\n025500   02  FILLER            PIC X(12)  VALUE                         SQ1384.2\n025600     \" HIGH       \".                                              SQ1384.2\n025700   02  FILLER            PIC X(22)  VALUE                         SQ1384.2\n025800            \" LEVEL VALIDATION FOR \".                             SQ1384.2\n025900   02  FILLER            PIC X(58)  VALUE                         SQ1384.2\n026000     \"ON-SITE VALIDATION, NATIONAL INSTITUTE OF STD & TECH.     \".SQ1384.2\n026100 01  CCVS-H-3.                                                    SQ1384.2\n026200     02  FILLER          PIC X(34)  VALUE                         SQ1384.2\n026300            \" FOR OFFICIAL USE ONLY    \".                         SQ1384.2\n026400     02  FILLER          PIC X(58)  VALUE                         SQ1384.2\n026500     \"COBOL 85 VERSION 4.2, Apr  1993 SSVG                      \".SQ1384.2\n026600     02  FILLER          PIC X(28)  VALUE                         SQ1384.2\n026700            \"  COPYRIGHT   1985,1986 \".                           SQ1384.2\n026800 01  CCVS-E-1.                                                    SQ1384.2\n026900     02 FILLER           PIC X(52)  VALUE SPACE.                  SQ1384.2\n027000     02 FILLER  PIC X(14) VALUE IS \"END OF TEST-  \".              SQ1384.2\n027100     02 ID-AGAIN         PIC X(9).                                SQ1384.2\n027200     02 FILLER           PIC X(45)  VALUE SPACES.                 SQ1384.2\n027300 01  CCVS-E-2.                                                    SQ1384.2\n027400     02  FILLER          PIC X(31)  VALUE SPACE.                  SQ1384.2\n027500     02  FILLER          PIC X(21)  VALUE SPACE.                  SQ1384.2\n027600     02  CCVS-E-2-2.                                              SQ1384.2\n027700         03 ERROR-TOTAL    PIC XXX    VALUE SPACE.                SQ1384.2\n027800         03 FILLER         PIC X      VALUE SPACE.                SQ1384.2\n027900         03 ENDER-DESC     PIC X(44)  VALUE                       SQ1384.2\n028000            \"ERRORS ENCOUNTERED\".                                 SQ1384.2\n028100 01  CCVS-E-3.                                                    SQ1384.2\n028200     02  FILLER          PIC X(22)  VALUE                         SQ1384.2\n028300            \" FOR OFFICIAL USE ONLY\".                             SQ1384.2\n028400     02  FILLER          PIC X(12)  VALUE SPACE.                  SQ1384.2\n028500     02  FILLER          PIC X(58)  VALUE                         SQ1384.2\n028600     \"ON-SITE VALIDATION, NATIONAL INSTITUTE OF STD & TECH.     \".SQ1384.2\n028700     02  FILLER          PIC X(8)   VALUE SPACE.                  SQ1384.2\n028800     02  FILLER          PIC X(20)  VALUE                         SQ1384.2\n028900             \" COPYRIGHT 1985,1986\".                              SQ1384.2\n029000 01  CCVS-E-4.                                                    SQ1384.2\n029100     02 CCVS-E-4-1       PIC XXX    VALUE SPACE.                  SQ1384.2\n029200     02 FILLER           PIC X(4)   VALUE \" OF \".                 SQ1384.2\n029300     02 CCVS-E-4-2       PIC XXX    VALUE SPACE.                  SQ1384.2\n029400     02 FILLER           PIC X(40)  VALUE                         SQ1384.2\n029500      \"  TESTS WERE EXECUTED SUCCESSFULLY\".                       SQ1384.2\n029600 01  XXINFO.                                                      SQ1384.2\n029700     02 FILLER           PIC X(19)  VALUE \"*** INFORMATION ***\".  SQ1384.2\n029800     02 INFO-TEXT.                                                SQ1384.2\n029900       04 FILLER             PIC X(8)   VALUE SPACE.              SQ1384.2\n030000       04 XXCOMPUTED         PIC X(20).                           SQ1384.2\n030100       04 FILLER             PIC X(5)   VALUE SPACE.              SQ1384.2\n030200       04 XXCORRECT          PIC X(20).                           SQ1384.2\n030300     02 INF-ANSI-REFERENCE PIC X(48).                             SQ1384.2\n030400 01  HYPHEN-LINE.                                                 SQ1384.2\n030500     02 FILLER  PIC IS X VALUE IS SPACE.                          SQ1384.2\n030600     02 FILLER  PIC IS X(65)    VALUE IS \"************************SQ1384.2\n030700-    \"*****************************************\".                 SQ1384.2\n030800     02 FILLER  PIC IS X(54)    VALUE IS \"************************SQ1384.2\n030900-    \"******************************\".                            SQ1384.2\n031000 01  CCVS-PGM-ID  PIC X(9)   VALUE                                SQ1384.2\n031100     \"SQ138A\".                                                    SQ1384.2\n031200*                                                                 SQ1384.2\n031300*                                                                 SQ1384.2\n031400 PROCEDURE DIVISION.                                              SQ1384.2\n031500 DECLARATIVES.                                                    SQ1384.2\n031600*                                                                 SQ1384.2\n031700*    FIRST, A DECLARATIVE FOR THE PRINT FILE, IN CASE THERE       SQ1384.2\n031800*    IS AN ERROR ON PRINTING DURING EXECUTION OF THE OUTPUT       SQ1384.2\n031900*    DECLARATIVE.  PAGE VII-51, 4.6.4(7) STATES THAT THE          SQ1384.2\n032000*    INVOCATION OF THE SAME DECLARATIVE TWICE IS ILLEGAL.         SQ1384.2\n032100*                                                                 SQ1384.2\n032200 SECT-SQ138A-0000 SECTION.                                        SQ1384.2\n032300     USE AFTER STANDARD ERROR PROCEDURE ON PRINT-FILE.            SQ1384.2\n032400 PRINT-FILE-ERROR-PROCESS.                                        SQ1384.2\n032500     EXIT.                                                        SQ1384.2\n032600*                                                                 SQ1384.2\n032700 SECT-SQ138A-0001 SECTION.                                        SQ1384.2\n032800     USE AFTER STANDARD EXCEPTION PROCEDURE OUTPUT.               SQ1384.2\n032900 OUTPUT-ERROR-PROCESS.                                            SQ1384.2\n033000     MOVE   \"EXECUTED\" TO DECL-EXEC-O.                            SQ1384.2\n033100*                                                                 SQ1384.2\n033200 SECT-SQ138A-0002 SECTION.                                        SQ1384.2\n033300     USE AFTER EXCEPTION PROCEDURE INPUT.                         SQ1384.2\n033400 INPUT-ERROR-PROCESS.                                             SQ1384.2\n033500     MOVE   \"EXECUTED\" TO DECL-EXEC-I.                            SQ1384.2\n033600*                                                                 SQ1384.2\n033700     IF DECL-EXEC-SW NOT = SPACE                                  SQ1384.2\n033800         GO TO   END-DECLS.                                       SQ1384.2\n033900*                                                                 SQ1384.2\n034000     MOVE    1 TO REC-CT.                                         SQ1384.2\n034100     MOVE   \"READ AFTER EOF READ\" TO FEATURE.                     SQ1384.2\n034200     MOVE   \"DECL-EOF-READ\" TO PAR-NAME.                          SQ1384.2\n034300     GO TO   DECL-EOF-READ-01.                                    SQ1384.2\n034400 DECL-DELETE-01.                                                  SQ1384.2\n034500     PERFORM DECL-DE-LETE.                                        SQ1384.2\n034600     GO TO   DECL-TEST-01-END.                                    SQ1384.2\n034700 DECL-EOF-READ-01.                                                SQ1384.2\n034800 DECL-TEST-01-END.                                                SQ1384.2\n034900*                                                                 SQ1384.2\n035000     ADD     1 TO REC-CT.                                         SQ1384.2\n035100     GO TO   DECL-EOF-READ-02.                                    SQ1384.2\n035200 DECL-DELETE-02.                                                  SQ1384.2\n035300     PERFORM DECL-DE-LETE.                                        SQ1384.2\n035400     GO TO   DECL-TEST-02-END.                                    SQ1384.2\n035500 DECL-EOF-READ-02.                                                SQ1384.2\n035600 DECL-TEST-02-END.                                                SQ1384.2\n035700*                                                                 SQ1384.2\n035800     MOVE    SPACE TO DUMMY-RECORD.                               SQ1384.2\n035900     PERFORM DECL-WRITE-LINE.                                     SQ1384.2\n036000     MOVE   \"ABNORMAL TERMINATION OF PROGRAM HERE IS ACCEPTABLE\"  SQ1384.2\n036100                TO DUMMY-RECORD.                                  SQ1384.2\n036200     PERFORM DECL-WRITE-LINE 3 TIMES.                             SQ1384.2\n036300     GO TO   END-DECLS.                                           SQ1384.2\n036400*                                                                 SQ1384.2\n036500*                                                                 SQ1384.2\n036600 DECL-PASS.                                                       SQ1384.2\n036700     MOVE   \"PASS \" TO P-OR-F.                                    SQ1384.2\n036800     ADD     1 TO PASS-COUNTER.                                   SQ1384.2\n036900     PERFORM DECL-PRINT-DETAIL.                                   SQ1384.2\n037000*                                                                 SQ1384.2\n037100 DECL-FAIL.                                                       SQ1384.2\n037200     MOVE   \"FAIL*\" TO P-OR-F.                                    SQ1384.2\n037300     ADD     1 TO ERROR-COUNTER.                                  SQ1384.2\n037400     PERFORM DECL-PRINT-DETAIL.                                   SQ1384.2\n037500*                                                                 SQ1384.2\n037600 DECL-DE-LETE.                                                    SQ1384.2\n037700     MOVE   \"****TEST DELETED****\" TO RE-MARK.                    SQ1384.2\n037800     MOVE   \"*****\" TO P-OR-F.                                    SQ1384.2\n037900     ADD     1 TO DELETE-COUNTER.                                 SQ1384.2\n038000     PERFORM DECL-PRINT-DETAIL.                                   SQ1384.2\n038100*                                                                 SQ1384.2\n038200 DECL-PRINT-DETAIL.                                               SQ1384.2\n038300     IF REC-CT NOT EQUAL TO ZERO                                  SQ1384.2\n038400             MOVE \".\" TO PARDOT-X                                 SQ1384.2\n038500             MOVE REC-CT TO DOTVALUE.                             SQ1384.2\n038600     MOVE    TEST-RESULTS TO PRINT-REC.                           SQ1384.2\n038700     PERFORM DECL-WRITE-LINE.                                     SQ1384.2\n038800     IF P-OR-F EQUAL TO \"FAIL*\"                                   SQ1384.2\n038900         PERFORM DECL-WRITE-LINE                                  SQ1384.2\n039000         PERFORM DECL-FAIL-ROUTINE THRU DECL-FAIL-EX              SQ1384.2\n039100     ELSE                                                         SQ1384.2\n039200         PERFORM DECL-BAIL THRU DECL-BAIL-EX.                     SQ1384.2\n039300     MOVE    SPACE TO P-OR-F.                                     SQ1384.2\n039400     MOVE    SPACE TO COMPUTED-X.                                 SQ1384.2\n039500     MOVE    SPACE TO CORRECT-X.                                  SQ1384.2\n039600     IF REC-CT EQUAL TO ZERO                                      SQ1384.2\n039700         MOVE    SPACE TO PAR-NAME.                               SQ1384.2\n039800     MOVE    SPACE TO RE-MARK.                                    SQ1384.2\n039900*                                                                 SQ1384.2\n040000 DECL-WRITE-LINE.                                                 SQ1384.2\n040100     ADD     1 TO RECORD-COUNT.                                   SQ1384.2\n040200*    IF RECORD-COUNT GREATER 50                                   SQ1384.2\n040300*        MOVE    DUMMY-RECORD TO DUMMY-HOLD                       SQ1384.2\n040400*        MOVE    SPACE TO DUMMY-RECORD                            SQ1384.2\n040500*        WRITE   DUMMY-RECORD AFTER ADVANCING PAGE                SQ1384.2\n040600*        MOVE    CCVS-C-1 TO DUMMY-RECORD PERFORM DECL-WRT-LN     SQ1384.2\n040700*        MOVE    CCVS-C-2 TO DUMMY-RECORD                         SQ1384.2\n040800*        PERFORM DECL-WRT-LN 2 TIMES                              SQ1384.2\n040900*        MOVE    HYPHEN-LINE TO DUMMY-RECORD                      SQ1384.2\n041000*        PERFORM DECL-WRT-LN                                      SQ1384.2\n041100*        MOVE    DUMMY-HOLD TO DUMMY-RECORD                       SQ1384.2\n041200*        MOVE    ZERO TO RECORD-COUNT.                            SQ1384.2\n041300     PERFORM DECL-WRT-LN.                                         SQ1384.2\n041400*                                                                 SQ1384.2\n041500 DECL-WRT-LN.                                                     SQ1384.2\n041600     WRITE   DUMMY-RECORD AFTER ADVANCING 1 LINES.                SQ1384.2\n041700     MOVE    SPACE TO DUMMY-RECORD.                               SQ1384.2\n041800*                                                                 SQ1384.2\n041900 DECL-FAIL-ROUTINE.                                               SQ1384.2\n042000     IF COMPUTED-X NOT EQUAL TO SPACE GO TO DECL-FAIL-WRITE.      SQ1384.2\n042100     IF CORRECT-X NOT EQUAL TO SPACE GO TO DECL-FAIL-WRITE.       SQ1384.2\n042200     MOVE    ANSI-REFERENCE TO INF-ANSI-REFERENCE.                SQ1384.2\n042300     MOVE   \"NO FURTHER INFORMATION, SEE PROGRAM.\" TO INFO-TEXT.  SQ1384.2\n042400     MOVE    XXINFO TO DUMMY-RECORD.                              SQ1384.2\n042500     PERFORM DECL-WRITE-LINE 2 TIMES.                             SQ1384.2\n042600     MOVE    SPACES TO INF-ANSI-REFERENCE.                        SQ1384.2\n042700     GO TO   DECL-FAIL-EX.                                        SQ1384.2\n042800 DECL-FAIL-WRITE.                                                 SQ1384.2\n042900     MOVE    TEST-COMPUTED TO PRINT-REC                           SQ1384.2\n043000     PERFORM DECL-WRITE-LINE                                      SQ1384.2\n043100     MOVE    ANSI-REFERENCE TO COR-ANSI-REFERENCE.                SQ1384.2\n043200     MOVE    TEST-CORRECT TO PRINT-REC                            SQ1384.2\n043300     PERFORM DECL-WRITE-LINE 2 TIMES.                             SQ1384.2\n043400     MOVE    SPACES TO COR-ANSI-REFERENCE.                        SQ1384.2\n043500 DECL-FAIL-EX.                                                    SQ1384.2\n043600     EXIT.                                                        SQ1384.2\n043700*                                                                 SQ1384.2\n043800 DECL-BAIL.                                                       SQ1384.2\n043900     IF COMPUTED-A NOT EQUAL TO SPACE GO TO DECL-BAIL-WRITE.      SQ1384.2\n044000     IF CORRECT-A EQUAL TO SPACE GO TO DECL-BAIL-EX.              SQ1384.2\n044100 DECL-BAIL-WRITE.                                                 SQ1384.2\n044200     MOVE    CORRECT-A TO XXCORRECT.                              SQ1384.2\n044300     MOVE    COMPUTED-A TO XXCOMPUTED.                            SQ1384.2\n044400     MOVE    XXINFO TO DUMMY-RECORD.                              SQ1384.2\n044500     PERFORM DECL-WRITE-LINE 2 TIMES.                             SQ1384.2\n044600 DECL-BAIL-EX.                                                    SQ1384.2\n044700     EXIT.                                                        SQ1384.2\n044800*                                                                 SQ1384.2\n044900 END-DECLS.                                                       SQ1384.2\n045000 END DECLARATIVES.                                                SQ1384.2\n045100*                                                                 SQ1384.2\n045200*                                                                 SQ1384.2\n045300 CCVS1 SECTION.                                                   SQ1384.2\n045400 OPEN-FILES.                                                      SQ1384.2\n045500*    OPEN    I-O RAW-DATA.                                        SQ1384.2\n045600*    MOVE    CCVS-PGM-ID TO RAW-DATA-KEY.                         SQ1384.2\n045700*    READ    RAW-DATA INVALID KEY GO TO END-E-1.                  SQ1384.2\n045800*    MOVE   \"ABORTED \"   TO C-ABORT.                              SQ1384.2\n045900*    ADD     1           TO C-NO-OF-TESTS.                        SQ1384.2\n046000*    ACCEPT  C-DATE      FROM DATE.                               SQ1384.2\n046100*    ACCEPT  C-TIME      FROM TIME.                               SQ1384.2\n046200*    REWRITE RAW-DATA-SATZ INVALID KEY CONTINUE.                  SQ1384.2\n046300*END-E-1.                                                         SQ1384.2\n046400*    CLOSE   RAW-DATA.                                            SQ1384.2\n046500     OPEN    OUTPUT PRINT-FILE.                                   SQ1384.2\n046600     MOVE    CCVS-PGM-ID TO TEST-ID.                              SQ1384.2\n046700     MOVE    CCVS-PGM-ID TO ID-AGAIN.                             SQ1384.2\n046800     MOVE    SPACE TO TEST-RESULTS.                               SQ1384.2\n046900     PERFORM HEAD-ROUTINE THRU COLUMN-NAMES-ROUTINE.              SQ1384.2\n047000     MOVE    ZERO TO REC-SKEL-SUB.                                SQ1384.2\n047100     PERFORM CCVS-INIT-FILE 10 TIMES.                             SQ1384.2\n047200     GO TO CCVS1-EXIT.                                            SQ1384.2\n047300*                                                                 SQ1384.2\n047400 CCVS-INIT-FILE.                                                  SQ1384.2\n047500     ADD     1 TO REC-SKL-SUB.                                    SQ1384.2\n047600     MOVE    FILE-RECORD-INFO-SKELETON TO                         SQ1384.2\n047700                  FILE-RECORD-INFO (REC-SKL-SUB).                 SQ1384.2\n047800*                                                                 SQ1384.2\n047900 CLOSE-FILES.                                                     SQ1384.2\n048000     PERFORM END-ROUTINE THRU END-ROUTINE-13.                     SQ1384.2\n048100     CLOSE   PRINT-FILE.                                          SQ1384.2\n048200*    OPEN    I-O RAW-DATA.                                        SQ1384.2\n048300*    MOVE    CCVS-PGM-ID TO RAW-DATA-KEY.                         SQ1384.2\n048400*    READ    RAW-DATA INVALID KEY GO TO END-E-2.                  SQ1384.2\n048500*    MOVE   \"OK.     \" TO C-ABORT.                                SQ1384.2\n048600*    MOVE    PASS-COUNTER  TO C-OK.                               SQ1384.2\n048700*    MOVE    ERROR-HOLD    TO C-ALL.                              SQ1384.2\n048800*    MOVE    ERROR-COUNTER TO C-FAIL.                             SQ1384.2\n048900*    MOVE    DELETE-CNT    TO C-DELETED.                          SQ1384.2\n049000*    MOVE    INSPECT-COUNTER TO C-INSPECT.                        SQ1384.2\n049100*    REWRITE RAW-DATA-SATZ INVALID KEY CONTINUE.                  SQ1384.2\n049200*END-E-2.                                                         SQ1384.2\n049300*    CLOSE   RAW-DATA.                                            SQ1384.2\n049400 TERMINATE-CCVS.                                                  SQ1384.2\n049500*    EXIT    PROGRAM.                                             SQ1384.2\n049600     STOP    RUN.                                                 SQ1384.2\n049700*                                                                 SQ1384.2\n049800 INSPT.                                                           SQ1384.2\n049900     MOVE   \"INSPT\" TO P-OR-F.                                    SQ1384.2\n050000     ADD     1 TO INSPECT-COUNTER.                                SQ1384.2\n050100     PERFORM PRINT-DETAIL.                                        SQ1384.2\n050200*                                                                 SQ1384.2\n050300 PASS.                                                            SQ1384.2\n050400     MOVE   \"PASS \" TO P-OR-F.                                    SQ1384.2\n050500     ADD     1 TO PASS-COUNTER.                                   SQ1384.2\n050600     PERFORM PRINT-DETAIL.                                        SQ1384.2\n050700*                                                                 SQ1384.2\n050800 FAIL.                                                            SQ1384.2\n050900     MOVE   \"FAIL*\" TO P-OR-F.                                    SQ1384.2\n051000     ADD     1 TO ERROR-COUNTER.                                  SQ1384.2\n051100     PERFORM PRINT-DETAIL.                                        SQ1384.2\n051200*                                                                 SQ1384.2\n051300 DE-LETE.                                                         SQ1384.2\n051400     MOVE   \"****TEST DELETED****\" TO RE-MARK.                    SQ1384.2\n051500     MOVE   \"*****\" TO P-OR-F.                                    SQ1384.2\n051600     ADD     1 TO DELETE-COUNTER.                                 SQ1384.2\n051700     PERFORM PRINT-DETAIL.                                        SQ1384.2\n051800*                                                                 SQ1384.2\n051900 PRINT-DETAIL.                                                    SQ1384.2\n052000     IF REC-CT NOT EQUAL TO ZERO                                  SQ1384.2\n052100         MOVE   \".\" TO PARDOT-X                                   SQ1384.2\n052200         MOVE    REC-CT TO DOTVALUE.                              SQ1384.2\n052300     MOVE    TEST-RESULTS TO PRINT-REC.                           SQ1384.2\n052400     PERFORM WRITE-LINE.                                          SQ1384.2\n052500     IF P-OR-F EQUAL TO \"FAIL*\"                                   SQ1384.2\n052600         PERFORM WRITE-LINE                                       SQ1384.2\n052700         PERFORM FAIL-ROUTINE THRU FAIL-ROUTINE-EX                SQ1384.2\n052800     ELSE                                                         SQ1384.2\n052900         PERFORM BAIL-OUT THRU BAIL-OUT-EX.                       SQ1384.2\n053000     MOVE    SPACE TO P-OR-F.                                     SQ1384.2\n053100     MOVE    SPACE TO COMPUTED-X.                                 SQ1384.2\n053200     MOVE    SPACE TO CORRECT-X.                                  SQ1384.2\n053300     IF REC-CT EQUAL TO ZERO  MOVE SPACE TO PAR-NAME.             SQ1384.2\n053400     MOVE    SPACE TO RE-MARK.                                    SQ1384.2\n053500*                                                                 SQ1384.2\n053600 HEAD-ROUTINE.                                                    SQ1384.2\n053700     MOVE CCVS-H-1  TO DUMMY-RECORD. PERFORM WRITE-LINE 2 TIMES.  SQ1384.2\n053800     MOVE CCVS-H-2A TO DUMMY-RECORD. PERFORM WRITE-LINE 2 TIMES.  SQ1384.2\n053900     MOVE CCVS-H-2B TO DUMMY-RECORD. PERFORM WRITE-LINE 3 TIMES.  SQ1384.2\n054000     MOVE CCVS-H-3  TO DUMMY-RECORD. PERFORM WRITE-LINE 3 TIMES.  SQ1384.2\n054100 COLUMN-NAMES-ROUTINE.                                            SQ1384.2\n054200     MOVE CCVS-C-1 TO DUMMY-RECORD. PERFORM WRITE-LINE.           SQ1384.2\n054300     MOVE CCVS-C-2 TO DUMMY-RECORD. PERFORM WRITE-LINE 2 TIMES.   SQ1384.2\n054400     MOVE HYPHEN-LINE TO DUMMY-RECORD. PERFORM WRITE-LINE.        SQ1384.2\n054500 END-ROUTINE.                                                     SQ1384.2\n054600     MOVE    HYPHEN-LINE TO DUMMY-RECORD.                         SQ1384.2\n054700     PERFORM WRITE-LINE 5 TIMES.                                  SQ1384.2\n054800 END-RTN-EXIT.                                                    SQ1384.2\n054900     MOVE    CCVS-E-1 TO DUMMY-RECORD.                            SQ1384.2\n055000     PERFORM WRITE-LINE 2 TIMES.                                  SQ1384.2\n055100*                                                                 SQ1384.2\n055200 END-ROUTINE-1.                                                   SQ1384.2\n055300     ADD     ERROR-COUNTER   TO ERROR-HOLD                        SQ1384.2\n055400     ADD     INSPECT-COUNTER TO ERROR-HOLD.                       SQ1384.2\n055500     ADD     DELETE-COUNTER  TO ERROR-HOLD.                       SQ1384.2\n055600     ADD     PASS-COUNTER    TO ERROR-HOLD.                       SQ1384.2\n055700     MOVE    PASS-COUNTER    TO CCVS-E-4-1.                       SQ1384.2\n055800     MOVE    ERROR-HOLD      TO CCVS-E-4-2.                       SQ1384.2\n055900     MOVE    CCVS-E-4        TO CCVS-E-2-2.                       SQ1384.2\n056000     MOVE    CCVS-E-2        TO DUMMY-RECORD                      SQ1384.2\n056100     PERFORM WRITE-LINE.                                          SQ1384.2\n056200     MOVE   \"TEST(S) FAILED\" TO ENDER-DESC.                       SQ1384.2\n056300     IF ERROR-COUNTER IS EQUAL TO ZERO                            SQ1384.2\n056400         MOVE   \"NO \" TO ERROR-TOTAL                              SQ1384.2\n056500     ELSE                                                         SQ1384.2\n056600         MOVE    ERROR-COUNTER TO ERROR-TOTAL.                    SQ1384.2\n056700     MOVE    CCVS-E-2 TO DUMMY-RECORD.                            SQ1384.2\n056800     PERFORM WRITE-LINE.                                          SQ1384.2\n056900 END-ROUTINE-13.                                                  SQ1384.2\n057000     IF DELETE-COUNTER IS EQUAL TO ZERO                           SQ1384.2\n057100         MOVE   \"NO \" TO ERROR-TOTAL                              SQ1384.2\n057200     ELSE                                                         SQ1384.2\n057300         MOVE    DELETE-COUNTER TO ERROR-TOTAL.                   SQ1384.2\n057400     MOVE   \"TEST(S) DELETED     \" TO ENDER-DESC.                 SQ1384.2\n057500     MOVE    CCVS-E-2 TO DUMMY-RECORD.                            SQ1384.2\n057600     PERFORM WRITE-LINE.                                          SQ1384.2\n057700     IF INSPECT-COUNTER EQUAL TO ZERO                             SQ1384.2\n057800         MOVE   \"NO \" TO ERROR-TOTAL                              SQ1384.2\n057900     ELSE                                                         SQ1384.2\n058000         MOVE    INSPECT-COUNTER TO ERROR-TOTAL.                  SQ1384.2\n058100     MOVE   \"TEST(S) REQUIRE INSPECTION\" TO ENDER-DESC.           SQ1384.2\n058200     MOVE    CCVS-E-2 TO DUMMY-RECORD. PERFORM WRITE-LINE.        SQ1384.2\n058300     MOVE    CCVS-E-3 TO DUMMY-RECORD. PERFORM WRITE-LINE.        SQ1384.2\n058400*                                                                 SQ1384.2\n058500 WRITE-LINE.                                                      SQ1384.2\n058600     ADD     1 TO RECORD-COUNT.                                   SQ1384.2\n058700*    IF RECORD-COUNT GREATER 50                                   SQ1384.2\n058800*        MOVE  DUMMY-RECORD TO DUMMY-HOLD                         SQ1384.2\n058900*        MOVE  SPACE TO DUMMY-RECORD                              SQ1384.2\n059000*        WRITE DUMMY-RECORD AFTER ADVANCING PAGE                  SQ1384.2\n059100*        MOVE  CCVS-C-1 TO DUMMY-RECORD PERFORM WRT-LN            SQ1384.2\n059200*        MOVE  CCVS-C-2 TO DUMMY-RECORD PERFORM WRT-LN 2 TIMES    SQ1384.2\n059300*        MOVE  HYPHEN-LINE TO DUMMY-RECORD PERFORM WRT-LN         SQ1384.2\n059400*        MOVE  DUMMY-HOLD TO DUMMY-RECORD                         SQ1384.2\n059500*        MOVE  ZERO TO RECORD-COUNT.                              SQ1384.2\n059600     PERFORM WRT-LN.                                              SQ1384.2\n059700*                                                                 SQ1384.2\n059800 WRT-LN.                                                          SQ1384.2\n059900     WRITE   DUMMY-RECORD AFTER ADVANCING 1 LINES.                SQ1384.2\n060000     MOVE    SPACE TO DUMMY-RECORD.                               SQ1384.2\n060100 BLANK-LINE-PRINT.                                                SQ1384.2\n060200     PERFORM WRT-LN.                                              SQ1384.2\n060300 FAIL-ROUTINE.                                                    SQ1384.2\n060400     IF COMPUTED-X NOT EQUAL TO SPACE GO TO FAIL-ROUTINE-WRITE.   SQ1384.2\n060500     IF CORRECT-X NOT EQUAL TO SPACE GO TO FAIL-ROUTINE-WRITE.    SQ1384.2\n060600     MOVE    ANSI-REFERENCE TO INF-ANSI-REFERENCE.                SQ1384.2\n060700     MOVE   \"NO FURTHER INFORMATION, SEE PROGRAM.\" TO INFO-TEXT.  SQ1384.2\n060800     MOVE    XXINFO TO DUMMY-RECORD.                              SQ1384.2\n060900     PERFORM WRITE-LINE 2 TIMES.                                  SQ1384.2\n061000     MOVE    SPACES TO INF-ANSI-REFERENCE.                        SQ1384.2\n061100     GO TO   FAIL-ROUTINE-EX.                                     SQ1384.2\n061200 FAIL-ROUTINE-WRITE.                                              SQ1384.2\n061300     MOVE    TEST-COMPUTED  TO PRINT-REC                          SQ1384.2\n061400     PERFORM WRITE-LINE                                           SQ1384.2\n061500     MOVE    ANSI-REFERENCE TO COR-ANSI-REFERENCE.                SQ1384.2\n061600     MOVE    TEST-CORRECT   TO PRINT-REC                          SQ1384.2\n061700     PERFORM WRITE-LINE 2 TIMES.                                  SQ1384.2\n061800     MOVE    SPACES         TO COR-ANSI-REFERENCE.                SQ1384.2\n061900 FAIL-ROUTINE-EX.                                                 SQ1384.2\n062000     EXIT.                                                        SQ1384.2\n062100 BAIL-OUT.                                                        SQ1384.2\n062200     IF COMPUTED-A NOT EQUAL TO SPACE GO TO BAIL-OUT-WRITE.       SQ1384.2\n062300     IF CORRECT-A EQUAL TO SPACE GO TO BAIL-OUT-EX.               SQ1384.2\n062400 BAIL-OUT-WRITE.                                                  SQ1384.2\n062500     MOVE    CORRECT-A      TO XXCORRECT.                         SQ1384.2\n062600     MOVE    COMPUTED-A     TO XXCOMPUTED.                        SQ1384.2\n062700     MOVE    ANSI-REFERENCE TO INF-ANSI-REFERENCE.                SQ1384.2\n062800     MOVE    XXINFO TO DUMMY-RECORD.                              SQ1384.2\n062900     PERFORM WRITE-LINE 2 TIMES.                                  SQ1384.2\n063000     MOVE    SPACES TO INF-ANSI-REFERENCE.                        SQ1384.2\n063100 BAIL-OUT-EX.                                                     SQ1384.2\n063200     EXIT.                                                        SQ1384.2\n063300 CCVS1-EXIT.                                                      SQ1384.2\n063400     EXIT.                                                        SQ1384.2\n063500*                                                                 SQ1384.2\n063600****************************************************************  SQ1384.2\n063700*                                                              *  SQ1384.2\n063800*    THIS POINT MARKS THE END OF THE CCVS MONITOR ROUTINES AND *  SQ1384.2\n063900*    THE START OF THE TESTS OF SPECIFIC COBOL FEATURES.        *  SQ1384.2\n064000*                                                              *  SQ1384.2\n064100****************************************************************  SQ1384.2\n064200*                                                                 SQ1384.2\n064300 SECT-SQ138A-0004 SECTION.                                        SQ1384.2\n064400 STA-INIT.                                                        SQ1384.2\n064500     MOVE    SPACE TO DELETE-SW.                                  SQ1384.2\n064600*                                                                 SQ1384.2\n064700     MOVE   \"SQ-FS4\" TO XFILE-NAME (1).                           SQ1384.2\n064800     MOVE   \"R1-F-G\" TO XRECORD-NAME (1).                         SQ1384.2\n064900     MOVE    CCVS-PGM-ID TO XPROGRAM-NAME (1).                    SQ1384.2\n065000     MOVE    125 TO XRECORD-LENGTH (1).                           SQ1384.2\n065100     MOVE   \"RC\" TO CHARS-OR-RECORDS (1).                         SQ1384.2\n065200     MOVE    2   TO XBLOCK-SIZE (1).                              SQ1384.2\n065300     MOVE    1   TO RECORDS-IN-FILE (1).                          SQ1384.2\n065400     MOVE   \"SQ\" TO XFILE-ORGANIZATION (1).                       SQ1384.2\n065500     MOVE   \"S\"  TO XLABEL-TYPE (1).                              SQ1384.2\n065600     MOVE    ZERO TO XRECORD-NUMBER (1).                          SQ1384.2\n065700*                                                                 SQ1384.2\n065800*    OPEN THE FILE IN THE OUTPUT MODE                             SQ1384.2\n065900*                                                                 SQ1384.2\n066000 SEQ-INIT-01.                                                     SQ1384.2\n066100     MOVE    0 TO REC-CT.                                         SQ1384.2\n066200     MOVE   \"*\"  TO DECL-EXEC-SW.                                 SQ1384.2\n066300     MOVE   \"**\" TO SQ-FS4-STATUS.                                SQ1384.2\n066400     MOVE   \"NOT EXECUTED\" TO DECL-EXEC-I.                        SQ1384.2\n066500     MOVE   \"NOT EXECUTED\" TO DECL-EXEC-O.                        SQ1384.2\n066600     MOVE   \"OPEN, CREATE FILE\"  TO FEATURE.                      SQ1384.2\n066700     MOVE   \"SEQ-TEST-OP-01\" TO PAR-NAME.                         SQ1384.2\n066800     GO TO   SEQ-TEST-OP-01.                                      SQ1384.2\n066900 SEQ-DELETE-01.                                                   SQ1384.2\n067000     MOVE   \"*\" TO DELETE-SW-1.                                   SQ1384.2\n067100 SEQ-TEST-OP-01.                                                  SQ1384.2\n067200     OPEN    OUTPUT SQ-FS4.                                       SQ1384.2\n067300*                                                                 SQ1384.2\n067400*                                                                 SQ1384.2\n067500*    THE FILE HAS BEEN CREATED.  WE NOW WRITE ONE RECORD TO IT.   SQ1384.2\n067600*                                                                 SQ1384.2\n067700 SEQ-INIT-02.                                                     SQ1384.2\n067800     MOVE    0 TO REC-CT.                                         SQ1384.2\n067900     MOVE   \"*\"  TO DECL-EXEC-SW.                                 SQ1384.2\n068000     MOVE   \"**\" TO SQ-FS4-STATUS.                                SQ1384.2\n068100     MOVE   \"NOT EXECUTED\" TO DECL-EXEC-I.                        SQ1384.2\n068200     MOVE   \"NOT EXECUTED\" TO DECL-EXEC-O.                        SQ1384.2\n068300     ADD     1 TO XRECORD-NUMBER (1).                             SQ1384.2\n068400     MOVE   \"WRITE ONE RECORD\"  TO FEATURE.                       SQ1384.2\n068500     MOVE   \"SEQ-TEST-WR-02\" TO PAR-NAME.                         SQ1384.2\n068600     IF DELETE-SW NOT EQUAL TO SPACE                              SQ1384.2\n068700         GO TO SEQ-DELETE-02.                                     SQ1384.2\n068800     GO TO   SEQ-TEST-WR-02.                                      SQ1384.2\n068900 SEQ-DELETE-02.                                                   SQ1384.2\n069000     MOVE   \"*\" TO DELETE-SW-2.                                   SQ1384.2\n069100 SEQ-TEST-WR-02.                                                  SQ1384.2\n069200     MOVE    FILE-RECORD-INFO-P1-120 (1) TO SQ-FS4-FIRST.         SQ1384.2\n069300     MOVE    XRECORD-NUMBER (1) TO SQ-FS4-REC-NO.                 SQ1384.2\n069400     WRITE   SQ-FS4R1-F-G-125.                                    SQ1384.2\n069500*                                                                 SQ1384.2\n069600*                                                                 SQ1384.2\n069700*    HAVING WRITTEN ONE RECORD, CLOSE THE FILE.                   SQ1384.2\n069800*                                                                 SQ1384.2\n069900 SEQ-INIT-03.                                                     SQ1384.2\n070000     MOVE    0 TO REC-CT.                                         SQ1384.2\n070100     MOVE   \"*\"  TO DECL-EXEC-SW.                                 SQ1384.2\n070200     MOVE   \"**\" TO SQ-FS4-STATUS.                                SQ1384.2\n070300     MOVE   \"NOT EXECUTED\" TO DECL-EXEC-I.                        SQ1384.2\n070400     MOVE   \"NOT EXECUTED\" TO DECL-EXEC-O.                        SQ1384.2\n070500     MOVE   \"CLOSE AFTER CREATE\"  TO FEATURE.                     SQ1384.2\n070600     MOVE   \"SEQ-TEST-CL-03\" TO PAR-NAME.                         SQ1384.2\n070700     IF DELETE-SW NOT EQUAL TO SPACE                              SQ1384.2\n070800         GO TO SEQ-DELETE-03.                                     SQ1384.2\n070900     GO TO   SEQ-TEST-CL-03.                                      SQ1384.2\n071000 SEQ-DELETE-03.                                                   SQ1384.2\n071100     MOVE   \"*\" TO DELETE-SW-2.                                   SQ1384.2\n071200 SEQ-TEST-CL-03.                                                  SQ1384.2\n071300     CLOSE   SQ-FS4.                                              SQ1384.2\n071400 SEQ-INIT-04.                                                     SQ1384.2\n071500     MOVE    0 TO REC-CT.                                         SQ1384.2\n071600     MOVE    ZERO TO XRECORD-NUMBER (1).                          SQ1384.2\n071700     MOVE   \"*\"  TO DECL-EXEC-SW.                                 SQ1384.2\n071800     MOVE   \"**\" TO SQ-FS4-STATUS.                                SQ1384.2\n071900     MOVE   \"NOT EXECUTED\" TO DECL-EXEC-I.                        SQ1384.2\n072000     MOVE   \"NOT EXECUTED\" TO DECL-EXEC-O.                        SQ1384.2\n072100     MOVE   \"OPEN, TO READ FILE\"  TO FEATURE.                     SQ1384.2\n072200     MOVE   \"SEQ-TEST-OP-04\" TO PAR-NAME.                         SQ1384.2\n072300     IF DELETE-SW NOT = SPACE                                     SQ1384.2\n072400         GO TO SEQ-DELETE-04.                                     SQ1384.2\n072500     GO TO   SEQ-TEST-OP-04.                                      SQ1384.2\n072600 SEQ-DELETE-04.                                                   SQ1384.2\n072700     MOVE   \"*\" TO DELETE-SW-2.                                   SQ1384.2\n072800 SEQ-TEST-OP-04.                                                  SQ1384.2\n072900*                                                                 SQ1384.2\n073000*    OPEN THE TEST FILE AND CLEAR THE RECORD AREA, JUST IN        SQ1384.2\n073100*    CASE THERE IS A SINGLE BUFFER WHICH STILL HAS A COPY OF      SQ1384.2\n073200*    THE LAST RECORD WRITTEN IN IT.                               SQ1384.2\n073300*                                                                 SQ1384.2\n073400     OPEN    INPUT SQ-FS4.                                        SQ1384.2\n073500     MOVE    SPACE TO SQ-FS4R1-F-G-125.                           SQ1384.2\n073600*                                                                 SQ1384.2\n073700*                                                                 SQ1384.2\n073800*    READ THE FIRST (AND ONLY) RECORD FROM THE FILE               SQ1384.2\n073900*                                                                 SQ1384.2\n074000 SEQ-INIT-05.                                                     SQ1384.2\n074100     MOVE    0 TO REC-CT.                                         SQ1384.2\n074200     MOVE   \"*\"  TO DECL-EXEC-SW.                                 SQ1384.2\n074300     MOVE   \"**\" TO SQ-FS4-STATUS.                                SQ1384.2\n074400     MOVE   \"NOT EXECUTED\" TO DECL-EXEC-I.                        SQ1384.2\n074500     MOVE   \"NOT EXECUTED\" TO DECL-EXEC-O.                        SQ1384.2\n074600     MOVE   \"READ FIRST RECORD\"  TO FEATURE.                      SQ1384.2\n074700     MOVE   \"SEQ-TEST-RD-05\" TO PAR-NAME.                         SQ1384.2\n074800     IF DELETE-SW NOT = SPACE                                     SQ1384.2\n074900         GO TO SEQ-DELETE-05.                                     SQ1384.2\n075000     GO TO   SEQ-TEST-RD-05.                                      SQ1384.2\n075100 SEQ-DELETE-05.                                                   SQ1384.2\n075200     MOVE   \"*\" TO DELETE-SW-2.                                   SQ1384.2\n075300 SEQ-TEST-RD-05.                                                  SQ1384.2\n075400     READ    SQ-FS4.                                              SQ1384.2\n075500     MOVE    SQ-FS4R1-F-G-125 TO FILE-RECORD-INFO (2).            SQ1384.2\n075600 SEQ-INIT-06.                                                     SQ1384.2\n075700     MOVE    0 TO REC-CT.                                         SQ1384.2\n075800     MOVE   \"*\" TO DECL-EXEC-SW.                                  SQ1384.2\n075900     MOVE   \"**\" TO SQ-FS4-STATUS.                                SQ1384.2\n076000     MOVE   \"NOT EXECUTED\" TO DECL-EXEC-I.                        SQ1384.2\n076100     MOVE   \"NOT EXECUTED\" TO DECL-EXEC-O.                        SQ1384.2\n076200     MOVE   \"READ, GIVING AT END\"  TO FEATURE.                    SQ1384.2\n076300     MOVE   \"SEQ-TEST-RD-06\" TO PAR-NAME.                         SQ1384.2\n076400     IF DELETE-SW NOT = SPACE                                     SQ1384.2\n076500         GO TO SEQ-DELETE-06.                                     SQ1384.2\n076600     GO TO   SEQ-TEST-RD-06.                                      SQ1384.2\n076700 SEQ-DELETE-06.                                                   SQ1384.2\n076800     MOVE   \"*\" TO DELETE-SW-2.                                   SQ1384.2\n076900 SEQ-TEST-RD-06.                                                  SQ1384.2\n077000     READ    SQ-FS4.                                              SQ1384.2\n077100*                                                                 SQ1384.2\n077200*                                                                 SQ1384.2\n077300*    READ AGAIN, AFTER AT END, TO RAISE I-O STATUS 46             SQ1384.2\n077400*                                                                 SQ1384.2\n077500 SEQ-INIT-07.                                                     SQ1384.2\n077600     MOVE    0 TO REC-CT.                                         SQ1384.2\n077700     MOVE    SPACE TO DECL-EXEC-SW.                               SQ1384.2\n077800     MOVE   \"**\" TO SQ-FS4-STATUS.                                SQ1384.2\n077900     MOVE   \"NOT EXECUTED\" TO DECL-EXEC-I.                        SQ1384.2\n078000     MOVE   \"NOT EXECUTED\" TO DECL-EXEC-O.                        SQ1384.2\n078100     MOVE   \"READ AFTER AT END\"  TO FEATURE.                      SQ1384.2\n078200     MOVE   \"SEQ-TEST-RD-07\" TO PAR-NAME.                         SQ1384.2\n078300     IF DELETE-SW NOT = SPACE                                     SQ1384.2\n078400         GO TO SEQ-DELETE-07.                                     SQ1384.2\n078500     GO TO   SEQ-TEST-RD-07.                                      SQ1384.2\n078600 SEQ-DELETE-07.                                                   SQ1384.2\n078700     MOVE   \"*\" TO DELETE-SW-2.                                   SQ1384.2\n078800 SEQ-TEST-RD-07.                                                  SQ1384.2\n078900     READ    SQ-FS4.                                              SQ1384.2\n079000*                                                                 SQ1384.2\n079100*    THE TESTS FOLLOWING THIS READ STATEMENT MAY NOT BE           SQ1384.2\n079200*    EXECUTED.  THE IMPLEMENTOR MAY LEGITIMATELY TERMINATE        SQ1384.2\n079300*    EXECUTION ON EXIT FROM THE DECLARATIVE.                      SQ1384.2\n079400*                                                                 SQ1384.2\n079500     MOVE    ZERO TO REC-CT.                                      SQ1384.2\n079600     MOVE   \"READ AFTER AT END\"  TO FEATURE.                      SQ1384.2\n079700     MOVE   \"SEQ-TEST-RD-07\" TO PAR-NAME.                         SQ1384.2\n079800*                                                                 SQ1384.2\n079900*    CHECK I-O STATUS RETURNED FROM READ AFTER AT END             SQ1384.2\n080000*                                                                 SQ1384.2\n080100     ADD    1 TO REC-CT.                                          SQ1384.2\n080200 SEQ-TEST-07-01-END.                                              SQ1384.2\n080300     ADD     1 TO REC-CT.                                         SQ1384.2\n080400 SEQ-TEST-07-02-END.                                              SQ1384.2\n080500*                                                                 SQ1384.2\n080600*    CHECK EXECUTION OF OUTPUT DECLARATIVE                        SQ1384.2\n080700*                                                                 SQ1384.2\n080800     ADD     1 TO REC-CT.                                         SQ1384.2\n080900     IF DELETE-SW NOT = SPACE                                     SQ1384.2\n081000         GO TO   SEQ-DELETE-07-03.                                SQ1384.2\n081100     GO TO   SEQ-TEST-RD-07-03.                                   SQ1384.2\n081200 SEQ-DELETE-07-03.                                                SQ1384.2\n081300     PERFORM DE-LETE.                                             SQ1384.2\n081400     GO TO   SEQ-TEST-07-03-END.                                  SQ1384.2\n081500 SEQ-TEST-RD-07-03.                                               SQ1384.2\n081600     IF DECL-EXEC-O = \"NOT EXECUTED\"                              SQ1384.2\n081700         PERFORM PASS                                             SQ1384.2\n081800     ELSE                                                         SQ1384.2\n081900         MOVE    DECL-EXEC-O TO COMPUTED-A                        SQ1384.2\n082000         MOVE   \"NOT EXECUTED\" TO CORRECT-A                       SQ1384.2\n082100         MOVE   \"UNEXPECTED EXECUTION OF OUTPUT DECLARATIVE\"      SQ1384.2\n082200                   TO RE-MARK                                     SQ1384.2\n082300         MOVE   \"VII-2,1.3.5, VII-51,4.6.4(5)\" TO ANSI-REFERENCE  SQ1384.2\n082400         PERFORM FAIL.                                            SQ1384.2\n082500 SEQ-TEST-07-03-END.                                              SQ1384.2\n082600     MOVE    SPACE TO DELETE-SW-2.                                SQ1384.2\n082700*                                                                 SQ1384.2\n082800*                                                                 SQ1384.2\n082900 CCVS-EXIT SECTION.                                               SQ1384.2\n083000 CCVS-999999.                                                     SQ1384.2\n083100     GO TO   CLOSE-FILES.                                         SQ1384.2\n      *END-OF,SQ138A                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "",
+  "stage1_division_count": 3,
+  "stage1_paragraph_count": 322,
+  "stage1_token_count": 3044,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {},
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": ""
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 4,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": ""
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 6,
+            "attributes": {
+              "name": "COMPUTER"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 7,
+            "attributes": {
+              "name": "XX082"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 8,
+            "attributes": {
+              "name": "COMPUTER"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 9,
+            "attributes": {
+              "name": "XX083"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 11,
+            "attributes": {
+              "name": "NTROL"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 13,
+            "attributes": {
+              "name": "XX055"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 16,
+            "attributes": {
+              "name": "SQ-FS4-STATUS"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 17,
+            "attributes": {
+              "name": "VISION"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 18,
+            "attributes": {
+              "name": "CTION"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 22,
+            "attributes": {
+              "name": "DUMMY-RECORD"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 31,
+            "attributes": {
+              "name": "FS4R1-F-G-125"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 35,
+            "attributes": {
+              "name": "FS4-STATUS"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 38,
+            "attributes": {
+              "name": "ETE-SW"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 40,
+            "attributes": {
+              "name": "DELETE-SW-1-GROUP"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 46,
+            "attributes": {
+              "name": "E-RECORD-INFORMATION-REC"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 47,
+            "attributes": {
+              "name": "FILE-RECORD-INFO-SKELETON"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 61,
+            "attributes": {
+              "name": "FILE-RECORD-INFO"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 62,
+            "attributes": {
+              "name": "FILE-RECORD-INFO-P1-120"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 89,
+            "attributes": {
+              "name": "FILE-RECORD-INFO-P121-240"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 97,
+            "attributes": {
+              "name": "T-RESULTS"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 99,
+            "attributes": {
+              "name": "PAR-NAME"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 109,
+            "attributes": {
+              "name": "T-COMPUTED"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 112,
+            "attributes": {
+              "name": "MPUTED-X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 118,
+            "attributes": {
+              "name": "COMPUTED-A"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 122,
+            "attributes": {
+              "name": "T-CORRECT"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 125,
+            "attributes": {
+              "name": "CORRECT-X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 131,
+            "attributes": {
+              "name": "CORRECT-A"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 136,
+            "attributes": {
+              "name": "S-C-1"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 145,
+            "attributes": {
+              "name": "S-C-2"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 162,
+            "attributes": {
+              "name": "S-H-1"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 165,
+            "attributes": {
+              "name": "VALIDATION"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 167,
+            "attributes": {
+              "name": "S-H-2A"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 175,
+            "attributes": {
+              "name": "S-H-2B"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 184,
+            "attributes": {
+              "name": "TECH"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 185,
+            "attributes": {
+              "name": "S-H-3"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 192,
+            "attributes": {
+              "name": "S-E-1"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 197,
+            "attributes": {
+              "name": "S-E-2"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 200,
+            "attributes": {
+              "name": "CCVS-E-2-2"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 205,
+            "attributes": {
+              "name": "S-E-3"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 210,
+            "attributes": {
+              "name": "TECH"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 214,
+            "attributes": {
+              "name": "S-E-4"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 219,
+            "attributes": {
+              "name": "EXECUTED"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 220,
+            "attributes": {
+              "name": "NFO"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 222,
+            "attributes": {
+              "name": "INFO-TEXT"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 228,
+            "attributes": {
+              "name": "HEN-LINE"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 234,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": ""
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 235,
+            "attributes": {
+              "name": "TIVES"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 237,
+            "attributes": {
+              "name": "PRINT-FILE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 238,
+            "attributes": {
+              "name": "ILE-ERROR-PROCESS"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 239,
+            "attributes": {
+              "name": "T"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 242,
+            "attributes": {
+              "name": "ERROR-PROCESS"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 243,
+            "attributes": {
+              "name": "DECL-EXEC-O"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 246,
+            "attributes": {
+              "name": "RROR-PROCESS"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 247,
+            "attributes": {
+              "name": "DECL-EXEC-I"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 249,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "END-DECLS"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 250,
+            "attributes": {
+              "name": "REC-CT"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 251,
+            "attributes": {
+              "name": "FEATURE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 252,
+            "attributes": {
+              "name": "PAR-NAME"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 253,
+            "attributes": {
+              "name": "DECL-EOF-READ-01"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 254,
+            "attributes": {
+              "name": "LETE-01"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 255,
+            "attributes": {
+              "name": "DECL-DE-LETE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 256,
+            "attributes": {
+              "name": "DECL-TEST-01-END"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 257,
+            "attributes": {
+              "name": "F-READ-01"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 258,
+            "attributes": {
+              "name": "ST-01-END"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 259,
+            "attributes": {
+              "name": "REC-CT"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 260,
+            "attributes": {
+              "name": "DECL-EOF-READ-02"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 261,
+            "attributes": {
+              "name": "LETE-02"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 262,
+            "attributes": {
+              "name": "DECL-DE-LETE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 263,
+            "attributes": {
+              "name": "DECL-TEST-02-END"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 264,
+            "attributes": {
+              "name": "F-READ-02"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 265,
+            "attributes": {
+              "name": "ST-02-END"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 266,
+            "attributes": {
+              "name": "DUMMY-RECORD"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 267,
+            "attributes": {
+              "name": "DECL-WRITE-LINE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 269,
+            "attributes": {
+              "name": "DUMMY-RECORD"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 271,
+            "attributes": {
+              "name": "END-DECLS"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 272,
+            "attributes": {
+              "name": "SS"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 273,
+            "attributes": {
+              "name": "P-OR-F"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 274,
+            "attributes": {
+              "name": "PASS-COUNTER"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 275,
+            "attributes": {
+              "name": "DECL-PRINT-DETAIL"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 276,
+            "attributes": {
+              "name": "IL"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 277,
+            "attributes": {
+              "name": "P-OR-F"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 278,
+            "attributes": {
+              "name": "ERROR-COUNTER"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 279,
+            "attributes": {
+              "name": "DECL-PRINT-DETAIL"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 281,
+            "attributes": {
+              "name": "RE-MARK"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 282,
+            "attributes": {
+              "name": "P-OR-F"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 283,
+            "attributes": {
+              "name": "DELETE-COUNTER"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 284,
+            "attributes": {
+              "name": "DECL-PRINT-DETAIL"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 285,
+            "attributes": {
+              "name": "INT-DETAIL"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 287,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\".\"",
+                    "TO",
+                    "PARDOT-X"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 288,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "REC-CT",
+                    "TO",
+                    "DOTVALUE"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 289,
+            "attributes": {
+              "name": "PRINT-REC"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 290,
+            "attributes": {
+              "name": "DECL-WRITE-LINE"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 292,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "DECL-WRITE-LINE"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 293,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "DECL-FAIL-ROUTINE",
+                    "THRU",
+                    "DECL-FAIL-EX",
+                    "E"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 295,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "DECL-BAIL",
+                    "THRU",
+                    "DECL-BAIL-EX"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 296,
+            "attributes": {
+              "name": "P-OR-F"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 297,
+            "attributes": {
+              "name": "COMPUTED-X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 298,
+            "attributes": {
+              "name": "CORRECT-X"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 300,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "SPACE",
+                    "TO",
+                    "PAR-NAME"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 301,
+            "attributes": {
+              "name": "RE-MARK"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 302,
+            "attributes": {
+              "name": "ITE-LINE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 303,
+            "attributes": {
+              "name": "RECORD-COUNT"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 304,
+            "attributes": {
+              "name": "DECL-WRT-LN"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 305,
+            "attributes": {
+              "name": "T-LN"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 307,
+            "attributes": {
+              "name": "DUMMY-RECORD"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 308,
+            "attributes": {
+              "name": "IL-ROUTINE"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 309,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "DECL-FAIL-WRITE"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 310,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "DECL-FAIL-WRITE"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 311,
+            "attributes": {
+              "name": "INF-ANSI-REFERENCE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 312,
+            "attributes": {
+              "name": "INFO-TEXT"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 313,
+            "attributes": {
+              "name": "DUMMY-RECORD"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 315,
+            "attributes": {
+              "name": "INF-ANSI-REFERENCE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 316,
+            "attributes": {
+              "name": "DECL-FAIL-EX"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 317,
+            "attributes": {
+              "name": "IL-WRITE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 320,
+            "attributes": {
+              "name": "COR-ANSI-REFERENCE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 323,
+            "attributes": {
+              "name": "COR-ANSI-REFERENCE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 324,
+            "attributes": {
+              "name": "IL-EX"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 325,
+            "attributes": {
+              "name": "T"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 326,
+            "attributes": {
+              "name": "IL"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 327,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "DECL-BAIL-WRITE"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 328,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "DECL-BAIL-EX"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 329,
+            "attributes": {
+              "name": "IL-WRITE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 330,
+            "attributes": {
+              "name": "XXCORRECT"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 331,
+            "attributes": {
+              "name": "XXCOMPUTED"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 332,
+            "attributes": {
+              "name": "DUMMY-RECORD"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 334,
+            "attributes": {
+              "name": "IL-EX"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 335,
+            "attributes": {
+              "name": "T"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 336,
+            "attributes": {
+              "name": "LS"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 337,
+            "attributes": {
+              "name": "LARATIVES"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 338,
+            "attributes": {
+              "name": "ECTION"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 339,
+            "attributes": {
+              "name": "LES"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 340,
+            "attributes": {
+              "name": "PRINT-FILE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 341,
+            "attributes": {
+              "name": "TEST-ID"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 342,
+            "attributes": {
+              "name": "ID-AGAIN"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 343,
+            "attributes": {
+              "name": "TEST-RESULTS"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 344,
+            "attributes": {
+              "name": "COLUMN-NAMES-ROUTINE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 345,
+            "attributes": {
+              "name": "REC-SKEL-SUB"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 347,
+            "attributes": {
+              "name": "CCVS1-EXIT"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 348,
+            "attributes": {
+              "name": "IT-FILE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 349,
+            "attributes": {
+              "name": "REC-SKL-SUB"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 352,
+            "attributes": {
+              "name": "ILES"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 353,
+            "attributes": {
+              "name": "END-ROUTINE-13"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 354,
+            "attributes": {
+              "name": "PRINT-FILE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 355,
+            "attributes": {
+              "name": "TE-CCVS"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 358,
+            "attributes": {
+              "name": "P-OR-F"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 359,
+            "attributes": {
+              "name": "INSPECT-COUNTER"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 360,
+            "attributes": {
+              "name": "PRINT-DETAIL"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 362,
+            "attributes": {
+              "name": "P-OR-F"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 363,
+            "attributes": {
+              "name": "PASS-COUNTER"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 364,
+            "attributes": {
+              "name": "PRINT-DETAIL"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 366,
+            "attributes": {
+              "name": "P-OR-F"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 367,
+            "attributes": {
+              "name": "ERROR-COUNTER"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 368,
+            "attributes": {
+              "name": "PRINT-DETAIL"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 370,
+            "attributes": {
+              "name": "RE-MARK"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 371,
+            "attributes": {
+              "name": "P-OR-F"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 372,
+            "attributes": {
+              "name": "DELETE-COUNTER"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 373,
+            "attributes": {
+              "name": "PRINT-DETAIL"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 374,
+            "attributes": {
+              "name": "ETAIL"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 376,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\".\"",
+                    "TO",
+                    "PARDOT-X"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 377,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "REC-CT",
+                    "TO",
+                    "DOTVALUE"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 378,
+            "attributes": {
+              "name": "PRINT-REC"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 379,
+            "attributes": {
+              "name": "WRITE-LINE"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 381,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "WRITE-LINE"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 382,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "FAIL-ROUTINE",
+                    "THRU",
+                    "FAIL-ROUTINE-EX",
+                    "E"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 384,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "BAIL-OUT",
+                    "THRU",
+                    "BAIL-OUT-EX"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 385,
+            "attributes": {
+              "name": "P-OR-F"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 386,
+            "attributes": {
+              "name": "COMPUTED-X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 387,
+            "attributes": {
+              "name": "CORRECT-X"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 388,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "SPACE",
+                    "TO",
+                    "PAR-NAME"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 389,
+            "attributes": {
+              "name": "RE-MARK"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 390,
+            "attributes": {
+              "name": "UTINE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 391,
+            "attributes": {
+              "name": "DUMMY-RECORD"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 391,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "WRITE-LINE",
+                    "2",
+                    "TIMES"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 392,
+            "attributes": {
+              "name": "DUMMY-RECORD"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 392,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "WRITE-LINE",
+                    "2",
+                    "TIMES"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 393,
+            "attributes": {
+              "name": "DUMMY-RECORD"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 393,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "WRITE-LINE",
+                    "3",
+                    "TIMES"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 394,
+            "attributes": {
+              "name": "DUMMY-RECORD"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 394,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "WRITE-LINE",
+                    "3",
+                    "TIMES"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 395,
+            "attributes": {
+              "name": "NAMES-ROUTINE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 396,
+            "attributes": {
+              "name": "DUMMY-RECORD"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 396,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "WRITE-LINE"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 397,
+            "attributes": {
+              "name": "DUMMY-RECORD"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 397,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "WRITE-LINE",
+                    "2",
+                    "TIMES"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 398,
+            "attributes": {
+              "name": "DUMMY-RECORD"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 398,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "WRITE-LINE"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 399,
+            "attributes": {
+              "name": "TINE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 400,
+            "attributes": {
+              "name": "DUMMY-RECORD"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 403,
+            "attributes": {
+              "name": "DUMMY-RECORD"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 405,
+            "attributes": {
+              "name": "TINE-1"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 407,
+            "attributes": {
+              "name": "ERROR-HOLD"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 408,
+            "attributes": {
+              "name": "ERROR-HOLD"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 409,
+            "attributes": {
+              "name": "ERROR-HOLD"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 410,
+            "attributes": {
+              "name": "CCVS-E-4-1"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 411,
+            "attributes": {
+              "name": "CCVS-E-4-2"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 412,
+            "attributes": {
+              "name": "CCVS-E-2-2"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 414,
+            "attributes": {
+              "name": "WRITE-LINE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 415,
+            "attributes": {
+              "name": "ENDER-DESC"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 417,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"NO \"",
+                    "TO",
+                    "ERROR-TOTAL",
+                    "E"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 419,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "ERROR-COUNTER",
+                    "TO",
+                    "ERROR-TOTAL"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 420,
+            "attributes": {
+              "name": "DUMMY-RECORD"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 421,
+            "attributes": {
+              "name": "WRITE-LINE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 422,
+            "attributes": {
+              "name": "TINE-13"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 424,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"NO \"",
+                    "TO",
+                    "ERROR-TOTAL",
+                    "E"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 426,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "DELETE-COUNTER",
+                    "TO",
+                    "ERROR-TOTAL"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 427,
+            "attributes": {
+              "name": "ENDER-DESC"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 428,
+            "attributes": {
+              "name": "DUMMY-RECORD"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 429,
+            "attributes": {
+              "name": "WRITE-LINE"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 431,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"NO \"",
+                    "TO",
+                    "ERROR-TOTAL",
+                    "E"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 433,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "INSPECT-COUNTER",
+                    "TO",
+                    "ERROR-TOTAL"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 434,
+            "attributes": {
+              "name": "ENDER-DESC"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 435,
+            "attributes": {
+              "name": "DUMMY-RECORD"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 435,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "WRITE-LINE"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 436,
+            "attributes": {
+              "name": "DUMMY-RECORD"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 436,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "WRITE-LINE"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 437,
+            "attributes": {
+              "name": "INE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 438,
+            "attributes": {
+              "name": "RECORD-COUNT"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 439,
+            "attributes": {
+              "name": "WRT-LN"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 442,
+            "attributes": {
+              "name": "DUMMY-RECORD"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 443,
+            "attributes": {
+              "name": "INE-PRINT"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 444,
+            "attributes": {
+              "name": "WRT-LN"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 445,
+            "attributes": {
+              "name": "UTINE"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 446,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "FAIL-ROUTINE-WRITE"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 447,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "FAIL-ROUTINE-WRITE"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 448,
+            "attributes": {
+              "name": "INF-ANSI-REFERENCE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 449,
+            "attributes": {
+              "name": "INFO-TEXT"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 450,
+            "attributes": {
+              "name": "DUMMY-RECORD"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 452,
+            "attributes": {
+              "name": "INF-ANSI-REFERENCE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 453,
+            "attributes": {
+              "name": "FAIL-ROUTINE-EX"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 454,
+            "attributes": {
+              "name": "UTINE-WRITE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 457,
+            "attributes": {
+              "name": "COR-ANSI-REFERENCE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 460,
+            "attributes": {
+              "name": "COR-ANSI-REFERENCE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 461,
+            "attributes": {
+              "name": "UTINE-EX"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 462,
+            "attributes": {
+              "name": "T"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 463,
+            "attributes": {
+              "name": "T"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 464,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "BAIL-OUT-WRITE"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 465,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "BAIL-OUT-EX"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 466,
+            "attributes": {
+              "name": "T-WRITE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 467,
+            "attributes": {
+              "name": "XXCORRECT"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 468,
+            "attributes": {
+              "name": "XXCOMPUTED"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 469,
+            "attributes": {
+              "name": "INF-ANSI-REFERENCE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 470,
+            "attributes": {
+              "name": "DUMMY-RECORD"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 472,
+            "attributes": {
+              "name": "INF-ANSI-REFERENCE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 473,
+            "attributes": {
+              "name": "T-EX"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 474,
+            "attributes": {
+              "name": "T"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 475,
+            "attributes": {
+              "name": "XIT"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 476,
+            "attributes": {
+              "name": "T"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 478,
+            "attributes": {
+              "name": "T"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 479,
+            "attributes": {
+              "name": "DELETE-SW"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 490,
+            "attributes": {
+              "name": "T-01"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 491,
+            "attributes": {
+              "name": "REC-CT"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 492,
+            "attributes": {
+              "name": "DECL-EXEC-SW"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 493,
+            "attributes": {
+              "name": "SQ-FS4-STATUS"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 494,
+            "attributes": {
+              "name": "DECL-EXEC-I"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 495,
+            "attributes": {
+              "name": "DECL-EXEC-O"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 496,
+            "attributes": {
+              "name": "FEATURE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 497,
+            "attributes": {
+              "name": "PAR-NAME"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 498,
+            "attributes": {
+              "name": "SEQ-TEST-OP-01"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 499,
+            "attributes": {
+              "name": "ETE-01"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 500,
+            "attributes": {
+              "name": "DELETE-SW-1"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 501,
+            "attributes": {
+              "name": "T-OP-01"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 502,
+            "attributes": {
+              "name": "SQ-FS4"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 503,
+            "attributes": {
+              "name": "T-02"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 504,
+            "attributes": {
+              "name": "REC-CT"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 505,
+            "attributes": {
+              "name": "DECL-EXEC-SW"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 506,
+            "attributes": {
+              "name": "SQ-FS4-STATUS"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 507,
+            "attributes": {
+              "name": "DECL-EXEC-I"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 508,
+            "attributes": {
+              "name": "DECL-EXEC-O"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 510,
+            "attributes": {
+              "name": "FEATURE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 511,
+            "attributes": {
+              "name": "PAR-NAME"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 513,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "SEQ-DELETE-02"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 514,
+            "attributes": {
+              "name": "SEQ-TEST-WR-02"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 515,
+            "attributes": {
+              "name": "ETE-02"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 516,
+            "attributes": {
+              "name": "DELETE-SW-2"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 517,
+            "attributes": {
+              "name": "T-WR-02"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 518,
+            "attributes": {
+              "name": "SQ-FS4-FIRST"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 519,
+            "attributes": {
+              "name": "SQ-FS4-REC-NO"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 520,
+            "attributes": {
+              "name": "SQ-FS4R1-F-G-125"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 521,
+            "attributes": {
+              "name": "T-03"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 522,
+            "attributes": {
+              "name": "REC-CT"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 523,
+            "attributes": {
+              "name": "DECL-EXEC-SW"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 524,
+            "attributes": {
+              "name": "SQ-FS4-STATUS"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 525,
+            "attributes": {
+              "name": "DECL-EXEC-I"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 526,
+            "attributes": {
+              "name": "DECL-EXEC-O"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 527,
+            "attributes": {
+              "name": "FEATURE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 528,
+            "attributes": {
+              "name": "PAR-NAME"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 530,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "SEQ-DELETE-03"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 531,
+            "attributes": {
+              "name": "SEQ-TEST-CL-03"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 532,
+            "attributes": {
+              "name": "ETE-03"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 533,
+            "attributes": {
+              "name": "DELETE-SW-2"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 534,
+            "attributes": {
+              "name": "T-CL-03"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 535,
+            "attributes": {
+              "name": "SQ-FS4"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 536,
+            "attributes": {
+              "name": "T-04"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 537,
+            "attributes": {
+              "name": "REC-CT"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 539,
+            "attributes": {
+              "name": "DECL-EXEC-SW"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 540,
+            "attributes": {
+              "name": "SQ-FS4-STATUS"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 541,
+            "attributes": {
+              "name": "DECL-EXEC-I"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 542,
+            "attributes": {
+              "name": "DECL-EXEC-O"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 543,
+            "attributes": {
+              "name": "FEATURE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 544,
+            "attributes": {
+              "name": "PAR-NAME"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 546,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "SEQ-DELETE-04"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 547,
+            "attributes": {
+              "name": "SEQ-TEST-OP-04"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 548,
+            "attributes": {
+              "name": "ETE-04"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 549,
+            "attributes": {
+              "name": "DELETE-SW-2"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 550,
+            "attributes": {
+              "name": "T-OP-04"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 551,
+            "attributes": {
+              "name": "SQ-FS4"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 552,
+            "attributes": {
+              "name": "SQ-FS4R1-F-G-125"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 553,
+            "attributes": {
+              "name": "T-05"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 554,
+            "attributes": {
+              "name": "REC-CT"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 555,
+            "attributes": {
+              "name": "DECL-EXEC-SW"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 556,
+            "attributes": {
+              "name": "SQ-FS4-STATUS"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 557,
+            "attributes": {
+              "name": "DECL-EXEC-I"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 558,
+            "attributes": {
+              "name": "DECL-EXEC-O"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 559,
+            "attributes": {
+              "name": "FEATURE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 560,
+            "attributes": {
+              "name": "PAR-NAME"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 562,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "SEQ-DELETE-05"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 563,
+            "attributes": {
+              "name": "SEQ-TEST-RD-05"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 564,
+            "attributes": {
+              "name": "ETE-05"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 565,
+            "attributes": {
+              "name": "DELETE-SW-2"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 566,
+            "attributes": {
+              "name": "T-RD-05"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 567,
+            "attributes": {
+              "name": "SQ-FS4"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 569,
+            "attributes": {
+              "name": "T-06"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 570,
+            "attributes": {
+              "name": "REC-CT"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 571,
+            "attributes": {
+              "name": "DECL-EXEC-SW"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 572,
+            "attributes": {
+              "name": "SQ-FS4-STATUS"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 573,
+            "attributes": {
+              "name": "DECL-EXEC-I"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 574,
+            "attributes": {
+              "name": "DECL-EXEC-O"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 575,
+            "attributes": {
+              "name": "FEATURE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 576,
+            "attributes": {
+              "name": "PAR-NAME"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 578,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "SEQ-DELETE-06"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 579,
+            "attributes": {
+              "name": "SEQ-TEST-RD-06"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 580,
+            "attributes": {
+              "name": "ETE-06"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 581,
+            "attributes": {
+              "name": "DELETE-SW-2"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 582,
+            "attributes": {
+              "name": "T-RD-06"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 583,
+            "attributes": {
+              "name": "SQ-FS4"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 584,
+            "attributes": {
+              "name": "T-07"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 585,
+            "attributes": {
+              "name": "REC-CT"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 586,
+            "attributes": {
+              "name": "DECL-EXEC-SW"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 587,
+            "attributes": {
+              "name": "SQ-FS4-STATUS"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 588,
+            "attributes": {
+              "name": "DECL-EXEC-I"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 589,
+            "attributes": {
+              "name": "DECL-EXEC-O"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 590,
+            "attributes": {
+              "name": "FEATURE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 591,
+            "attributes": {
+              "name": "PAR-NAME"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 593,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "SEQ-DELETE-07"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 594,
+            "attributes": {
+              "name": "SEQ-TEST-RD-07"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 595,
+            "attributes": {
+              "name": "ETE-07"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 596,
+            "attributes": {
+              "name": "DELETE-SW-2"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 597,
+            "attributes": {
+              "name": "T-RD-07"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 598,
+            "attributes": {
+              "name": "SQ-FS4"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 599,
+            "attributes": {
+              "name": "REC-CT"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 600,
+            "attributes": {
+              "name": "FEATURE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 601,
+            "attributes": {
+              "name": "PAR-NAME"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 602,
+            "attributes": {
+              "name": "REC-CT"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 603,
+            "attributes": {
+              "name": "T-07-01-END"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 604,
+            "attributes": {
+              "name": "REC-CT"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 605,
+            "attributes": {
+              "name": "T-07-02-END"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 606,
+            "attributes": {
+              "name": "REC-CT"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 608,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "SEQ-DELETE-07-03"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 609,
+            "attributes": {
+              "name": "SEQ-TEST-RD-07-03"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 610,
+            "attributes": {
+              "name": "ETE-07-03"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 611,
+            "attributes": {
+              "name": "DE-LETE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 612,
+            "attributes": {
+              "name": "SEQ-TEST-07-03-END"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 613,
+            "attributes": {
+              "name": "T-RD-07-03"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 615,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "PASS",
+                    "E"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 617,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "DECL-EXEC-O",
+                    "TO",
+                    "COMPUTED-A"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 618,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"NOT EXECUTED\"",
+                    "TO",
+                    "CORRECT-A"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 619,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"UNEXPECTED EXECUTION OF OUTPUT DECLARATIVE\"",
+                    "TO",
+                    "RE-MARK"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 621,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"VII-2,1.3.5, VII-51,4.6.4(5)\"",
+                    "TO",
+                    "ANSI-REFERENCE"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 622,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "FAIL"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 623,
+            "attributes": {
+              "name": "T-07-03-END"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 624,
+            "attributes": {
+              "name": "DELETE-SW-2"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 627,
+            "attributes": {
+              "name": "CLOSE-FILES"
+            },
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "stage1_cobc_status": "",
+  "stage1_cobc_stderr": "",
+  "complexity_tier": "simple",
+  "complexity_score": 10.9,
+  "ast_depth": 4,
+  "unique_verbs": 3,
+  "cross_refs": 17,
+  "stage2_source": "rule-based",
+  "stage2_rule_based_code": "\"\"\"Translated from COBOL program program.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\nstate: _State = _State()\n\ndef computer() -> None:\n    pass\n\ndef xx082() -> None:\n    pass\n\ndef computer() -> None:\n    pass\n\ndef xx083() -> None:\n    pass\n\ndef ntrol() -> None:\n    pass\n\ndef xx055() -> None:\n    pass\n\ndef sq_fs4_status() -> None:\n    pass\n\ndef vision() -> None:\n    pass\n\ndef ction() -> None:\n    pass\n\ndef dummy_record() -> None:\n    pass\n\ndef fs4r1_f_g_125() -> None:\n    pass\n\ndef fs4_status() -> None:\n    pass\n\ndef ete_sw() -> None:\n    pass\n\ndef delete_sw_1_group() -> None:\n    pass\n\ndef e_record_information_rec() -> None:\n    pass\n\ndef file_record_info_skeleton() -> None:\n    pass\n\ndef file_record_info() -> None:\n    pass\n\ndef file_record_info_p1_120() -> None:\n    pass\n\ndef file_record_info_p121_240() -> None:\n    pass\n\ndef t_results() -> None:\n    pass\n\ndef par_name() -> None:\n    pass\n\ndef t_computed() -> None:\n    pass\n\ndef mputed_x() -> None:\n    pass\n\ndef computed_a() -> None:\n    pass\n\ndef t_correct() -> None:\n    pass\n\ndef correct_x() -> None:\n    pass\n\ndef correct_a() -> None:\n    pass\n\ndef s_c_1() -> None:\n    pass\n\ndef s_c_2() -> None:\n    pass\n\ndef s_h_1() -> None:\n    pass\n\ndef validation() -> None:\n    pass\n\ndef s_h_2a() -> None:\n    pass\n\ndef s_h_2b() -> None:\n    pass\n\ndef tech() -> None:\n    pass\n\ndef s_h_3() -> None:\n    pass\n\ndef s_e_1() -> None:\n    pass\n\ndef s_e_2() -> None:\n    pass\n\ndef ccvs_e_2_2() -> None:\n    pass\n\ndef s_e_3() -> None:\n    pass\n\ndef tech() -> None:\n    pass\n\ndef s_e_4() -> None:\n    pass\n\ndef executed() -> None:\n    pass\n\ndef nfo() -> None:\n    pass\n\ndef info_text() -> None:\n    pass\n\ndef hen_line() -> None:\n    pass\n\ndef tives() -> None:\n    pass\n\ndef print_file() -> None:\n    pass\n\ndef ile_error_process() -> None:\n    pass\n\ndef t() -> None:\n    pass\n\ndef error_process() -> None:\n    pass\n\ndef decl_exec_o() -> None:\n    pass\n\ndef rror_process() -> None:\n    pass\n\ndef decl_exec_i() -> None:\n    end_decls()\n    return\n\ndef rec_ct() -> None:\n    pass\n\ndef feature() -> None:\n    pass\n\ndef par_name() -> None:\n    pass\n\ndef decl_eof_read_01() -> None:\n    pass\n\ndef lete_01() -> None:\n    pass\n\ndef decl_de_lete() -> None:\n    pass\n\ndef decl_test_01_end() -> None:\n    pass\n\ndef f_read_01() -> None:\n    pass\n\ndef st_01_end() -> None:\n    pass\n\ndef rec_ct() -> None:\n    pass\n\ndef decl_eof_read_02() -> None:\n    pass\n\ndef lete_02() -> None:\n    pass\n\ndef decl_de_lete() -> None:\n    pass\n\ndef decl_test_02_end() -> None:\n    pass\n\ndef f_read_02() -> None:\n    pass\n\ndef st_02_end() -> None:\n    pass\n\ndef dummy_record() -> None:\n    pass\n\ndef decl_write_line() -> None:\n    pass\n\ndef dummy_record() -> None:\n    pass\n\ndef end_decls() -> None:\n    pass\n\ndef ss() -> None:\n    pass\n\ndef p_or_f() -> None:\n    pass\n\ndef pass_counter() -> None:\n    pass\n\ndef decl_print_detail() -> None:\n    pass\n\ndef il() -> None:\n    pass\n\ndef p_or_f() -> None:\n    pass\n\ndef error_counter() -> None:\n    pass\n\ndef decl_print_detail() -> None:\n    pass\n\ndef re_mark() -> None:\n    pass\n\ndef p_or_f() -> None:\n    pass\n\ndef delete_counter() -> None:\n    pass\n\ndef decl_print_detail() -> None:\n    pass\n\ndef int_detail() -> None:\n    state['pardot_x'] = \".\"\n    state['dotvalue'] = state['rec_ct']\n\ndef print_rec() -> None:\n    pass\n\ndef decl_write_line() -> None:\n    decl_write_line()\n    decl_fail_routine()\n    decl_bail()\n\ndef p_or_f() -> None:\n    pass\n\ndef computed_x() -> None:\n    pass\n\ndef correct_x() -> None:\n    state['par_name'] = space\n\ndef re_mark() -> None:\n    pass\n\ndef ite_line() -> None:\n    pass\n\ndef record_count() -> None:\n    pass\n\ndef decl_wrt_ln() -> None:\n    pass\n\ndef t_ln() -> None:\n    pass\n\ndef dummy_record() -> None:\n    pass\n\ndef il_routine() -> None:\n    decl_fail_write()\n    return\n    decl_fail_write()\n    return\n\ndef inf_ansi_reference() -> None:\n    pass\n\ndef info_text() -> None:\n    pass\n\ndef dummy_record() -> None:\n    pass\n\ndef inf_ansi_reference() -> None:\n    pass\n\ndef decl_fail_ex() -> None:\n    pass\n\ndef il_write() -> None:\n    pass\n\ndef cor_ansi_reference() -> None:\n    pass\n\ndef cor_ansi_reference() -> None:\n    pass\n\ndef il_ex() -> None:\n    pass\n\ndef t() -> None:\n    pass\n\ndef il() -> None:\n    decl_bail_write()\n    return\n    decl_bail_ex()\n    return\n\ndef il_write() -> None:\n    pass\n\ndef xxcorrect() -> None:\n    pass\n\ndef xxcomputed() -> None:\n    pass\n\ndef dummy_record() -> None:\n    pass\n\ndef il_ex() -> None:\n    pass\n\ndef t() -> None:\n    pass\n\ndef ls() -> None:\n    pass\n\ndef laratives() -> None:\n    pass\n\ndef ection() -> None:\n    pass\n\ndef les() -> None:\n    pass\n\ndef print_file() -> None:\n    pass\n\ndef test_id() -> None:\n    pass\n\ndef id_again() -> None:\n    pass\n\ndef test_results() -> None:\n    pass\n\ndef column_names_routine() -> None:\n    pass\n\ndef rec_skel_sub() -> None:\n    pass\n\ndef ccvs1_exit() -> None:\n    pass\n\ndef it_file() -> None:\n    pass\n\ndef rec_skl_sub() -> None:\n    pass\n\ndef iles() -> None:\n    pass\n\ndef end_routine_13() -> None:\n    pass\n\ndef print_file() -> None:\n    pass\n\ndef te_ccvs() -> None:\n    pass\n\ndef p_or_f() -> None:\n    pass\n\ndef inspect_counter() -> None:\n    pass\n\ndef print_detail() -> None:\n    pass\n\ndef p_or_f() -> None:\n    pass\n\ndef pass_counter() -> None:\n    pass\n\ndef print_detail() -> None:\n    pass\n\ndef p_or_f() -> None:\n    pass\n\ndef error_counter() -> None:\n    pass\n\ndef print_detail() -> None:\n    pass\n\ndef re_mark() -> None:\n    pass\n\ndef p_or_f() -> None:\n    pass\n\ndef delete_counter() -> None:\n    pass\n\ndef print_detail() -> None:\n    pass\n\ndef etail() -> None:\n    state['pardot_x'] = \".\"\n    state['dotvalue'] = state['rec_ct']\n\ndef print_rec() -> None:\n    pass\n\ndef write_line() -> None:\n    write_line()\n    fail_routine()\n    bail_out()\n\ndef p_or_f() -> None:\n    pass\n\ndef computed_x() -> None:\n    pass\n\ndef correct_x() -> None:\n    state['par_name'] = space\n\ndef re_mark() -> None:\n    pass\n\ndef utine() -> None:\n    pass\n\ndef dummy_record() -> None:\n    for _ in range(2):\n        write_line()\n\ndef dummy_record() -> None:\n    for _ in range(2):\n        write_line()\n\ndef dummy_record() -> None:\n    for _ in range(3):\n        write_line()\n\ndef dummy_record() -> None:\n    for _ in range(3):\n        write_line()\n\ndef names_routine() -> None:\n    pass\n\ndef dummy_record() -> None:\n    write_line()\n\ndef dummy_record() -> None:\n    for _ in range(2):\n        write_line()\n\ndef dummy_record() -> None:\n    write_line()\n\ndef tine() -> None:\n    pass\n\ndef dummy_record() -> None:\n    pass\n\ndef dummy_record() -> None:\n    pass\n\ndef tine_1() -> None:\n    pass\n\ndef error_hold() -> None:\n    pass\n\ndef error_hold() -> None:\n    pass\n\ndef error_hold() -> None:\n    pass\n\ndef ccvs_e_4_1() -> None:\n    pass\n\ndef ccvs_e_4_2() -> None:\n    pass\n\ndef ccvs_e_2_2() -> None:\n    pass\n\ndef write_line() -> None:\n    pass\n\ndef ender_desc() -> None:\n    state['error_total'] = \"NO \"\n    state['e'] = \"NO \"\n    state['error_total'] = state['error_counter']\n\ndef dummy_record() -> None:\n    pass\n\ndef write_line() -> None:\n    pass\n\ndef tine_13() -> None:\n    state['error_total'] = \"NO \"\n    state['e'] = \"NO \"\n    state['error_total'] = state['delete_counter']\n\ndef ender_desc() -> None:\n    pass\n\ndef dummy_record() -> None:\n    pass\n\ndef write_line() -> None:\n    state['error_total'] = \"NO \"\n    state['e'] = \"NO \"\n    state['error_total'] = state['inspect_counter']\n\ndef ender_desc() -> None:\n    pass\n\ndef dummy_record() -> None:\n    write_line()\n\ndef dummy_record() -> None:\n    write_line()\n\ndef ine() -> None:\n    pass\n\ndef record_count() -> None:\n    pass\n\ndef wrt_ln() -> None:\n    pass\n\ndef dummy_record() -> None:\n    pass\n\ndef ine_print() -> None:\n    pass\n\ndef wrt_ln() -> None:\n    pass\n\ndef utine() -> None:\n    fail_routine_write()\n    return\n    fail_routine_write()\n    return\n\ndef inf_ansi_reference() -> None:\n    pass\n\ndef info_text() -> None:\n    pass\n\ndef dummy_record() -> None:\n    pass\n\ndef inf_ansi_reference() -> None:\n    pass\n\ndef fail_routine_ex() -> None:\n    pass\n\ndef utine_write() -> None:\n    pass\n\ndef cor_ansi_reference() -> None:\n    pass\n\ndef cor_ansi_reference() -> None:\n    pass\n\ndef utine_ex() -> None:\n    pass\n\ndef t() -> None:\n    pass\n\ndef t() -> None:\n    bail_out_write()\n    return\n    bail_out_ex()\n    return\n\ndef t_write() -> None:\n    pass\n\ndef xxcorrect() -> None:\n    pass\n\ndef xxcomputed() -> None:\n    pass\n\ndef inf_ansi_reference() -> None:\n    pass\n\ndef dummy_record() -> None:\n    pass\n\ndef inf_ansi_reference() -> None:\n    pass\n\ndef t_ex() -> None:\n    pass\n\ndef t() -> None:\n    pass\n\ndef xit() -> None:\n    pass\n\ndef t() -> None:\n    pass\n\ndef t() -> None:\n    pass\n\ndef delete_sw() -> None:\n    pass\n\ndef t_01() -> None:\n    pass\n\ndef rec_ct() -> None:\n    pass\n\ndef decl_exec_sw() -> None:\n    pass\n\ndef sq_fs4_status() -> None:\n    pass\n\ndef decl_exec_i() -> None:\n    pass\n\ndef decl_exec_o() -> None:\n    pass\n\ndef feature() -> None:\n    pass\n\ndef par_name() -> None:\n    pass\n\ndef seq_test_op_01() -> None:\n    pass\n\ndef ete_01() -> None:\n    pass\n\ndef delete_sw_1() -> None:\n    pass\n\ndef t_op_01() -> None:\n    pass\n\ndef sq_fs4() -> None:\n    pass\n\ndef t_02() -> None:\n    pass\n\ndef rec_ct() -> None:\n    pass\n\ndef decl_exec_sw() -> None:\n    pass\n\ndef sq_fs4_status() -> None:\n    pass\n\ndef decl_exec_i() -> None:\n    pass\n\ndef decl_exec_o() -> None:\n    pass\n\ndef feature() -> None:\n    pass\n\ndef par_name() -> None:\n    seq_delete_02()\n    return\n\ndef seq_test_wr_02() -> None:\n    pass\n\ndef ete_02() -> None:\n    pass\n\ndef delete_sw_2() -> None:\n    pass\n\ndef t_wr_02() -> None:\n    pass\n\ndef sq_fs4_first() -> None:\n    pass\n\ndef sq_fs4_rec_no() -> None:\n    pass\n\ndef sq_fs4r1_f_g_125() -> None:\n    pass\n\ndef t_03() -> None:\n    pass\n\ndef rec_ct() -> None:\n    pass\n\ndef decl_exec_sw() -> None:\n    pass\n\ndef sq_fs4_status() -> None:\n    pass\n\ndef decl_exec_i() -> None:\n    pass\n\ndef decl_exec_o() -> None:\n    pass\n\ndef feature() -> None:\n    pass\n\ndef par_name() -> None:\n    seq_delete_03()\n    return\n\ndef seq_test_cl_03() -> None:\n    pass\n\ndef ete_03() -> None:\n    pass\n\ndef delete_sw_2() -> None:\n    pass\n\ndef t_cl_03() -> None:\n    pass\n\ndef sq_fs4() -> None:\n    pass\n\ndef t_04() -> None:\n    pass\n\ndef rec_ct() -> None:\n    pass\n\ndef decl_exec_sw() -> None:\n    pass\n\ndef sq_fs4_status() -> None:\n    pass\n\ndef decl_exec_i() -> None:\n    pass\n\ndef decl_exec_o() -> None:\n    pass\n\ndef feature() -> None:\n    pass\n\ndef par_name() -> None:\n    seq_delete_04()\n    return\n\ndef seq_test_op_04() -> None:\n    pass\n\ndef ete_04() -> None:\n    pass\n\ndef delete_sw_2() -> None:\n    pass\n\ndef t_op_04() -> None:\n    pass\n\ndef sq_fs4() -> None:\n    pass\n\ndef sq_fs4r1_f_g_125() -> None:\n    pass\n\ndef t_05() -> None:\n    pass\n\ndef rec_ct() -> None:\n    pass\n\ndef decl_exec_sw() -> None:\n    pass\n\ndef sq_fs4_status() -> None:\n    pass\n\ndef decl_exec_i() -> None:\n    pass\n\ndef decl_exec_o() -> None:\n    pass\n\ndef feature() -> None:\n    pass\n\ndef par_name() -> None:\n    seq_delete_05()\n    return\n\ndef seq_test_rd_05() -> None:\n    pass\n\ndef ete_05() -> None:\n    pass\n\ndef delete_sw_2() -> None:\n    pass\n\ndef t_rd_05() -> None:\n    pass\n\ndef sq_fs4() -> None:\n    pass\n\ndef t_06() -> None:\n    pass\n\ndef rec_ct() -> None:\n    pass\n\ndef decl_exec_sw() -> None:\n    pass\n\ndef sq_fs4_status() -> None:\n    pass\n\ndef decl_exec_i() -> None:\n    pass\n\ndef decl_exec_o() -> None:\n    pass\n\ndef feature() -> None:\n    pass\n\ndef par_name() -> None:\n    seq_delete_06()\n    return\n\ndef seq_test_rd_06() -> None:\n    pass\n\ndef ete_06() -> None:\n    pass\n\ndef delete_sw_2() -> None:\n    pass\n\ndef t_rd_06() -> None:\n    pass\n\ndef sq_fs4() -> None:\n    pass\n\ndef t_07() -> None:\n    pass\n\ndef rec_ct() -> None:\n    pass\n\ndef decl_exec_sw() -> None:\n    pass\n\ndef sq_fs4_status() -> None:\n    pass\n\ndef decl_exec_i() -> None:\n    pass\n\ndef decl_exec_o() -> None:\n    pass\n\ndef feature() -> None:\n    pass\n\ndef par_name() -> None:\n    seq_delete_07()\n    return\n\ndef seq_test_rd_07() -> None:\n    pass\n\ndef ete_07() -> None:\n    pass\n\ndef delete_sw_2() -> None:\n    pass\n\ndef t_rd_07() -> None:\n    pass\n\ndef sq_fs4() -> None:\n    pass\n\ndef rec_ct() -> None:\n    pass\n\ndef feature() -> None:\n    pass\n\ndef par_name() -> None:\n    pass\n\ndef rec_ct() -> None:\n    pass\n\ndef t_07_01_end() -> None:\n    pass\n\ndef rec_ct() -> None:\n    pass\n\ndef t_07_02_end() -> None:\n    pass\n\ndef rec_ct() -> None:\n    seq_delete_07_03()\n    return\n\ndef seq_test_rd_07_03() -> None:\n    pass\n\ndef ete_07_03() -> None:\n    pass\n\ndef de_lete() -> None:\n    pass\n\ndef seq_test_07_03_end() -> None:\n    pass\n\ndef t_rd_07_03() -> None:\n    pass_()\n    state['computed_a'] = state['decl_exec_o']\n    state['correct_a'] = \"NOT EXECUTED\"\n    state['re_mark'] = \"UNEXPECTED EXECUTION OF OUTPUT DECLARATIVE\"\n    state['ansi_reference'] = \"VII-2,1.3.5, VII-51,4.6.4(5)\"\n    fail()\n\ndef t_07_03_end() -> None:\n    pass\n\ndef delete_sw_2() -> None:\n    pass\n\ndef close_files() -> None:\n    pass\n\nif __name__ == \"__main__\":\n    try:\n        computer()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_neural_code": "",
+  "stage2_final_code": "\"\"\"Translated from COBOL program program.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\nstate: _State = _State()\n\ndef computer() -> None:\n    pass\n\ndef xx082() -> None:\n    pass\n\ndef computer() -> None:\n    pass\n\ndef xx083() -> None:\n    pass\n\ndef ntrol() -> None:\n    pass\n\ndef xx055() -> None:\n    pass\n\ndef sq_fs4_status() -> None:\n    pass\n\ndef vision() -> None:\n    pass\n\ndef ction() -> None:\n    pass\n\ndef dummy_record() -> None:\n    pass\n\ndef fs4r1_f_g_125() -> None:\n    pass\n\ndef fs4_status() -> None:\n    pass\n\ndef ete_sw() -> None:\n    pass\n\ndef delete_sw_1_group() -> None:\n    pass\n\ndef e_record_information_rec() -> None:\n    pass\n\ndef file_record_info_skeleton() -> None:\n    pass\n\ndef file_record_info() -> None:\n    pass\n\ndef file_record_info_p1_120() -> None:\n    pass\n\ndef file_record_info_p121_240() -> None:\n    pass\n\ndef t_results() -> None:\n    pass\n\ndef par_name() -> None:\n    pass\n\ndef t_computed() -> None:\n    pass\n\ndef mputed_x() -> None:\n    pass\n\ndef computed_a() -> None:\n    pass\n\ndef t_correct() -> None:\n    pass\n\ndef correct_x() -> None:\n    pass\n\ndef correct_a() -> None:\n    pass\n\ndef s_c_1() -> None:\n    pass\n\ndef s_c_2() -> None:\n    pass\n\ndef s_h_1() -> None:\n    pass\n\ndef validation() -> None:\n    pass\n\ndef s_h_2a() -> None:\n    pass\n\ndef s_h_2b() -> None:\n    pass\n\ndef tech() -> None:\n    pass\n\ndef s_h_3() -> None:\n    pass\n\ndef s_e_1() -> None:\n    pass\n\ndef s_e_2() -> None:\n    pass\n\ndef ccvs_e_2_2() -> None:\n    pass\n\ndef s_e_3() -> None:\n    pass\n\ndef tech() -> None:\n    pass\n\ndef s_e_4() -> None:\n    pass\n\ndef executed() -> None:\n    pass\n\ndef nfo() -> None:\n    pass\n\ndef info_text() -> None:\n    pass\n\ndef hen_line() -> None:\n    pass\n\ndef tives() -> None:\n    pass\n\ndef print_file() -> None:\n    pass\n\ndef ile_error_process() -> None:\n    pass\n\ndef t() -> None:\n    pass\n\ndef error_process() -> None:\n    pass\n\ndef decl_exec_o() -> None:\n    pass\n\ndef rror_process() -> None:\n    pass\n\ndef decl_exec_i() -> None:\n    end_decls()\n    return\n\ndef rec_ct() -> None:\n    pass\n\ndef feature() -> None:\n    pass\n\ndef par_name() -> None:\n    pass\n\ndef decl_eof_read_01() -> None:\n    pass\n\ndef lete_01() -> None:\n    pass\n\ndef decl_de_lete() -> None:\n    pass\n\ndef decl_test_01_end() -> None:\n    pass\n\ndef f_read_01() -> None:\n    pass\n\ndef st_01_end() -> None:\n    pass\n\ndef rec_ct() -> None:\n    pass\n\ndef decl_eof_read_02() -> None:\n    pass\n\ndef lete_02() -> None:\n    pass\n\ndef decl_de_lete() -> None:\n    pass\n\ndef decl_test_02_end() -> None:\n    pass\n\ndef f_read_02() -> None:\n    pass\n\ndef st_02_end() -> None:\n    pass\n\ndef dummy_record() -> None:\n    pass\n\ndef decl_write_line() -> None:\n    pass\n\ndef dummy_record() -> None:\n    pass\n\ndef end_decls() -> None:\n    pass\n\ndef ss() -> None:\n    pass\n\ndef p_or_f() -> None:\n    pass\n\ndef pass_counter() -> None:\n    pass\n\ndef decl_print_detail() -> None:\n    pass\n\ndef il() -> None:\n    pass\n\ndef p_or_f() -> None:\n    pass\n\ndef error_counter() -> None:\n    pass\n\ndef decl_print_detail() -> None:\n    pass\n\ndef re_mark() -> None:\n    pass\n\ndef p_or_f() -> None:\n    pass\n\ndef delete_counter() -> None:\n    pass\n\ndef decl_print_detail() -> None:\n    pass\n\ndef int_detail() -> None:\n    state['pardot_x'] = \".\"\n    state['dotvalue'] = state['rec_ct']\n\ndef print_rec() -> None:\n    pass\n\ndef decl_write_line() -> None:\n    decl_write_line()\n    decl_fail_routine()\n    decl_bail()\n\ndef p_or_f() -> None:\n    pass\n\ndef computed_x() -> None:\n    pass\n\ndef correct_x() -> None:\n    state['par_name'] = space\n\ndef re_mark() -> None:\n    pass\n\ndef ite_line() -> None:\n    pass\n\ndef record_count() -> None:\n    pass\n\ndef decl_wrt_ln() -> None:\n    pass\n\ndef t_ln() -> None:\n    pass\n\ndef dummy_record() -> None:\n    pass\n\ndef il_routine() -> None:\n    decl_fail_write()\n    return\n    decl_fail_write()\n    return\n\ndef inf_ansi_reference() -> None:\n    pass\n\ndef info_text() -> None:\n    pass\n\ndef dummy_record() -> None:\n    pass\n\ndef inf_ansi_reference() -> None:\n    pass\n\ndef decl_fail_ex() -> None:\n    pass\n\ndef il_write() -> None:\n    pass\n\ndef cor_ansi_reference() -> None:\n    pass\n\ndef cor_ansi_reference() -> None:\n    pass\n\ndef il_ex() -> None:\n    pass\n\ndef t() -> None:\n    pass\n\ndef il() -> None:\n    decl_bail_write()\n    return\n    decl_bail_ex()\n    return\n\ndef il_write() -> None:\n    pass\n\ndef xxcorrect() -> None:\n    pass\n\ndef xxcomputed() -> None:\n    pass\n\ndef dummy_record() -> None:\n    pass\n\ndef il_ex() -> None:\n    pass\n\ndef t() -> None:\n    pass\n\ndef ls() -> None:\n    pass\n\ndef laratives() -> None:\n    pass\n\ndef ection() -> None:\n    pass\n\ndef les() -> None:\n    pass\n\ndef print_file() -> None:\n    pass\n\ndef test_id() -> None:\n    pass\n\ndef id_again() -> None:\n    pass\n\ndef test_results() -> None:\n    pass\n\ndef column_names_routine() -> None:\n    pass\n\ndef rec_skel_sub() -> None:\n    pass\n\ndef ccvs1_exit() -> None:\n    pass\n\ndef it_file() -> None:\n    pass\n\ndef rec_skl_sub() -> None:\n    pass\n\ndef iles() -> None:\n    pass\n\ndef end_routine_13() -> None:\n    pass\n\ndef print_file() -> None:\n    pass\n\ndef te_ccvs() -> None:\n    pass\n\ndef p_or_f() -> None:\n    pass\n\ndef inspect_counter() -> None:\n    pass\n\ndef print_detail() -> None:\n    pass\n\ndef p_or_f() -> None:\n    pass\n\ndef pass_counter() -> None:\n    pass\n\ndef print_detail() -> None:\n    pass\n\ndef p_or_f() -> None:\n    pass\n\ndef error_counter() -> None:\n    pass\n\ndef print_detail() -> None:\n    pass\n\ndef re_mark() -> None:\n    pass\n\ndef p_or_f() -> None:\n    pass\n\ndef delete_counter() -> None:\n    pass\n\ndef print_detail() -> None:\n    pass\n\ndef etail() -> None:\n    state['pardot_x'] = \".\"\n    state['dotvalue'] = state['rec_ct']\n\ndef print_rec() -> None:\n    pass\n\ndef write_line() -> None:\n    write_line()\n    fail_routine()\n    bail_out()\n\ndef p_or_f() -> None:\n    pass\n\ndef computed_x() -> None:\n    pass\n\ndef correct_x() -> None:\n    state['par_name'] = space\n\ndef re_mark() -> None:\n    pass\n\ndef utine() -> None:\n    pass\n\ndef dummy_record() -> None:\n    for _ in range(2):\n        write_line()\n\ndef dummy_record() -> None:\n    for _ in range(2):\n        write_line()\n\ndef dummy_record() -> None:\n    for _ in range(3):\n        write_line()\n\ndef dummy_record() -> None:\n    for _ in range(3):\n        write_line()\n\ndef names_routine() -> None:\n    pass\n\ndef dummy_record() -> None:\n    write_line()\n\ndef dummy_record() -> None:\n    for _ in range(2):\n        write_line()\n\ndef dummy_record() -> None:\n    write_line()\n\ndef tine() -> None:\n    pass\n\ndef dummy_record() -> None:\n    pass\n\ndef dummy_record() -> None:\n    pass\n\ndef tine_1() -> None:\n    pass\n\ndef error_hold() -> None:\n    pass\n\ndef error_hold() -> None:\n    pass\n\ndef error_hold() -> None:\n    pass\n\ndef ccvs_e_4_1() -> None:\n    pass\n\ndef ccvs_e_4_2() -> None:\n    pass\n\ndef ccvs_e_2_2() -> None:\n    pass\n\ndef write_line() -> None:\n    pass\n\ndef ender_desc() -> None:\n    state['error_total'] = \"NO \"\n    state['e'] = \"NO \"\n    state['error_total'] = state['error_counter']\n\ndef dummy_record() -> None:\n    pass\n\ndef write_line() -> None:\n    pass\n\ndef tine_13() -> None:\n    state['error_total'] = \"NO \"\n    state['e'] = \"NO \"\n    state['error_total'] = state['delete_counter']\n\ndef ender_desc() -> None:\n    pass\n\ndef dummy_record() -> None:\n    pass\n\ndef write_line() -> None:\n    state['error_total'] = \"NO \"\n    state['e'] = \"NO \"\n    state['error_total'] = state['inspect_counter']\n\ndef ender_desc() -> None:\n    pass\n\ndef dummy_record() -> None:\n    write_line()\n\ndef dummy_record() -> None:\n    write_line()\n\ndef ine() -> None:\n    pass\n\ndef record_count() -> None:\n    pass\n\ndef wrt_ln() -> None:\n    pass\n\ndef dummy_record() -> None:\n    pass\n\ndef ine_print() -> None:\n    pass\n\ndef wrt_ln() -> None:\n    pass\n\ndef utine() -> None:\n    fail_routine_write()\n    return\n    fail_routine_write()\n    return\n\ndef inf_ansi_reference() -> None:\n    pass\n\ndef info_text() -> None:\n    pass\n\ndef dummy_record() -> None:\n    pass\n\ndef inf_ansi_reference() -> None:\n    pass\n\ndef fail_routine_ex() -> None:\n    pass\n\ndef utine_write() -> None:\n    pass\n\ndef cor_ansi_reference() -> None:\n    pass\n\ndef cor_ansi_reference() -> None:\n    pass\n\ndef utine_ex() -> None:\n    pass\n\ndef t() -> None:\n    pass\n\ndef t() -> None:\n    bail_out_write()\n    return\n    bail_out_ex()\n    return\n\ndef t_write() -> None:\n    pass\n\ndef xxcorrect() -> None:\n    pass\n\ndef xxcomputed() -> None:\n    pass\n\ndef inf_ansi_reference() -> None:\n    pass\n\ndef dummy_record() -> None:\n    pass\n\ndef inf_ansi_reference() -> None:\n    pass\n\ndef t_ex() -> None:\n    pass\n\ndef t() -> None:\n    pass\n\ndef xit() -> None:\n    pass\n\ndef t() -> None:\n    pass\n\ndef t() -> None:\n    pass\n\ndef delete_sw() -> None:\n    pass\n\ndef t_01() -> None:\n    pass\n\ndef rec_ct() -> None:\n    pass\n\ndef decl_exec_sw() -> None:\n    pass\n\ndef sq_fs4_status() -> None:\n    pass\n\ndef decl_exec_i() -> None:\n    pass\n\ndef decl_exec_o() -> None:\n    pass\n\ndef feature() -> None:\n    pass\n\ndef par_name() -> None:\n    pass\n\ndef seq_test_op_01() -> None:\n    pass\n\ndef ete_01() -> None:\n    pass\n\ndef delete_sw_1() -> None:\n    pass\n\ndef t_op_01() -> None:\n    pass\n\ndef sq_fs4() -> None:\n    pass\n\ndef t_02() -> None:\n    pass\n\ndef rec_ct() -> None:\n    pass\n\ndef decl_exec_sw() -> None:\n    pass\n\ndef sq_fs4_status() -> None:\n    pass\n\ndef decl_exec_i() -> None:\n    pass\n\ndef decl_exec_o() -> None:\n    pass\n\ndef feature() -> None:\n    pass\n\ndef par_name() -> None:\n    seq_delete_02()\n    return\n\ndef seq_test_wr_02() -> None:\n    pass\n\ndef ete_02() -> None:\n    pass\n\ndef delete_sw_2() -> None:\n    pass\n\ndef t_wr_02() -> None:\n    pass\n\ndef sq_fs4_first() -> None:\n    pass\n\ndef sq_fs4_rec_no() -> None:\n    pass\n\ndef sq_fs4r1_f_g_125() -> None:\n    pass\n\ndef t_03() -> None:\n    pass\n\ndef rec_ct() -> None:\n    pass\n\ndef decl_exec_sw() -> None:\n    pass\n\ndef sq_fs4_status() -> None:\n    pass\n\ndef decl_exec_i() -> None:\n    pass\n\ndef decl_exec_o() -> None:\n    pass\n\ndef feature() -> None:\n    pass\n\ndef par_name() -> None:\n    seq_delete_03()\n    return\n\ndef seq_test_cl_03() -> None:\n    pass\n\ndef ete_03() -> None:\n    pass\n\ndef delete_sw_2() -> None:\n    pass\n\ndef t_cl_03() -> None:\n    pass\n\ndef sq_fs4() -> None:\n    pass\n\ndef t_04() -> None:\n    pass\n\ndef rec_ct() -> None:\n    pass\n\ndef decl_exec_sw() -> None:\n    pass\n\ndef sq_fs4_status() -> None:\n    pass\n\ndef decl_exec_i() -> None:\n    pass\n\ndef decl_exec_o() -> None:\n    pass\n\ndef feature() -> None:\n    pass\n\ndef par_name() -> None:\n    seq_delete_04()\n    return\n\ndef seq_test_op_04() -> None:\n    pass\n\ndef ete_04() -> None:\n    pass\n\ndef delete_sw_2() -> None:\n    pass\n\ndef t_op_04() -> None:\n    pass\n\ndef sq_fs4() -> None:\n    pass\n\ndef sq_fs4r1_f_g_125() -> None:\n    pass\n\ndef t_05() -> None:\n    pass\n\ndef rec_ct() -> None:\n    pass\n\ndef decl_exec_sw() -> None:\n    pass\n\ndef sq_fs4_status() -> None:\n    pass\n\ndef decl_exec_i() -> None:\n    pass\n\ndef decl_exec_o() -> None:\n    pass\n\ndef feature() -> None:\n    pass\n\ndef par_name() -> None:\n    seq_delete_05()\n    return\n\ndef seq_test_rd_05() -> None:\n    pass\n\ndef ete_05() -> None:\n    pass\n\ndef delete_sw_2() -> None:\n    pass\n\ndef t_rd_05() -> None:\n    pass\n\ndef sq_fs4() -> None:\n    pass\n\ndef t_06() -> None:\n    pass\n\ndef rec_ct() -> None:\n    pass\n\ndef decl_exec_sw() -> None:\n    pass\n\ndef sq_fs4_status() -> None:\n    pass\n\ndef decl_exec_i() -> None:\n    pass\n\ndef decl_exec_o() -> None:\n    pass\n\ndef feature() -> None:\n    pass\n\ndef par_name() -> None:\n    seq_delete_06()\n    return\n\ndef seq_test_rd_06() -> None:\n    pass\n\ndef ete_06() -> None:\n    pass\n\ndef delete_sw_2() -> None:\n    pass\n\ndef t_rd_06() -> None:\n    pass\n\ndef sq_fs4() -> None:\n    pass\n\ndef t_07() -> None:\n    pass\n\ndef rec_ct() -> None:\n    pass\n\ndef decl_exec_sw() -> None:\n    pass\n\ndef sq_fs4_status() -> None:\n    pass\n\ndef decl_exec_i() -> None:\n    pass\n\ndef decl_exec_o() -> None:\n    pass\n\ndef feature() -> None:\n    pass\n\ndef par_name() -> None:\n    seq_delete_07()\n    return\n\ndef seq_test_rd_07() -> None:\n    pass\n\ndef ete_07() -> None:\n    pass\n\ndef delete_sw_2() -> None:\n    pass\n\ndef t_rd_07() -> None:\n    pass\n\ndef sq_fs4() -> None:\n    pass\n\ndef rec_ct() -> None:\n    pass\n\ndef feature() -> None:\n    pass\n\ndef par_name() -> None:\n    pass\n\ndef rec_ct() -> None:\n    pass\n\ndef t_07_01_end() -> None:\n    pass\n\ndef rec_ct() -> None:\n    pass\n\ndef t_07_02_end() -> None:\n    pass\n\ndef rec_ct() -> None:\n    seq_delete_07_03()\n    return\n\ndef seq_test_rd_07_03() -> None:\n    pass\n\ndef ete_07_03() -> None:\n    pass\n\ndef de_lete() -> None:\n    pass\n\ndef seq_test_07_03_end() -> None:\n    pass\n\ndef t_rd_07_03() -> None:\n    pass_()\n    state['computed_a'] = state['decl_exec_o']\n    state['correct_a'] = \"NOT EXECUTED\"\n    state['re_mark'] = \"UNEXPECTED EXECUTION OF OUTPUT DECLARATIVE\"\n    state['ansi_reference'] = \"VII-2,1.3.5, VII-51,4.6.4(5)\"\n    fail()\n\ndef t_07_03_end() -> None:\n    pass\n\ndef delete_sw_2() -> None:\n    pass\n\ndef close_files() -> None:\n    pass\n\nif __name__ == \"__main__\":\n    try:\n        computer()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_warnings": [],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": false,
+  "stage3_refined_code": "",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "",
+  "stage3_error": "",
+  "verdict": "INCONCLUSIVE",
+  "verdict_summary": "4 structural check(s) passed, but no behavioural signal (execution_match / llm_judge) was available.",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "322/322 paragraphs found as Python functions",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "COMPUTER",
+          "XX082",
+          "COMPUTER",
+          "XX083",
+          "NTROL",
+          "XX055",
+          "SQ-FS4-STATUS",
+          "VISION",
+          "CTION",
+          "DUMMY-RECORD",
+          "FS4R1-F-G-125",
+          "FS4-STATUS",
+          "ETE-SW",
+          "DELETE-SW-1-GROUP",
+          "E-RECORD-INFORMATION-REC",
+          "FILE-RECORD-INFO-SKELETON",
+          "FILE-RECORD-INFO",
+          "FILE-RECORD-INFO-P1-120",
+          "FILE-RECORD-INFO-P121-240",
+          "T-RESULTS",
+          "PAR-NAME",
+          "T-COMPUTED",
+          "MPUTED-X",
+          "COMPUTED-A",
+          "T-CORRECT",
+          "CORRECT-X",
+          "CORRECT-A",
+          "S-C-1",
+          "S-C-2",
+          "S-H-1",
+          "VALIDATION",
+          "S-H-2A",
+          "S-H-2B",
+          "TECH",
+          "S-H-3",
+          "S-E-1",
+          "S-E-2",
+          "CCVS-E-2-2",
+          "S-E-3",
+          "TECH",
+          "S-E-4",
+          "EXECUTED",
+          "NFO",
+          "INFO-TEXT",
+          "HEN-LINE",
+          "TIVES",
+          "PRINT-FILE",
+          "ILE-ERROR-PROCESS",
+          "T",
+          "ERROR-PROCESS",
+          "DECL-EXEC-O",
+          "RROR-PROCESS",
+          "DECL-EXEC-I",
+          "REC-CT",
+          "FEATURE",
+          "PAR-NAME",
+          "DECL-EOF-READ-01",
+          "LETE-01",
+          "DECL-DE-LETE",
+          "DECL-TEST-01-END",
+          "F-READ-01",
+          "ST-01-END",
+          "REC-CT",
+          "DECL-EOF-READ-02",
+          "LETE-02",
+          "DECL-DE-LETE",
+          "DECL-TEST-02-END",
+          "F-READ-02",
+          "ST-02-END",
+          "DUMMY-RECORD",
+          "DECL-WRITE-LINE",
+          "DUMMY-RECORD",
+          "END-DECLS",
+          "SS",
+          "P-OR-F",
+          "PASS-COUNTER",
+          "DECL-PRINT-DETAIL",
+          "IL",
+          "P-OR-F",
+          "ERROR-COUNTER",
+          "DECL-PRINT-DETAIL",
+          "RE-MARK",
+          "P-OR-F",
+          "DELETE-COUNTER",
+          "DECL-PRINT-DETAIL",
+          "INT-DETAIL",
+          "PRINT-REC",
+          "DECL-WRITE-LINE",
+          "P-OR-F",
+          "COMPUTED-X",
+          "CORRECT-X",
+          "RE-MARK",
+          "ITE-LINE",
+          "RECORD-COUNT",
+          "DECL-WRT-LN",
+          "T-LN",
+          "DUMMY-RECORD",
+          "IL-ROUTINE",
+          "INF-ANSI-REFERENCE",
+          "INFO-TEXT",
+          "DUMMY-RECORD",
+          "INF-ANSI-REFERENCE",
+          "DECL-FAIL-EX",
+          "IL-WRITE",
+          "COR-ANSI-REFERENCE",
+          "COR-ANSI-REFERENCE",
+          "IL-EX",
+          "T",
+          "IL",
+          "IL-WRITE",
+          "XXCORRECT",
+          "XXCOMPUTED",
+          "DUMMY-RECORD",
+          "IL-EX",
+          "T",
+          "LS",
+          "LARATIVES",
+          "ECTION",
+          "LES",
+          "PRINT-FILE",
+          "TEST-ID",
+          "ID-AGAIN",
+          "TEST-RESULTS",
+          "COLUMN-NAMES-ROUTINE",
+          "REC-SKEL-SUB",
+          "CCVS1-EXIT",
+          "IT-FILE",
+          "REC-SKL-SUB",
+          "ILES",
+          "END-ROUTINE-13",
+          "PRINT-FILE",
+          "TE-CCVS",
+          "P-OR-F",
+          "INSPECT-COUNTER",
+          "PRINT-DETAIL",
+          "P-OR-F",
+          "PASS-COUNTER",
+          "PRINT-DETAIL",
+          "P-OR-F",
+          "ERROR-COUNTER",
+          "PRINT-DETAIL",
+          "RE-MARK",
+          "P-OR-F",
+          "DELETE-COUNTER",
+          "PRINT-DETAIL",
+          "ETAIL",
+          "PRINT-REC",
+          "WRITE-LINE",
+          "P-OR-F",
+          "COMPUTED-X",
+          "CORRECT-X",
+          "RE-MARK",
+          "UTINE",
+          "DUMMY-RECORD",
+          "DUMMY-RECORD",
+          "DUMMY-RECORD",
+          "DUMMY-RECORD",
+          "NAMES-ROUTINE",
+          "DUMMY-RECORD",
+          "DUMMY-RECORD",
+          "DUMMY-RECORD",
+          "TINE",
+          "DUMMY-RECORD",
+          "DUMMY-RECORD",
+          "TINE-1",
+          "ERROR-HOLD",
+          "ERROR-HOLD",
+          "ERROR-HOLD",
+          "CCVS-E-4-1",
+          "CCVS-E-4-2",
+          "CCVS-E-2-2",
+          "WRITE-LINE",
+          "ENDER-DESC",
+          "DUMMY-RECORD",
+          "WRITE-LINE",
+          "TINE-13",
+          "ENDER-DESC",
+          "DUMMY-RECORD",
+          "WRITE-LINE",
+          "ENDER-DESC",
+          "DUMMY-RECORD",
+          "DUMMY-RECORD",
+          "INE",
+          "RECORD-COUNT",
+          "WRT-LN",
+          "DUMMY-RECORD",
+          "INE-PRINT",
+          "WRT-LN",
+          "UTINE",
+          "INF-ANSI-REFERENCE",
+          "INFO-TEXT",
+          "DUMMY-RECORD",
+          "INF-ANSI-REFERENCE",
+          "FAIL-ROUTINE-EX",
+          "UTINE-WRITE",
+          "COR-ANSI-REFERENCE",
+          "COR-ANSI-REFERENCE",
+          "UTINE-EX",
+          "T",
+          "T",
+          "T-WRITE",
+          "XXCORRECT",
+          "XXCOMPUTED",
+          "INF-ANSI-REFERENCE",
+          "DUMMY-RECORD",
+          "INF-ANSI-REFERENCE",
+          "T-EX",
+          "T",
+          "XIT",
+          "T",
+          "T",
+          "DELETE-SW",
+          "T-01",
+          "REC-CT",
+          "DECL-EXEC-SW",
+          "SQ-FS4-STATUS",
+          "DECL-EXEC-I",
+          "DECL-EXEC-O",
+          "FEATURE",
+          "PAR-NAME",
+          "SEQ-TEST-OP-01",
+          "ETE-01",
+          "DELETE-SW-1",
+          "T-OP-01",
+          "SQ-FS4",
+          "T-02",
+          "REC-CT",
+          "DECL-EXEC-SW",
+          "SQ-FS4-STATUS",
+          "DECL-EXEC-I",
+          "DECL-EXEC-O",
+          "FEATURE",
+          "PAR-NAME",
+          "SEQ-TEST-WR-02",
+          "ETE-02",
+          "DELETE-SW-2",
+          "T-WR-02",
+          "SQ-FS4-FIRST",
+          "SQ-FS4-REC-NO",
+          "SQ-FS4R1-F-G-125",
+          "T-03",
+          "REC-CT",
+          "DECL-EXEC-SW",
+          "SQ-FS4-STATUS",
+          "DECL-EXEC-I",
+          "DECL-EXEC-O",
+          "FEATURE",
+          "PAR-NAME",
+          "SEQ-TEST-CL-03",
+          "ETE-03",
+          "DELETE-SW-2",
+          "T-CL-03",
+          "SQ-FS4",
+          "T-04",
+          "REC-CT",
+          "DECL-EXEC-SW",
+          "SQ-FS4-STATUS",
+          "DECL-EXEC-I",
+          "DECL-EXEC-O",
+          "FEATURE",
+          "PAR-NAME",
+          "SEQ-TEST-OP-04",
+          "ETE-04",
+          "DELETE-SW-2",
+          "T-OP-04",
+          "SQ-FS4",
+          "SQ-FS4R1-F-G-125",
+          "T-05",
+          "REC-CT",
+          "DECL-EXEC-SW",
+          "SQ-FS4-STATUS",
+          "DECL-EXEC-I",
+          "DECL-EXEC-O",
+          "FEATURE",
+          "PAR-NAME",
+          "SEQ-TEST-RD-05",
+          "ETE-05",
+          "DELETE-SW-2",
+          "T-RD-05",
+          "SQ-FS4",
+          "T-06",
+          "REC-CT",
+          "DECL-EXEC-SW",
+          "SQ-FS4-STATUS",
+          "DECL-EXEC-I",
+          "DECL-EXEC-O",
+          "FEATURE",
+          "PAR-NAME",
+          "SEQ-TEST-RD-06",
+          "ETE-06",
+          "DELETE-SW-2",
+          "T-RD-06",
+          "SQ-FS4",
+          "T-07",
+          "REC-CT",
+          "DECL-EXEC-SW",
+          "SQ-FS4-STATUS",
+          "DECL-EXEC-I",
+          "DECL-EXEC-O",
+          "FEATURE",
+          "PAR-NAME",
+          "SEQ-TEST-RD-07",
+          "ETE-07",
+          "DELETE-SW-2",
+          "T-RD-07",
+          "SQ-FS4",
+          "REC-CT",
+          "FEATURE",
+          "PAR-NAME",
+          "REC-CT",
+          "T-07-01-END",
+          "REC-CT",
+          "T-07-02-END",
+          "REC-CT",
+          "SEQ-TEST-RD-07-03",
+          "ETE-07-03",
+          "DE-LETE",
+          "SEQ-TEST-07-03-END",
+          "T-RD-07-03",
+          "T-07-03-END",
+          "DELETE-SW-2",
+          "CLOSE-FILES"
+        ],
+        "missing": [],
+        "total": 322
+      }
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "COBOL program had no data items to cover.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "body_non_trivial",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "9/9 paragraphs have non-trivial bodies",
+      "skipped_reason": "",
+      "extra": {
+        "non_trivial": [
+          "DECL-WRITE-LINE",
+          "IL",
+          "INT-DETAIL",
+          "IL-ROUTINE",
+          "ETAIL",
+          "WRITE-LINE",
+          "UTINE",
+          "TINE-13",
+          "T-RD-07-03"
+        ],
+        "trivial": [],
+        "exempt": [
+          "COMPUTER",
+          "XX082",
+          "XX083",
+          "NTROL",
+          "XX055",
+          "SQ-FS4-STATUS",
+          "VISION",
+          "CTION",
+          "DUMMY-RECORD",
+          "FS4R1-F-G-125",
+          "FS4-STATUS",
+          "ETE-SW",
+          "DELETE-SW-1-GROUP",
+          "E-RECORD-INFORMATION-REC",
+          "FILE-RECORD-INFO-SKELETON",
+          "FILE-RECORD-INFO",
+          "FILE-RECORD-INFO-P1-120",
+          "FILE-RECORD-INFO-P121-240",
+          "T-RESULTS",
+          "PAR-NAME",
+          "T-COMPUTED",
+          "MPUTED-X",
+          "COMPUTED-A",
+          "T-CORRECT",
+          "CORRECT-X",
+          "CORRECT-A",
+          "S-C-1",
+          "S-C-2",
+          "S-H-1",
+          "VALIDATION",
+          "S-H-2A",
+          "S-H-2B",
+          "TECH",
+          "S-H-3",
+          "S-E-1",
+          "S-E-2",
+          "CCVS-E-2-2",
+          "S-E-3",
+          "S-E-4",
+          "EXECUTED",
+          "NFO",
+          "INFO-TEXT",
+          "HEN-LINE",
+          "TIVES",
+          "PRINT-FILE",
+          "ILE-ERROR-PROCESS",
+          "T",
+          "ERROR-PROCESS",
+          "DECL-EXEC-O",
+          "RROR-PROCESS",
+          "DECL-EXEC-I",
+          "REC-CT",
+          "FEATURE",
+          "DECL-EOF-READ-01",
+          "LETE-01",
+          "DECL-DE-LETE",
+          "DECL-TEST-01-END",
+          "F-READ-01",
+          "ST-01-END",
+          "DECL-EOF-READ-02",
+          "LETE-02",
+          "DECL-TEST-02-END",
+          "F-READ-02",
+          "ST-02-END",
+          "END-DECLS",
+          "SS",
+          "P-OR-F",
+          "PASS-COUNTER",
+          "DECL-PRINT-DETAIL",
+          "ERROR-COUNTER",
+          "RE-MARK",
+          "DELETE-COUNTER",
+          "PRINT-REC",
+          "COMPUTED-X",
+          "ITE-LINE",
+          "RECORD-COUNT",
+          "DECL-WRT-LN",
+          "T-LN",
+          "INF-ANSI-REFERENCE",
+          "DECL-FAIL-EX",
+          "IL-WRITE",
+          "COR-ANSI-REFERENCE",
+          "IL-EX",
+          "XXCORRECT",
+          "XXCOMPUTED",
+          "LS",
+          "LARATIVES",
+          "ECTION",
+          "LES",
+          "TEST-ID",
+          "ID-AGAIN",
+          "TEST-RESULTS",
+          "COLUMN-NAMES-ROUTINE",
+          "REC-SKEL-SUB",
+          "CCVS1-EXIT",
+          "IT-FILE",
+          "REC-SKL-SUB",
+          "ILES",
+          "END-ROUTINE-13",
+          "TE-CCVS",
+          "INSPECT-COUNTER",
+          "PRINT-DETAIL",
+          "NAMES-ROUTINE",
+          "TINE",
+          "TINE-1",
+          "ERROR-HOLD",
+          "CCVS-E-4-1",
+          "CCVS-E-4-2",
+          "ENDER-DESC",
+          "INE",
+          "WRT-LN",
+          "INE-PRINT",
+          "FAIL-ROUTINE-EX",
+          "UTINE-WRITE",
+          "UTINE-EX",
+          "T-WRITE",
+          "T-EX",
+          "XIT",
+          "DELETE-SW",
+          "T-01",
+          "DECL-EXEC-SW",
+          "SEQ-TEST-OP-01",
+          "ETE-01",
+          "DELETE-SW-1",
+          "T-OP-01",
+          "SQ-FS4",
+          "T-02",
+          "SEQ-TEST-WR-02",
+          "ETE-02",
+          "DELETE-SW-2",
+          "T-WR-02",
+          "SQ-FS4-FIRST",
+          "SQ-FS4-REC-NO",
+          "SQ-FS4R1-F-G-125",
+          "T-03",
+          "SEQ-TEST-CL-03",
+          "ETE-03",
+          "T-CL-03",
+          "T-04",
+          "SEQ-TEST-OP-04",
+          "ETE-04",
+          "T-OP-04",
+          "T-05",
+          "SEQ-TEST-RD-05",
+          "ETE-05",
+          "T-RD-05",
+          "T-06",
+          "SEQ-TEST-RD-06",
+          "ETE-06",
+          "T-RD-06",
+          "T-07",
+          "SEQ-TEST-RD-07",
+          "ETE-07",
+          "T-RD-07",
+          "T-07-01-END",
+          "T-07-02-END",
+          "SEQ-TEST-RD-07-03",
+          "ETE-07-03",
+          "DE-LETE",
+          "SEQ-TEST-07-03-END",
+          "T-07-03-END",
+          "CLOSE-FILES"
+        ],
+        "total_eligible": 9
+      }
+    }
+  ],
+  "timestamp": 1779891109.7921999
+}

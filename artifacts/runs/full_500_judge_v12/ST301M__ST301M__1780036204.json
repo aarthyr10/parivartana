@@ -1,0 +1,415 @@
+{
+  "program_id": "ST301M",
+  "record_id": "ST301M",
+  "cobol_source": "      *HEADER,COBOL,ST301M                                                            \n000100 IDENTIFICATION DIVISION.                                         ST3014.2\n000200 PROGRAM-ID.                                                      ST3014.2\n000300      ST301M.                                                     ST3014.2\n000400*The following program tests the flagging of intermediate         ST3014.2\n000500*subset  features that are used in sort-merge functions           ST3014.2\n000600 ENVIRONMENT DIVISION.                                            ST3014.2\n000700 CONFIGURATION SECTION.                                           ST3014.2\n000800 SOURCE-COMPUTER.                                                 ST3014.2\n000900     XXXXX082.                                                    ST3014.2\n001000 OBJECT-COMPUTER.                                                 ST3014.2\n001100     XXXXX083.                                                    ST3014.2\n001200 INPUT-OUTPUT SECTION.                                            ST3014.2\n001300 FILE-CONTROL.                                                    ST3014.2\n001400     SELECT TFIL ASSIGN                                           ST3014.2\n001500     XXXXX027.                                                    ST3014.2\n001600     SELECT TFIL-2 ASSIGN                                         ST3014.2\n001700     XXXXX001                                                     ST3014.2\n001800     ACCESS MODE IS SEQUENTIAL.                                   ST3014.2\n001900     SELECT TFIL-3 ASSIGN                                         ST3014.2\n002000     XXXXX002                                                     ST3014.2\n002100     ACCESS MODE IS SEQUENTIAL.                                   ST3014.2\n002200     SELECT TFIL-4 ASSIGN                                         ST3014.2\n002300     XXXXX003                                                     ST3014.2\n002400     ACCESS MODE IS SEQUENTIAL.                                   ST3014.2\n002500     SELECT TFIL-5 ASSIGN                                         ST3014.2\n002600     XXXXX004                                                     ST3014.2\n002700     ACCESS MODE IS SEQUENTIAL.                                   ST3014.2\n002800                                                                  ST3014.2\n002900 I-O-CONTROL.                                                     ST3014.2\n003000     SAME SORT-MERGE AREA FOR TFIL-5, TFIL.                       ST3014.2\n003100*Message expected for above statement: NON-CONFORMING STANDARD    ST3014.2\n003200 DATA DIVISION.                                                   ST3014.2\n003300 FILE SECTION.                                                    ST3014.2\n003400 SD  TFIL.                                                        ST3014.2\n003500*Message expected for above statement: NON-CONFORMING STANDARD    ST3014.2\n003600 01  FREC.                                                        ST3014.2\n003700     03 DATA-1  PIC X(80).                                        ST3014.2\n003800                                                                  ST3014.2\n003900 FD TFIL-2.                                                       ST3014.2\n004000 01 FREC-2.                                                       ST3014.2\n004100     03 DATA-2  PIC X(80).                                        ST3014.2\n004200                                                                  ST3014.2\n004300 FD TFIL-3.                                                       ST3014.2\n004400 01 FREC-3.                                                       ST3014.2\n004500     03 DATA-3 PIC X(80).                                         ST3014.2\n004600                                                                  ST3014.2\n004700 FD TFIL-4.                                                       ST3014.2\n004800 01 FREC-4.                                                       ST3014.2\n004900     03 DATA-4 PIC X(80).                                         ST3014.2\n005000                                                                  ST3014.2\n005100 FD TFIL-5.                                                       ST3014.2\n005200 01 FREC-5.                                                       ST3014.2\n005300    03  DATA-5 PIC X(80).                                         ST3014.2\n005400                                                                  ST3014.2\n005500 PROCEDURE DIVISION.                                              ST3014.2\n005600                                                                  ST3014.2\n005700 ST301M-CONTROL.                                                  ST3014.2\n005800     PERFORM ST301M-MERGE THRU ST301M-SORT 1 TIMES.               ST3014.2\n005900     STOP RUN.                                                    ST3014.2\n006000                                                                  ST3014.2\n006100 ST301M-MERGE.                                                    ST3014.2\n006200     MERGE TFIL ON ASCENDING KEY DATA-1                           ST3014.2\n006300     USING TFIL-2 TFIL-3                                          ST3014.2\n006400     OUTPUT PROCEDURE IS ST301M-RETURN.                           ST3014.2\n006500                                                                  ST3014.2\n006600*Message expected for above statement: NON-CONFORMING STANDARD    ST3014.2\n006700                                                                  ST3014.2\n006800 ST301M-RELEASE.                                                  ST3014.2\n006900     RELEASE FREC.                                                ST3014.2\n007000*Message expected for above statement: NON-CONFORMING STANDARD    ST3014.2\n007100                                                                  ST3014.2\n007200 ST301M-RETURN.                                                   ST3014.2\n007300     RETURN TFIL RECORD                                           ST3014.2\n007400         AT END DISPLAY \"AT END\".                                 ST3014.2\n007500*Message expected for above statement: NON-CONFORMING STANDARD    ST3014.2\n007600                                                                  ST3014.2\n007700 ST301M-SORT.                                                     ST3014.2\n007800     SORT TFIL ON ASCENDING KEY DATA-1                            ST3014.2\n007900     INPUT PROCEDURE IS ST301M-RELEASE                            ST3014.2\n008000     GIVING TFIL-4.                                               ST3014.2\n008100*Message expected for above statement: NON-CONFORMING STANDARD    ST3014.2\n008200                                                                  ST3014.2\n008300                                                                  ST3014.2\n008400*TOTAL NUMBER OF FLAGS EXPECTED = 6.                              ST3014.2\n      *END-OF,ST301M                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "ST301M",
+  "stage1_division_count": 4,
+  "stage1_paragraph_count": 5,
+  "stage1_token_count": 213,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {
+      "program_id": "ST301M"
+    },
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 4,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 29,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "DATA"
+        },
+        "children": [
+          {
+            "node_type": "DataItem",
+            "line": 32,
+            "attributes": {
+              "level": 1,
+              "name": "FREC"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 33,
+            "attributes": {
+              "level": 3,
+              "name": "DATA-1",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 36,
+            "attributes": {
+              "level": 1,
+              "name": "FREC-2"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 37,
+            "attributes": {
+              "level": 3,
+              "name": "DATA-2",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 40,
+            "attributes": {
+              "level": 1,
+              "name": "FREC-3"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 41,
+            "attributes": {
+              "level": 3,
+              "name": "DATA-3",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 44,
+            "attributes": {
+              "level": 1,
+              "name": "FREC-4"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 45,
+            "attributes": {
+              "level": 3,
+              "name": "DATA-4",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 48,
+            "attributes": {
+              "level": 1,
+              "name": "FREC-5"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 49,
+            "attributes": {
+              "level": 3,
+              "name": "DATA-5",
+              "pic": "X"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 51,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 53,
+            "attributes": {
+              "name": "ST301M-CONTROL"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 54,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "ST301M-MERGE",
+                    "THRU",
+                    "ST301M-SORT",
+                    "1",
+                    "TIMES"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 55,
+                "attributes": {
+                  "verb": "STOP",
+                  "operands": [
+                    "RUN"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 57,
+            "attributes": {
+              "name": "ST301M-MERGE"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 58,
+                "attributes": {
+                  "verb": "MERGE",
+                  "operands": [
+                    "TFIL",
+                    "ON",
+                    "ASCENDING",
+                    "KEY",
+                    "DATA-1",
+                    "USING",
+                    "TFIL-2",
+                    "TFIL-3",
+                    "OUTPUT",
+                    "PROCEDURE",
+                    "IS",
+                    "ST301M-RETURN"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 63,
+            "attributes": {
+              "name": "ST301M-RELEASE"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 64,
+                "attributes": {
+                  "verb": "RELEASE",
+                  "operands": [
+                    "FREC"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 66,
+            "attributes": {
+              "name": "ST301M-RETURN"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 67,
+                "attributes": {
+                  "verb": "RETURN",
+                  "operands": [
+                    "TFIL",
+                    "RECORD"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 68,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\"__AT_END__\""
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 70,
+            "attributes": {
+              "name": "ST301M-SORT"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 71,
+                "attributes": {
+                  "verb": "SORT",
+                  "operands": [
+                    "TFIL",
+                    "ON",
+                    "ASCENDING",
+                    "KEY",
+                    "DATA-1",
+                    "INPUT",
+                    "PROCEDURE",
+                    "IS",
+                    "ST301M-RELEASE",
+                    "GIVING",
+                    "TFIL-4"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "stage1_cobc_status": "",
+  "stage1_cobc_stderr": "",
+  "complexity_tier": "simple",
+  "complexity_score": 7.9,
+  "ast_depth": 4,
+  "unique_verbs": 7,
+  "cross_refs": 1,
+  "stage2_source": "rule-based",
+  "stage2_rule_based_code": "\"\"\"Translated from COBOL program ST301M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'frec': None,\n    'data_1': '',\n    'frec_2': None,\n    'data_2': '',\n    'frec_3': None,\n    'data_3': '',\n    'frec_4': None,\n    'data_4': '',\n    'frec_5': None,\n    'data_5': '',\n})\n\ndef st301m_control() -> None:\n    for _ in range(1):\n        st301m_merge()\n    return\n\ndef st301m_merge() -> None:\n    state['_file_status'] = '00'  # MERGE (file merge)\n\ndef st301m_release() -> None:\n    state['_release_record'] = state['frec']  # RELEASE FREC\n\ndef st301m_return() -> None:\n    # RETURN TFIL\n    return\n    print(\"__AT_END__\")\n\ndef st301m_sort() -> None:\n    state['tfil'] = sorted(state['tfil']) if isinstance(state['tfil'], (list, tuple)) else state['tfil']\n\nif __name__ == \"__main__\":\n    try:\n        st301m_control()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_neural_code": "",
+  "stage2_final_code": "\"\"\"Translated from COBOL program ST301M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'frec': None,\n    'data_1': '',\n    'frec_2': None,\n    'data_2': '',\n    'frec_3': None,\n    'data_3': '',\n    'frec_4': None,\n    'data_4': '',\n    'frec_5': None,\n    'data_5': '',\n})\n\ndef st301m_control() -> None:\n    for _ in range(1):\n        st301m_merge()\n    return\n\ndef st301m_merge() -> None:\n    state['_file_status'] = '00'  # MERGE (file merge)\n\ndef st301m_release() -> None:\n    state['_release_record'] = state['frec']  # RELEASE FREC\n\ndef st301m_return() -> None:\n    # RETURN TFIL\n    return\n    print(\"__AT_END__\")\n\ndef st301m_sort() -> None:\n    state['tfil'] = sorted(state['tfil']) if isinstance(state['tfil'], (list, tuple)) else state['tfil']\n\nif __name__ == \"__main__\":\n    try:\n        st301m_control()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_warnings": [],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": false,
+  "stage3_refined_code": "",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "",
+  "stage3_error": "",
+  "verdict": "PASS",
+  "verdict_summary": "All 5 active check(s) passed.",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "5/5 paragraphs found as Python functions",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "ST301M-CONTROL",
+          "ST301M-MERGE",
+          "ST301M-RELEASE",
+          "ST301M-RETURN",
+          "ST301M-SORT"
+        ],
+        "missing": [],
+        "total": 5
+      }
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "10/10 identifiers traced into the Python",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "FREC",
+          "DATA-1",
+          "FREC-2",
+          "DATA-2",
+          "FREC-3",
+          "DATA-3",
+          "FREC-4",
+          "DATA-4",
+          "FREC-5",
+          "DATA-5"
+        ],
+        "missing": [],
+        "total": 10
+      }
+    },
+    {
+      "name": "body_non_trivial",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "2/2 paragraphs have non-trivial bodies",
+      "skipped_reason": "",
+      "extra": {
+        "non_trivial": [
+          "ST301M-CONTROL",
+          "ST301M-RETURN"
+        ],
+        "trivial": [],
+        "exempt": [
+          "ST301M-MERGE",
+          "ST301M-RELEASE",
+          "ST301M-SORT"
+        ],
+        "total_eligible": 2
+      }
+    },
+    {
+      "name": "python_smoke",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "ran cleanly",
+      "skipped_reason": "",
+      "extra": {
+        "exit_code": 0,
+        "stdout_bytes": 0,
+        "stderr_bytes": 0,
+        "stderr_head": ""
+      }
+    }
+  ],
+  "timestamp": 1780036204.6200712
+}

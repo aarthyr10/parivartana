@@ -1,0 +1,80 @@
+{
+  "stage2_translator": [
+    {
+      "reason": "rule-based",
+      "count": 50
+    }
+  ],
+  "failed_llm_judge": [
+    {
+      "reason": "[ollama] correctness=0.50, readability=0.30, pep8=0.20, pythonic=0.10, types=0.9",
+      "count": 7
+    },
+    {
+      "reason": "[ollama] correctness=0.20, readability=0.30, pep8=0.40, pythonic=0.10, types=0.5",
+      "count": 6
+    },
+    {
+      "reason": "[ollama] correctness=0.50, readability=0.30, pep8=0.40, pythonic=0.20, types=0.7",
+      "count": 4
+    },
+    {
+      "reason": "[ollama] correctness=0.20, readability=0.30, pep8=0.40, pythonic=0.10, types=0.9",
+      "count": 4
+    },
+    {
+      "reason": "[ollama] correctness=0.80, readability=0.50, pep8=0.70, pythonic=0.40, types=1.0",
+      "count": 2
+    },
+    {
+      "reason": "[ollama] correctness=0.50, readability=0.30, pep8=0.40, pythonic=0.20, types=0.9",
+      "count": 1
+    },
+    {
+      "reason": "[ollama] correctness=0.80, readability=0.50, pep8=0.70, pythonic=0.40, types=0.9",
+      "count": 1
+    },
+    {
+      "reason": "[ollama] correctness=0.80, readability=0.60, pep8=0.50, pythonic=0.40, types=0.9",
+      "count": 1
+    },
+    {
+      "reason": "[ollama] correctness=0.80, readability=0.60, pep8=0.50, pythonic=0.40, types=0.7",
+      "count": 1
+    },
+    {
+      "reason": "[ollama] correctness=0.20, readability=0.30, pep8=0.10, pythonic=0.10, types=0.9",
+      "count": 1
+    },
+    {
+      "reason": "[ollama] correctness=0.20, readability=0.30, pep8=0.10, pythonic=0.10, types=0.4",
+      "count": 1
+    },
+    {
+      "reason": "[ollama] correctness=0.50, readability=0.30, pep8=0.20, pythonic=0.10, types=0.4",
+      "count": 1
+    }
+  ],
+  "failed_execution_match": [
+    {
+      "reason": "stdout mismatch (stdout_mismatch)",
+      "count": 4
+    }
+  ],
+  "failed_python_smoke": [
+    {
+      "reason": "exit=0, stderr_head=runtime: TypeError: unsupported operand type(s) for +=: 'Non",
+      "count": 4
+    }
+  ],
+  "failed_body_non_trivial": [
+    {
+      "reason": "39/47 paragraphs have non-trivial bodies; stubbed: SEQ-TEST-001, SEQ-TEST-002, S",
+      "count": 1
+    },
+    {
+      "reason": "32/36 paragraphs have non-trivial bodies; stubbed: REL-TEST-001, REL-INIT-1, REL",
+      "count": 1
+    }
+  ]
+}

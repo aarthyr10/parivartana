@@ -1,0 +1,331 @@
+{
+  "program_id": "ST120A",
+  "record_id": "ST120A",
+  "cobol_source": "      *HEADER,COBOL,ST119A,SUBPRG,ST120A                                              \n000100 IDENTIFICATION DIVISION.                                         ST1204.2\n000200 PROGRAM-ID.                                                      ST1204.2\n000300     ST120A.                                                      ST1204.2\n000400****************************************************************  ST1204.2\n000500*                                                              *  ST1204.2\n000600*    VALIDATION FOR:-                                          *  ST1204.2\n000700*                                                              *  ST1204.2\n000800*    \"ON-SITE VALIDATION, NATIONAL INSTITUTE OF STD & TECH.     \".ST1204.2\n000900*                                                              *  ST1204.2\n001000*    \"COBOL 85 VERSION 4.2, Apr  1993 SSVG                      \".ST1204.2\n001100*                                                              *  ST1204.2\n001200****************************************************************  ST1204.2\n001300*                                                              *  ST1204.2\n001400*      X-CARDS USED BY THIS PROGRAM ARE :-                     *  ST1204.2\n001500*                                                              *  ST1204.2\n001600*        X-55  - SYSTEM PRINTER NAME.                          *  ST1204.2\n001700*        X-82  - SOURCE COMPUTER NAME.                         *  ST1204.2\n001800*        X-83  - OBJECT COMPUTER NAME.                         *  ST1204.2\n001900*                                                              *  ST1204.2\n002000****************************************************************  ST1204.2\n002100 ENVIRONMENT DIVISION.                                            ST1204.2\n002200 CONFIGURATION SECTION.                                           ST1204.2\n002300 SOURCE-COMPUTER.                                                 ST1204.2\n002400     XXXXX082.                                                    ST1204.2\n002500 OBJECT-COMPUTER.                                                 ST1204.2\n002600     XXXXX083.                                                    ST1204.2\n002700 INPUT-OUTPUT SECTION.                                            ST1204.2\n002800 FILE-CONTROL.                                                    ST1204.2\n002900     SELECT SORTFILE-1B ASSIGN TO                                 ST1204.2\n003000     XXXXX027.                                                    ST1204.2\n003100     SELECT SORTIN-1B ASSIGN TO                                   ST1204.2\n003200     XXXXD001.                                                    ST1204.2\n003300     SELECT SORTOUT-1B ASSIGN TO                                  ST1204.2\n003400     XXXXP002.                                                    ST1204.2\n003500 DATA DIVISION.                                                   ST1204.2\n003600 FILE SECTION.                                                    ST1204.2\n003700 SD  SORTFILE-1B                                                  ST1204.2\n003800     RECORD CONTAINS 120 CHARACTERS                               ST1204.2\n003900     DATA RECORD S-RECORD.                                        ST1204.2\n004000 01  S-RECORD.                                                    ST1204.2\n004100     02  KEYS-GROUP.                                              ST1204.2\n004200         03  KEY-1 PICTURE 9.                                     ST1204.2\n004300         03  KEY-2 PICTURE 99.                                    ST1204.2\n004400         03  KEY-3 PICTURE 999.                                   ST1204.2\n004500         03  KEY-4 PICTURE 9999.                                  ST1204.2\n004600         03  KEY-5 PICTURE 9(5).                                  ST1204.2\n004700     02  FILLER  PICTURE X(105).                                  ST1204.2\n004800 FD  SORTIN-1B                                                    ST1204.2\n004900     BLOCK CONTAINS 10 RECORDS                                    ST1204.2\n005000     LABEL RECORDS ARE STANDARD                                   ST1204.2\n005100C    VALUE OF                                                     ST1204.2\n005200C    XXXXX074                                                     ST1204.2\n005300C    IS                                                           ST1204.2\n005400C    XXXXX075                                                     ST1204.2\n005500*    XXXXX069                                                     ST1204.2\n005600     DATA RECORD IS INSORT.                                       ST1204.2\n005700 01  INSORT PICTURE X(120).                                       ST1204.2\n005800 FD  SORTOUT-1B                                                   ST1204.2\n005900     BLOCK CONTAINS 10 RECORDS                                    ST1204.2\n006000     LABEL RECORD STANDARD                                        ST1204.2\n006100C    VALUE OF                                                     ST1204.2\n006200C    XXXXX074                                                     ST1204.2\n006300C    IS                                                           ST1204.2\n006400C    XXXXX076                                                     ST1204.2\n006500*    XXXXX069                                                     ST1204.2\n006600     DATA RECORD OUTSORT.                                         ST1204.2\n006700 01  OUTSORT PICTURE X(120).                                      ST1204.2\n006800 PROCEDURE DIVISION.                                              ST1204.2\n006900 SORT-STATEMENT.                                                  ST1204.2\n007000     SORT SORTFILE-1B                                             ST1204.2\n007100         ON DESCENDING KEY KEY-1                                  ST1204.2\n007200         ON ASCENDING KEY KEY-2                                   ST1204.2\n007300         ON DESCENDING KEY KEY-3                                  ST1204.2\n007400         ASCENDING KEY-4 KEY-5                                    ST1204.2\n007500       USING SORTIN-1B                                            ST1204.2\n007600       GIVING SORTOUT-1B.                                         ST1204.2\n007700 STOP-RUN-STATEMENT.                                              ST1204.2\n007800     STOP RUN.                                                    ST1204.2\n      *END-OF,ST120A                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "ST120A",
+  "stage1_division_count": 4,
+  "stage1_paragraph_count": 2,
+  "stage1_token_count": 189,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {
+      "program_id": "ST120A"
+    },
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 4,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 18,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "DATA"
+        },
+        "children": [
+          {
+            "node_type": "DataItem",
+            "line": 23,
+            "attributes": {
+              "level": 1,
+              "name": "S-RECORD"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 24,
+            "attributes": {
+              "level": 2,
+              "name": "KEYS-GROUP"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 25,
+            "attributes": {
+              "level": 3,
+              "name": "KEY-1",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 26,
+            "attributes": {
+              "level": 3,
+              "name": "KEY-2",
+              "pic": "99"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 27,
+            "attributes": {
+              "level": 3,
+              "name": "KEY-3",
+              "pic": "999"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 28,
+            "attributes": {
+              "level": 3,
+              "name": "KEY-4",
+              "pic": "9999"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 29,
+            "attributes": {
+              "level": 3,
+              "name": "KEY-5",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 30,
+            "attributes": {
+              "level": 2,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 39,
+            "attributes": {
+              "level": 1,
+              "name": "INSORT",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 48,
+            "attributes": {
+              "level": 1,
+              "name": "OUTSORT",
+              "pic": "X"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 49,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 50,
+            "attributes": {
+              "name": "SORT-STATEMENT"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 51,
+                "attributes": {
+                  "verb": "SORT",
+                  "operands": [
+                    "SORTFILE-1B",
+                    "ON",
+                    "DESCENDING",
+                    "KEY",
+                    "KEY-1",
+                    "ON",
+                    "ASCENDING",
+                    "KEY",
+                    "KEY-2",
+                    "ON",
+                    "DESCENDING",
+                    "KEY",
+                    "KEY-3",
+                    "ASCENDING",
+                    "KEY-4",
+                    "KEY-5",
+                    "USING",
+                    "SORTIN-1B",
+                    "GIVING",
+                    "SORTOUT-1B"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 58,
+            "attributes": {
+              "name": "STOP-RUN-STATEMENT"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 59,
+                "attributes": {
+                  "verb": "STOP",
+                  "operands": [
+                    "RUN"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "stage1_cobc_status": "",
+  "stage1_cobc_stderr": "",
+  "complexity_tier": "simple",
+  "complexity_score": 6.4,
+  "ast_depth": 4,
+  "unique_verbs": 2,
+  "cross_refs": 0,
+  "stage2_source": "rule-based",
+  "stage2_rule_based_code": "\"\"\"Translated from COBOL program ST120A.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    's_record': None,\n    'keys_group': None,\n    'key_1': 0,\n    'key_2': 0,\n    'key_3': 0,\n    'key_4': 0,\n    'key_5': 0,\n    'insort': '',\n    'outsort': '',\n})\n\ndef sort_statement() -> None:\n    state['sortfile_1b'] = sorted(state['sortfile_1b']) if isinstance(state['sortfile_1b'], (list, tuple)) else state['sortfile_1b']\n\ndef stop_run_statement() -> None:\n    return\n\nif __name__ == \"__main__\":\n    try:\n        sort_statement()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_neural_code": "",
+  "stage2_final_code": "\"\"\"Translated from COBOL program ST120A.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    's_record': None,\n    'keys_group': None,\n    'key_1': 0,\n    'key_2': 0,\n    'key_3': 0,\n    'key_4': 0,\n    'key_5': 0,\n    'insort': '',\n    'outsort': '',\n})\n\ndef sort_statement() -> None:\n    state['sortfile_1b'] = sorted(state['sortfile_1b']) if isinstance(state['sortfile_1b'], (list, tuple)) else state['sortfile_1b']\n\ndef stop_run_statement() -> None:\n    return\n\nif __name__ == \"__main__\":\n    try:\n        sort_statement()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_warnings": [],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": false,
+  "stage3_refined_code": "",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "",
+  "stage3_error": "",
+  "verdict": "PASS",
+  "verdict_summary": "All 5 active check(s) passed.",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "2/2 paragraphs found as Python functions",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "SORT-STATEMENT",
+          "STOP-RUN-STATEMENT"
+        ],
+        "missing": [],
+        "total": 2
+      }
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "9/9 identifiers traced into the Python",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "S-RECORD",
+          "KEYS-GROUP",
+          "KEY-1",
+          "KEY-2",
+          "KEY-3",
+          "KEY-4",
+          "KEY-5",
+          "INSORT",
+          "OUTSORT"
+        ],
+        "missing": [],
+        "total": 9
+      }
+    },
+    {
+      "name": "body_non_trivial",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "All 2 paragraph(s) were <=1 statement; nothing to score.",
+      "skipped_reason": "",
+      "extra": {
+        "exempt": [
+          "SORT-STATEMENT",
+          "STOP-RUN-STATEMENT"
+        ]
+      }
+    },
+    {
+      "name": "python_smoke",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "ran cleanly",
+      "skipped_reason": "",
+      "extra": {
+        "exit_code": 0,
+        "stdout_bytes": 0,
+        "stderr_bytes": 0,
+        "stderr_head": ""
+      }
+    },
+    {
+      "name": "llm_judge",
+      "ran": false,
+      "passed": null,
+      "score": null,
+      "detail": "skipped: openai: no API key in env | anthropic: no API key in env",
+      "skipped_reason": "openai: no API key in env | anthropic: no API key in env",
+      "extra": {
+        "providers_tried": [
+          "openai: no API key in env",
+          "anthropic: no API key in env"
+        ]
+      }
+    }
+  ],
+  "timestamp": 1779979799.3957536
+}

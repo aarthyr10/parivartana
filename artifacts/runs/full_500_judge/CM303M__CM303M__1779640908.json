@@ -1,0 +1,199 @@
+{
+  "program_id": "CM303M",
+  "record_id": "CM303M",
+  "cobol_source": "      *HEADER,COBOL,CM303M                                                            \n000100 IDENTIFICATION DIVISION.                                         CM3034.2\n000200 PROGRAM-ID.                                                      CM3034.2\n000300     CM303M.                                                      CM3034.2\n000400*THE FOLLOWING PROGRAM TESTS THE FLAGGING OF                      CM3034.2\n000500*OBSOLETE FEATURES THAT ARE USED IN COMMUNICATIONS.               CM3034.2\n000600 ENVIRONMENT DIVISION.                                            CM3034.2\n000700 CONFIGURATION SECTION.                                           CM3034.2\n000800 SOURCE-COMPUTER.                                                 CM3034.2\n000900     XXXXX082.                                                    CM3034.2\n001000 OBJECT-COMPUTER.                                                 CM3034.2\n001100     XXXXX083.                                                    CM3034.2\n001200                                                                  CM3034.2\n001300                                                                  CM3034.2\n001400 DATA DIVISION.                                                   CM3034.2\n001500 FILE SECTION.                                                    CM3034.2\n001600 COMMUNICATION SECTION.                                           CM3034.2\n001700 CD COMMNAME FOR INITIAL INPUT.                                   CM3034.2\n001800 01 CREC.                                                         CM3034.2\n001900     03 CNAME1 PIC X(87).                                         CM3034.2\n002000                                                                  CM3034.2\n002100 PROCEDURE DIVISION.                                              CM3034.2\n002200                                                                  CM3034.2\n002300 CM303M-CONTROL.                                                  CM3034.2\n002400     PERFORM CM303M-DISABLE THRU CM303M-ENABLE.                   CM3034.2\n002500     STOP RUN.                                                    CM3034.2\n002600                                                                  CM3034.2\n002700 CM303M-DISABLE.                                                  CM3034.2\n002800     DISABLE INPUT COMMNAME WITH KEY CNAME1.                      CM3034.2\n002900*Message expected for above statement: OBSOLETE                   CM3034.2\n003000                                                                  CM3034.2\n003100 CM303M-ENABLE.                                                   CM3034.2\n003200     ENABLE INPUT COMMNAME WITH KEY CNAME1.                       CM3034.2\n003300*Message expected for above statement: OBSOLETE                   CM3034.2\n003400                                                                  CM3034.2\n003500*TOTAL NUMBER OF FLAGS EXPECTED = 2.                              CM3034.2\n      *END-OF,CM303M                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "CM303M",
+  "stage1_division_count": 4,
+  "stage1_paragraph_count": 5,
+  "stage1_token_count": 79,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {
+      "program_id": "CM303M"
+    },
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 4,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 12,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "DATA"
+        },
+        "children": [
+          {
+            "node_type": "DataItem",
+            "line": 16,
+            "attributes": {
+              "level": 1,
+              "name": "CREC"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 17,
+            "attributes": {
+              "level": 3,
+              "name": "CNAME1",
+              "pic": "X"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 19,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 21,
+            "attributes": {
+              "name": "CM303M-CONTROL"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 22,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "CM303M-DISABLE",
+                    "THRU",
+                    "CM303M-ENABLE"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 23,
+                "attributes": {
+                  "verb": "STOP",
+                  "operands": [
+                    "RUN"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 25,
+            "attributes": {
+              "name": "CM303M-DISABLE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 26,
+            "attributes": {
+              "name": "CNAME1"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 28,
+            "attributes": {
+              "name": "CM303M-ENABLE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 29,
+            "attributes": {
+              "name": "CNAME1"
+            },
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "complexity_tier": "simple",
+  "complexity_score": 2.15,
+  "ast_depth": 4,
+  "unique_verbs": 2,
+  "cross_refs": 1,
+  "stage2_source": "rule-based",
+  "stage2_rule_based_code": "\"\"\"Translated from COBOL program CM303M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'crec': None,\n    'cname1': '',\n})\n\ndef cm303m_control() -> None:\n    cm303m_disable()\n    return\n\ndef cm303m_disable() -> None:\n    pass\n\ndef cname1() -> None:\n    pass\n\ndef cm303m_enable() -> None:\n    pass\n\ndef cname1() -> None:\n    pass\n\nif __name__ == \"__main__\":\n    try:\n        cm303m_control()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_neural_code": "",
+  "stage2_final_code": "\"\"\"Translated from COBOL program CM303M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'crec': None,\n    'cname1': '',\n})\n\ndef cm303m_control() -> None:\n    cm303m_disable()\n    return\n\ndef cm303m_disable() -> None:\n    pass\n\ndef cname1() -> None:\n    pass\n\ndef cm303m_enable() -> None:\n    pass\n\ndef cname1() -> None:\n    pass\n\nif __name__ == \"__main__\":\n    try:\n        cm303m_control()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_warnings": [],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": true,
+  "stage3_refined_code": "\"\"\"Translated from COBOL program CM303M.\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\nstate: _State = _State({\n    'crec': None,\n    'cname1': '',\n})\n\ndef cm303m_control() -> None:\n    cm303m_disable()\n\ndef cm303m_disable() -> None:\n    pass\n\ndef cm303m_enable() -> None:\n    pass\n\nif __name__ == \"__main__\":\n    try:\n        cm303m_control()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "",
+  "stage3_error": "'RefinementResult' object has no attribute 'rename_map'",
+  "verdict": "FAIL",
+  "verdict_summary": "1 check(s) failed: paragraph_coverage.",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": ""
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": false,
+      "score": 0.6,
+      "detail": "3/5 paragraphs found as Python functions; missing: CNAME1, CNAME1",
+      "skipped_reason": ""
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "2/2 identifiers traced into the Python",
+      "skipped_reason": ""
+    },
+    {
+      "name": "llm_judge",
+      "ran": false,
+      "passed": null,
+      "score": null,
+      "detail": "skipped: anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CbMj8HiVFUjN4NbNBj5oj'})",
+      "skipped_reason": "anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CbMj8HiVFUjN4NbNBj5oj'})"
+    }
+  ],
+  "timestamp": 1779640908.549453
+}

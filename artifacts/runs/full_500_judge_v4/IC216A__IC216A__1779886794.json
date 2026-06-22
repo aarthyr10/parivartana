@@ -1,0 +1,3563 @@
+{
+  "program_id": "IC216A",
+  "record_id": "IC216A",
+  "cobol_source": "      *HEADER,COBOL,IC216A                                                            \n000100 IDENTIFICATION DIVISION.                                         IC2164.2\n000200 PROGRAM-ID.                                                      IC2164.2\n000300     IC216A.                                                      IC2164.2\n000400****************************************************************  IC2164.2\n000500*                                                              *  IC2164.2\n000600*    VALIDATION FOR:-                                          *  IC2164.2\n000700*                                                              *  IC2164.2\n000800*    \"ON-SITE VALIDATION, NATIONAL INSTITUTE OF STD & TECH.     \".IC2164.2\n000900*                                                              *  IC2164.2\n001000*    \"COBOL 85 VERSION 4.2, Apr  1993 SSVG                      \".IC2164.2\n001100*                                                              *  IC2164.2\n001200****************************************************************  IC2164.2\n001300*                                                              *  IC2164.2\n001400*      X-CARDS USED BY THIS PROGRAM ARE :-                     *  IC2164.2\n001500*                                                              *  IC2164.2\n001600*        X-55  - SYSTEM PRINTER NAME.                          *  IC2164.2\n001700*        X-82  - SOURCE COMPUTER NAME.                         *  IC2164.2\n001800*        X-83  - OBJECT COMPUTER NAME.                         *  IC2164.2\n001900*                                                              *  IC2164.2\n002000****************************************************************  IC2164.2\n002100*    THIS IS MAIN PROGRAM IC216.                                  IC2164.2\n002200****************************************************************  IC2164.2\n002300 ENVIRONMENT DIVISION.                                            IC2164.2\n002400 CONFIGURATION SECTION.                                           IC2164.2\n002500 SOURCE-COMPUTER.                                                 IC2164.2\n002600     XXXXX082.                                                    IC2164.2\n002700 OBJECT-COMPUTER.                                                 IC2164.2\n002800     XXXXX083.                                                    IC2164.2\n002900 INPUT-OUTPUT SECTION.                                            IC2164.2\n003000 FILE-CONTROL.                                                    IC2164.2\n003100     SELECT PRINT-FILE ASSIGN TO                                  IC2164.2\n003200     XXXXX055.                                                    IC2164.2\n003300 DATA DIVISION.                                                   IC2164.2\n003400 FILE SECTION.                                                    IC2164.2\n003500 FD  PRINT-FILE.                                                  IC2164.2\n003600 01  PRINT-REC PICTURE X(120).                                    IC2164.2\n003700 01  DUMMY-RECORD PICTURE X(120).                                 IC2164.2\n003800 WORKING-STORAGE SECTION.                                         IC2164.2\n003900 01  DN1.                                                         IC2164.2\n004000     02  DN2                     PICTURE X(5).                    IC2164.2\n004100     02  DN3                     REDEFINES DN2   PICTURE 9(5).    IC2164.2\n004200 01  DN4.                                                         IC2164.2\n004300     02  DN5.                                                     IC2164.2\n004400          03  DN6                 PICTURE X(3).                   IC2164.2\n004500         03  DN7                 PICTURE X(3).                    IC2164.2\n004600         03  DN8                 REDEFINES DN7   PICTURE 9(3).    IC2164.2\n004700     02  DN9                     PICTURE XX.                      IC2164.2\n004800 01  TEST-RESULTS.                                                IC2164.2\n004900     02 FILLER                   PIC X      VALUE SPACE.          IC2164.2\n005000     02 FEATURE                  PIC X(20)  VALUE SPACE.          IC2164.2\n005100     02 FILLER                   PIC X      VALUE SPACE.          IC2164.2\n005200     02 P-OR-F                   PIC X(5)   VALUE SPACE.          IC2164.2\n005300     02 FILLER                   PIC X      VALUE SPACE.          IC2164.2\n005400     02  PAR-NAME.                                                IC2164.2\n005500       03 FILLER                 PIC X(19)  VALUE SPACE.          IC2164.2\n005600       03  PARDOT-X              PIC X      VALUE SPACE.          IC2164.2\n005700       03 DOTVALUE               PIC 99     VALUE ZERO.           IC2164.2\n005800     02 FILLER                   PIC X(8)   VALUE SPACE.          IC2164.2\n005900     02 RE-MARK                  PIC X(61).                       IC2164.2\n006000 01  TEST-COMPUTED.                                               IC2164.2\n006100     02 FILLER                   PIC X(30)  VALUE SPACE.          IC2164.2\n006200     02 FILLER                   PIC X(17)  VALUE                 IC2164.2\n006300            \"       COMPUTED=\".                                   IC2164.2\n006400     02 COMPUTED-X.                                               IC2164.2\n006500     03 COMPUTED-A               PIC X(20)  VALUE SPACE.          IC2164.2\n006600     03 COMPUTED-N               REDEFINES COMPUTED-A             IC2164.2\n006700                                 PIC -9(9).9(9).                  IC2164.2\n006800     03 COMPUTED-0V18 REDEFINES COMPUTED-A   PIC -.9(18).         IC2164.2\n006900     03 COMPUTED-4V14 REDEFINES COMPUTED-A   PIC -9(4).9(14).     IC2164.2\n007000     03 COMPUTED-14V4 REDEFINES COMPUTED-A   PIC -9(14).9(4).     IC2164.2\n007100     03       CM-18V0 REDEFINES COMPUTED-A.                       IC2164.2\n007200         04 COMPUTED-18V0                    PIC -9(18).          IC2164.2\n007300         04 FILLER                           PIC X.               IC2164.2\n007400     03 FILLER PIC X(50) VALUE SPACE.                             IC2164.2\n007500 01  TEST-CORRECT.                                                IC2164.2\n007600     02 FILLER PIC X(30) VALUE SPACE.                             IC2164.2\n007700     02 FILLER PIC X(17) VALUE \"       CORRECT =\".                IC2164.2\n007800     02 CORRECT-X.                                                IC2164.2\n007900     03 CORRECT-A                  PIC X(20) VALUE SPACE.         IC2164.2\n008000     03 CORRECT-N    REDEFINES CORRECT-A     PIC -9(9).9(9).      IC2164.2\n008100     03 CORRECT-0V18 REDEFINES CORRECT-A     PIC -.9(18).         IC2164.2\n008200     03 CORRECT-4V14 REDEFINES CORRECT-A     PIC -9(4).9(14).     IC2164.2\n008300     03 CORRECT-14V4 REDEFINES CORRECT-A     PIC -9(14).9(4).     IC2164.2\n008400     03      CR-18V0 REDEFINES CORRECT-A.                         IC2164.2\n008500         04 CORRECT-18V0                     PIC -9(18).          IC2164.2\n008600         04 FILLER                           PIC X.               IC2164.2\n008700     03 FILLER PIC X(2) VALUE SPACE.                              IC2164.2\n008800     03 COR-ANSI-REFERENCE             PIC X(48) VALUE SPACE.     IC2164.2\n008900 01  CCVS-C-1.                                                    IC2164.2\n009000     02 FILLER  PIC IS X(99)    VALUE IS \" FEATURE              PAIC2164.2\n009100-    \"SS  PARAGRAPH-NAME                                          IC2164.2\n009200-    \"       REMARKS\".                                            IC2164.2\n009300     02 FILLER                     PIC X(20)    VALUE SPACE.      IC2164.2\n009400 01  CCVS-C-2.                                                    IC2164.2\n009500     02 FILLER                     PIC X        VALUE SPACE.      IC2164.2\n009600     02 FILLER                     PIC X(6)     VALUE \"TESTED\".   IC2164.2\n009700     02 FILLER                     PIC X(15)    VALUE SPACE.      IC2164.2\n009800     02 FILLER                     PIC X(4)     VALUE \"FAIL\".     IC2164.2\n009900     02 FILLER                     PIC X(94)    VALUE SPACE.      IC2164.2\n010000 01  REC-SKL-SUB                   PIC 9(2)     VALUE ZERO.       IC2164.2\n010100 01  REC-CT                        PIC 99       VALUE ZERO.       IC2164.2\n010200 01  DELETE-COUNTER                PIC 999      VALUE ZERO.       IC2164.2\n010300 01  ERROR-COUNTER                 PIC 999      VALUE ZERO.       IC2164.2\n010400 01  INSPECT-COUNTER               PIC 999      VALUE ZERO.       IC2164.2\n010500 01  PASS-COUNTER                  PIC 999      VALUE ZERO.       IC2164.2\n010600 01  TOTAL-ERROR                   PIC 999      VALUE ZERO.       IC2164.2\n010700 01  ERROR-HOLD                    PIC 999      VALUE ZERO.       IC2164.2\n010800 01  DUMMY-HOLD                    PIC X(120)   VALUE SPACE.      IC2164.2\n010900 01  RECORD-COUNT                  PIC 9(5)     VALUE ZERO.       IC2164.2\n011000 01  ANSI-REFERENCE                PIC X(48)    VALUE SPACES.     IC2164.2\n011100 01  CCVS-H-1.                                                    IC2164.2\n011200     02  FILLER                    PIC X(39)    VALUE SPACES.     IC2164.2\n011300     02  FILLER                    PIC X(42)    VALUE             IC2164.2\n011400     \"OFFICIAL COBOL COMPILER VALIDATION SYSTEM\".                 IC2164.2\n011500     02  FILLER                    PIC X(39)    VALUE SPACES.     IC2164.2\n011600 01  CCVS-H-2A.                                                   IC2164.2\n011700   02  FILLER                        PIC X(40)  VALUE SPACE.      IC2164.2\n011800   02  FILLER                        PIC X(7)   VALUE \"CCVS85 \".  IC2164.2\n011900   02  FILLER                        PIC XXXX   VALUE             IC2164.2\n012000     \"4.2 \".                                                      IC2164.2\n012100   02  FILLER                        PIC X(28)  VALUE             IC2164.2\n012200            \" COPY - NOT FOR DISTRIBUTION\".                       IC2164.2\n012300   02  FILLER                        PIC X(41)  VALUE SPACE.      IC2164.2\n012400                                                                  IC2164.2\n012500 01  CCVS-H-2B.                                                   IC2164.2\n012600   02  FILLER                        PIC X(15)  VALUE             IC2164.2\n012700            \"TEST RESULT OF \".                                    IC2164.2\n012800   02  TEST-ID                       PIC X(9).                    IC2164.2\n012900   02  FILLER                        PIC X(4)   VALUE             IC2164.2\n013000            \" IN \".                                               IC2164.2\n013100   02  FILLER                        PIC X(12)  VALUE             IC2164.2\n013200     \" HIGH       \".                                              IC2164.2\n013300   02  FILLER                        PIC X(22)  VALUE             IC2164.2\n013400            \" LEVEL VALIDATION FOR \".                             IC2164.2\n013500   02  FILLER                        PIC X(58)  VALUE             IC2164.2\n013600     \"ON-SITE VALIDATION, NATIONAL INSTITUTE OF STD & TECH.     \".IC2164.2\n013700 01  CCVS-H-3.                                                    IC2164.2\n013800     02  FILLER                      PIC X(34)  VALUE             IC2164.2\n013900            \" FOR OFFICIAL USE ONLY    \".                         IC2164.2\n014000     02  FILLER                      PIC X(58)  VALUE             IC2164.2\n014100     \"COBOL 85 VERSION 4.2, Apr  1993 SSVG                      \".IC2164.2\n014200     02  FILLER                      PIC X(28)  VALUE             IC2164.2\n014300            \"  COPYRIGHT   1985 \".                                IC2164.2\n014400 01  CCVS-E-1.                                                    IC2164.2\n014500     02 FILLER                       PIC X(52)  VALUE SPACE.      IC2164.2\n014600     02 FILLER  PIC X(14) VALUE IS \"END OF TEST-  \".              IC2164.2\n014700     02 ID-AGAIN                     PIC X(9).                    IC2164.2\n014800     02 FILLER                       PIC X(45)  VALUE SPACES.     IC2164.2\n014900 01  CCVS-E-2.                                                    IC2164.2\n015000     02  FILLER                      PIC X(31)  VALUE SPACE.      IC2164.2\n015100     02  FILLER                      PIC X(21)  VALUE SPACE.      IC2164.2\n015200     02 CCVS-E-2-2.                                               IC2164.2\n015300         03 ERROR-TOTAL              PIC XXX    VALUE SPACE.      IC2164.2\n015400         03 FILLER                   PIC X      VALUE SPACE.      IC2164.2\n015500         03 ENDER-DESC               PIC X(44)  VALUE             IC2164.2\n015600            \"ERRORS ENCOUNTERED\".                                 IC2164.2\n015700 01  CCVS-E-3.                                                    IC2164.2\n015800     02  FILLER                      PIC X(22)  VALUE             IC2164.2\n015900            \" FOR OFFICIAL USE ONLY\".                             IC2164.2\n016000     02  FILLER                      PIC X(12)  VALUE SPACE.      IC2164.2\n016100     02  FILLER                      PIC X(58)  VALUE             IC2164.2\n016200     \"ON-SITE VALIDATION, NATIONAL INSTITUTE OF STD & TECH.     \".IC2164.2\n016300     02  FILLER                      PIC X(13)  VALUE SPACE.      IC2164.2\n016400     02 FILLER                       PIC X(15)  VALUE             IC2164.2\n016500             \" COPYRIGHT 1985\".                                   IC2164.2\n016600 01  CCVS-E-4.                                                    IC2164.2\n016700     02 CCVS-E-4-1                   PIC XXX    VALUE SPACE.      IC2164.2\n016800     02 FILLER                       PIC X(4)   VALUE \" OF \".     IC2164.2\n016900     02 CCVS-E-4-2                   PIC XXX    VALUE SPACE.      IC2164.2\n017000     02 FILLER                       PIC X(40)  VALUE             IC2164.2\n017100      \"  TESTS WERE EXECUTED SUCCESSFULLY\".                       IC2164.2\n017200 01  XXINFO.                                                      IC2164.2\n017300     02 FILLER                       PIC X(19)  VALUE             IC2164.2\n017400            \"*** INFORMATION ***\".                                IC2164.2\n017500     02 INFO-TEXT.                                                IC2164.2\n017600       04 FILLER                     PIC X(8)   VALUE SPACE.      IC2164.2\n017700       04 XXCOMPUTED                 PIC X(20).                   IC2164.2\n017800       04 FILLER                     PIC X(5)   VALUE SPACE.      IC2164.2\n017900       04 XXCORRECT                  PIC X(20).                   IC2164.2\n018000     02 INF-ANSI-REFERENCE           PIC X(48).                   IC2164.2\n018100 01  HYPHEN-LINE.                                                 IC2164.2\n018200     02 FILLER  PIC IS X VALUE IS SPACE.                          IC2164.2\n018300     02 FILLER  PIC IS X(65)    VALUE IS \"************************IC2164.2\n018400-    \"*****************************************\".                 IC2164.2\n018500     02 FILLER  PIC IS X(54)    VALUE IS \"************************IC2164.2\n018600-    \"******************************\".                            IC2164.2\n018700 01  CCVS-PGM-ID                     PIC X(9)   VALUE             IC2164.2\n018800     \"IC216A\".                                                    IC2164.2\n018900 PROCEDURE DIVISION.                                              IC2164.2\n019000 CCVS1 SECTION.                                                   IC2164.2\n019100 OPEN-FILES.                                                      IC2164.2\n019200     OPEN     OUTPUT PRINT-FILE.                                  IC2164.2\n019300     MOVE CCVS-PGM-ID TO TEST-ID. MOVE CCVS-PGM-ID TO ID-AGAIN.   IC2164.2\n019400     MOVE    SPACE TO TEST-RESULTS.                               IC2164.2\n019500     PERFORM  HEAD-ROUTINE THRU COLUMN-NAMES-ROUTINE.             IC2164.2\n019600     GO TO CCVS1-EXIT.                                            IC2164.2\n019700 CLOSE-FILES.                                                     IC2164.2\n019800     PERFORM END-ROUTINE THRU END-ROUTINE-13. CLOSE PRINT-FILE.   IC2164.2\n019900 TERMINATE-CCVS.                                                  IC2164.2\n020000*    EXIT PROGRAM.                                                IC2164.2\n020100*TERMINATE-CALL.                                                  IC2164.2\n020200     STOP     RUN.                                                IC2164.2\n020300 INSPT. MOVE \"INSPT\" TO P-OR-F. ADD 1 TO INSPECT-COUNTER.         IC2164.2\n020400 PASS.  MOVE \"PASS \" TO P-OR-F.  ADD 1 TO PASS-COUNTER.           IC2164.2\n020500 FAIL.  MOVE \"FAIL*\" TO P-OR-F.  ADD 1 TO ERROR-COUNTER.          IC2164.2\n020600 DE-LETE.  MOVE \"*****\" TO P-OR-F.  ADD 1 TO DELETE-COUNTER.      IC2164.2\n020700     MOVE \"****TEST DELETED****\" TO RE-MARK.                      IC2164.2\n020800 PRINT-DETAIL.                                                    IC2164.2\n020900     IF REC-CT NOT EQUAL TO ZERO                                  IC2164.2\n021000             MOVE \".\" TO PARDOT-X                                 IC2164.2\n021100             MOVE REC-CT TO DOTVALUE.                             IC2164.2\n021200     MOVE     TEST-RESULTS TO PRINT-REC. PERFORM WRITE-LINE.      IC2164.2\n021300     IF P-OR-F EQUAL TO \"FAIL*\"  PERFORM WRITE-LINE               IC2164.2\n021400        PERFORM FAIL-ROUTINE THRU FAIL-ROUTINE-EX                 IC2164.2\n021500          ELSE PERFORM BAIL-OUT THRU BAIL-OUT-EX.                 IC2164.2\n021600     MOVE SPACE TO P-OR-F. MOVE SPACE TO COMPUTED-X.              IC2164.2\n021700     MOVE SPACE TO CORRECT-X.                                     IC2164.2\n021800     IF     REC-CT EQUAL TO ZERO  MOVE SPACE TO PAR-NAME.         IC2164.2\n021900     MOVE     SPACE TO RE-MARK.                                   IC2164.2\n022000 HEAD-ROUTINE.                                                    IC2164.2\n022100     MOVE CCVS-H-1  TO DUMMY-RECORD. PERFORM WRITE-LINE 2 TIMES.  IC2164.2\n022200     MOVE CCVS-H-2A TO DUMMY-RECORD. PERFORM WRITE-LINE 2 TIMES.  IC2164.2\n022300     MOVE CCVS-H-2B TO DUMMY-RECORD. PERFORM WRITE-LINE 3 TIMES.  IC2164.2\n022400     MOVE CCVS-H-3  TO DUMMY-RECORD. PERFORM WRITE-LINE 3 TIMES.  IC2164.2\n022500 COLUMN-NAMES-ROUTINE.                                            IC2164.2\n022600     MOVE CCVS-C-1 TO DUMMY-RECORD. PERFORM WRITE-LINE.           IC2164.2\n022700     MOVE CCVS-C-2 TO DUMMY-RECORD. PERFORM WRITE-LINE 2 TIMES.   IC2164.2\n022800     MOVE HYPHEN-LINE TO DUMMY-RECORD. PERFORM WRITE-LINE.        IC2164.2\n022900 END-ROUTINE.                                                     IC2164.2\n023000     MOVE HYPHEN-LINE TO DUMMY-RECORD. PERFORM WRITE-LINE 5 TIMES.IC2164.2\n023100 END-RTN-EXIT.                                                    IC2164.2\n023200     MOVE CCVS-E-1 TO DUMMY-RECORD. PERFORM WRITE-LINE 2 TIMES.   IC2164.2\n023300 END-ROUTINE-1.                                                   IC2164.2\n023400      ADD ERROR-COUNTER TO ERROR-HOLD ADD INSPECT-COUNTER TO      IC2164.2\n023500      ERROR-HOLD. ADD DELETE-COUNTER TO ERROR-HOLD.               IC2164.2\n023600      ADD PASS-COUNTER TO ERROR-HOLD.                             IC2164.2\n023700*     IF PASS-COUNTER EQUAL TO ERROR-HOLD GO TO END-ROUTINE-12.   IC2164.2\n023800      MOVE PASS-COUNTER TO CCVS-E-4-1.                            IC2164.2\n023900      MOVE ERROR-HOLD TO CCVS-E-4-2.                              IC2164.2\n024000      MOVE CCVS-E-4 TO CCVS-E-2-2.                                IC2164.2\n024100      MOVE CCVS-E-2 TO DUMMY-RECORD PERFORM WRITE-LINE.           IC2164.2\n024200  END-ROUTINE-12.                                                 IC2164.2\n024300      MOVE \"TEST(S) FAILED\" TO ENDER-DESC.                        IC2164.2\n024400     IF       ERROR-COUNTER IS EQUAL TO ZERO                      IC2164.2\n024500         MOVE \"NO \" TO ERROR-TOTAL                                IC2164.2\n024600         ELSE                                                     IC2164.2\n024700         MOVE ERROR-COUNTER TO ERROR-TOTAL.                       IC2164.2\n024800     MOVE     CCVS-E-2 TO DUMMY-RECORD.                           IC2164.2\n024900     PERFORM WRITE-LINE.                                          IC2164.2\n025000 END-ROUTINE-13.                                                  IC2164.2\n025100     IF DELETE-COUNTER IS EQUAL TO ZERO                           IC2164.2\n025200         MOVE \"NO \" TO ERROR-TOTAL  ELSE                          IC2164.2\n025300         MOVE DELETE-COUNTER TO ERROR-TOTAL.                      IC2164.2\n025400     MOVE \"TEST(S) DELETED     \" TO ENDER-DESC.                   IC2164.2\n025500     MOVE CCVS-E-2 TO DUMMY-RECORD. PERFORM WRITE-LINE.           IC2164.2\n025600      IF   INSPECT-COUNTER EQUAL TO ZERO                          IC2164.2\n025700          MOVE \"NO \" TO ERROR-TOTAL                               IC2164.2\n025800      ELSE MOVE INSPECT-COUNTER TO ERROR-TOTAL.                   IC2164.2\n025900      MOVE \"TEST(S) REQUIRE INSPECTION\" TO ENDER-DESC.            IC2164.2\n026000      MOVE CCVS-E-2 TO DUMMY-RECORD. PERFORM WRITE-LINE.          IC2164.2\n026100     MOVE CCVS-E-3 TO DUMMY-RECORD. PERFORM WRITE-LINE.           IC2164.2\n026200 WRITE-LINE.                                                      IC2164.2\n026300     ADD 1 TO RECORD-COUNT.                                       IC2164.2\n026400*    IF RECORD-COUNT GREATER 50                                   IC2164.2\n026500*        MOVE DUMMY-RECORD TO DUMMY-HOLD                          IC2164.2\n026600*        MOVE SPACE TO DUMMY-RECORD                               IC2164.2\n026700*        WRITE DUMMY-RECORD AFTER ADVANCING PAGE                  IC2164.2\n026800*        MOVE CCVS-C-1 TO DUMMY-RECORD PERFORM WRT-LN             IC2164.2\n026900*        MOVE CCVS-C-2 TO DUMMY-RECORD PERFORM WRT-LN 2 TIMES     IC2164.2\n027000*        MOVE HYPHEN-LINE TO DUMMY-RECORD PERFORM WRT-LN          IC2164.2\n027100*        MOVE DUMMY-HOLD TO DUMMY-RECORD                          IC2164.2\n027200*        MOVE ZERO TO RECORD-COUNT.                               IC2164.2\n027300     PERFORM WRT-LN.                                              IC2164.2\n027400 WRT-LN.                                                          IC2164.2\n027500     WRITE    DUMMY-RECORD AFTER ADVANCING 1 LINES.               IC2164.2\n027600     MOVE SPACE TO DUMMY-RECORD.                                  IC2164.2\n027700 BLANK-LINE-PRINT.                                                IC2164.2\n027800     PERFORM WRT-LN.                                              IC2164.2\n027900 FAIL-ROUTINE.                                                    IC2164.2\n028000     IF   COMPUTED-X NOT EQUAL TO SPACE GO TO FAIL-ROUTINE-WRITE. IC2164.2\n028100     IF     CORRECT-X NOT EQUAL TO SPACE GO TO FAIL-ROUTINE-WRITE.IC2164.2\n028200     MOVE   ANSI-REFERENCE TO INF-ANSI-REFERENCE.                 IC2164.2\n028300     MOVE  \"NO FURTHER INFORMATION, SEE PROGRAM.\" TO INFO-TEXT.   IC2164.2\n028400     MOVE   XXINFO TO DUMMY-RECORD. PERFORM WRITE-LINE 2 TIMES.   IC2164.2\n028500     MOVE   SPACES TO INF-ANSI-REFERENCE.                         IC2164.2\n028600     GO TO  FAIL-ROUTINE-EX.                                      IC2164.2\n028700 FAIL-ROUTINE-WRITE.                                              IC2164.2\n028800     MOVE   TEST-COMPUTED TO PRINT-REC PERFORM WRITE-LINE         IC2164.2\n028900     MOVE   ANSI-REFERENCE TO COR-ANSI-REFERENCE.                 IC2164.2\n029000     MOVE   TEST-CORRECT TO PRINT-REC PERFORM WRITE-LINE 2 TIMES. IC2164.2\n029100     MOVE   SPACES TO COR-ANSI-REFERENCE.                         IC2164.2\n029200 FAIL-ROUTINE-EX. EXIT.                                           IC2164.2\n029300 BAIL-OUT.                                                        IC2164.2\n029400     IF     COMPUTED-A NOT EQUAL TO SPACE GO TO BAIL-OUT-WRITE.   IC2164.2\n029500     IF     CORRECT-A EQUAL TO SPACE GO TO BAIL-OUT-EX.           IC2164.2\n029600 BAIL-OUT-WRITE.                                                  IC2164.2\n029700     MOVE CORRECT-A TO XXCORRECT. MOVE COMPUTED-A TO XXCOMPUTED.  IC2164.2\n029800     MOVE   ANSI-REFERENCE TO INF-ANSI-REFERENCE.                 IC2164.2\n029900     MOVE   XXINFO TO DUMMY-RECORD. PERFORM WRITE-LINE 2 TIMES.   IC2164.2\n030000     MOVE   SPACES TO INF-ANSI-REFERENCE.                         IC2164.2\n030100 BAIL-OUT-EX. EXIT.                                               IC2164.2\n030200 CCVS1-EXIT.                                                      IC2164.2\n030300     EXIT.                                                        IC2164.2\n030400 CALL-TEST-1.                                                     IC2164.2\n030500     MOVE \"CALL...USING DATA-NM\" TO FEATURE.                      IC2164.2\n030600     MOVE \"CALL-TEST-1\" TO PAR-NAME.                              IC2164.2\n030700     MOVE \"REFERENCING REDEFINED DATA-NAMES\" TO RE-MARK.          IC2164.2\n030800     CALL \"IC217A\" USING DN1, DN4.                                IC2164.2\n030900     IF DN1 = 12345                                               IC2164.2\n031000        PERFORM PASS                                              IC2164.2\n031100        GO TO CALL-WRITE-1.                                       IC2164.2\n031200 CALL-FAIL-1.                                                     IC2164.2\n031300     MOVE DN1 TO COMPUTED-A.                                      IC2164.2\n031400     MOVE 12345 TO CORRECT-A.                                     IC2164.2\n031500     PERFORM FAIL.                                                IC2164.2\n031600 CALL-WRITE-1.                                                    IC2164.2\n031700     PERFORM PRINT-DETAIL.                                        IC2164.2\n031800 CALL-TEST-2.                                                     IC2164.2\n031900     MOVE \"CALL...USING DATA-NM\" TO FEATURE.                      IC2164.2\n032000     MOVE \"CALL-TEST-2\" TO PAR-NAME.                              IC2164.2\n032100     MOVE \"REFERENCING REDEFINED DATA-NAMES\" TO RE-MARK.          IC2164.2\n032200     IF DN4 = \"YES987NO\"                                          IC2164.2\n032300        PERFORM PASS                                              IC2164.2\n032400        GO TO CALL-WRITE-2.                                       IC2164.2\n032500 CALL-FAIL-2.                                                     IC2164.2\n032600     MOVE DN4 TO COMPUTED-A.                                      IC2164.2\n032700     MOVE \"YES987NO\" TO CORRECT-A.                                IC2164.2\n032800     PERFORM FAIL.                                                IC2164.2\n032900 CALL-WRITE-2.                                                    IC2164.2\n033000     PERFORM PRINT-DETAIL.                                        IC2164.2\n033100 CCVS-EXIT SECTION.                                               IC2164.2\n033200 CCVS-999999.                                                     IC2164.2\n033300     GO TO CLOSE-FILES.                                           IC2164.2\n      *END-OF,IC216A                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "IC216A",
+  "stage1_division_count": 4,
+  "stage1_paragraph_count": 32,
+  "stage1_token_count": 1786,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {
+      "program_id": "IC216A"
+    },
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 4,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 14,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "DATA"
+        },
+        "children": [
+          {
+            "node_type": "DataItem",
+            "line": 17,
+            "attributes": {
+              "level": 1,
+              "name": "PRINT-REC",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 18,
+            "attributes": {
+              "level": 1,
+              "name": "DUMMY-RECORD",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 20,
+            "attributes": {
+              "level": 1,
+              "name": "DN1"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 21,
+            "attributes": {
+              "level": 2,
+              "name": "DN2",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 22,
+            "attributes": {
+              "level": 2,
+              "name": "DN3",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 23,
+            "attributes": {
+              "level": 1,
+              "name": "DN4"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 24,
+            "attributes": {
+              "level": 2,
+              "name": "DN5"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 25,
+            "attributes": {
+              "level": 3,
+              "name": "DN6",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 26,
+            "attributes": {
+              "level": 3,
+              "name": "DN7",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 27,
+            "attributes": {
+              "level": 3,
+              "name": "DN8",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 28,
+            "attributes": {
+              "level": 2,
+              "name": "DN9",
+              "pic": "XX"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 29,
+            "attributes": {
+              "level": 1,
+              "name": "TEST-RESULTS"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 30,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "SPACE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 31,
+            "attributes": {
+              "level": 2,
+              "name": "FEATURE",
+              "pic": "X",
+              "value": "SPACE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 32,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "SPACE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 33,
+            "attributes": {
+              "level": 2,
+              "name": "P-OR-F",
+              "pic": "X",
+              "value": "SPACE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 34,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "SPACE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 35,
+            "attributes": {
+              "level": 2,
+              "name": "PAR-NAME"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 36,
+            "attributes": {
+              "level": 3,
+              "pic": "X",
+              "value": "SPACE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 37,
+            "attributes": {
+              "level": 3,
+              "name": "PARDOT-X",
+              "pic": "X",
+              "value": "SPACE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 38,
+            "attributes": {
+              "level": 3,
+              "name": "DOTVALUE",
+              "pic": "99",
+              "value": "ZERO"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 39,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "SPACE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 40,
+            "attributes": {
+              "level": 2,
+              "name": "RE-MARK",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 41,
+            "attributes": {
+              "level": 1,
+              "name": "TEST-COMPUTED"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 42,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "SPACE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 43,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "\"       COMPUTED=\""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 45,
+            "attributes": {
+              "level": 2,
+              "name": "COMPUTED-X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 46,
+            "attributes": {
+              "level": 3,
+              "name": "COMPUTED-A",
+              "pic": "X",
+              "value": "SPACE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 47,
+            "attributes": {
+              "level": 3,
+              "name": "COMPUTED-N",
+              "pic": "-9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 49,
+            "attributes": {
+              "level": 3,
+              "name": "COMPUTED-0V18",
+              "pic": "-"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 50,
+            "attributes": {
+              "level": 3,
+              "name": "COMPUTED-4V14",
+              "pic": "-9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 51,
+            "attributes": {
+              "level": 3,
+              "name": "COMPUTED-14V4",
+              "pic": "-9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 52,
+            "attributes": {
+              "level": 3,
+              "name": "CM-18V0"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 53,
+            "attributes": {
+              "level": 4,
+              "name": "COMPUTED-18V0",
+              "pic": "-9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 54,
+            "attributes": {
+              "level": 4,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 55,
+            "attributes": {
+              "level": 3,
+              "pic": "X",
+              "value": "SPACE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 56,
+            "attributes": {
+              "level": 1,
+              "name": "TEST-CORRECT"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 57,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "SPACE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 58,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "\"       CORRECT =\""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 59,
+            "attributes": {
+              "level": 2,
+              "name": "CORRECT-X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 60,
+            "attributes": {
+              "level": 3,
+              "name": "CORRECT-A",
+              "pic": "X",
+              "value": "SPACE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 61,
+            "attributes": {
+              "level": 3,
+              "name": "CORRECT-N",
+              "pic": "-9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 62,
+            "attributes": {
+              "level": 3,
+              "name": "CORRECT-0V18",
+              "pic": "-"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 63,
+            "attributes": {
+              "level": 3,
+              "name": "CORRECT-4V14",
+              "pic": "-9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 64,
+            "attributes": {
+              "level": 3,
+              "name": "CORRECT-14V4",
+              "pic": "-9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 65,
+            "attributes": {
+              "level": 3,
+              "name": "CR-18V0"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 66,
+            "attributes": {
+              "level": 4,
+              "name": "CORRECT-18V0",
+              "pic": "-9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 67,
+            "attributes": {
+              "level": 4,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 68,
+            "attributes": {
+              "level": 3,
+              "pic": "X",
+              "value": "SPACE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 69,
+            "attributes": {
+              "level": 3,
+              "name": "COR-ANSI-REFERENCE",
+              "pic": "X",
+              "value": "SPACE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 70,
+            "attributes": {
+              "level": 1,
+              "name": "CCVS-C-1"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 71,
+            "attributes": {
+              "level": 2,
+              "value": "\" FEATURE              PA\""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 74,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "SPACE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 75,
+            "attributes": {
+              "level": 1,
+              "name": "CCVS-C-2"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 76,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "SPACE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 77,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "\"TESTED\""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 78,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "SPACE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 79,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "\"FAIL\""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 80,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "SPACE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 81,
+            "attributes": {
+              "level": 1,
+              "name": "REC-SKL-SUB",
+              "pic": "9",
+              "value": "ZERO"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 82,
+            "attributes": {
+              "level": 1,
+              "name": "REC-CT",
+              "pic": "99",
+              "value": "ZERO"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 83,
+            "attributes": {
+              "level": 1,
+              "name": "DELETE-COUNTER",
+              "pic": "999",
+              "value": "ZERO"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 84,
+            "attributes": {
+              "level": 1,
+              "name": "ERROR-COUNTER",
+              "pic": "999",
+              "value": "ZERO"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 85,
+            "attributes": {
+              "level": 1,
+              "name": "INSPECT-COUNTER",
+              "pic": "999",
+              "value": "ZERO"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 86,
+            "attributes": {
+              "level": 1,
+              "name": "PASS-COUNTER",
+              "pic": "999",
+              "value": "ZERO"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 87,
+            "attributes": {
+              "level": 1,
+              "name": "TOTAL-ERROR",
+              "pic": "999",
+              "value": "ZERO"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 88,
+            "attributes": {
+              "level": 1,
+              "name": "ERROR-HOLD",
+              "pic": "999",
+              "value": "ZERO"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 89,
+            "attributes": {
+              "level": 1,
+              "name": "DUMMY-HOLD",
+              "pic": "X",
+              "value": "SPACE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 90,
+            "attributes": {
+              "level": 1,
+              "name": "RECORD-COUNT",
+              "pic": "9",
+              "value": "ZERO"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 91,
+            "attributes": {
+              "level": 1,
+              "name": "ANSI-REFERENCE",
+              "pic": "X",
+              "value": "SPACES"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 92,
+            "attributes": {
+              "level": 1,
+              "name": "CCVS-H-1"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 93,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "SPACES"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 94,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "\"OFFICIAL COBOL COMPILER VALIDATION SYSTEM\""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 96,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "SPACES"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 97,
+            "attributes": {
+              "level": 1,
+              "name": "CCVS-H-2A"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 98,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "SPACE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 99,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "\"CCVS85 \""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 100,
+            "attributes": {
+              "level": 2,
+              "pic": "XXXX",
+              "value": "\"4.2 \""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 102,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "\" COPY - NOT FOR DISTRIBUTION\""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 104,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "SPACE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 106,
+            "attributes": {
+              "level": 1,
+              "name": "CCVS-H-2B"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 107,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "\"TEST RESULT OF \""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 109,
+            "attributes": {
+              "level": 2,
+              "name": "TEST-ID",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 110,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "\" IN \""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 112,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "\" HIGH       \""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 114,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "\" LEVEL VALIDATION FOR \""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 116,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "\"ON-SITE VALIDATION, NATIONAL INSTITUTE OF STD & TECH.     \""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 118,
+            "attributes": {
+              "level": 1,
+              "name": "CCVS-H-3"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 119,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "\" FOR OFFICIAL USE ONLY    \""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 121,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "\"COBOL 85 VERSION 4.2, Apr  1993 SSVG                      \""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 123,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "\"  COPYRIGHT   1985 \""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 125,
+            "attributes": {
+              "level": 1,
+              "name": "CCVS-E-1"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 126,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "SPACE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 127,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "\"END OF TEST-  \""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 128,
+            "attributes": {
+              "level": 2,
+              "name": "ID-AGAIN",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 129,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "SPACES"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 130,
+            "attributes": {
+              "level": 1,
+              "name": "CCVS-E-2"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 131,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "SPACE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 132,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "SPACE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 133,
+            "attributes": {
+              "level": 2,
+              "name": "CCVS-E-2-2"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 134,
+            "attributes": {
+              "level": 3,
+              "name": "ERROR-TOTAL",
+              "pic": "XXX",
+              "value": "SPACE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 135,
+            "attributes": {
+              "level": 3,
+              "pic": "X",
+              "value": "SPACE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 136,
+            "attributes": {
+              "level": 3,
+              "name": "ENDER-DESC",
+              "pic": "X",
+              "value": "\"ERRORS ENCOUNTERED\""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 138,
+            "attributes": {
+              "level": 1,
+              "name": "CCVS-E-3"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 139,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "\" FOR OFFICIAL USE ONLY\""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 141,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "SPACE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 142,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "\"ON-SITE VALIDATION, NATIONAL INSTITUTE OF STD & TECH.     \""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 144,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "SPACE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 145,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "\" COPYRIGHT 1985\""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 147,
+            "attributes": {
+              "level": 1,
+              "name": "CCVS-E-4"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 148,
+            "attributes": {
+              "level": 2,
+              "name": "CCVS-E-4-1",
+              "pic": "XXX",
+              "value": "SPACE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 149,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "\" OF \""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 150,
+            "attributes": {
+              "level": 2,
+              "name": "CCVS-E-4-2",
+              "pic": "XXX",
+              "value": "SPACE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 151,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "\"  TESTS WERE EXECUTED SUCCESSFULLY\""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 153,
+            "attributes": {
+              "level": 1,
+              "name": "XXINFO"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 154,
+            "attributes": {
+              "level": 2,
+              "pic": "X",
+              "value": "\"*** INFORMATION ***\""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 156,
+            "attributes": {
+              "level": 2,
+              "name": "INFO-TEXT"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 157,
+            "attributes": {
+              "level": 4,
+              "pic": "X",
+              "value": "SPACE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 158,
+            "attributes": {
+              "level": 4,
+              "name": "XXCOMPUTED",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 159,
+            "attributes": {
+              "level": 4,
+              "pic": "X",
+              "value": "SPACE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 160,
+            "attributes": {
+              "level": 4,
+              "name": "XXCORRECT",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 161,
+            "attributes": {
+              "level": 2,
+              "name": "INF-ANSI-REFERENCE",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 162,
+            "attributes": {
+              "level": 1,
+              "name": "HYPHEN-LINE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 163,
+            "attributes": {
+              "level": 2,
+              "value": "SPACE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 164,
+            "attributes": {
+              "level": 2,
+              "value": "\"************************\""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 166,
+            "attributes": {
+              "level": 2,
+              "value": "\"************************\""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 168,
+            "attributes": {
+              "level": 1,
+              "name": "CCVS-PGM-ID",
+              "pic": "X",
+              "value": "\"IC216A\""
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 170,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 172,
+            "attributes": {
+              "name": "OPEN-FILES"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 173,
+                "attributes": {
+                  "verb": "OPEN",
+                  "operands": [
+                    "OUTPUT",
+                    "PRINT-FILE"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 174,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "CCVS-PGM-ID",
+                    "TO",
+                    "TEST-ID"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 174,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "CCVS-PGM-ID",
+                    "TO",
+                    "ID-AGAIN"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 175,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "SPACE",
+                    "TO",
+                    "TEST-RESULTS"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 176,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "HEAD-ROUTINE",
+                    "THRU",
+                    "COLUMN-NAMES-ROUTINE"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 177,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "CCVS1-EXIT"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 178,
+            "attributes": {
+              "name": "CLOSE-FILES"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 179,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "END-ROUTINE",
+                    "THRU",
+                    "END-ROUTINE-13"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 179,
+                "attributes": {
+                  "verb": "CLOSE",
+                  "operands": [
+                    "PRINT-FILE"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 180,
+            "attributes": {
+              "name": "TERMINATE-CCVS"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 181,
+                "attributes": {
+                  "verb": "STOP",
+                  "operands": [
+                    "RUN"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 182,
+            "attributes": {
+              "name": "INSPT"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 182,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"INSPT\"",
+                    "TO",
+                    "P-OR-F"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 182,
+                "attributes": {
+                  "verb": "ADD",
+                  "operands": [
+                    "1",
+                    "TO",
+                    "INSPECT-COUNTER"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 183,
+            "attributes": {
+              "name": "PASS"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 183,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"PASS \"",
+                    "TO",
+                    "P-OR-F"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 183,
+                "attributes": {
+                  "verb": "ADD",
+                  "operands": [
+                    "1",
+                    "TO",
+                    "PASS-COUNTER"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 184,
+            "attributes": {
+              "name": "FAIL"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 184,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"FAIL*\"",
+                    "TO",
+                    "P-OR-F"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 184,
+                "attributes": {
+                  "verb": "ADD",
+                  "operands": [
+                    "1",
+                    "TO",
+                    "ERROR-COUNTER"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 185,
+            "attributes": {
+              "name": "DE-LETE"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 185,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"*****\"",
+                    "TO",
+                    "P-OR-F"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 185,
+                "attributes": {
+                  "verb": "ADD",
+                  "operands": [
+                    "1",
+                    "TO",
+                    "DELETE-COUNTER"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 186,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"****TEST DELETED****\"",
+                    "TO",
+                    "RE-MARK"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 187,
+            "attributes": {
+              "name": "PRINT-DETAIL"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 188,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "REC-CT",
+                    "NOT",
+                    "EQUAL",
+                    "TO",
+                    "ZERO"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 189,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\".\"",
+                    "TO",
+                    "PARDOT-X"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 190,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "REC-CT",
+                    "TO",
+                    "DOTVALUE"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 191,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "TEST-RESULTS",
+                    "TO",
+                    "PRINT-REC"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 191,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "WRITE-LINE"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 192,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "P-OR-F",
+                    "EQUAL",
+                    "TO",
+                    "\"FAIL*\""
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 192,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "WRITE-LINE"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 193,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "FAIL-ROUTINE",
+                    "THRU",
+                    "FAIL-ROUTINE-EX"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 194,
+                "attributes": {
+                  "verb": "ELSE",
+                  "operands": []
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 194,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "BAIL-OUT",
+                    "THRU",
+                    "BAIL-OUT-EX"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 195,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "SPACE",
+                    "TO",
+                    "P-OR-F"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 195,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "SPACE",
+                    "TO",
+                    "COMPUTED-X"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 196,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "SPACE",
+                    "TO",
+                    "CORRECT-X"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 197,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "REC-CT",
+                    "EQUAL",
+                    "TO",
+                    "ZERO"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 197,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "SPACE",
+                    "TO",
+                    "PAR-NAME"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 198,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "SPACE",
+                    "TO",
+                    "RE-MARK"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 199,
+            "attributes": {
+              "name": "HEAD-ROUTINE"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 200,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "CCVS-H-1",
+                    "TO",
+                    "DUMMY-RECORD"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 200,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "WRITE-LINE",
+                    "2",
+                    "TIMES"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 201,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "CCVS-H-2A",
+                    "TO",
+                    "DUMMY-RECORD"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 201,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "WRITE-LINE",
+                    "2",
+                    "TIMES"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 202,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "CCVS-H-2B",
+                    "TO",
+                    "DUMMY-RECORD"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 202,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "WRITE-LINE",
+                    "3",
+                    "TIMES"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 203,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "CCVS-H-3",
+                    "TO",
+                    "DUMMY-RECORD"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 203,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "WRITE-LINE",
+                    "3",
+                    "TIMES"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 204,
+            "attributes": {
+              "name": "COLUMN-NAMES-ROUTINE"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 205,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "CCVS-C-1",
+                    "TO",
+                    "DUMMY-RECORD"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 205,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "WRITE-LINE"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 206,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "CCVS-C-2",
+                    "TO",
+                    "DUMMY-RECORD"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 206,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "WRITE-LINE",
+                    "2",
+                    "TIMES"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 207,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "HYPHEN-LINE",
+                    "TO",
+                    "DUMMY-RECORD"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 207,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "WRITE-LINE"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 208,
+            "attributes": {
+              "name": "END-ROUTINE"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 209,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "HYPHEN-LINE",
+                    "TO",
+                    "DUMMY-RECORD"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 209,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "WRITE-LINE",
+                    "5",
+                    "TIMES"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 210,
+            "attributes": {
+              "name": "END-RTN-EXIT"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 211,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "CCVS-E-1",
+                    "TO",
+                    "DUMMY-RECORD"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 211,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "WRITE-LINE",
+                    "2",
+                    "TIMES"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 212,
+            "attributes": {
+              "name": "END-ROUTINE-1"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 213,
+                "attributes": {
+                  "verb": "ADD",
+                  "operands": [
+                    "ERROR-COUNTER",
+                    "TO",
+                    "ERROR-HOLD"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 213,
+                "attributes": {
+                  "verb": "ADD",
+                  "operands": [
+                    "INSPECT-COUNTER",
+                    "TO",
+                    "ERROR-HOLD"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 214,
+                "attributes": {
+                  "verb": "ADD",
+                  "operands": [
+                    "DELETE-COUNTER",
+                    "TO",
+                    "ERROR-HOLD"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 215,
+                "attributes": {
+                  "verb": "ADD",
+                  "operands": [
+                    "PASS-COUNTER",
+                    "TO",
+                    "ERROR-HOLD"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 216,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "PASS-COUNTER",
+                    "TO",
+                    "CCVS-E-4-1"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 217,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "ERROR-HOLD",
+                    "TO",
+                    "CCVS-E-4-2"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 218,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "CCVS-E-4",
+                    "TO",
+                    "CCVS-E-2-2"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 219,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "CCVS-E-2",
+                    "TO",
+                    "DUMMY-RECORD"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 219,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "WRITE-LINE"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 220,
+            "attributes": {
+              "name": "END-ROUTINE-12"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 221,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"TEST(S) FAILED\"",
+                    "TO",
+                    "ENDER-DESC"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 222,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "ERROR-COUNTER",
+                    "IS",
+                    "EQUAL",
+                    "TO",
+                    "ZERO"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 223,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"NO \"",
+                    "TO",
+                    "ERROR-TOTAL"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 224,
+                "attributes": {
+                  "verb": "ELSE",
+                  "operands": []
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 225,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "ERROR-COUNTER",
+                    "TO",
+                    "ERROR-TOTAL"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 226,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "CCVS-E-2",
+                    "TO",
+                    "DUMMY-RECORD"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 227,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "WRITE-LINE"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 228,
+            "attributes": {
+              "name": "END-ROUTINE-13"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 229,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "DELETE-COUNTER",
+                    "IS",
+                    "EQUAL",
+                    "TO",
+                    "ZERO"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 230,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"NO \"",
+                    "TO",
+                    "ERROR-TOTAL"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 230,
+                "attributes": {
+                  "verb": "ELSE",
+                  "operands": []
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 231,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "DELETE-COUNTER",
+                    "TO",
+                    "ERROR-TOTAL"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 232,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"TEST(S) DELETED     \"",
+                    "TO",
+                    "ENDER-DESC"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 233,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "CCVS-E-2",
+                    "TO",
+                    "DUMMY-RECORD"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 233,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "WRITE-LINE"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 234,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "INSPECT-COUNTER",
+                    "EQUAL",
+                    "TO",
+                    "ZERO"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 235,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"NO \"",
+                    "TO",
+                    "ERROR-TOTAL"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 236,
+                "attributes": {
+                  "verb": "ELSE",
+                  "operands": []
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 236,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "INSPECT-COUNTER",
+                    "TO",
+                    "ERROR-TOTAL"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 237,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"TEST(S) REQUIRE INSPECTION\"",
+                    "TO",
+                    "ENDER-DESC"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 238,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "CCVS-E-2",
+                    "TO",
+                    "DUMMY-RECORD"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 238,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "WRITE-LINE"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 239,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "CCVS-E-3",
+                    "TO",
+                    "DUMMY-RECORD"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 239,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "WRITE-LINE"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 240,
+            "attributes": {
+              "name": "WRITE-LINE"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 241,
+                "attributes": {
+                  "verb": "ADD",
+                  "operands": [
+                    "1",
+                    "TO",
+                    "RECORD-COUNT"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 242,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "WRT-LN"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 243,
+            "attributes": {
+              "name": "WRT-LN"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 244,
+                "attributes": {
+                  "verb": "WRITE",
+                  "operands": [
+                    "DUMMY-RECORD",
+                    "AFTER",
+                    "ADVANCING",
+                    "1",
+                    "LINES"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 245,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "SPACE",
+                    "TO",
+                    "DUMMY-RECORD"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 246,
+            "attributes": {
+              "name": "BLANK-LINE-PRINT"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 247,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "WRT-LN"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 248,
+            "attributes": {
+              "name": "FAIL-ROUTINE"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 249,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "COMPUTED-X",
+                    "NOT",
+                    "EQUAL",
+                    "TO",
+                    "SPACE"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 249,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "FAIL-ROUTINE-WRITE"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 250,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "CORRECT-X",
+                    "NOT",
+                    "EQUAL",
+                    "TO",
+                    "SPACE"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 250,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "FAIL-ROUTINE-WRITE"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 251,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "ANSI-REFERENCE",
+                    "TO",
+                    "INF-ANSI-REFERENCE"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 252,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"NO FURTHER INFORMATION, SEE PROGRAM.\"",
+                    "TO",
+                    "INFO-TEXT"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 253,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "XXINFO",
+                    "TO",
+                    "DUMMY-RECORD"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 253,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "WRITE-LINE",
+                    "2",
+                    "TIMES"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 254,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "SPACES",
+                    "TO",
+                    "INF-ANSI-REFERENCE"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 255,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "FAIL-ROUTINE-EX"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 256,
+            "attributes": {
+              "name": "FAIL-ROUTINE-WRITE"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 257,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "TEST-COMPUTED",
+                    "TO",
+                    "PRINT-REC"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 257,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "WRITE-LINE"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 258,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "ANSI-REFERENCE",
+                    "TO",
+                    "COR-ANSI-REFERENCE"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 259,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "TEST-CORRECT",
+                    "TO",
+                    "PRINT-REC"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 259,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "WRITE-LINE",
+                    "2",
+                    "TIMES"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 260,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "SPACES",
+                    "TO",
+                    "COR-ANSI-REFERENCE"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 261,
+            "attributes": {
+              "name": "FAIL-ROUTINE-EX"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 261,
+                "attributes": {
+                  "verb": "EXIT",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 262,
+            "attributes": {
+              "name": "BAIL-OUT"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 263,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "COMPUTED-A",
+                    "NOT",
+                    "EQUAL",
+                    "TO",
+                    "SPACE"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 263,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "BAIL-OUT-WRITE"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 264,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "CORRECT-A",
+                    "EQUAL",
+                    "TO",
+                    "SPACE"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 264,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "BAIL-OUT-EX"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 265,
+            "attributes": {
+              "name": "BAIL-OUT-WRITE"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 266,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "CORRECT-A",
+                    "TO",
+                    "XXCORRECT"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 266,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "COMPUTED-A",
+                    "TO",
+                    "XXCOMPUTED"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 267,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "ANSI-REFERENCE",
+                    "TO",
+                    "INF-ANSI-REFERENCE"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 268,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "XXINFO",
+                    "TO",
+                    "DUMMY-RECORD"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 268,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "WRITE-LINE",
+                    "2",
+                    "TIMES"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 269,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "SPACES",
+                    "TO",
+                    "INF-ANSI-REFERENCE"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 270,
+            "attributes": {
+              "name": "BAIL-OUT-EX"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 270,
+                "attributes": {
+                  "verb": "EXIT",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 271,
+            "attributes": {
+              "name": "CCVS1-EXIT"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 272,
+                "attributes": {
+                  "verb": "EXIT",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 273,
+            "attributes": {
+              "name": "CALL-TEST-1"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 274,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"CALL...USING DATA-NM\"",
+                    "TO",
+                    "FEATURE"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 275,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"CALL-TEST-1\"",
+                    "TO",
+                    "PAR-NAME"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 276,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"REFERENCING REDEFINED DATA-NAMES\"",
+                    "TO",
+                    "RE-MARK"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 277,
+                "attributes": {
+                  "verb": "CALL",
+                  "operands": [
+                    "\"IC217A\"",
+                    "USING",
+                    "DN1",
+                    "DN4"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 278,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "DN1",
+                    "=",
+                    "12345"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 279,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "PASS"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 280,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "CALL-WRITE-1"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 281,
+            "attributes": {
+              "name": "CALL-FAIL-1"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 282,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "DN1",
+                    "TO",
+                    "COMPUTED-A"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 283,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "12345",
+                    "TO",
+                    "CORRECT-A"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 284,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "FAIL"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 285,
+            "attributes": {
+              "name": "CALL-WRITE-1"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 286,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "PRINT-DETAIL"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 287,
+            "attributes": {
+              "name": "CALL-TEST-2"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 288,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"CALL...USING DATA-NM\"",
+                    "TO",
+                    "FEATURE"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 289,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"CALL-TEST-2\"",
+                    "TO",
+                    "PAR-NAME"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 290,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"REFERENCING REDEFINED DATA-NAMES\"",
+                    "TO",
+                    "RE-MARK"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 291,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "DN4",
+                    "=",
+                    "\"YES987NO\""
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 292,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "PASS"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 293,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "CALL-WRITE-2"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 294,
+            "attributes": {
+              "name": "CALL-FAIL-2"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 295,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "DN4",
+                    "TO",
+                    "COMPUTED-A"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 296,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"YES987NO\"",
+                    "TO",
+                    "CORRECT-A"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 297,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "FAIL"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 298,
+            "attributes": {
+              "name": "CALL-WRITE-2"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 299,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "PRINT-DETAIL"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 301,
+            "attributes": {
+              "name": "CCVS-999999"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 302,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "CLOSE-FILES"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "complexity_tier": "medium",
+  "complexity_score": 17.15,
+  "ast_depth": 4,
+  "unique_verbs": 12,
+  "cross_refs": 33,
+  "stage2_source": "rule-based",
+  "stage2_rule_based_code": "\"\"\"Translated from COBOL program IC216A.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'print_rec': '',\n    'dummy_record': '',\n    'dn1': None,\n    'dn2': '',\n    'dn3': 0,\n    'dn4': None,\n    'dn5': None,\n    'dn6': '',\n    'dn7': '',\n    'dn8': 0,\n    'dn9': '',\n    'test_results': None,\n    'feature': '',\n    'p_or_f': '',\n    'par_name': None,\n    'pardot_x': '',\n    'dotvalue': 0,\n    're_mark': '',\n    'test_computed': None,\n    'computed_x': None,\n    'computed_a': '',\n    'computed_n': 0,\n    'computed_0v18': 0,\n    'computed_4v14': 0,\n    'computed_14v4': 0,\n    'cm_18v0': None,\n    'computed_18v0': 0,\n    'test_correct': None,\n    'correct_x': None,\n    'correct_a': '',\n    'correct_n': 0,\n    'correct_0v18': 0,\n    'correct_4v14': 0,\n    'correct_14v4': 0,\n    'cr_18v0': None,\n    'correct_18v0': 0,\n    'cor_ansi_reference': '',\n    'ccvs_c_1': None,\n    'ccvs_c_2': None,\n    'rec_skl_sub': 0,\n    'rec_ct': 0,\n    'delete_counter': 0,\n    'error_counter': 0,\n    'inspect_counter': 0,\n    'pass_counter': 0,\n    'total_error': 0,\n    'error_hold': 0,\n    'dummy_hold': '',\n    'record_count': 0,\n    'ansi_reference': '',\n    'ccvs_h_1': None,\n    'ccvs_h_2a': None,\n    'ccvs_h_2b': None,\n    'test_id': '',\n    'ccvs_h_3': None,\n    'ccvs_e_1': None,\n    'id_again': '',\n    'ccvs_e_2': None,\n    'ccvs_e_2_2': None,\n    'error_total': '',\n    'ender_desc': \"ERRORS ENCOUNTERED\",\n    'ccvs_e_3': None,\n    'ccvs_e_4': None,\n    'ccvs_e_4_1': '',\n    'ccvs_e_4_2': '',\n    'xxinfo': None,\n    'info_text': None,\n    'xxcomputed': '',\n    'xxcorrect': '',\n    'inf_ansi_reference': '',\n    'hyphen_line': None,\n    'ccvs_pgm_id': \"IC216A\",\n})\n\ndef open_files() -> None:\n    state['print_file'] = open('print_file', 'w')\n    state['test_id'] = state['ccvs_pgm_id']\n    state['id_again'] = state['ccvs_pgm_id']\n    state['test_results'] = space\n    head_routine()\n    ccvs1_exit()\n    return\n\ndef close_files() -> None:\n    end_routine()\n    if hasattr(state['print_file'], 'close'): state['print_file'].close()\n\ndef terminate_ccvs() -> None:\n    return\n\ndef inspt() -> None:\n    state['p_or_f'] = \"INSPT\"\n    state['inspect_counter'] = state['inspect_counter'] + 1\n\ndef pass_() -> None:\n    state['p_or_f'] = \"PASS \"\n    state['pass_counter'] = state['pass_counter'] + 1\n\ndef fail() -> None:\n    state['p_or_f'] = \"FAIL*\"\n    state['error_counter'] = state['error_counter'] + 1\n\ndef de_lete() -> None:\n    state['p_or_f'] = \"*****\"\n    state['delete_counter'] = state['delete_counter'] + 1\n    state['re_mark'] = \"****TEST DELETED****\"\n\ndef print_detail() -> None:\n    if state['rec_ct'] != zero:\n        state['pardot_x'] = \".\"\n        state['dotvalue'] = state['rec_ct']\n        state['print_rec'] = state['test_results']\n        write_line()\n        if state['p_or_f'] == \"FAIL*\":\n            write_line()\n            fail_routine()\n        else:\n            bail_out()\n            state['p_or_f'] = space\n            state['computed_x'] = space\n            state['correct_x'] = space\n            if state['rec_ct'] == zero:\n                state['par_name'] = space\n                state['re_mark'] = space\n\ndef head_routine() -> None:\n    state['dummy_record'] = state['ccvs_h_1']\n    for _ in range(2):\n        write_line()\n    state['dummy_record'] = state['ccvs_h_2a']\n    for _ in range(2):\n        write_line()\n    state['dummy_record'] = state['ccvs_h_2b']\n    for _ in range(3):\n        write_line()\n    state['dummy_record'] = state['ccvs_h_3']\n    for _ in range(3):\n        write_line()\n\ndef column_names_routine() -> None:\n    state['dummy_record'] = state['ccvs_c_1']\n    write_line()\n    state['dummy_record'] = state['ccvs_c_2']\n    for _ in range(2):\n        write_line()\n    state['dummy_record'] = state['hyphen_line']\n    write_line()\n\ndef end_routine() -> None:\n    state['dummy_record'] = state['hyphen_line']\n    for _ in range(5):\n        write_line()\n\ndef end_rtn_exit() -> None:\n    state['dummy_record'] = state['ccvs_e_1']\n    for _ in range(2):\n        write_line()\n\ndef end_routine_1() -> None:\n    state['error_hold'] = state['error_hold'] + state['error_counter']\n    state['error_hold'] = state['error_hold'] + state['inspect_counter']\n    state['error_hold'] = state['error_hold'] + state['delete_counter']\n    state['error_hold'] = state['error_hold'] + state['pass_counter']\n    state['ccvs_e_4_1'] = state['pass_counter']\n    state['ccvs_e_4_2'] = state['error_hold']\n    state['ccvs_e_2_2'] = state['ccvs_e_4']\n    state['dummy_record'] = state['ccvs_e_2']\n    write_line()\n\ndef end_routine_12() -> None:\n    state['ender_desc'] = \"TEST(S) FAILED\"\n    if state['error_counter'] == zero:\n        state['error_total'] = \"NO \"\n    else:\n        state['error_total'] = state['error_counter']\n        state['dummy_record'] = state['ccvs_e_2']\n        write_line()\n\ndef end_routine_13() -> None:\n    if state['delete_counter'] == zero:\n        state['error_total'] = \"NO \"\n    else:\n        state['error_total'] = state['delete_counter']\n        state['ender_desc'] = \"TEST(S) DELETED     \"\n        state['dummy_record'] = state['ccvs_e_2']\n        write_line()\n        if state['inspect_counter'] == zero:\n            state['error_total'] = \"NO \"\n        else:\n            state['error_total'] = state['inspect_counter']\n            state['ender_desc'] = \"TEST(S) REQUIRE INSPECTION\"\n            state['dummy_record'] = state['ccvs_e_2']\n            write_line()\n            state['dummy_record'] = state['ccvs_e_3']\n            write_line()\n\ndef write_line() -> None:\n    state['record_count'] = state['record_count'] + 1\n    wrt_ln()\n\ndef wrt_ln() -> None:\n    print(state['dummy_record'])\n    state['dummy_record'] = space\n\ndef blank_line_print() -> None:\n    wrt_ln()\n\ndef fail_routine() -> None:\n    if state['computed_x'] != space:\n        fail_routine_write()\n        return\n        if state['correct_x'] != space:\n            fail_routine_write()\n            return\n            state['inf_ansi_reference'] = state['ansi_reference']\n            state['info_text'] = \"NO FURTHER INFORMATION, SEE PROGRAM.\"\n            state['dummy_record'] = state['xxinfo']\n            for _ in range(2):\n                write_line()\n            state['inf_ansi_reference'] = spaces\n            fail_routine_ex()\n            return\n\ndef fail_routine_write() -> None:\n    state['print_rec'] = state['test_computed']\n    write_line()\n    state['cor_ansi_reference'] = state['ansi_reference']\n    state['print_rec'] = state['test_correct']\n    for _ in range(2):\n        write_line()\n    state['cor_ansi_reference'] = spaces\n\ndef fail_routine_ex() -> None:\n    return\n\ndef bail_out() -> None:\n    if state['computed_a'] != space:\n        bail_out_write()\n        return\n        if state['correct_a'] == space:\n            bail_out_ex()\n            return\n\ndef bail_out_write() -> None:\n    state['xxcorrect'] = state['correct_a']\n    state['xxcomputed'] = state['computed_a']\n    state['inf_ansi_reference'] = state['ansi_reference']\n    state['dummy_record'] = state['xxinfo']\n    for _ in range(2):\n        write_line()\n    state['inf_ansi_reference'] = spaces\n\ndef bail_out_ex() -> None:\n    return\n\ndef ccvs1_exit() -> None:\n    return\n\ndef call_test_1() -> None:\n    state['feature'] = \"CALL...USING DATA-NM\"\n    state['par_name'] = \"CALL-TEST-1\"\n    state['re_mark'] = \"REFERENCING REDEFINED DATA-NAMES\"\n    # external call: IC217A()  -- preserved as comment\n    pass\n    if state['dn1'] == 12345:\n        pass_()\n        call_write_1()\n        return\n\ndef call_fail_1() -> None:\n    state['computed_a'] = state['dn1']\n    state['correct_a'] = 12345\n    fail()\n\ndef call_write_1() -> None:\n    print_detail()\n\ndef call_test_2() -> None:\n    state['feature'] = \"CALL...USING DATA-NM\"\n    state['par_name'] = \"CALL-TEST-2\"\n    state['re_mark'] = \"REFERENCING REDEFINED DATA-NAMES\"\n    if state['dn4'] == \"YES987NO\":\n        pass_()\n        call_write_2()\n        return\n\ndef call_fail_2() -> None:\n    state['computed_a'] = state['dn4']\n    state['correct_a'] = \"YES987NO\"\n    fail()\n\ndef call_write_2() -> None:\n    print_detail()\n\ndef ccvs_999999() -> None:\n    close_files()\n    return\n\nif __name__ == \"__main__\":\n    try:\n        open_files()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_neural_code": "",
+  "stage2_final_code": "\"\"\"Translated from COBOL program IC216A.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'print_rec': '',\n    'dummy_record': '',\n    'dn1': None,\n    'dn2': '',\n    'dn3': 0,\n    'dn4': None,\n    'dn5': None,\n    'dn6': '',\n    'dn7': '',\n    'dn8': 0,\n    'dn9': '',\n    'test_results': None,\n    'feature': '',\n    'p_or_f': '',\n    'par_name': None,\n    'pardot_x': '',\n    'dotvalue': 0,\n    're_mark': '',\n    'test_computed': None,\n    'computed_x': None,\n    'computed_a': '',\n    'computed_n': 0,\n    'computed_0v18': 0,\n    'computed_4v14': 0,\n    'computed_14v4': 0,\n    'cm_18v0': None,\n    'computed_18v0': 0,\n    'test_correct': None,\n    'correct_x': None,\n    'correct_a': '',\n    'correct_n': 0,\n    'correct_0v18': 0,\n    'correct_4v14': 0,\n    'correct_14v4': 0,\n    'cr_18v0': None,\n    'correct_18v0': 0,\n    'cor_ansi_reference': '',\n    'ccvs_c_1': None,\n    'ccvs_c_2': None,\n    'rec_skl_sub': 0,\n    'rec_ct': 0,\n    'delete_counter': 0,\n    'error_counter': 0,\n    'inspect_counter': 0,\n    'pass_counter': 0,\n    'total_error': 0,\n    'error_hold': 0,\n    'dummy_hold': '',\n    'record_count': 0,\n    'ansi_reference': '',\n    'ccvs_h_1': None,\n    'ccvs_h_2a': None,\n    'ccvs_h_2b': None,\n    'test_id': '',\n    'ccvs_h_3': None,\n    'ccvs_e_1': None,\n    'id_again': '',\n    'ccvs_e_2': None,\n    'ccvs_e_2_2': None,\n    'error_total': '',\n    'ender_desc': \"ERRORS ENCOUNTERED\",\n    'ccvs_e_3': None,\n    'ccvs_e_4': None,\n    'ccvs_e_4_1': '',\n    'ccvs_e_4_2': '',\n    'xxinfo': None,\n    'info_text': None,\n    'xxcomputed': '',\n    'xxcorrect': '',\n    'inf_ansi_reference': '',\n    'hyphen_line': None,\n    'ccvs_pgm_id': \"IC216A\",\n})\n\ndef open_files() -> None:\n    state['print_file'] = open('print_file', 'w')\n    state['test_id'] = state['ccvs_pgm_id']\n    state['id_again'] = state['ccvs_pgm_id']\n    state['test_results'] = space\n    head_routine()\n    ccvs1_exit()\n    return\n\ndef close_files() -> None:\n    end_routine()\n    if hasattr(state['print_file'], 'close'): state['print_file'].close()\n\ndef terminate_ccvs() -> None:\n    return\n\ndef inspt() -> None:\n    state['p_or_f'] = \"INSPT\"\n    state['inspect_counter'] = state['inspect_counter'] + 1\n\ndef pass_() -> None:\n    state['p_or_f'] = \"PASS \"\n    state['pass_counter'] = state['pass_counter'] + 1\n\ndef fail() -> None:\n    state['p_or_f'] = \"FAIL*\"\n    state['error_counter'] = state['error_counter'] + 1\n\ndef de_lete() -> None:\n    state['p_or_f'] = \"*****\"\n    state['delete_counter'] = state['delete_counter'] + 1\n    state['re_mark'] = \"****TEST DELETED****\"\n\ndef print_detail() -> None:\n    if state['rec_ct'] != zero:\n        state['pardot_x'] = \".\"\n        state['dotvalue'] = state['rec_ct']\n        state['print_rec'] = state['test_results']\n        write_line()\n        if state['p_or_f'] == \"FAIL*\":\n            write_line()\n            fail_routine()\n        else:\n            bail_out()\n            state['p_or_f'] = space\n            state['computed_x'] = space\n            state['correct_x'] = space\n            if state['rec_ct'] == zero:\n                state['par_name'] = space\n                state['re_mark'] = space\n\ndef head_routine() -> None:\n    state['dummy_record'] = state['ccvs_h_1']\n    for _ in range(2):\n        write_line()\n    state['dummy_record'] = state['ccvs_h_2a']\n    for _ in range(2):\n        write_line()\n    state['dummy_record'] = state['ccvs_h_2b']\n    for _ in range(3):\n        write_line()\n    state['dummy_record'] = state['ccvs_h_3']\n    for _ in range(3):\n        write_line()\n\ndef column_names_routine() -> None:\n    state['dummy_record'] = state['ccvs_c_1']\n    write_line()\n    state['dummy_record'] = state['ccvs_c_2']\n    for _ in range(2):\n        write_line()\n    state['dummy_record'] = state['hyphen_line']\n    write_line()\n\ndef end_routine() -> None:\n    state['dummy_record'] = state['hyphen_line']\n    for _ in range(5):\n        write_line()\n\ndef end_rtn_exit() -> None:\n    state['dummy_record'] = state['ccvs_e_1']\n    for _ in range(2):\n        write_line()\n\ndef end_routine_1() -> None:\n    state['error_hold'] = state['error_hold'] + state['error_counter']\n    state['error_hold'] = state['error_hold'] + state['inspect_counter']\n    state['error_hold'] = state['error_hold'] + state['delete_counter']\n    state['error_hold'] = state['error_hold'] + state['pass_counter']\n    state['ccvs_e_4_1'] = state['pass_counter']\n    state['ccvs_e_4_2'] = state['error_hold']\n    state['ccvs_e_2_2'] = state['ccvs_e_4']\n    state['dummy_record'] = state['ccvs_e_2']\n    write_line()\n\ndef end_routine_12() -> None:\n    state['ender_desc'] = \"TEST(S) FAILED\"\n    if state['error_counter'] == zero:\n        state['error_total'] = \"NO \"\n    else:\n        state['error_total'] = state['error_counter']\n        state['dummy_record'] = state['ccvs_e_2']\n        write_line()\n\ndef end_routine_13() -> None:\n    if state['delete_counter'] == zero:\n        state['error_total'] = \"NO \"\n    else:\n        state['error_total'] = state['delete_counter']\n        state['ender_desc'] = \"TEST(S) DELETED     \"\n        state['dummy_record'] = state['ccvs_e_2']\n        write_line()\n        if state['inspect_counter'] == zero:\n            state['error_total'] = \"NO \"\n        else:\n            state['error_total'] = state['inspect_counter']\n            state['ender_desc'] = \"TEST(S) REQUIRE INSPECTION\"\n            state['dummy_record'] = state['ccvs_e_2']\n            write_line()\n            state['dummy_record'] = state['ccvs_e_3']\n            write_line()\n\ndef write_line() -> None:\n    state['record_count'] = state['record_count'] + 1\n    wrt_ln()\n\ndef wrt_ln() -> None:\n    print(state['dummy_record'])\n    state['dummy_record'] = space\n\ndef blank_line_print() -> None:\n    wrt_ln()\n\ndef fail_routine() -> None:\n    if state['computed_x'] != space:\n        fail_routine_write()\n        return\n        if state['correct_x'] != space:\n            fail_routine_write()\n            return\n            state['inf_ansi_reference'] = state['ansi_reference']\n            state['info_text'] = \"NO FURTHER INFORMATION, SEE PROGRAM.\"\n            state['dummy_record'] = state['xxinfo']\n            for _ in range(2):\n                write_line()\n            state['inf_ansi_reference'] = spaces\n            fail_routine_ex()\n            return\n\ndef fail_routine_write() -> None:\n    state['print_rec'] = state['test_computed']\n    write_line()\n    state['cor_ansi_reference'] = state['ansi_reference']\n    state['print_rec'] = state['test_correct']\n    for _ in range(2):\n        write_line()\n    state['cor_ansi_reference'] = spaces\n\ndef fail_routine_ex() -> None:\n    return\n\ndef bail_out() -> None:\n    if state['computed_a'] != space:\n        bail_out_write()\n        return\n        if state['correct_a'] == space:\n            bail_out_ex()\n            return\n\ndef bail_out_write() -> None:\n    state['xxcorrect'] = state['correct_a']\n    state['xxcomputed'] = state['computed_a']\n    state['inf_ansi_reference'] = state['ansi_reference']\n    state['dummy_record'] = state['xxinfo']\n    for _ in range(2):\n        write_line()\n    state['inf_ansi_reference'] = spaces\n\ndef bail_out_ex() -> None:\n    return\n\ndef ccvs1_exit() -> None:\n    return\n\ndef call_test_1() -> None:\n    state['feature'] = \"CALL...USING DATA-NM\"\n    state['par_name'] = \"CALL-TEST-1\"\n    state['re_mark'] = \"REFERENCING REDEFINED DATA-NAMES\"\n    # external call: IC217A()  -- preserved as comment\n    pass\n    if state['dn1'] == 12345:\n        pass_()\n        call_write_1()\n        return\n\ndef call_fail_1() -> None:\n    state['computed_a'] = state['dn1']\n    state['correct_a'] = 12345\n    fail()\n\ndef call_write_1() -> None:\n    print_detail()\n\ndef call_test_2() -> None:\n    state['feature'] = \"CALL...USING DATA-NM\"\n    state['par_name'] = \"CALL-TEST-2\"\n    state['re_mark'] = \"REFERENCING REDEFINED DATA-NAMES\"\n    if state['dn4'] == \"YES987NO\":\n        pass_()\n        call_write_2()\n        return\n\ndef call_fail_2() -> None:\n    state['computed_a'] = state['dn4']\n    state['correct_a'] = \"YES987NO\"\n    fail()\n\ndef call_write_2() -> None:\n    print_detail()\n\ndef ccvs_999999() -> None:\n    close_files()\n    return\n\nif __name__ == \"__main__\":\n    try:\n        open_files()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_warnings": [],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": true,
+  "stage3_refined_code": "\"\"\"Translated from COBOL program IC216A.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'print_rec': '',\n    'dummy_record': '',\n    'dn1': None,\n    'dn2': '',\n    'dn3': 0,\n    'dn4': None,\n    'dn5': None,\n    'dn6': '',\n    'dn7': '',\n    'dn8': 0,\n    'dn9': '',\n    'test_results': None,\n    'feature': '',\n    'p_or_f': '',\n    'par_name': None,\n    'pardot_x': '',\n    'dotvalue': 0,\n    're_mark': '',\n    'test_computed': None,\n    'computed_x': None,\n    'computed_a': '',\n    'computed_n': 0,\n    'computed_0v18': 0,\n    'computed_4v14': 0,\n    'computed_14v4': 0,\n    'cm_18v0': None,\n    'computed_18v0': 0,\n    'test_correct': None,\n    'correct_x': None,\n    'correct_a': '',\n    'correct_n': 0,\n    'correct_0v18': 0,\n    'correct_4v14': 0,\n    'correct_14v4': 0,\n    'cr_18v0': None,\n    'correct_18v0': 0,\n    'cor_ansi_reference': '',\n    'ccvs_c_1': None,\n    'ccvs_c_2': None,\n    'rec_skl_sub': 0,\n    'rec_ct': 0,\n    'delete_counter': 0,\n    'error_counter': 0,\n    'inspect_counter': 0,\n    'pass_counter': 0,\n    'total_error': 0,\n    'error_hold': 0,\n    'dummy_hold': '',\n    'record_count': 0,\n    'ansi_reference': '',\n    'ccvs_h_1': None,\n    'ccvs_h_2a': None,\n    'ccvs_h_2b': None,\n    'test_id': '',\n    'ccvs_h_3': None,\n    'ccvs_e_1': None,\n    'id_again': '',\n    'ccvs_e_2': None,\n    'ccvs_e_2_2': None,\n    'error_total': '',\n    'ender_desc': \"ERRORS ENCOUNTERED\",\n    'ccvs_e_3': None,\n    'ccvs_e_4': None,\n    'ccvs_e_4_1': '',\n    'ccvs_e_4_2': '',\n    'xxinfo': None,\n    'info_text': None,\n    'xxcomputed': '',\n    'xxcorrect': '',\n    'inf_ansi_reference': '',\n    'hyphen_line': None,\n    'ccvs_pgm_id': \"IC216A\",\n})\n\ndef open_files() -> None:\n    state['print_file'] = open('print_file', 'w')\n    state['test_id'] = state['ccvs_pgm_id']\n    state['id_again'] = state['ccvs_pgm_id']\n    state['test_results'] = space\n    head_routine()\n    ccvs1_exit()\n    return\n\ndef close_files() -> None:\n    end_routine()\n    if hasattr(state['print_file'], 'close'): state['print_file'].close()\n\ndef terminate_ccvs() -> None:\n    return\n\ndef inspt() -> None:\n    state['p_or_f'] = \"INSPT\"\n    state['inspect_counter'] = state['inspect_counter'] + 1\n\ndef pass_() -> None:\n    state['p_or_f'] = \"PASS \"\n    state['pass_counter'] = state['pass_counter'] + 1\n\ndef fail() -> None:\n    state['p_or_f'] = \"FAIL*\"\n    state['error_counter'] = state['error_counter'] + 1\n\ndef de_lete() -> None:\n    state['p_or_f'] = \"*****\"\n    state['delete_counter'] = state['delete_counter'] + 1\n    state['re_mark'] = \"****TEST DELETED****\"\n\ndef print_detail() -> None:\n    if state['rec_ct'] != zero:\n        state['pardot_x'] = \".\"\n        state['dotvalue'] = state['rec_ct']\n        state['print_rec'] = state['test_results']\n        write_line()\n        if state['p_or_f'] == \"FAIL*\":\n            write_line()\n            fail_routine()\n        else:\n            bail_out()\n            state['p_or_f'] = space\n            state['computed_x'] = space\n            state['correct_x'] = space\n            if state['rec_ct'] == zero:\n                state['par_name'] = space\n                state['re_mark'] = space\n\ndef head_routine() -> None:\n    state['dummy_record'] = state['ccvs_h_1']\n    for _ in range(2):\n        write_line()\n    state['dummy_record'] = state['ccvs_h_2a']\n    for _ in range(2):\n        write_line()\n    state['dummy_record'] = state['ccvs_h_2b']\n    for _ in range(3):\n        write_line()\n    state['dummy_record'] = state['ccvs_h_3']\n    for _ in range(3):\n        write_line()\n\ndef column_names_routine() -> None:\n    state['dummy_record'] = state['ccvs_c_1']\n    write_line()\n    state['dummy_record'] = state['ccvs_c_2']\n    for _ in range(2):\n        write_line()\n    state['dummy_record'] = state['hyphen_line']\n    write_line()\n\ndef end_routine() -> None:\n    state['dummy_record'] = state['hyphen_line']\n    for _ in range(5):\n        write_line()\n\ndef end_rtn_exit() -> None:\n    state['dummy_record'] = state['ccvs_e_1']\n    for _ in range(2):\n        write_line()\n\ndef end_routine_1() -> None:\n    state['error_hold'] = state['error_hold'] + state['error_counter']\n    state['error_hold'] = state['error_hold'] + state['inspect_counter']\n    state['error_hold'] = state['error_hold'] + state['delete_counter']\n    state['error_hold'] = state['error_hold'] + state['pass_counter']\n    state['ccvs_e_4_1'] = state['pass_counter']\n    state['ccvs_e_4_2'] = state['error_hold']\n    state['ccvs_e_2_2'] = state['ccvs_e_4']\n    state['dummy_record'] = state['ccvs_e_2']\n    write_line()\n\ndef end_routine_12() -> None:\n    state['ender_desc'] = \"TEST(S) FAILED\"\n    if state['error_counter'] == zero:\n        state['error_total'] = \"NO \"\n    else:\n        state['error_total'] = state['error_counter']\n        state['dummy_record'] = state['ccvs_e_2']\n        write_line()\n\ndef end_routine_13() -> None:\n    if state['delete_counter'] == zero:\n        state['error_total'] = \"NO \"\n    else:\n        state['error_total'] = state['delete_counter']\n        state['ender_desc'] = \"TEST(S) DELETED     \"\n        state['dummy_record'] = state['ccvs_e_2']\n        write_line()\n        if state['inspect_counter'] == zero:\n            state['error_total'] = \"NO \"\n        else:\n            state['error_total'] = state['inspect_counter']\n            state['ender_desc'] = \"TEST(S) REQUIRE INSPECTION\"\n            state['dummy_record'] = state['ccvs_e_2']\n            write_line()\n            state['dummy_record'] = state['ccvs_e_3']\n            write_line()\n\ndef write_line() -> None:\n    state['record_count'] = state['record_count'] + 1\n    wrt_ln()\n\ndef wrt_ln() -> None:\n    print(state['dummy_record'])\n    state['dummy_record'] = space\n\ndef blank_line_print() -> None:\n    wrt_ln()\n\ndef fail_routine() -> None:\n    if state['computed_x'] != space:\n        fail_routine_write()\n        return\n        if state['correct_x'] != space:\n            fail_routine_write()\n            return\n            state['inf_ansi_reference'] = state['ansi_reference']\n            state['info_text'] = \"NO FURTHER INFORMATION, SEE PROGRAM.\"\n            state['dummy_record'] = state['xxinfo']\n            for _ in range(2):\n                write_line()\n            state['inf_ansi_reference'] = spaces\n            fail_routine_ex()\n            return\n\ndef fail_routine_write() -> None:\n    state['print_rec'] = state['test_computed']\n    write_line()\n    state['cor_ansi_reference'] = state['ansi_reference']\n    state['print_rec'] = state['test_correct']\n    for _ in range(2):\n        write_line()\n    state['cor_ansi_reference'] = spaces\n\ndef fail_routine_ex() -> None:\n    return\n\ndef bail_out() -> None:\n    if state['computed_a'] != space:\n        bail_out_write()\n        return\n        if state['correct_a'] == space:\n            bail_out_ex()\n            return\n\ndef bail_out_write() -> None:\n    state['xxcorrect'] = state['correct_a']\n    state['xxcomputed'] = state['computed_a']\n    state['inf_ansi_reference'] = state['ansi_reference']\n    state['dummy_record'] = state['xxinfo']\n    for _ in range(2):\n        write_line()\n    state['inf_ansi_reference'] = spaces\n\ndef bail_out_ex() -> None:\n    return\n\ndef ccvs1_exit() -> None:\n    return\n\ndef call_test_1() -> None:\n    state['feature'] = \"CALL...USING DATA-NM\"\n    state['par_name'] = \"CALL-TEST-1\"\n    state['re_mark'] = \"REFERENCING REDEFINED DATA-NAMES\"\n    pass\n    if state['dn1'] == 12345:\n        pass_()\n        call_write_1()\n        return\n\ndef call_fail_1() -> None:\n    state['computed_a'] = state['dn1']\n    state['correct_a'] = 12345\n    fail()\n\ndef call_write_1() -> None:\n    print_detail()\n\ndef call_test_2() -> None:\n    state['feature'] = \"CALL...USING DATA-NM\"\n    state['par_name'] = \"CALL-TEST-2\"\n    state['re_mark'] = \"REFERENCING REDEFINED DATA-NAMES\"\n    if state['dn4'] == \"YES987NO\":\n        pass_()\n        call_write_2()\n        return\n\ndef call_fail_2() -> None:\n    state['computed_a'] = state['dn4']\n    state['correct_a'] = \"YES987NO\"\n    fail()\n\ndef call_write_2() -> None:\n    print_detail()\n\ndef ccvs_999999() -> None:\n    close_files()\n    return\n\nif __name__ == \"__main__\":\n    try:\n        open_files()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "openai",
+  "stage3_error": "",
+  "verdict": "FAIL",
+  "verdict_summary": "1 check(s) failed: execution_match.",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "32/32 paragraphs found as Python functions",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "OPEN-FILES",
+          "CLOSE-FILES",
+          "TERMINATE-CCVS",
+          "INSPT",
+          "PASS",
+          "FAIL",
+          "DE-LETE",
+          "PRINT-DETAIL",
+          "HEAD-ROUTINE",
+          "COLUMN-NAMES-ROUTINE",
+          "END-ROUTINE",
+          "END-RTN-EXIT",
+          "END-ROUTINE-1",
+          "END-ROUTINE-12",
+          "END-ROUTINE-13",
+          "WRITE-LINE",
+          "WRT-LN",
+          "BLANK-LINE-PRINT",
+          "FAIL-ROUTINE",
+          "FAIL-ROUTINE-WRITE",
+          "FAIL-ROUTINE-EX",
+          "BAIL-OUT",
+          "BAIL-OUT-WRITE",
+          "BAIL-OUT-EX",
+          "CCVS1-EXIT",
+          "CALL-TEST-1",
+          "CALL-FAIL-1",
+          "CALL-WRITE-1",
+          "CALL-TEST-2",
+          "CALL-FAIL-2",
+          "CALL-WRITE-2",
+          "CCVS-999999"
+        ],
+        "missing": [],
+        "total": 32
+      }
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "72/72 identifiers traced into the Python",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "PRINT-REC",
+          "DUMMY-RECORD",
+          "DN1",
+          "DN2",
+          "DN3",
+          "DN4",
+          "DN5",
+          "DN6",
+          "DN7",
+          "DN8",
+          "DN9",
+          "TEST-RESULTS",
+          "FEATURE",
+          "P-OR-F",
+          "PAR-NAME",
+          "PARDOT-X",
+          "DOTVALUE",
+          "RE-MARK",
+          "TEST-COMPUTED",
+          "COMPUTED-X",
+          "COMPUTED-A",
+          "COMPUTED-N",
+          "COMPUTED-0V18",
+          "COMPUTED-4V14",
+          "COMPUTED-14V4",
+          "CM-18V0",
+          "COMPUTED-18V0",
+          "TEST-CORRECT",
+          "CORRECT-X",
+          "CORRECT-A",
+          "CORRECT-N",
+          "CORRECT-0V18",
+          "CORRECT-4V14",
+          "CORRECT-14V4",
+          "CR-18V0",
+          "CORRECT-18V0",
+          "COR-ANSI-REFERENCE",
+          "CCVS-C-1",
+          "CCVS-C-2",
+          "REC-SKL-SUB",
+          "REC-CT",
+          "DELETE-COUNTER",
+          "ERROR-COUNTER",
+          "INSPECT-COUNTER",
+          "PASS-COUNTER",
+          "TOTAL-ERROR",
+          "ERROR-HOLD",
+          "DUMMY-HOLD",
+          "RECORD-COUNT",
+          "ANSI-REFERENCE",
+          "CCVS-H-1",
+          "CCVS-H-2A",
+          "CCVS-H-2B",
+          "TEST-ID",
+          "CCVS-H-3",
+          "CCVS-E-1",
+          "ID-AGAIN",
+          "CCVS-E-2",
+          "CCVS-E-2-2",
+          "ERROR-TOTAL",
+          "ENDER-DESC",
+          "CCVS-E-3",
+          "CCVS-E-4",
+          "CCVS-E-4-1",
+          "CCVS-E-4-2",
+          "XXINFO",
+          "INFO-TEXT",
+          "XXCOMPUTED",
+          "XXCORRECT",
+          "INF-ANSI-REFERENCE",
+          "HYPHEN-LINE",
+          "CCVS-PGM-ID"
+        ],
+        "missing": [],
+        "total": 72
+      }
+    },
+    {
+      "name": "execution_match",
+      "ran": true,
+      "passed": false,
+      "score": 0.0,
+      "detail": "stdout mismatch (cobol_compiler_not_found)",
+      "skipped_reason": "",
+      "extra": {
+        "cobol_stdout": "",
+        "python_stdout": "",
+        "cobol_returncode": -1,
+        "python_returncode": -1
+      }
+    },
+    {
+      "name": "llm_judge",
+      "ran": false,
+      "passed": null,
+      "score": null,
+      "detail": "skipped: openai: judge call failed (Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}) | anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-",
+      "skipped_reason": "openai: judge call failed (Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}) | anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CbT7daiaEgxstB7HNVGkq'})",
+      "extra": {
+        "providers_tried": [
+          "openai: judge call failed (Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}})",
+          "anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CbT7daiaEgxstB7HNVGkq'})"
+        ]
+      }
+    }
+  ],
+  "timestamp": 1779886794.191808
+}

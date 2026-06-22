@@ -1,0 +1,421 @@
+{
+  "program_id": "CM401M",
+  "record_id": "CM401M",
+  "cobol_source": "      *HEADER,COBOL,CM401M                                                            \n000100 IDENTIFICATION DIVISION.                                         CM4014.2\n000200 PROGRAM-ID.                                                      CM4014.2\n000300      CM401M.                                                     CM4014.2\n000400*The following program tests the flagging of level 2              CM4014.2\n000500*features of the communication module.                            CM4014.2\n000600 ENVIRONMENT DIVISION.                                            CM4014.2\n000700 CONFIGURATION SECTION.                                           CM4014.2\n000800 SOURCE-COMPUTER.                                                 CM4014.2\n000900     XXXXX082.                                                    CM4014.2\n001000 OBJECT-COMPUTER.                                                 CM4014.2\n001100     XXXXX083.                                                    CM4014.2\n001200 DATA DIVISION.                                                   CM4014.2\n001300 FILE SECTION.                                                    CM4014.2\n001400 COMMUNICATION SECTION.                                           CM4014.2\n001500 CD COMMNAME FOR INITIAL INPUT                                    CM4014.2\n001600*Message expected for above statement: NON-CONFORMING STANDARD    CM4014.2\n001700     SYMBOLIC SUB-QUEUE-1 IS CQ.                                  CM4014.2\n001800*Message expected for above statement: NON-CONFORMING STANDARD    CM4014.2\n001900 01 CREC.                                                         CM4014.2\n002000     03 CNAME1   PIC X(8).                                        CM4014.2\n002100     03 CQ       PIC 9(8).                                        CM4014.2\n002200     03 FILLER   PIC X(62).                                       CM4014.2\n002300     03 CINT     PIC 9.                                           CM4014.2\n002400     03 FILLER   PIC X(8).                                        CM4014.2\n002500                                                                  CM4014.2\n002600 CD COMM2 FOR OUTPUT                                              CM4014.2\n002700     DESTINATION TABLE OCCURS 7 TIMES.                            CM4014.2\n002800*Message expected for above statement: NON-CONFORMING STANDARD    CM4014.2\n002900                                                                  CM4014.2\n003000 PROCEDURE DIVISION.                                              CM4014.2\n003100                                                                  CM4014.2\n003200 CM401M-CONTROL.                                                  CM4014.2\n003300     PERFORM CM401M-DISABLE THRU CM401M-SENDREP.                  CM4014.2\n003400     STOP RUN.                                                    CM4014.2\n003500                                                                  CM4014.2\n003600 CM401M-DISABLE.                                                  CM4014.2\n003700     DISABLE INPUT COMMNAME WITH KEY CNAME1.                      CM4014.2\n003800*Message expected for above statement: NON-CONFORMING STANDARD    CM4014.2\n003900                                                                  CM4014.2\n004000 CM401M-ENABLE.                                                   CM4014.2\n004100     ENABLE INPUT COMMNAME WITH KEY CNAME1.                       CM4014.2\n004200*Message expected for above statement: NON-CONFORMING STANDARD    CM4014.2\n004300                                                                  CM4014.2\n004400                                                                  CM4014.2\n004500 CM401M-PURGE.                                                    CM4014.2\n004600     PURGE COMM2.                                                 CM4014.2\n004700*Message expected for above statement: NON-CONFORMING STANDARD    CM4014.2\n004800                                                                  CM4014.2\n004900 CM401M-SEND.                                                     CM4014.2\n005000     SEND COMM2 FROM CNAME1.                                      CM4014.2\n005100*Message expected for above statement: NON-CONFORMING STANDARD    CM4014.2\n005200                                                                  CM4014.2\n005300 CM401M-SENDID.                                                   CM4014.2\n005400     SEND COMM2 FROM CNAME1 WITH CINT.                            CM4014.2\n005500*Message expected for above statement: NON-CONFORMING STANDARD    CM4014.2\n005600                                                                  CM4014.2\n005700 CM401M-SENDESI.                                                  CM4014.2\n005800     SEND COMM2 FROM CNAME1 WITH ESI.                             CM4014.2\n005900*Message expected for above statement: NON-CONFORMING STANDARD    CM4014.2\n006000                                                                  CM4014.2\n006100 CM401M-SENDREP.                                                  CM4014.2\n006200     SEND COMM2 WITH EMI REPLACING LINE.                          CM4014.2\n006300*Message expected for above statement: NON-CONFORMING STANDARD    CM4014.2\n006400                                                                  CM4014.2\n006500*TOTAL NUMBER OF FLAGS EXPECTED = 10.                             CM4014.2\n      *END-OF,CM401M                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "CM401M",
+  "stage1_division_count": 4,
+  "stage1_paragraph_count": 11,
+  "stage1_token_count": 158,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {
+      "program_id": "CM401M"
+    },
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 4,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 10,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "DATA"
+        },
+        "children": [
+          {
+            "node_type": "DataItem",
+            "line": 15,
+            "attributes": {
+              "level": 1,
+              "name": "CREC"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 16,
+            "attributes": {
+              "level": 3,
+              "name": "CNAME1",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 17,
+            "attributes": {
+              "level": 3,
+              "name": "CQ",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 18,
+            "attributes": {
+              "level": 3,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 19,
+            "attributes": {
+              "level": 3,
+              "name": "CINT",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 20,
+            "attributes": {
+              "level": 3,
+              "pic": "X"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 25,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 27,
+            "attributes": {
+              "name": "CM401M-CONTROL"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 28,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "CM401M-DISABLE",
+                    "THRU",
+                    "CM401M-SENDREP"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 29,
+                "attributes": {
+                  "verb": "STOP",
+                  "operands": [
+                    "RUN"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 31,
+            "attributes": {
+              "name": "CM401M-DISABLE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 32,
+            "attributes": {
+              "name": "CNAME1"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 34,
+            "attributes": {
+              "name": "CM401M-ENABLE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 35,
+            "attributes": {
+              "name": "CNAME1"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 38,
+            "attributes": {
+              "name": "CM401M-PURGE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 39,
+            "attributes": {
+              "name": "COMM2"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 41,
+            "attributes": {
+              "name": "CM401M-SEND"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 42,
+                "attributes": {
+                  "verb": "SEND",
+                  "operands": [
+                    "COMM2",
+                    "FROM",
+                    "CNAME1"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 44,
+            "attributes": {
+              "name": "CM401M-SENDID"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 45,
+                "attributes": {
+                  "verb": "SEND",
+                  "operands": [
+                    "COMM2",
+                    "FROM",
+                    "CNAME1",
+                    "WITH",
+                    "CINT"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 47,
+            "attributes": {
+              "name": "CM401M-SENDESI"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 48,
+                "attributes": {
+                  "verb": "SEND",
+                  "operands": [
+                    "COMM2",
+                    "FROM",
+                    "CNAME1",
+                    "WITH",
+                    "ESI"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 50,
+            "attributes": {
+              "name": "CM401M-SENDREP"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 51,
+                "attributes": {
+                  "verb": "SEND",
+                  "operands": [
+                    "COMM2",
+                    "WITH",
+                    "EMI",
+                    "REPLACING",
+                    "LINE"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "stage1_cobc_status": "rejected",
+  "stage1_cobc_stderr": "/var/folders/rl/r9ygvg0x7_l7sdtfq9pq99fm0000gn/T/tmpcm7x1afy.cob:15: warning: COMMUNICATION SECTION is not implemented [-Wpending]\n   13 | 001200 DATA DIVISION.                                                   C..\n   14 | 001300 FILE SECTION.                                                    C..\n   15 > 001400 COMMUNICATION SECTION.                                           C..\n   16 | 001500 CD COMMNAME FOR INITIAL INPUT                                    C..\n   17 | 001600*Message expected for above statement: NON-CONFORMING STANDARD    C..\n/var/folders/rl/r9ygvg0x7_l7sdtfq9pq99fm0000gn/T/tmpcm7x1afy.cob:18: error: 'CQ' is not defined\n   16 | 001500 CD COMMNAME FOR INITIAL INPUT                                    C..\n   17 | 001600*Message expected for above statement: NON-CONFORMING STANDARD    C..\n   18 > 001700     SYMBOLIC SUB-QUEUE-1 IS CQ.                                  C..\n   19 | 001800*Message expected for above statement: NON-CONFORMING STANDARD    C..\n   20 | 001900 01",
+  "complexity_tier": "simple",
+  "complexity_score": 2.4,
+  "ast_depth": 4,
+  "unique_verbs": 3,
+  "cross_refs": 1,
+  "stage2_source": "rule-based",
+  "stage2_rule_based_code": "\"\"\"Translated from COBOL program CM401M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'crec': None,\n    'cname1': '',\n    'cq': 0,\n    'cint': 0,\n})\n\ndef cm401m_control() -> None:\n    cm401m_disable()\n    return\n\ndef cm401m_disable() -> None:\n    pass\n\ndef cname1() -> None:\n    pass\n\ndef cm401m_enable() -> None:\n    pass\n\ndef cname1() -> None:\n    pass\n\ndef cm401m_purge() -> None:\n    pass\n\ndef comm2() -> None:\n    pass\n\ndef cm401m_send() -> None:\n    pass  # SEND (communication)\n\ndef cm401m_sendid() -> None:\n    pass  # SEND (communication)\n\ndef cm401m_sendesi() -> None:\n    pass  # SEND (communication)\n\ndef cm401m_sendrep() -> None:\n    pass  # SEND (communication)\n\nif __name__ == \"__main__\":\n    try:\n        cm401m_control()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_neural_code": "",
+  "stage2_final_code": "\"\"\"Translated from COBOL program CM401M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'crec': None,\n    'cname1': '',\n    'cq': 0,\n    'cint': 0,\n})\n\ndef cm401m_control() -> None:\n    cm401m_disable()\n    return\n\ndef cm401m_disable() -> None:\n    pass\n\ndef cname1() -> None:\n    pass\n\ndef cm401m_enable() -> None:\n    pass\n\ndef cname1() -> None:\n    pass\n\ndef cm401m_purge() -> None:\n    pass\n\ndef comm2() -> None:\n    pass\n\ndef cm401m_send() -> None:\n    pass  # SEND (communication)\n\ndef cm401m_sendid() -> None:\n    pass  # SEND (communication)\n\ndef cm401m_sendesi() -> None:\n    pass  # SEND (communication)\n\ndef cm401m_sendrep() -> None:\n    pass  # SEND (communication)\n\nif __name__ == \"__main__\":\n    try:\n        cm401m_control()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_warnings": [],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": false,
+  "stage3_refined_code": "",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "",
+  "stage3_error": "",
+  "verdict": "STRUCTURAL_PASS",
+  "verdict_summary": "4 structural check(s) passed; behavioural checks skipped due to environment (execution_match, llm_judge).",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "11/11 paragraphs found as Python functions",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "CM401M-CONTROL",
+          "CM401M-DISABLE",
+          "CNAME1",
+          "CM401M-ENABLE",
+          "CNAME1",
+          "CM401M-PURGE",
+          "COMM2",
+          "CM401M-SEND",
+          "CM401M-SENDID",
+          "CM401M-SENDESI",
+          "CM401M-SENDREP"
+        ],
+        "missing": [],
+        "total": 11
+      }
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "4/4 identifiers traced into the Python",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "CREC",
+          "CNAME1",
+          "CQ",
+          "CINT"
+        ],
+        "missing": [],
+        "total": 4
+      }
+    },
+    {
+      "name": "body_non_trivial",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "1/1 paragraphs have non-trivial bodies",
+      "skipped_reason": "",
+      "extra": {
+        "non_trivial": [
+          "CM401M-CONTROL"
+        ],
+        "trivial": [],
+        "exempt": [
+          "CM401M-DISABLE",
+          "CNAME1",
+          "CM401M-ENABLE",
+          "CM401M-PURGE",
+          "COMM2",
+          "CM401M-SEND",
+          "CM401M-SENDID",
+          "CM401M-SENDESI",
+          "CM401M-SENDREP"
+        ],
+        "total_eligible": 1
+      }
+    },
+    {
+      "name": "execution_match",
+      "ran": false,
+      "passed": null,
+      "score": null,
+      "detail": "skipped: cobol side could not be executed (stdout_mismatch; rc=1)",
+      "skipped_reason": "cobol side could not be executed (stdout_mismatch; rc=1)",
+      "extra": {
+        "cobol_stdout": "/var/folders/rl/r9ygvg0x7_l7sdtfq9pq99fm0000gn/T/tmpmngyik4s/program.cob:15: warning: COMMUNICATION SECTION is not implemented [-Wpending]\n   13 | 001200 DATA DIVISION.                                                   C..\n   14 | 001300 FILE SECTION.                                                    C..\n   15 > 001400 COMMUNICATION SECTION.                                           C..\n   16 | 0",
+        "cobol_returncode": 1
+      }
+    },
+    {
+      "name": "llm_judge",
+      "ran": false,
+      "passed": null,
+      "score": null,
+      "detail": "skipped: openai: judge call failed (Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}) | anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-",
+      "skipped_reason": "openai: judge call failed (Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}) | anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CbUfTdm5g2WWWNmm4Xbwo'})",
+      "extra": {
+        "providers_tried": [
+          "openai: judge call failed (Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}})",
+          "anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CbUfTdm5g2WWWNmm4Xbwo'})"
+        ]
+      }
+    }
+  ],
+  "timestamp": 1779957475.4109728
+}

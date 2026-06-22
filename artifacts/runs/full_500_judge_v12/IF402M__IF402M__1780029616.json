@@ -1,0 +1,930 @@
+{
+  "program_id": "IF402M",
+  "record_id": "IF402M",
+  "cobol_source": "      *HEADER,COBOL,IF402M                                                            \n000100 IDENTIFICATION DIVISION.                                         IF4024.2\n000200 PROGRAM-ID.                                                      IF4024.2\n000300      IF402M.                                                     IF4024.2\n000400                                                                  IF4024.2\n000500                                                                  IF4024.2\n000600*THIS PROGRAM TESTS THE FLAGGING OF HIGH SUBSET INTRINSIC FUNCTIONIF4024.2\n000700*FEATURES.                                                        IF4024.2\n000800******************************************************************IF4024.2\n000900*    THIS PROGRAMS CONTAINS TESTS FOR THE FOLLOWING INTRINSIC    *IF4024.2\n001000*    FUNCTIONS:  LENGTH, LOG, LOG10, LOWER-CASE, MAX, MEAN,      *IF4024.2\n001100*                MEDIAN, MIDRANGE, MIN, MOD, NUMVAL, NUMVAL-C,   *IF4024.2\n001200*                ORD, ORD-MAX  AND ORD-MIN.                      *IF4024.2\n001300******************************************************************IF4024.2\n001400                                                                  IF4024.2\n001500 ENVIRONMENT DIVISION.                                            IF4024.2\n001600 CONFIGURATION SECTION.                                           IF4024.2\n001700 SOURCE-COMPUTER.                                                 IF4024.2\n001800     XXXXX082.                                                    IF4024.2\n001900 OBJECT-COMPUTER.                                                 IF4024.2\n002000     XXXXX083.                                                    IF4024.2\n002100                                                                  IF4024.2\n002200 DATA DIVISION.                                                   IF4024.2\n002300 FILE SECTION.                                                    IF4024.2\n002400 WORKING-STORAGE SECTION.                                         IF4024.2\n002500 01  WS-AN-TEMP   PICTURE    X(3).                                IF4024.2\n002600 01  WS-TABLE-VALUE   PICTURE X(27)                               IF4024.2\n002700                      VALUE \"ABCDEFGHIJKLMNOPQRSTUVWXYZ \".        IF4024.2\n002800 01  WS-TABLE-TOTAL REDEFINES WS-TABLE-VALUE.                     IF4024.2\n002900     05  WS-TABLE-LV3 OCCURS 3 TIMES.                             IF4024.2\n003000         10  WS-TABLE-LV2 OCCURS 3 TIMES.                         IF4024.2\n003100             15  WS-TABLE PICTURE X OCCURS 3 TIMES.               IF4024.2\n003200                                                                  IF4024.2\n003300 PROCEDURE DIVISION.                                              IF4024.2\n003400 IF402M-LENGTH.                                                   IF4024.2\n003500     IF FUNCTION LENGTH (\"ABC\") = FUNCTION LENGTH (\"ABC\")         IF4024.2\n003600                 CONTINUE.                                        IF4024.2\n003700*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4024.2\n003800                                                                  IF4024.2\n003900 IF402M-LOG.                                                      IF4024.2\n004000     IF FUNCTION LOG (1.0) = FUNCTION LOG (1.0)                   IF4024.2\n004100                 CONTINUE.                                        IF4024.2\n004200*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4024.2\n004300                                                                  IF4024.2\n004400 IF402M-LOG10.                                                    IF4024.2\n004500     IF FUNCTION LOG10 (1.0) = FUNCTION LOG10 (1.0)               IF4024.2\n004600                 CONTINUE.                                        IF4024.2\n004700*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4024.2\n004800                                                                  IF4024.2\n004900 IF402M-LOWER-CASE.                                               IF4024.2\n005000     MOVE FUNCTION LOWER-CASE (\"ABC\") TO WS-AN-TEMP.              IF4024.2\n005100*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4024.2\n005200                                                                  IF4024.2\n005300 IF402M-MAX.                                                      IF4024.2\n005400     IF FUNCTION MAX (5, 6, 10, 3, 7) =                           IF4024.2\n005500        FUNCTION MAX (5, 6, 10, 3, 7)                             IF4024.2\n005600                 CONTINUE.                                        IF4024.2\n005700*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4024.2\n005800                                                                  IF4024.2\n005900     MOVE FUNCTION MAX (WS-TABLE (ALL, ALL, ALL)) TO WS-AN-TEMP.  IF4024.2\n006000*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4024.2\n006100                                                                  IF4024.2\n006200 IF402M-MEAN.                                                     IF4024.2\n006300     IF FUNCTION MEAN (5, -2, -14, 0) =                           IF4024.2\n006400        FUNCTION MEAN (5, -2, -14, 0)                             IF4024.2\n006500                 CONTINUE.                                        IF4024.2\n006600*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4024.2\n006700                                                                  IF4024.2\n006800 IF402M-MEDIAN.                                                   IF4024.2\n006900     IF FUNCTION MEDIAN (5, -2, -14, 0) =                         IF4024.2\n007000        FUNCTION MEDIAN (5, -2, -14, 0)                           IF4024.2\n007100                 CONTINUE.                                        IF4024.2\n007200*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4024.2\n007300                                                                  IF4024.2\n007400 IF402M-MIDRANGE.                                                 IF4024.2\n007500     IF FUNCTION MIDRANGE (5, -2, -14, 0) =                       IF4024.2\n007600        FUNCTION MIDRANGE (5, -2, -14, 0)                         IF4024.2\n007700                 CONTINUE.                                        IF4024.2\n007800*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4024.2\n007900                                                                  IF4024.2\n008000 IF402M-MIN.                                                      IF4024.2\n008100     IF FUNCTION MIN (5, 6, 10, 3, 7) =                           IF4024.2\n008200        FUNCTION MIN (5, 6, 10, 3, 7)                             IF4024.2\n008300                 CONTINUE.                                        IF4024.2\n008400*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4024.2\n008500                                                                  IF4024.2\n008600     MOVE FUNCTION MIN (WS-TABLE (ALL, ALL, ALL)) TO WS-AN-TEMP.  IF4024.2\n008700*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4024.2\n008800                                                                  IF4024.2\n008900 IF402M-MOD.                                                      IF4024.2\n009000     IF FUNCTION MOD (6, 6) = FUNCTION MOD (6, 6)                 IF4024.2\n009100                 CONTINUE.                                        IF4024.2\n009200*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4024.2\n009300                                                                  IF4024.2\n009400 IF402M-NUMVAL.                                                   IF4024.2\n009500     IF FUNCTION NUMVAL (\"4738\") = FUNCTION NUMVAL (\"4738\")       IF4024.2\n009600                 CONTINUE.                                        IF4024.2\n009700*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4024.2\n009800                                                                  IF4024.2\n009900 IF402M-NUMVAL-C.                                                 IF4024.2\n010000     IF FUNCTION NUMVAL-C (\"-$1,234.56\") =                        IF4024.2\n010100        FUNCTION NUMVAL-C (\"-$1,234.56\")                          IF4024.2\n010200                 CONTINUE.                                        IF4024.2\n010300*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4024.2\n010400                                                                  IF4024.2\n010500 IF402M-ORD.                                                      IF4024.2\n010600     IF FUNCTION ORD (\"A\") = FUNCTION ORD (\"A\")                   IF4024.2\n010700                 CONTINUE.                                        IF4024.2\n010800*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4024.2\n010900                                                                  IF4024.2\n011000 IF402M-ORD-MAX.                                                  IF4024.2\n011100     IF FUNCTION ORD-MAX (5, 3, 2, 8, 3, 1) =                     IF4024.2\n011200        FUNCTION ORD-MAX (5, 3, 2, 8, 3, 1)                       IF4024.2\n011300                 CONTINUE.                                        IF4024.2\n011400*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4024.2\n011500                                                                  IF4024.2\n011600 IF402M-ORD-MIN.                                                  IF4024.2\n011700     IF FUNCTION ORD-MIN (5, 3, 2, 8, 3, 1) =                     IF4024.2\n011800        FUNCTION ORD-MIN (5, 3, 2, 8, 3, 1)                       IF4024.2\n011900                 CONTINUE.                                        IF4024.2\n012000*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4024.2\n012100                                                                  IF4024.2\n012200 IF402M-END.                                                      IF4024.2\n012300                                                                  IF4024.2\n012400*TOTAL NUMBER OF FLAGS EXPECTED = 17.                             IF4024.2\n      *END-OF,IF402M                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "IF402M",
+  "stage1_division_count": 4,
+  "stage1_paragraph_count": 16,
+  "stage1_token_count": 466,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {
+      "program_id": "IF402M"
+    },
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 7,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 14,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "DATA"
+        },
+        "children": [
+          {
+            "node_type": "DataItem",
+            "line": 17,
+            "attributes": {
+              "level": 1,
+              "name": "WS-AN-TEMP",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 18,
+            "attributes": {
+              "level": 1,
+              "name": "WS-TABLE-VALUE",
+              "pic": "X",
+              "value": "\"ABCDEFGHIJKLMNOPQRSTUVWXYZ \""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 20,
+            "attributes": {
+              "level": 1,
+              "name": "WS-TABLE-TOTAL"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 21,
+            "attributes": {
+              "level": 5,
+              "name": "WS-TABLE-LV3"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 22,
+            "attributes": {
+              "level": 10,
+              "name": "WS-TABLE-LV2"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 23,
+            "attributes": {
+              "level": 15,
+              "name": "WS-TABLE",
+              "pic": "X"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 25,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 26,
+            "attributes": {
+              "name": "IF402M-LENGTH"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 27,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "FUNCTION",
+                    "LENGTH",
+                    "(",
+                    "\"ABC\"",
+                    ")",
+                    "=",
+                    "FUNCTION",
+                    "LENGTH",
+                    "(",
+                    "\"ABC\"",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 28,
+                "attributes": {
+                  "verb": "CONTINUE",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 30,
+            "attributes": {
+              "name": "IF402M-LOG"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 31,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "FUNCTION",
+                    "LOG",
+                    "(",
+                    "1"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 32,
+                "attributes": {
+                  "verb": "CONTINUE",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 34,
+            "attributes": {
+              "name": "IF402M-LOG10"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 35,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "FUNCTION",
+                    "LOG10",
+                    "(",
+                    "1"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 36,
+                "attributes": {
+                  "verb": "CONTINUE",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 38,
+            "attributes": {
+              "name": "IF402M-LOWER-CASE"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 39,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "FUNCTION",
+                    "LOWER-CASE",
+                    "(",
+                    "\"ABC\"",
+                    ")",
+                    "TO",
+                    "WS-AN-TEMP"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 41,
+            "attributes": {
+              "name": "IF402M-MAX"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 42,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "FUNCTION",
+                    "MAX",
+                    "(",
+                    "5",
+                    "6",
+                    "10",
+                    "3",
+                    "7",
+                    ")",
+                    "=",
+                    "FUNCTION",
+                    "MAX",
+                    "(",
+                    "5",
+                    "6",
+                    "10",
+                    "3",
+                    "7",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 44,
+                "attributes": {
+                  "verb": "CONTINUE",
+                  "operands": []
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 46,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "FUNCTION",
+                    "MAX",
+                    "(",
+                    "WS-TABLE",
+                    "(",
+                    "ALL",
+                    "ALL",
+                    "ALL",
+                    ")",
+                    ")",
+                    "TO",
+                    "WS-AN-TEMP"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 48,
+            "attributes": {
+              "name": "IF402M-MEAN"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 49,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "FUNCTION",
+                    "MEAN",
+                    "(",
+                    "5",
+                    "-2",
+                    "-14",
+                    "0",
+                    ")",
+                    "=",
+                    "FUNCTION",
+                    "MEAN",
+                    "(",
+                    "5",
+                    "-2",
+                    "-14",
+                    "0",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 51,
+                "attributes": {
+                  "verb": "CONTINUE",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 53,
+            "attributes": {
+              "name": "IF402M-MEDIAN"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 54,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "FUNCTION",
+                    "MEDIAN",
+                    "(",
+                    "5",
+                    "-2",
+                    "-14",
+                    "0",
+                    ")",
+                    "=",
+                    "FUNCTION",
+                    "MEDIAN",
+                    "(",
+                    "5",
+                    "-2",
+                    "-14",
+                    "0",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 56,
+                "attributes": {
+                  "verb": "CONTINUE",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 58,
+            "attributes": {
+              "name": "IF402M-MIDRANGE"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 59,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "FUNCTION",
+                    "MIDRANGE",
+                    "(",
+                    "5",
+                    "-2",
+                    "-14",
+                    "0",
+                    ")",
+                    "=",
+                    "FUNCTION",
+                    "MIDRANGE",
+                    "(",
+                    "5",
+                    "-2",
+                    "-14",
+                    "0",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 61,
+                "attributes": {
+                  "verb": "CONTINUE",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 63,
+            "attributes": {
+              "name": "IF402M-MIN"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 64,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "FUNCTION",
+                    "MIN",
+                    "(",
+                    "5",
+                    "6",
+                    "10",
+                    "3",
+                    "7",
+                    ")",
+                    "=",
+                    "FUNCTION",
+                    "MIN",
+                    "(",
+                    "5",
+                    "6",
+                    "10",
+                    "3",
+                    "7",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 66,
+                "attributes": {
+                  "verb": "CONTINUE",
+                  "operands": []
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 68,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "FUNCTION",
+                    "MIN",
+                    "(",
+                    "WS-TABLE",
+                    "(",
+                    "ALL",
+                    "ALL",
+                    "ALL",
+                    ")",
+                    ")",
+                    "TO",
+                    "WS-AN-TEMP"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 70,
+            "attributes": {
+              "name": "IF402M-MOD"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 71,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "FUNCTION",
+                    "MOD",
+                    "(",
+                    "6",
+                    "6",
+                    ")",
+                    "=",
+                    "FUNCTION",
+                    "MOD",
+                    "(",
+                    "6",
+                    "6",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 72,
+                "attributes": {
+                  "verb": "CONTINUE",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 74,
+            "attributes": {
+              "name": "IF402M-NUMVAL"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 75,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "FUNCTION",
+                    "NUMVAL",
+                    "(",
+                    "\"4738\"",
+                    ")",
+                    "=",
+                    "FUNCTION",
+                    "NUMVAL",
+                    "(",
+                    "\"4738\"",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 76,
+                "attributes": {
+                  "verb": "CONTINUE",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 78,
+            "attributes": {
+              "name": "IF402M-NUMVAL-C"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 79,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "FUNCTION",
+                    "NUMVAL-C",
+                    "(",
+                    "\"-$1,234.56\"",
+                    ")",
+                    "=",
+                    "FUNCTION",
+                    "NUMVAL-C",
+                    "(",
+                    "\"-$1,234.56\"",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 81,
+                "attributes": {
+                  "verb": "CONTINUE",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 83,
+            "attributes": {
+              "name": "IF402M-ORD"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 84,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "FUNCTION",
+                    "ORD",
+                    "(",
+                    "\"A\"",
+                    ")",
+                    "=",
+                    "FUNCTION",
+                    "ORD",
+                    "(",
+                    "\"A\"",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 85,
+                "attributes": {
+                  "verb": "CONTINUE",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 87,
+            "attributes": {
+              "name": "IF402M-ORD-MAX"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 88,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "FUNCTION",
+                    "ORD-MAX",
+                    "(",
+                    "5",
+                    "3",
+                    "2",
+                    "8",
+                    "3",
+                    "1",
+                    ")",
+                    "=",
+                    "FUNCTION",
+                    "ORD-MAX",
+                    "(",
+                    "5",
+                    "3",
+                    "2",
+                    "8",
+                    "3",
+                    "1",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 90,
+                "attributes": {
+                  "verb": "CONTINUE",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 92,
+            "attributes": {
+              "name": "IF402M-ORD-MIN"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 93,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "FUNCTION",
+                    "ORD-MIN",
+                    "(",
+                    "5",
+                    "3",
+                    "2",
+                    "8",
+                    "3",
+                    "1",
+                    ")",
+                    "=",
+                    "FUNCTION",
+                    "ORD-MIN",
+                    "(",
+                    "5",
+                    "3",
+                    "2",
+                    "8",
+                    "3",
+                    "1",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 95,
+                "attributes": {
+                  "verb": "CONTINUE",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 97,
+            "attributes": {
+              "name": "IF402M-END"
+            },
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "stage1_cobc_status": "",
+  "stage1_cobc_stderr": "",
+  "complexity_tier": "simple",
+  "complexity_score": 2.15,
+  "ast_depth": 4,
+  "unique_verbs": 3,
+  "cross_refs": 0,
+  "stage2_source": "rule-based",
+  "stage2_rule_based_code": "\"\"\"Translated from COBOL program IF402M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'ws_an_temp': '',\n    'ws_table_value': \"ABCDEFGHIJKLMNOPQRSTUVWXYZ \",\n    'ws_table_total': None,\n    'ws_table_lv3': None,\n    'ws_table_lv2': None,\n    'ws_table': '',\n})\n\ndef if402m_length() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['length'] ( \"ABC\" ) == state['function'] state['length'] ( \"ABC\" ):)\ndef if402m_log() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['log'] ( 1:)\ndef if402m_log10() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['log10'] ( 1:)\ndef if402m_lower_case() -> None:\n    state['ws_an_temp'] = \"ABC\"\n\ndef if402m_max() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] max ( 5 6 10 3 7 ) == state['function'] max ( 5 6 10 3 7 ):)\ndef if402m_mean() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['mean'] ( 5 -2 -14 0 ) == state['function'] state['mean'] ( 5 -2 -14 0 ):)\ndef if402m_median() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['median'] ( 5 -2 -14 0 ) == state['function'] state['median'] ( 5 -2 -...)\ndef if402m_midrange() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['midrange'] ( 5 -2 -14 0 ) == state['function'] state['midrange'] ( 5 ...)\ndef if402m_min() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] min ( 5 6 10 3 7 ) == state['function'] min ( 5 6 10 3 7 ):)\ndef if402m_mod() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['mod'] ( 6 6 ) == state['function'] state['mod'] ( 6 6 ):)\ndef if402m_numval() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['numval'] ( \"4738\" ) == state['function'] state['numval'] ( \"4738\" ):)\ndef if402m_numval_c() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['numval_c'] ( \"-$1,234.56\" ) == state['function'] state['numval_c'] ( ...)\ndef if402m_ord() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] ord ( \"A\" ) == state['function'] ord ( \"A\" ):)\ndef if402m_ord_max() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['ord_max'] ( 5 3 2 8 3 1 ) == state['function'] state['ord_max'] ( 5 3...)\ndef if402m_ord_min() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['ord_min'] ( 5 3 2 8 3 1 ) == state['function'] state['ord_min'] ( 5 3...)\ndef if402m_end() -> None:\n    pass\n\nif __name__ == \"__main__\":\n    try:\n        if402m_length()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_neural_code": "",
+  "stage2_final_code": "\"\"\"Translated from COBOL program IF402M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'ws_an_temp': '',\n    'ws_table_value': \"ABCDEFGHIJKLMNOPQRSTUVWXYZ \",\n    'ws_table_total': None,\n    'ws_table_lv3': None,\n    'ws_table_lv2': None,\n    'ws_table': '',\n})\n\ndef if402m_length() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['length'] ( \"ABC\" ) == state['function'] state['length'] ( \"ABC\" ):)\ndef if402m_log() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['log'] ( 1:)\ndef if402m_log10() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['log10'] ( 1:)\ndef if402m_lower_case() -> None:\n    state['ws_an_temp'] = \"ABC\"\n\ndef if402m_max() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] max ( 5 6 10 3 7 ) == state['function'] max ( 5 6 10 3 7 ):)\ndef if402m_mean() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['mean'] ( 5 -2 -14 0 ) == state['function'] state['mean'] ( 5 -2 -14 0 ):)\ndef if402m_median() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['median'] ( 5 -2 -14 0 ) == state['function'] state['median'] ( 5 -2 -...)\ndef if402m_midrange() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['midrange'] ( 5 -2 -14 0 ) == state['function'] state['midrange'] ( 5 ...)\ndef if402m_min() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] min ( 5 6 10 3 7 ) == state['function'] min ( 5 6 10 3 7 ):)\ndef if402m_mod() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['mod'] ( 6 6 ) == state['function'] state['mod'] ( 6 6 ):)\ndef if402m_numval() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['numval'] ( \"4738\" ) == state['function'] state['numval'] ( \"4738\" ):)\ndef if402m_numval_c() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['numval_c'] ( \"-$1,234.56\" ) == state['function'] state['numval_c'] ( ...)\ndef if402m_ord() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] ord ( \"A\" ) == state['function'] ord ( \"A\" ):)\ndef if402m_ord_max() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['ord_max'] ( 5 3 2 8 3 1 ) == state['function'] state['ord_max'] ( 5 3...)\ndef if402m_ord_min() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['ord_min'] ( 5 3 2 8 3 1 ) == state['function'] state['ord_min'] ( 5 3...)\ndef if402m_end() -> None:\n    pass\n\nif __name__ == \"__main__\":\n    try:\n        if402m_length()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_warnings": [
+    "function 'def if402m_length() -> None:': body replaced with pass+TODO",
+    "function 'def if402m_log() -> None:': body replaced with pass+TODO",
+    "function 'def if402m_log10() -> None:': body replaced with pass+TODO",
+    "function 'def if402m_max() -> None:': body replaced with pass+TODO",
+    "function 'def if402m_mean() -> None:': body replaced with pass+TODO",
+    "function 'def if402m_median() -> None:': body replaced with pass+TODO",
+    "function 'def if402m_midrange() -> None:': body replaced with pass+TODO",
+    "function 'def if402m_min() -> None:': body replaced with pass+TODO",
+    "function 'def if402m_mod() -> None:': body replaced with pass+TODO",
+    "function 'def if402m_numval() -> None:': body replaced with pass+TODO",
+    "function 'def if402m_numval_c() -> None:': body replaced with pass+TODO",
+    "function 'def if402m_ord() -> None:': body replaced with pass+TODO",
+    "function 'def if402m_ord_max() -> None:': body replaced with pass+TODO",
+    "function 'def if402m_ord_min() -> None:': body replaced with pass+TODO",
+    "repaired 14 unparseable line(s)"
+  ],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": false,
+  "stage3_refined_code": "",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "",
+  "stage3_error": "",
+  "verdict": "PASS",
+  "verdict_summary": "All 5 active check(s) passed.",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "16/16 paragraphs found as Python functions",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "IF402M-LENGTH",
+          "IF402M-LOG",
+          "IF402M-LOG10",
+          "IF402M-LOWER-CASE",
+          "IF402M-MAX",
+          "IF402M-MEAN",
+          "IF402M-MEDIAN",
+          "IF402M-MIDRANGE",
+          "IF402M-MIN",
+          "IF402M-MOD",
+          "IF402M-NUMVAL",
+          "IF402M-NUMVAL-C",
+          "IF402M-ORD",
+          "IF402M-ORD-MAX",
+          "IF402M-ORD-MIN",
+          "IF402M-END"
+        ],
+        "missing": [],
+        "total": 16
+      }
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "6/6 identifiers traced into the Python",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "WS-AN-TEMP",
+          "WS-TABLE-VALUE",
+          "WS-TABLE-TOTAL",
+          "WS-TABLE-LV3",
+          "WS-TABLE-LV2",
+          "WS-TABLE"
+        ],
+        "missing": [],
+        "total": 6
+      }
+    },
+    {
+      "name": "body_non_trivial",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "14/14 paragraphs have non-trivial bodies",
+      "skipped_reason": "",
+      "extra": {
+        "non_trivial": [
+          "IF402M-LENGTH",
+          "IF402M-LOG",
+          "IF402M-LOG10",
+          "IF402M-MAX",
+          "IF402M-MEAN",
+          "IF402M-MEDIAN",
+          "IF402M-MIDRANGE",
+          "IF402M-MIN",
+          "IF402M-MOD",
+          "IF402M-NUMVAL",
+          "IF402M-NUMVAL-C",
+          "IF402M-ORD",
+          "IF402M-ORD-MAX",
+          "IF402M-ORD-MIN"
+        ],
+        "trivial": [],
+        "exempt": [
+          "IF402M-LOWER-CASE",
+          "IF402M-END"
+        ],
+        "total_eligible": 14
+      }
+    },
+    {
+      "name": "python_smoke",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "ran cleanly",
+      "skipped_reason": "",
+      "extra": {
+        "exit_code": 0,
+        "stdout_bytes": 0,
+        "stderr_bytes": 0,
+        "stderr_head": ""
+      }
+    }
+  ],
+  "timestamp": 1780029616.417418
+}

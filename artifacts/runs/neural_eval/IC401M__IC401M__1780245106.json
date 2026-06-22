@@ -1,0 +1,466 @@
+{
+  "program_id": "IC401M",
+  "record_id": "IC401M",
+  "cobol_source": "      *HEADER,COBOL,IC401M                                                            \n000100 IDENTIFICATION DIVISION.                                         IC4014.2\n000200 PROGRAM-ID.                                                      IC4014.2\n000300      IC401M IS INITIAL.                                          IC4014.2\n000400*Message expected for above statement: NON-CONFORMING STANDARD    IC4014.2\n000500                                                                  IC4014.2\n000600*The following program tests the flagging of high                 IC4014.2\n000700*subset Features that are used in inter-program                   IC4014.2\n000800*communication.                                                   IC4014.2\n000900 ENVIRONMENT DIVISION.                                            IC4014.2\n001000 CONFIGURATION SECTION.                                           IC4014.2\n001100 SOURCE-COMPUTER.                                                 IC4014.2\n001200     XXXXX082.                                                    IC4014.2\n001300 OBJECT-COMPUTER.                                                 IC4014.2\n001400     XXXXX083.                                                    IC4014.2\n001500 DATA DIVISION.                                                   IC4014.2\n001600 WORKING-STORAGE SECTION.                                         IC4014.2\n001700                                                                  IC4014.2\n001800 01 GLOB IS GLOBAL   PIC IS X(2) VALUE IS \"HI\".                   IC4014.2\n001900*Message expected for above statement: NON-CONFORMING STANDARD    IC4014.2\n002000                                                                  IC4014.2\n002100 01 EXTE IS EXTERNAL PIC IS X(5).                                 IC4014.2\n002200*Message expected for above statement: NON-CONFORMING STANDARD    IC4014.2\n002300                                                                  IC4014.2\n002400 PROCEDURE DIVISION.                                              IC4014.2\n002500                                                                  IC4014.2\n002600 DECLARATIVES.                                                    IC4014.2\n002700                                                                  IC4014.2\n002800 IC401M-USE SECTION.                                              IC4014.2\n002900     USE GLOBAL AFTER STANDARD ERROR PROCEDURE ON I-O.            IC4014.2\n003000*Message expected for above statement: NON-CONFORMING STANDARD    IC4014.2\n003100                                                                  IC4014.2\n003200 END DECLARATIVES.                                                IC4014.2\n003300 IC401M-NONDECL SECTION.                                          IC4014.2\n003400 IC401M-CONTROL.                                                  IC4014.2\n003500     PERFORM IC401M-CANCEL THRU IC401M-BYCONT.                    IC4014.2\n003600     STOP RUN.                                                    IC4014.2\n003700                                                                  IC4014.2\n003800 IC401M-CANCEL.                                                   IC4014.2\n003900     CANCEL \"NESTEDPROG\".                                         IC4014.2\n004000*Message expected for above statement: NON-CONFORMING STANDARD    IC4014.2\n004100                                                                  IC4014.2\n004200                                                                  IC4014.2\n004300 IC401M-BYREF.                                                    IC4014.2\n004400     CALL \"NESTEDPROG\" USING BY REFERENCE GLOB.                   IC4014.2\n004500*Message expected for above statement: NON-CONFORMING STANDARD    IC4014.2\n004600                                                                  IC4014.2\n004700                                                                  IC4014.2\n004800 IC401M-BYCONT.                                                   IC4014.2\n004900     CALL \"FIC401M\" USING BY CONTENT GLOB.                        IC4014.2\n005000*Message expected for above statement: NON-CONFORMING STANDARD    IC4014.2\n005100                                                                  IC4014.2\n005200                                                                  IC4014.2\n005300 IDENTIFICATION DIVISION.                                         IC4014.2\n005400*Message expected for above statement: NON-CONFORMING STANDARD    IC4014.2\n005500                                                                  IC4014.2\n005600 PROGRAM-ID.                                                      IC4014.2\n005700     NESTEDPROG IS COMMON.                                        IC4014.2\n005800*Message expected for above statement: NON-CONFORMING STANDARD    IC4014.2\n005900                                                                  IC4014.2\n006000 ENVIRONMENT DIVISION.                                            IC4014.2\n006100 DATA DIVISION.                                                   IC4014.2\n006200 LINKAGE SECTION.                                                 IC4014.2\n006300 01  GLOB-2  PIC X(2).                                            IC4014.2\n006400                                                                  IC4014.2\n006500 PROCEDURE DIVISION USING GLOB-2.                                 IC4014.2\n006600 DUMMY-PARA.                                                      IC4014.2\n006700     DISPLAY \"HELLO\".                                             IC4014.2\n006800                                                                  IC4014.2\n006900 END-PARA.                                                        IC4014.2\n007000*TOTAL NUMBER OF FLAGS EXPECTED = 11.                             IC4014.2\n007100 END PROGRAM NESTEDPROG.                                          IC4014.2\n007200*Message expected for above statement: NON-CONFORMING STANDARD    IC4014.2\n007300*Message expected for following statement: NON-CONFORMING STANDARDIC4014.2\n007400 END PROGRAM IC401M.                                              IC4014.2\n      *END-OF,IC401M                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "NESTEDPROG",
+  "stage1_division_count": 8,
+  "stage1_paragraph_count": 11,
+  "stage1_token_count": 157,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {
+      "program_id": "NESTEDPROG"
+    },
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 5,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 11,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "DATA"
+        },
+        "children": [
+          {
+            "node_type": "DataItem",
+            "line": 14,
+            "attributes": {
+              "level": 1,
+              "name": "GLOB",
+              "value": "\"HI\""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 16,
+            "attributes": {
+              "level": 1,
+              "name": "EXTE"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 18,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 20,
+            "attributes": {
+              "name": "DECLARATIVES"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 23,
+                "attributes": {
+                  "verb": "USE",
+                  "operands": [
+                    "GLOBAL",
+                    "AFTER",
+                    "STANDARD",
+                    "ERROR",
+                    "PROCEDURE",
+                    "ON",
+                    "I-O"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 25,
+            "attributes": {
+              "name": "DECLARATIVES"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 27,
+            "attributes": {
+              "name": "IC401M-CONTROL"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 28,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "IC401M-CANCEL",
+                    "THRU",
+                    "IC401M-BYCONT"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 29,
+                "attributes": {
+                  "verb": "STOP",
+                  "operands": [
+                    "RUN"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 31,
+            "attributes": {
+              "name": "IC401M-CANCEL"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 32,
+                "attributes": {
+                  "verb": "CANCEL",
+                  "operands": [
+                    "\"NESTEDPROG\""
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 35,
+            "attributes": {
+              "name": "IC401M-BYREF"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 36,
+                "attributes": {
+                  "verb": "CALL",
+                  "operands": [
+                    "\"NESTEDPROG\"",
+                    "USING",
+                    "BY",
+                    "REFERENCE",
+                    "GLOB"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 39,
+            "attributes": {
+              "name": "IC401M-BYCONT"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 40,
+                "attributes": {
+                  "verb": "CALL",
+                  "operands": [
+                    "\"FIC401M\"",
+                    "USING",
+                    "BY",
+                    "CONTENT",
+                    "GLOB"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 43,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 48,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 49,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "DATA"
+        },
+        "children": [
+          {
+            "node_type": "DataItem",
+            "line": 51,
+            "attributes": {
+              "level": 1,
+              "name": "GLOB-2",
+              "pic": "X"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 53,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 53,
+            "attributes": {
+              "name": "GLOB-2"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 54,
+            "attributes": {
+              "name": "DUMMY-PARA"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 55,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\"HELLO\""
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 57,
+            "attributes": {
+              "name": "END-PARA"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 58,
+            "attributes": {
+              "name": "NESTEDPROG"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 59,
+            "attributes": {
+              "name": "IC401M"
+            },
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "stage1_cobc_status": "",
+  "stage1_cobc_stderr": "",
+  "complexity_tier": "simple",
+  "complexity_score": 3.65,
+  "ast_depth": 4,
+  "unique_verbs": 6,
+  "cross_refs": 3,
+  "stage2_source": "neural",
+  "stage2_rule_based_code": "// Copyright (c) 2012 The Chromium Authors. All rights reserved.\n// Use of this source code is governed by a BSD-style license that can be\n// found in the LICENSE file.\n\n#ifndef CHROME_BROWSER_CHROMEOS_LOGIN_LOGIN_MANAGER_H_\n#define CHROME_BROWSER_CHROMEOS_LOGIN_LOGIN_MANAGER_H_\n\n#include <string>\n#include <vector>\n\n#include \"base/basictypes.h\"\n#include \"base/compiler_specific.h\"\n#include \"base/memory/scoped_ptr.h\"\n#include \"base/memory/weak_ptr.h\"\n#include \"base/time/time.h\"\n#include \"chrome/browser/chromeos/login/login_manager_delegate.h\"\n#include \"chrome/browser/chromeos/login/user_manager.h\"\n#include \"chrome/browser/chromeos/login/user_manager_factory.h\"\n#include \"chrome/browser/chromeos/",
+  "stage2_neural_code": "",
+  "stage2_final_code": "// Copyright (c) 2012 The Chromium Authors. All rights reserved.\n// Use of this source code is governed by a BSD-style license that can be\n// found in the LICENSE file.\n\n#ifndef CHROME_BROWSER_CHROMEOS_LOGIN_LOGIN_MANAGER_H_\n#define CHROME_BROWSER_CHROMEOS_LOGIN_LOGIN_MANAGER_H_\n\n#include <string>\n#include <vector>\n\n#include \"base/basictypes.h\"\n#include \"base/compiler_specific.h\"\n#include \"base/memory/scoped_ptr.h\"\n#include \"base/memory/weak_ptr.h\"\n#include \"base/time/time.h\"\n#include \"chrome/browser/chromeos/login/login_manager_delegate.h\"\n#include \"chrome/browser/chromeos/login/user_manager.h\"\n#include \"chrome/browser/chromeos/login/user_manager_factory.h\"\n#include \"chrome/browser/chromeos/",
+  "stage2_warnings": [],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": true,
+  "stage3_refined_code": "from dataclasses import dataclass\nfrom typing import List\n\n@dataclass\nclass User:\n    username: str\n    password: str\n\nclass UserManager:\n    def __init__(self):\n        self.users: List[User] = []\n\n    def add_user(self, username: str, password: str) -> None:\n        user = User(username, password)\n        self.users.append(user)\n\n    def authenticate(self, username: str, password: str) -> bool:\n        for user in self.users:\n            if user.username == username and user.password == password:\n                return True\n        return False\n\nclass LoginManager:\n    def __init__(self, user_manager: UserManager):\n        self.user_manager = user_manager\n\n    def login(self, username: str, password: str) -> bool:\n        if self.user_manager.authenticate(username, password):\n            print(f\"Welcome {username}!\")\n            return True\n        else:\n            print(\"Invalid username or password.\")\n            return False\n\ndef main() -> None:\n    user_manager = UserManager()\n    login_manager = LoginManager(user_manager)\n\n    user_manager.add_user(\"admin\", \"admin123\")\n    user_manager.add_user(\"user\", \"user123\")\n\n    login_manager.login(\"admin\", \"admin123\")\n    login_manager.login(\"user\", \"wrongpassword\")\n\nif __name__ == \"__main__\":\n    main()",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "openai",
+  "stage3_error": "",
+  "verdict": "FAIL",
+  "verdict_summary": "4 check(s) failed: paragraph_coverage, identifier_coverage, body_non_trivial, llm_judge.",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": false,
+      "score": 0.0,
+      "detail": "0/11 paragraphs found as Python functions; missing: DECLARATIVES, DECLARATIVES, IC401M-CONTROL, IC401M-CANCEL, IC401M-BYREF",
+      "skipped_reason": "",
+      "extra": {
+        "found": [],
+        "missing": [
+          "DECLARATIVES",
+          "DECLARATIVES",
+          "IC401M-CONTROL",
+          "IC401M-CANCEL",
+          "IC401M-BYREF",
+          "IC401M-BYCONT",
+          "GLOB-2",
+          "DUMMY-PARA",
+          "END-PARA",
+          "NESTEDPROG",
+          "IC401M"
+        ],
+        "total": 11
+      }
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": false,
+      "score": 0.0,
+      "detail": "0/3 identifiers traced into the Python; missing: GLOB, EXTE, GLOB-2",
+      "skipped_reason": "",
+      "extra": {
+        "found": [],
+        "missing": [
+          "GLOB",
+          "EXTE",
+          "GLOB-2"
+        ],
+        "total": 3
+      }
+    },
+    {
+      "name": "body_non_trivial",
+      "ran": true,
+      "passed": false,
+      "score": 0.0,
+      "detail": "0/1 paragraphs have non-trivial bodies; stubbed: IC401M-CONTROL",
+      "skipped_reason": "",
+      "extra": {
+        "non_trivial": [],
+        "trivial": [
+          "IC401M-CONTROL"
+        ],
+        "exempt": [
+          "DECLARATIVES",
+          "IC401M-CANCEL",
+          "IC401M-BYREF",
+          "IC401M-BYCONT",
+          "GLOB-2",
+          "DUMMY-PARA",
+          "END-PARA",
+          "NESTEDPROG",
+          "IC401M"
+        ],
+        "total_eligible": 1
+      }
+    },
+    {
+      "name": "python_smoke",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "ran cleanly",
+      "skipped_reason": "",
+      "extra": {
+        "exit_code": 0,
+        "stdout_bytes": 45,
+        "stderr_bytes": 0,
+        "stderr_head": ""
+      }
+    },
+    {
+      "name": "execution_match",
+      "ran": false,
+      "passed": null,
+      "score": null,
+      "detail": "skipped: cobol side could not be executed (stdout_mismatch; rc=1)",
+      "skipped_reason": "cobol side could not be executed (stdout_mismatch; rc=1)",
+      "extra": {
+        "cobol_stdout": "HELLO\n",
+        "cobol_returncode": 1
+      }
+    },
+    {
+      "name": "llm_judge",
+      "ran": true,
+      "passed": false,
+      "score": 0.58,
+      "detail": "[openai] correctness=0.00, readability=0.80, pep8=1.00, pythonic=0.60, types=1.00",
+      "skipped_reason": "",
+      "extra": {
+        "rationale": "The Python translation does not reflect the behavior of the COBOL source code, which is focused on program structure and control flow rather than user management. The readability is good due to clear class and method names, and it adheres to PEP 8 standards. However, it lacks Pythonic idioms as it closely follows COBOL's structure rather than utilizing Python's features effectively. Type annotations are complete.",
+        "components": {
+          "correctness": 0.0,
+          "readability": 0.8,
+          "pep8_compliance": 1.0,
+          "pythonic_idioms": 0.6,
+          "type_annotations": 1.0,
+          "rationale": "The Python translation does not reflect the behavior of the COBOL source code, which is focused on program structure and control flow rather than user management. The readability is good due to clear class and method names, and it adheres to PEP 8 standards. However, it lacks Pythonic idioms as it closely follows COBOL's structure rather than utilizing Python's features effectively. Type annotations are complete.",
+          "weighted": 0.5800000000000001
+        },
+        "provider_used": "openai",
+        "providers_tried": [
+          "openai: ok"
+        ]
+      }
+    }
+  ],
+  "timestamp": 1780245106.763538
+}

@@ -1,0 +1,1947 @@
+{
+  "program_id": "NC401M",
+  "record_id": "NC401M",
+  "cobol_source": "      *HEADER,COBOL,NC401M                                                            \n000100 IDENTIFICATION DIVISION.                                         NC4014.2\n000200 PROGRAM-ID.                                                      NC4014.2\n000300      NC401M.                                                     NC4014.2\n000400                                                                  NC4014.2\n000500                                                                  NC4014.2\n000600*THIS PROGRAM TESTS THE FLAGGING OF HIGH SUBSET NUCLEUS           NC4014.2\n000700*FEATURES.                                                        NC4014.2\n000800 DATE-COMPILED.  22ND AUG 1988.                                   NC4014.2\n000900*Message expected for above statement: NON-CONFORMING STANDARD    NC4014.2\n001000 ENVIRONMENT DIVISION.                                            NC4014.2\n001100 CONFIGURATION SECTION.                                           NC4014.2\n001200 SOURCE-COMPUTER.                                                 NC4014.2\n001300     XXXXX082.                                                    NC4014.2\n001400 OBJECT-COMPUTER.                                                 NC4014.2\n001500     XXXXX083.                                                    NC4014.2\n001600 SPECIAL-NAMES.                                                   NC4014.2\n001700     XXXXX056                                                     NC4014.2\n001800     IS VDUNIT                                                    NC4014.2\n001900     ALPHABET                                                     NC4014.2\n002000     TEST-ALPHABET IS \"A\" THRU \"F\"                                NC4014.2\n002100*Message expected for above statement: NON-CONFORMING STANDARD    NC4014.2\n002200                                                                  NC4014.2\n002300                                                                  NC4014.2\n002400     SYMBOLIC CHARACTERS A IS 32.                                 NC4014.2\n002500*Message expected for above statement: NON-CONFORMING STANDARD    NC4014.2\n002600                                                                  NC4014.2\n002700                                                                  NC4014.2\n002800 INPUT-OUTPUT SECTION.                                            NC4014.2\n002900 FILE-CONTROL.                                                    NC4014.2\n003000     SELECT TFIL ASSIGN                                           NC4014.2\n003100     XXXXX001.                                                    NC4014.2\n003200     SELECT TFIL-2 ASSIGN                                         NC4014.2\n003300     XXXXX002.                                                    NC4014.2\n003400 DATA DIVISION.                                                   NC4014.2\n003500 FILE SECTION.                                                    NC4014.2\n003600 FD TFIL.                                                         NC4014.2\n003700 01 FREC.                                                         NC4014.2\n003800     03 GUBBINS PIC X(1                                           NC4014.2\n003900-                      00).                                       NC4014.2\n004000*Message expected for above statement: NON-CONFORMING STANDARD    NC4014.2\n004100                                                                  NC4014.2\n004200 FD TFIL-2.                                                       NC4014.2\n004300 01 FREC-2.                                                       NC4014.2\n004400     03 COLONTEST PIC X(100).                                     NC4014.2\n004500     03 GUBBINS PIC X(100).                                       NC4014.2\n004600                                                                  NC4014.2\n004700                                                                  NC4014.2\n004800 WORKING-STORAGE SECTION.                                         NC4014.2\n004900                                                                  NC4014.2\n005000 01 TEST-CUSTOMER-RECORD.                                         NC4014.2\n005100     03 TEST-AR-CUSTOMER-ID PIC X(4).                             NC4014.2\n005200     03 TEST-AR-CUSTOMER-NAME PIC X(20).                          NC4014.2\n005300     03 TEST-AR-NUMBER-INVOICES PIC S9(2).                        NC4014.2\n005400     03 TEST-AR-INVOICE-DATA OCCURS 1 TO 15 TIMES                 NC4014.2\n005500                             DEPENDING ON                         NC4014.2\n005600                                 TEST-AR-NUMBER-INVOICES          NC4014.2\n005700                             INDEXED BY WS-INDEX.                 NC4014.2\n005800*Message expected for above statement: NON-CONFORMING STANDARD    NC4014.2\n005900                                                                  NC4014.2\n006000         05 TEST-INVOICE-DATE.                                    NC4014.2\n006100             07 TEST-INVOICE-YY PIC 99.                           NC4014.2\n006200             07 TEST-INVOICE-MM PIC 99.                           NC4014.2\n006300             07 TEST-INVOICE-DD PIC 99.                           NC4014.2\n006400                                                                  NC4014.2\n006500 01 TEST-DESCEND-RECORD.                                          NC4014.2\n006600     03 TEST-DESCEND-CUST-ID PIC X(4).                            NC4014.2\n006700     03 TEST-DESCEND-CUST-NAME PIC X(20).                         NC4014.2\n006800     03 TEST-DESCEND-NO-INV PIC S9(2).                            NC4014.2\n006900     03 TEST-DESCEND-INVOICE OCCURS 15 TIMES                      NC4014.2\n007000                             ASCENDING KEY IS                     NC4014.2\n007100                                 TEST-ASCEND-TIME                 NC4014.2\n007200                             DESCENDING KEY IS                    NC4014.2\n007300                                 TEST-DESC-DATE.                  NC4014.2\n007400*Message expected for above statement: NON-CONFORMING STANDARD    NC4014.2\n007500                                                                  NC4014.2\n007600                                                                  NC4014.2\n007700             05 TEST-DESC-DATE.                                   NC4014.2\n007800                 07 TEST-DESC-YY PIC 99.                          NC4014.2\n007900                 07 TEST-DESC-MM PIC 99.                          NC4014.2\n008000                 07 TEST-DESC-DD PIC 99.                          NC4014.2\n008100             05 TEST-ASCEND-TIME PIC 9(6).                        NC4014.2\n008200                                                                  NC4014.2\n008300 01 TEST-CODE-TABLE.                                              NC4014.2\n008400     03 TEST-CODE PIC X(3)                                        NC4014.2\n008500                     OCCURS 40 TIMES                              NC4014.2\n008600                     INDEXED BY CODE-INDEX.                       NC4014.2\n008700                                                                  NC4014.2\n008800 01 CUST-REC.                                                     NC4014.2\n008900     03 CUST-CODES PIC X.                                         NC4014.2\n009000         88 CUST-PAID VALUE \"A\".                                  NC4014.2\n009100*Message expected for above statement: NON-CONFORMING STANDARD    NC4014.2\n009200                                                                  NC4014.2\n009300                                                                  NC4014.2\n009400 01 GROUP-1.                                                      NC4014.2\n009500     03 ITEM-1 PIC 99 VALUE 10.                                   NC4014.2\n009600     03 ITEM-2 PIC 99 VALUE 12.                                   NC4014.2\n009700     03 ITEM-3 PIC 99 VALUE 14.                                   NC4014.2\n009800                                                                  NC4014.2\n009900 01 GROUP-2.                                                      NC4014.2\n010000     03 ITEM-1 PIC 99 VALUE 10.                                   NC4014.2\n010100     03 ITEM-2 PIC 99 VALUE 12.                                   NC4014.2\n010200     03 ITEM-3 PIC 99 VALUE 14.                                   NC4014.2\n010300                                                                  NC4014.2\n010400 01 SALES-DATA.                                                   NC4014.2\n010500     03 STORE-INFO  PIC X(30).                                    NC4014.2\n010600     03 MON-SALES OCCURS 2 TIMES.                                 NC4014.2\n010700         05 AM-SALES PIC 9(3).                                    NC4014.2\n010800         05 TUE-SALES OCCURS 2 TIMES.                             NC4014.2\n010900             07 AM-SALES PIC 9(3).                                NC4014.2\n011000             07 WED-SALES OCCURS 2 TIMES.                         NC4014.2\n011100                 09 AM-SALES PIC 9(3).                            NC4014.2\n011200                 09 THU-SALES OCCURS 2 TIMES.                     NC4014.2\n011300                     11 AM-SALES PIC 9(3).                        NC4014.2\n011400                     11 FRI-SALES OCCURS 2 TIMES.                 NC4014.2\n011500                         13 PM-SALES PIC 9(3).                    NC4014.2\n011600                                                                  NC4014.2\n011700 01 VARIABLES.                                                    NC4014.2\n011800     03 EDFIELD PIC Z,ZZZ.99.                                     NC4014.2\n011900                                                                  NC4014.2\n012000                                                                  NC4014.2\n012100     03 STATE PIC X(4) VALUE ALL \"A\".                             NC4014.2\n012200*Message expected for above statement: NON-CONFORMING STANDARD    NC4014.2\n012300                                                                  NC4014.2\n012400                                                                  NC4014.2\n012500     03 RKEY PIC 9(8) VALUE ZERO.                                 NC4014.2\n012600                                                                  NC4014.2\n012700                                                                  NC4014.2\n012800                                                                  NC4014.2\n012900     03 GRANDTOTAL PIC 9(7)V99 VALUE ZERO.                        NC4014.2\n013000     03 BOX-A PIC 99 VALUE ZERO.                                  NC4014.2\n013100     03 BOX-B PIC 99 VALUE ZERO.                                  NC4014.2\n013200     03 BOX-C PIC 999 VALUE ZERO.                                 NC4014.2\n013300     03 BOX-D PIC 999 VALUE ZERO.                                 NC4014.2\n013400                                                                  NC4014.2\n013500                                                                  NC4014.2\n013600     03 MARYPOPPINS PIC X(34) VALUE \"SUPERCALIFRAGILISTICEXPIALIDONC4014.2\n013700-         \"CIOUS\".                                                NC4014.2\n013800     03 MP-1 REDEFINES MARYPOPPINS.                               NC4014.2\n013900        04  MP-1-A  PICTURE X(5).                                 NC4014.2\n014000        04  MP-1-A-1  REDEFINES MP-1-A.                           NC4014.2\n014100*Message expected for above statement: NON-CONFORMING STANDARD    NC4014.2\n014200             05  MP-1-A-1-A  PICTURE X(3).                        NC4014.2\n014300             05  FILLER  PICTURE X(2).                            NC4014.2\n014400        04  FILLER  PICTURE X(29).                                NC4014.2\n014500                                                                  NC4014.2\n014600     03 VARA PIC X(4).                                            NC4014.2\n014700     03 VARB PIC X(4).                                            NC4014.2\n014800     03 VARC PIC X(4).                                            NC4014.2\n014900         66 VARA                                                  NC4014.2\n015000*Message expected for above statement: NON-CONFORMING STANDARD    NC4014.2\n015100                 RENAMES VARB THRU VARC.                          NC4014.2\n015200*Message expected for above statement: NON-CONFORMING STANDARD    NC4014.2\n015300                                                                  NC4014.2\n015400                                                                  NC4014.2\n015500 01 DDAY PIC 9(5).                                                NC4014.2\n015600                                                                  NC4014.2\n015700 01 VARD PIC X(4).                                                NC4014.2\n015800                                                                  NC4014.2\n015900 01 VARE PIC X(4).                                                NC4014.2\n016000                                                                  NC4014.2\n016100 01 VARF PIC 9(7)V99.                                             NC4014.2\n016200                                                                  NC4014.2\n016300 PROCEDURE DIVISION.                                              NC4014.2\n016400                                                                  NC4014.2\n016500                                                                  NC4014.2\n016600 NC401M-CONTROL.                                                  NC4014.2\n016700     OPEN INPUT TFIL.                                             NC4014.2\n016800     PERFORM NC401M-COLON THRU NC401M-END 1 TIMES.                NC4014.2\n016900     ALTER NC401M-GOTO TO PROCEED TO NC401M-GOTO-2,               NC4014.2\n017000         NC401M-GOTO-2 TO PROCEED TO NC401M-NESTIF.               NC4014.2\n017100*Message expected for above statement: NON-CONFORMING STANDARD    NC4014.2\n017200     CLOSE TFIL.                                                  NC4014.2\n017300     STOP RUN.                                                    NC4014.2\n017400                                                                  NC4014.2\n017500                                                                  NC4014.2\n017600 NC401M-COLON.                                                    NC4014.2\n017700     DISPLAY COLONTEST(1:20).                                     NC4014.2\n017800*Message expected for above statement: NON-CONFORMING STANDARD    NC4014.2\n017900                                                                  NC4014.2\n018000                                                                  NC4014.2\n018100 NC401M-QUALIF.                                                   NC4014.2\n018200     MOVE GUBBINS OF FREC TO GUBBINS OF FREC-2.                   NC4014.2\n018300*Message expected for above statement: NON-CONFORMING STANDARD    NC4014.2\n018400                                                                  NC4014.2\n018500                                                                  NC4014.2\n018600 NC401M-SUBSCR.                                                   NC4014.2\n018700     MOVE ZERO TO                                                 NC4014.2\n018800        PM-SALES (BOX-A, BOX-B, BOX-C, BOX-D, 1).                 NC4014.2\n018900*Message expected for above statement: NON-CONFORMING STANDARD    NC4014.2\n019000                                                                  NC4014.2\n019100 NC401M-CHARBR1.                                                  NC4014.2\n019200     MUL                                                          NC4014.2\n019300-    TIPLY BOX-A BY BOX-B GIVING BOX-C.                           NC4014.2\n019400*Message expected for above statement: NON-CONFORMING STANDARD    NC4014.2\n019500                                                                  NC4014.2\n019600                                                                  NC4014.2\n019700 NC401M-CHARBR2.                                                  NC4014.2\n019800     MOVE 2                                                       NC4014.2\n019900-    0 TO BOX-A.                                                  NC4014.2\n020000*Message expected for above statement: NON-CONFORMING STANDARD    NC4014.2\n020100                                                                  NC4014.2\n020200 NC401M-ARITHEXP.                                                 NC4014.2\n020300     IF BOX-A + 1 IS NOT GREATER THAN BOX-B + 2                   NC4014.2\n020400         DISPLAY \"ARITHEXP-TEST\".                                 NC4014.2\n020500*Message expected for above statement: NON-CONFORMING STANDARD    NC4014.2\n020600                                                                  NC4014.2\n020700                                                                  NC4014.2\n020800 NC401M-SIGCOND.                                                  NC4014.2\n020900     IF BOX-A IS NOT NEGATIVE                                     NC4014.2\n021000         DISPLAY \"SIGCOND-TEST\".                                  NC4014.2\n021100*Message expected for above statement: NON-CONFORMING STANDARD    NC4014.2\n021200                                                                  NC4014.2\n021300                                                                  NC4014.2\n021400 NC401M-COMPCOND.                                                 NC4014.2\n021500     IF BOX-A IS GREATER THAN BOX-B AND NOT BOX-C IS GREATER      NC4014.2\n021600         THAN BOX-A THEN MOVE 7 TO BOX-B.                         NC4014.2\n021700*Message expected for above statement: NON-CONFORMING STANDARD    NC4014.2\n021800                                                                  NC4014.2\n021900                                                                  NC4014.2\n022000 NC401M-CORRESADD.                                                NC4014.2\n022100     ADD CORRESPONDING GROUP-1 TO GROUP-2.                        NC4014.2\n022200*Message expected for above statement: NON-CONFORMING STANDARD    NC4014.2\n022300                                                                  NC4014.2\n022400                                                                  NC4014.2\n022500 NC401M-CORRESMOVE.                                               NC4014.2\n022600     MOVE CORRESPONDING GROUP-1 TO GROUP-2.                       NC4014.2\n022700*Message expected for above statement: NON-CONFORMING STANDARD    NC4014.2\n022800                                                                  NC4014.2\n022900                                                                  NC4014.2\n023000 NC401M-CORRESSUB.                                                NC4014.2\n023100     SUBTRACT CORRESPONDING GROUP-2 FROM GROUP-1.                 NC4014.2\n023200*Message expected for above statement: NON-CONFORMING STANDARD    NC4014.2\n023300                                                                  NC4014.2\n023400                                                                  NC4014.2\n023500 NC401M-COMPUTE.                                                  NC4014.2\n023600     COMPUTE BOX-A = 10 + 6.                                      NC4014.2\n023700*Message expected for above statement: NON-CONFORMING STANDARD    NC4014.2\n023800                                                                  NC4014.2\n023900                                                                  NC4014.2\n024000 NC401M-GETDAY.                                                   NC4014.2\n024100     ACCEPT DDAY FROM DAY-OF-WEEK.                                NC4014.2\n024200*Message expected for above statement: NON-CONFORMING STANDARD    NC4014.2\n024300                                                                  NC4014.2\n024400                                                                  NC4014.2\n024500 NC401M-DISPUPON.                                                 NC4014.2\n024600     DISPLAY \"PFILE\" UPON VDUNIT.                                 NC4014.2\n024700*Message expected for above statement: NON-CONFORMING STANDARD    NC4014.2\n024800                                                                  NC4014.2\n024900                                                                  NC4014.2\n025000 NC401-DIVREMAINDER.                                              NC4014.2\n025100     DIVIDE BOX-A INTO BOX-B GIVING BOX-C REMAINDER BOX-D.        NC4014.2\n025200*Message expected for above statement: NON-CONFORMING STANDARD    NC4014.2\n025300                                                                  NC4014.2\n025400                                                                  NC4014.2\n025500 NC401M-EVAL.                                                     NC4014.2\n025600     EVALUATE BOX-A                                               NC4014.2\n025700         WHEN 1 MOVE \"A\" TO VARC                                  NC4014.2\n025800         WHEN 2 MOVE \"B\" TO VARC.                                 NC4014.2\n025900*Message expected for above statement: NON-CONFORMING STANDARD    NC4014.2\n026000                                                                  NC4014.2\n026100                                                                  NC4014.2\n026200 NC401M-GOTO.                                                     NC4014.2\n026300     GO TO.                                                       NC4014.2\n026400*Message expected for above statement: NON-CONFORMING STANDARD    NC4014.2\n026500                                                                  NC4014.2\n026600 NC401M-GOTO-2.                                                   NC4014.2\n026700     GO TO.                                                       NC4014.2\n026800*Message expected for above statement: NON-CONFORMING STANDARD    NC4014.2\n026900                                                                  NC4014.2\n027000                                                                  NC4014.2\n027100 NC401M-NESTIF.                                                   NC4014.2\n027200     IF BOX-A IS GREATER THAN BOX-B THEN                          NC4014.2\n027300         MOVE \"AAAA\" TO VARD                                      NC4014.2\n027400     ELSE                                                         NC4014.2\n027500     IF BOX-B IS GREATER THAN BOX-C THEN                          NC4014.2\n027600         MOVE \"BBBB\" TO VARD                                      NC4014.2\n027700     ELSE                                                         NC4014.2\n027800         MOVE \"CCCC\" TO VARD.                                     NC4014.2\n027900*Message expected for above statement: NON-CONFORMING STANDARD    NC4014.2\n028000                                                                  NC4014.2\n028100                                                                  NC4014.2\n028200 NC401M-INIT.                                                     NC4014.2\n028300     INITIALIZE VARB.                                             NC4014.2\n028400*Message expected for above statement: NON-CONFORMING STANDARD    NC4014.2\n028500                                                                  NC4014.2\n028600                                                                  NC4014.2\n028700 NC401M-INSCT.                                                    NC4014.2\n028800     INSPECT MARYPOPPINS CONVERTING \"A\" TO \"Z\".                   NC4014.2\n028900*Message expected for above statement: NON-CONFORMING STANDARD    NC4014.2\n029000                                                                  NC4014.2\n029100                                                                  NC4014.2\n029200                                                                  NC4014.2\n029300 NC401M-PWT.                                                      NC4014.2\n029400     PERFORM NC401M-NESTIF THRU NC401M-INIT WITH TEST AFTER       NC4014.2\n029500         UNTIL BOX-B IS EQUAL TO BOX-A.                           NC4014.2\n029600*Message expected for above statement: NON-CONFORMING STANDARD    NC4014.2\n029700                                                                  NC4014.2\n029800                                                                  NC4014.2\n029900 NC401M-PWV.                                                      NC4014.2\n030000     PERFORM NC401M-NESTIF THRU NC401M-INIT                       NC4014.2\n030100     VARYING BOX-A FROM BOX-B BY BOX-C                            NC4014.2\n030200         UNTIL GRANDTOTAL IS EQUAL TO VARF.                       NC4014.2\n030300*Message expected for above statement: NON-CONFORMING STANDARD    NC4014.2\n030400                                                                  NC4014.2\n030500                                                                  NC4014.2\n030600 NC401M-SEARCH.                                                   NC4014.2\n030700     SEARCH TEST-CODE                                             NC4014.2\n030800         WHEN BOX-A IS EQUAL TO BOX-B                             NC4014.2\n030900             NEXT SENTENCE.                                       NC4014.2\n031000*Message expected for above statement: NON-CONFORMING STANDARD    NC4014.2\n031100                                                                  NC4014.2\n031200                                                                  NC4014.2\n031300 NC401M-STT.                                                      NC4014.2\n031400     SET CUST-PAID TO TRUE.                                       NC4014.2\n031500*Message expected for above statement: NON-CONFORMING STANDARD    NC4014.2\n031600                                                                  NC4014.2\n031700                                                                  NC4014.2\n031800 NC401M-ST.                                                       NC4014.2\n031900     STRING VARD DELIMITED BY VARB INTO VARC.                     NC4014.2\n032000*Message expected for above statement: NON-CONFORMING STANDARD    NC4014.2\n032100                                                                  NC4014.2\n032200                                                                  NC4014.2\n032300 NC401M-UST.                                                      NC4014.2\n032400     UNSTRING VARD INTO VARE.                                     NC4014.2\n032500*Message expected for above statement: NON-CONFORMING STANDARD    NC4014.2\n032600                                                                  NC4014.2\n032700                                                                  NC4014.2\n032800 NC401M-END.                                                      NC4014.2\n032900                                                                  NC4014.2\n033000*TOTAL NUMBER OF FLAGS EXPECTED = 40.                             NC4014.2\n033100*Message expected for following statement: NON-CONFORMING STANDARDNC4014.2\n033200 END PROGRAM NC401M.                                              NC4014.2\n      *END-OF,NC401M                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "NC401M",
+  "stage1_division_count": 4,
+  "stage1_paragraph_count": 30,
+  "stage1_token_count": 897,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {
+      "program_id": "NC401M",
+      "metadata": {
+        "date-compiled": "AUG 1988 ENVIRONMENT"
+      }
+    },
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 7,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 29,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "DATA"
+        },
+        "children": [
+          {
+            "node_type": "DataItem",
+            "line": 32,
+            "attributes": {
+              "level": 1,
+              "name": "FREC"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 33,
+            "attributes": {
+              "level": 3,
+              "name": "GUBBINS",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 36,
+            "attributes": {
+              "level": 1,
+              "name": "FREC-2"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 37,
+            "attributes": {
+              "level": 3,
+              "name": "COLONTEST",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 38,
+            "attributes": {
+              "level": 3,
+              "name": "GUBBINS",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 43,
+            "attributes": {
+              "level": 1,
+              "name": "TEST-CUSTOMER-RECORD"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 44,
+            "attributes": {
+              "level": 3,
+              "name": "TEST-AR-CUSTOMER-ID",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 45,
+            "attributes": {
+              "level": 3,
+              "name": "TEST-AR-CUSTOMER-NAME",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 46,
+            "attributes": {
+              "level": 3,
+              "name": "TEST-AR-NUMBER-INVOICES",
+              "pic": "S9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 47,
+            "attributes": {
+              "level": 3,
+              "name": "TEST-AR-INVOICE-DATA"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 52,
+            "attributes": {
+              "level": 5,
+              "name": "TEST-INVOICE-DATE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 53,
+            "attributes": {
+              "level": 7,
+              "name": "TEST-INVOICE-YY",
+              "pic": "99"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 54,
+            "attributes": {
+              "level": 7,
+              "name": "TEST-INVOICE-MM",
+              "pic": "99"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 55,
+            "attributes": {
+              "level": 7,
+              "name": "TEST-INVOICE-DD",
+              "pic": "99"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 57,
+            "attributes": {
+              "level": 1,
+              "name": "TEST-DESCEND-RECORD"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 58,
+            "attributes": {
+              "level": 3,
+              "name": "TEST-DESCEND-CUST-ID",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 59,
+            "attributes": {
+              "level": 3,
+              "name": "TEST-DESCEND-CUST-NAME",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 60,
+            "attributes": {
+              "level": 3,
+              "name": "TEST-DESCEND-NO-INV",
+              "pic": "S9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 61,
+            "attributes": {
+              "level": 3,
+              "name": "TEST-DESCEND-INVOICE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 68,
+            "attributes": {
+              "level": 5,
+              "name": "TEST-DESC-DATE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 69,
+            "attributes": {
+              "level": 7,
+              "name": "TEST-DESC-YY",
+              "pic": "99"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 70,
+            "attributes": {
+              "level": 7,
+              "name": "TEST-DESC-MM",
+              "pic": "99"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 71,
+            "attributes": {
+              "level": 7,
+              "name": "TEST-DESC-DD",
+              "pic": "99"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 72,
+            "attributes": {
+              "level": 5,
+              "name": "TEST-ASCEND-TIME",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 74,
+            "attributes": {
+              "level": 1,
+              "name": "TEST-CODE-TABLE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 75,
+            "attributes": {
+              "level": 3,
+              "name": "TEST-CODE",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 79,
+            "attributes": {
+              "level": 1,
+              "name": "CUST-REC"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 80,
+            "attributes": {
+              "level": 3,
+              "name": "CUST-CODES",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 81,
+            "attributes": {
+              "level": 88,
+              "name": "CUST-PAID",
+              "value": "\"A\""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 84,
+            "attributes": {
+              "level": 1,
+              "name": "GROUP-1"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 85,
+            "attributes": {
+              "level": 3,
+              "name": "ITEM-1",
+              "pic": "99",
+              "value": "10"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 86,
+            "attributes": {
+              "level": 3,
+              "name": "ITEM-2",
+              "pic": "99",
+              "value": "12"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 87,
+            "attributes": {
+              "level": 3,
+              "name": "ITEM-3",
+              "pic": "99",
+              "value": "14"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 89,
+            "attributes": {
+              "level": 1,
+              "name": "GROUP-2"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 90,
+            "attributes": {
+              "level": 3,
+              "name": "ITEM-1",
+              "pic": "99",
+              "value": "10"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 91,
+            "attributes": {
+              "level": 3,
+              "name": "ITEM-2",
+              "pic": "99",
+              "value": "12"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 92,
+            "attributes": {
+              "level": 3,
+              "name": "ITEM-3",
+              "pic": "99",
+              "value": "14"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 94,
+            "attributes": {
+              "level": 1,
+              "name": "SALES-DATA"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 95,
+            "attributes": {
+              "level": 3,
+              "name": "STORE-INFO",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 96,
+            "attributes": {
+              "level": 3,
+              "name": "MON-SALES"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 97,
+            "attributes": {
+              "level": 5,
+              "name": "AM-SALES",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 98,
+            "attributes": {
+              "level": 5,
+              "name": "TUE-SALES"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 99,
+            "attributes": {
+              "level": 7,
+              "name": "AM-SALES",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 100,
+            "attributes": {
+              "level": 7,
+              "name": "WED-SALES"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 101,
+            "attributes": {
+              "level": 9,
+              "name": "AM-SALES",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 102,
+            "attributes": {
+              "level": 9,
+              "name": "THU-SALES"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 103,
+            "attributes": {
+              "level": 11,
+              "name": "AM-SALES",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 104,
+            "attributes": {
+              "level": 11,
+              "name": "FRI-SALES"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 105,
+            "attributes": {
+              "level": 13,
+              "name": "PM-SALES",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 107,
+            "attributes": {
+              "level": 1,
+              "name": "VARIABLES"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 108,
+            "attributes": {
+              "level": 3,
+              "name": "EDFIELD",
+              "pic": "Z"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 111,
+            "attributes": {
+              "level": 3,
+              "name": "STATE",
+              "pic": "X",
+              "value": "ALL"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 114,
+            "attributes": {
+              "level": 3,
+              "name": "RKEY",
+              "pic": "9",
+              "value": "ZERO"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 118,
+            "attributes": {
+              "level": 3,
+              "name": "GRANDTOTAL",
+              "pic": "9",
+              "value": "ZERO"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 119,
+            "attributes": {
+              "level": 3,
+              "name": "BOX-A",
+              "pic": "99",
+              "value": "ZERO"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 120,
+            "attributes": {
+              "level": 3,
+              "name": "BOX-B",
+              "pic": "99",
+              "value": "ZERO"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 121,
+            "attributes": {
+              "level": 3,
+              "name": "BOX-C",
+              "pic": "999",
+              "value": "ZERO"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 122,
+            "attributes": {
+              "level": 3,
+              "name": "BOX-D",
+              "pic": "999",
+              "value": "ZERO"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 125,
+            "attributes": {
+              "level": 3,
+              "name": "MARYPOPPINS",
+              "pic": "X",
+              "value": "\"SUPERCALIFRAGILISTICEXPIALIDO\""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 127,
+            "attributes": {
+              "level": 4,
+              "name": "MP-1-A",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 128,
+            "attributes": {
+              "level": 4,
+              "name": "MP-1-A-1"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 129,
+            "attributes": {
+              "level": 5,
+              "name": "MP-1-A-1-A",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 130,
+            "attributes": {
+              "level": 5,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 131,
+            "attributes": {
+              "level": 4,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 133,
+            "attributes": {
+              "level": 3,
+              "name": "VARA",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 134,
+            "attributes": {
+              "level": 3,
+              "name": "VARB",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 135,
+            "attributes": {
+              "level": 3,
+              "name": "VARC",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 136,
+            "attributes": {
+              "level": 66,
+              "name": "VARA"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 140,
+            "attributes": {
+              "level": 1,
+              "name": "DDAY",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 142,
+            "attributes": {
+              "level": 1,
+              "name": "VARD",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 144,
+            "attributes": {
+              "level": 1,
+              "name": "VARE",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 146,
+            "attributes": {
+              "level": 1,
+              "name": "VARF",
+              "pic": "9"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 148,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 151,
+            "attributes": {
+              "name": "NC401M-CONTROL"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 152,
+                "attributes": {
+                  "verb": "OPEN",
+                  "operands": [
+                    "INPUT",
+                    "TFIL"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 153,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "NC401M-COLON",
+                    "THRU",
+                    "NC401M-END",
+                    "1",
+                    "TIMES"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 154,
+                "attributes": {
+                  "verb": "ALTER",
+                  "operands": [
+                    "NC401M-GOTO",
+                    "TO",
+                    "PROCEED",
+                    "TO",
+                    "NC401M-GOTO-2",
+                    "NC401M-GOTO-2",
+                    "TO",
+                    "PROCEED",
+                    "TO",
+                    "NC401M-NESTIF"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 156,
+                "attributes": {
+                  "verb": "CLOSE",
+                  "operands": [
+                    "TFIL"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 157,
+                "attributes": {
+                  "verb": "STOP",
+                  "operands": [
+                    "RUN"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 160,
+            "attributes": {
+              "name": "NC401M-COLON"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 161,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "COLONTEST",
+                    "(",
+                    ")"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 164,
+            "attributes": {
+              "name": "NC401M-QUALIF"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 165,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "GUBBINS",
+                    "OF",
+                    "FREC",
+                    "TO",
+                    "GUBBINS",
+                    "OF",
+                    "FREC-2"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 168,
+            "attributes": {
+              "name": "NC401M-SUBSCR"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 169,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "ZERO",
+                    "TO",
+                    "PM-SALES",
+                    "(",
+                    "BOX-A",
+                    "BOX-B",
+                    "BOX-C",
+                    "BOX-D",
+                    "1",
+                    ")"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 172,
+            "attributes": {
+              "name": "NC401M-CHARBR1"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 173,
+                "attributes": {
+                  "verb": "MULTIPLY",
+                  "operands": [
+                    "BOX-A",
+                    "BY",
+                    "BOX-B",
+                    "GIVING",
+                    "BOX-C"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 176,
+            "attributes": {
+              "name": "NC401M-CHARBR2"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 177,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "20",
+                    "TO",
+                    "BOX-A"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 179,
+            "attributes": {
+              "name": "NC401M-ARITHEXP"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 180,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "BOX-A",
+                    "+",
+                    "1",
+                    "IS",
+                    "NOT",
+                    "GREATER",
+                    "THAN",
+                    "BOX-B",
+                    "+",
+                    "2"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 181,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\"ARITHEXP-TEST\""
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 184,
+            "attributes": {
+              "name": "NC401M-SIGCOND"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 185,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "BOX-A",
+                    "IS",
+                    "NOT",
+                    "NEGATIVE"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 186,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\"SIGCOND-TEST\""
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 189,
+            "attributes": {
+              "name": "NC401M-COMPCOND"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 190,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "BOX-A",
+                    "IS",
+                    "GREATER",
+                    "THAN",
+                    "BOX-B",
+                    "AND",
+                    "NOT",
+                    "BOX-C",
+                    "IS",
+                    "GREATER",
+                    "THAN",
+                    "BOX-A",
+                    "THEN"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 191,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "7",
+                    "TO",
+                    "BOX-B"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 194,
+            "attributes": {
+              "name": "NC401M-CORRESADD"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 195,
+                "attributes": {
+                  "verb": "ADD",
+                  "operands": [
+                    "CORRESPONDING",
+                    "GROUP-1",
+                    "TO",
+                    "GROUP-2"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 198,
+            "attributes": {
+              "name": "NC401M-CORRESMOVE"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 199,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "CORRESPONDING",
+                    "GROUP-1",
+                    "TO",
+                    "GROUP-2"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 202,
+            "attributes": {
+              "name": "NC401M-CORRESSUB"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 203,
+                "attributes": {
+                  "verb": "SUBTRACT",
+                  "operands": [
+                    "CORRESPONDING",
+                    "GROUP-2",
+                    "FROM",
+                    "GROUP-1"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 206,
+            "attributes": {
+              "name": "NC401M-COMPUTE"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 207,
+                "attributes": {
+                  "verb": "COMPUTE",
+                  "operands": [
+                    "BOX-A",
+                    "=",
+                    "10",
+                    "+",
+                    "6"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 210,
+            "attributes": {
+              "name": "NC401M-GETDAY"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 211,
+                "attributes": {
+                  "verb": "ACCEPT",
+                  "operands": [
+                    "DDAY",
+                    "FROM",
+                    "DAY-OF-WEEK"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 214,
+            "attributes": {
+              "name": "NC401M-DISPUPON"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 215,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\"PFILE\"",
+                    "UPON",
+                    "VDUNIT"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 218,
+            "attributes": {
+              "name": "NC401-DIVREMAINDER"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 219,
+                "attributes": {
+                  "verb": "DIVIDE",
+                  "operands": [
+                    "BOX-A",
+                    "INTO",
+                    "BOX-B",
+                    "GIVING",
+                    "BOX-C",
+                    "REMAINDER",
+                    "BOX-D"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 222,
+            "attributes": {
+              "name": "NC401M-EVAL"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 223,
+                "attributes": {
+                  "verb": "EVALUATE",
+                  "operands": [
+                    "BOX-A"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 224,
+                "attributes": {
+                  "verb": "WHEN",
+                  "operands": [
+                    "1"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 224,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"A\"",
+                    "TO",
+                    "VARC"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 225,
+                "attributes": {
+                  "verb": "WHEN",
+                  "operands": [
+                    "2"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 225,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"B\"",
+                    "TO",
+                    "VARC"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 228,
+            "attributes": {
+              "name": "NC401M-GOTO"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 229,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 231,
+            "attributes": {
+              "name": "NC401M-GOTO-2"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 232,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 235,
+            "attributes": {
+              "name": "NC401M-NESTIF"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 236,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "BOX-A",
+                    "IS",
+                    "GREATER",
+                    "THAN",
+                    "BOX-B",
+                    "THEN"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 237,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"AAAA\"",
+                    "TO",
+                    "VARD"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 238,
+                "attributes": {
+                  "verb": "ELSE",
+                  "operands": []
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 239,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "BOX-B",
+                    "IS",
+                    "GREATER",
+                    "THAN",
+                    "BOX-C",
+                    "THEN"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 240,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"BBBB\"",
+                    "TO",
+                    "VARD"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 241,
+                "attributes": {
+                  "verb": "ELSE",
+                  "operands": []
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 242,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"CCCC\"",
+                    "TO",
+                    "VARD"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 245,
+            "attributes": {
+              "name": "NC401M-INIT"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 246,
+                "attributes": {
+                  "verb": "INITIALIZE",
+                  "operands": [
+                    "VARB"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 249,
+            "attributes": {
+              "name": "NC401M-INSCT"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 250,
+                "attributes": {
+                  "verb": "INSPECT",
+                  "operands": [
+                    "MARYPOPPINS",
+                    "CONVERTING",
+                    "\"A\"",
+                    "TO",
+                    "\"Z\""
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 254,
+            "attributes": {
+              "name": "NC401M-PWT"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 255,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "NC401M-NESTIF",
+                    "THRU",
+                    "NC401M-INIT",
+                    "WITH",
+                    "TEST",
+                    "AFTER",
+                    "UNTIL",
+                    "BOX-B",
+                    "IS",
+                    "EQUAL",
+                    "TO",
+                    "BOX-A"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 259,
+            "attributes": {
+              "name": "NC401M-PWV"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 260,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "NC401M-NESTIF",
+                    "THRU",
+                    "NC401M-INIT",
+                    "VARYING",
+                    "BOX-A",
+                    "FROM",
+                    "BOX-B",
+                    "BY",
+                    "BOX-C",
+                    "UNTIL",
+                    "GRANDTOTAL",
+                    "IS",
+                    "EQUAL",
+                    "TO",
+                    "VARF"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 265,
+            "attributes": {
+              "name": "NC401M-SEARCH"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 266,
+                "attributes": {
+                  "verb": "SEARCH",
+                  "operands": [
+                    "TEST-CODE"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 267,
+                "attributes": {
+                  "verb": "WHEN",
+                  "operands": [
+                    "BOX-A",
+                    "IS",
+                    "EQUAL",
+                    "TO",
+                    "BOX-B",
+                    "NEXT",
+                    "SENTENCE"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 271,
+            "attributes": {
+              "name": "NC401M-STT"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 272,
+                "attributes": {
+                  "verb": "SET",
+                  "operands": [
+                    "CUST-PAID",
+                    "TO",
+                    "TRUE"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 275,
+            "attributes": {
+              "name": "NC401M-ST"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 276,
+                "attributes": {
+                  "verb": "STRING",
+                  "operands": [
+                    "VARD",
+                    "DELIMITED",
+                    "BY",
+                    "VARB",
+                    "INTO",
+                    "VARC"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 279,
+            "attributes": {
+              "name": "NC401M-UST"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 280,
+                "attributes": {
+                  "verb": "UNSTRING",
+                  "operands": [
+                    "VARD",
+                    "INTO",
+                    "VARE"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 283,
+            "attributes": {
+              "name": "NC401M-END"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 285,
+            "attributes": {
+              "name": "NC401M"
+            },
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "stage1_cobc_status": "rejected",
+  "stage1_cobc_stderr": "/var/folders/rl/r9ygvg0x7_l7sdtfq9pq99fm0000gn/T/tmpxv33ah_g.cob:40: warning: continuation of COBOL words used [-Wdialect]\n   38 | 003700 01 FREC.                                                         N..\n   39 | 003800     03 GUBBINS PIC X(1                                           N..\n   40 > 003900-                      00).                                       N..\n   41 | 004000*Message expected for above statement: NON-CONFORMING STANDARD    N..\n   42 | 004100                                                                  N..\n/var/folders/rl/r9ygvg0x7_l7sdtfq9pq99fm0000gn/T/tmpxv33ah_g.cob:194: warning: continuation of COBOL words used [-Wdialect]\n  192 | 019100 NC401M-CHARBR1.                                                  N..\n  193 | 019200     MUL                                                          N..\n  194 > 019300-    TIPLY BOX-A BY BOX-B GIVING BOX-C.                           N..\n  195 | 019400*Message expected for above statement: NON-CONFORMING STANDARD    N",
+  "complexity_tier": "medium",
+  "complexity_score": 12.65,
+  "ast_depth": 4,
+  "unique_verbs": 24,
+  "cross_refs": 3,
+  "stage2_source": "rule-based",
+  "stage2_rule_based_code": "\"\"\"Translated from COBOL program NC401M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'frec': None,\n    'gubbins': '',\n    'frec_2': None,\n    'colontest': '',\n    'test_customer_record': None,\n    'test_ar_customer_id': '',\n    'test_ar_customer_name': '',\n    'test_ar_number_invoices': 0,\n    'test_ar_invoice_data': None,\n    'test_invoice_date': None,\n    'test_invoice_yy': 0,\n    'test_invoice_mm': 0,\n    'test_invoice_dd': 0,\n    'test_descend_record': None,\n    'test_descend_cust_id': '',\n    'test_descend_cust_name': '',\n    'test_descend_no_inv': 0,\n    'test_descend_invoice': None,\n    'test_desc_date': None,\n    'test_desc_yy': 0,\n    'test_desc_mm': 0,\n    'test_desc_dd': 0,\n    'test_ascend_time': 0,\n    'test_code_table': None,\n    'test_code': '',\n    'cust_rec': None,\n    'cust_codes': '',\n    'cust_paid': \"A\",\n    'group_1': None,\n    'item_1': 10,\n    'item_2': 12,\n    'item_3': 14,\n    'group_2': None,\n    'sales_data': None,\n    'store_info': '',\n    'mon_sales': None,\n    'am_sales': 0,\n    'tue_sales': None,\n    'wed_sales': None,\n    'thu_sales': None,\n    'fri_sales': None,\n    'pm_sales': 0,\n    'variables': None,\n    'edfield': 0,\n    'state': 'ALL',\n    'rkey': '',\n    'grandtotal': '',\n    'box_a': '',\n    'box_b': '',\n    'box_c': '',\n    'box_d': '',\n    'marypoppins': \"SUPERCALIFRAGILISTICEXPIALIDO\",\n    'mp_1_a': '',\n    'mp_1_a_1': None,\n    'mp_1_a_1_a': '',\n    'vara': None,\n    'varb': '',\n    'varc': '',\n    'dday': 0,\n    'vard': '',\n    'vare': '',\n    'varf': 0,\n})\n\ndef nc401m_control() -> None:\n    state['tfil'] = open('tfil', 'r')\n    for _ in range(1):\n        nc401m_colon()\n    state['_alter_seen'] = True  # ALTER (deprecated COBOL feature)\n    if hasattr(state['tfil'], 'close'): state['tfil'].close()\n    return\n\ndef nc401m_colon() -> None:\n    print(state['colontest'], state['para'], state['para'])\n\ndef nc401m_qualif() -> None:\n    state['gubbins'] = state['frec']\n    state['of'] = state['frec']\n    state['frec_2'] = state['frec']\n\ndef nc401m_subscr() -> None:\n    state['pm_sales'] = zero\n    state['box_a'] = zero\n    state['box_b'] = zero\n    state['box_c'] = zero\n    state['box_d'] = zero\n    state['p_1'] = zero\n\ndef nc401m_charbr1() -> None:\n    pass  # TODO: malformed Stage-1 output (state['box_c'] = state['box_a'] state['box_b'] * state['box_c'])\ndef nc401m_charbr2() -> None:\n    state['box_a'] = 20\n\ndef nc401m_arithexp() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['box_a'] state['para'] 1 <= state['box_b'] state['para'] 2:)\ndef nc401m_sigcond() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['box_a'] not state['negative']:)\ndef nc401m_compcond() -> None:\n    if state['box_a'] > state['box_b'] and not state['box_c'] > state['box_a']:\n        state['box_b'] = 7\n\ndef nc401m_corresadd() -> None:\n    pass  # TODO: malformed Stage-1 output (state['group_2'] = state['corresponding'] state['group_1'] + state['group_2'])\ndef nc401m_corresmove() -> None:\n    state['group_2'] = state['group_1']\n\ndef nc401m_corressub() -> None:\n    pass  # TODO: malformed Stage-1 output (state['group_1'] = state['corresponding'] state['group_2'] - state['group_1'])\ndef nc401m_compute() -> None:\n    state['box_a'] = 10 + 6\n\ndef nc401m_getday() -> None:\n    state['dday'] = input()\n\ndef nc401m_dispupon() -> None:\n    print(\"PFILE\", state['upon'], state['vdunit'])\n\ndef nc401_divremainder() -> None:\n    pass  # TODO: malformed Stage-1 output (state['box_d'] = state['box_a'] state['into'] state['box_b'] state['box_c'] state['remainder'] / ...)\ndef nc401m_eval() -> None:\n    pass  # TODO: malformed Stage-1 output (_eval_subject = state['box_a'])\ndef nc401m_goto() -> None:\n    pass  # GO TO\n\ndef nc401m_goto_2() -> None:\n    pass  # GO TO\n\ndef nc401m_nestif() -> None:\n    if state['box_a'] > state['box_b']:\n        state['vard'] = \"AAAA\"\n    else:\n        if state['box_b'] > state['box_c']:\n            state['vard'] = \"BBBB\"\n        else:\n            state['vard'] = \"CCCC\"\n\ndef nc401m_init() -> None:\n    state['varb'] = 0 if isinstance(state['varb'], (int, float)) else ''\n\ndef nc401m_insct() -> None:\n    state['_inspect_target'] = state['marypoppins']  # INSPECT MARYPOPPINS\n\ndef nc401m_pwt() -> None:\n    while not (state['box_b'] == state['box_a']):\n        nc401m_nestif()\n\ndef nc401m_pwv() -> None:\n    while not (state['grandtotal'] == state['varf']):\n        nc401m_nestif()\n\ndef nc401m_search() -> None:\n    pass  # TODO: malformed Stage-1 output (for _entry in state['test_code'] if isinstance(state['test_code'], (list, tuple)) else []:)\ndef nc401m_stt() -> None:\n    state['cust_paid'] = True\n\ndef nc401m_st() -> None:\n    state['varc'] = str(state['vard'] + state['varb'])\n\ndef nc401m_ust() -> None:\n    pass  # UNSTRING (split — needs operand inspection)\n\ndef nc401m_end() -> None:\n    pass\n\ndef nc401m() -> None:\n    pass\n\nif __name__ == \"__main__\":\n    try:\n        nc401m_control()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_neural_code": "",
+  "stage2_final_code": "\"\"\"Translated from COBOL program NC401M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'frec': None,\n    'gubbins': '',\n    'frec_2': None,\n    'colontest': '',\n    'test_customer_record': None,\n    'test_ar_customer_id': '',\n    'test_ar_customer_name': '',\n    'test_ar_number_invoices': 0,\n    'test_ar_invoice_data': None,\n    'test_invoice_date': None,\n    'test_invoice_yy': 0,\n    'test_invoice_mm': 0,\n    'test_invoice_dd': 0,\n    'test_descend_record': None,\n    'test_descend_cust_id': '',\n    'test_descend_cust_name': '',\n    'test_descend_no_inv': 0,\n    'test_descend_invoice': None,\n    'test_desc_date': None,\n    'test_desc_yy': 0,\n    'test_desc_mm': 0,\n    'test_desc_dd': 0,\n    'test_ascend_time': 0,\n    'test_code_table': None,\n    'test_code': '',\n    'cust_rec': None,\n    'cust_codes': '',\n    'cust_paid': \"A\",\n    'group_1': None,\n    'item_1': 10,\n    'item_2': 12,\n    'item_3': 14,\n    'group_2': None,\n    'sales_data': None,\n    'store_info': '',\n    'mon_sales': None,\n    'am_sales': 0,\n    'tue_sales': None,\n    'wed_sales': None,\n    'thu_sales': None,\n    'fri_sales': None,\n    'pm_sales': 0,\n    'variables': None,\n    'edfield': 0,\n    'state': 'ALL',\n    'rkey': '',\n    'grandtotal': '',\n    'box_a': '',\n    'box_b': '',\n    'box_c': '',\n    'box_d': '',\n    'marypoppins': \"SUPERCALIFRAGILISTICEXPIALIDO\",\n    'mp_1_a': '',\n    'mp_1_a_1': None,\n    'mp_1_a_1_a': '',\n    'vara': None,\n    'varb': '',\n    'varc': '',\n    'dday': 0,\n    'vard': '',\n    'vare': '',\n    'varf': 0,\n})\n\ndef nc401m_control() -> None:\n    state['tfil'] = open('tfil', 'r')\n    for _ in range(1):\n        nc401m_colon()\n    state['_alter_seen'] = True  # ALTER (deprecated COBOL feature)\n    if hasattr(state['tfil'], 'close'): state['tfil'].close()\n    return\n\ndef nc401m_colon() -> None:\n    print(state['colontest'], state['para'], state['para'])\n\ndef nc401m_qualif() -> None:\n    state['gubbins'] = state['frec']\n    state['of'] = state['frec']\n    state['frec_2'] = state['frec']\n\ndef nc401m_subscr() -> None:\n    state['pm_sales'] = zero\n    state['box_a'] = zero\n    state['box_b'] = zero\n    state['box_c'] = zero\n    state['box_d'] = zero\n    state['p_1'] = zero\n\ndef nc401m_charbr1() -> None:\n    pass  # TODO: malformed Stage-1 output (state['box_c'] = state['box_a'] state['box_b'] * state['box_c'])\ndef nc401m_charbr2() -> None:\n    state['box_a'] = 20\n\ndef nc401m_arithexp() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['box_a'] state['para'] 1 <= state['box_b'] state['para'] 2:)\ndef nc401m_sigcond() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['box_a'] not state['negative']:)\ndef nc401m_compcond() -> None:\n    if state['box_a'] > state['box_b'] and not state['box_c'] > state['box_a']:\n        state['box_b'] = 7\n\ndef nc401m_corresadd() -> None:\n    pass  # TODO: malformed Stage-1 output (state['group_2'] = state['corresponding'] state['group_1'] + state['group_2'])\ndef nc401m_corresmove() -> None:\n    state['group_2'] = state['group_1']\n\ndef nc401m_corressub() -> None:\n    pass  # TODO: malformed Stage-1 output (state['group_1'] = state['corresponding'] state['group_2'] - state['group_1'])\ndef nc401m_compute() -> None:\n    state['box_a'] = 10 + 6\n\ndef nc401m_getday() -> None:\n    state['dday'] = input()\n\ndef nc401m_dispupon() -> None:\n    print(\"PFILE\", state['upon'], state['vdunit'])\n\ndef nc401_divremainder() -> None:\n    pass  # TODO: malformed Stage-1 output (state['box_d'] = state['box_a'] state['into'] state['box_b'] state['box_c'] state['remainder'] / ...)\ndef nc401m_eval() -> None:\n    pass  # TODO: malformed Stage-1 output (_eval_subject = state['box_a'])\ndef nc401m_goto() -> None:\n    pass  # GO TO\n\ndef nc401m_goto_2() -> None:\n    pass  # GO TO\n\ndef nc401m_nestif() -> None:\n    if state['box_a'] > state['box_b']:\n        state['vard'] = \"AAAA\"\n    else:\n        if state['box_b'] > state['box_c']:\n            state['vard'] = \"BBBB\"\n        else:\n            state['vard'] = \"CCCC\"\n\ndef nc401m_init() -> None:\n    state['varb'] = 0 if isinstance(state['varb'], (int, float)) else ''\n\ndef nc401m_insct() -> None:\n    state['_inspect_target'] = state['marypoppins']  # INSPECT MARYPOPPINS\n\ndef nc401m_pwt() -> None:\n    while not (state['box_b'] == state['box_a']):\n        nc401m_nestif()\n\ndef nc401m_pwv() -> None:\n    while not (state['grandtotal'] == state['varf']):\n        nc401m_nestif()\n\ndef nc401m_search() -> None:\n    pass  # TODO: malformed Stage-1 output (for _entry in state['test_code'] if isinstance(state['test_code'], (list, tuple)) else []:)\ndef nc401m_stt() -> None:\n    state['cust_paid'] = True\n\ndef nc401m_st() -> None:\n    state['varc'] = str(state['vard'] + state['varb'])\n\ndef nc401m_ust() -> None:\n    pass  # UNSTRING (split — needs operand inspection)\n\ndef nc401m_end() -> None:\n    pass\n\ndef nc401m() -> None:\n    pass\n\nif __name__ == \"__main__\":\n    try:\n        nc401m_control()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_warnings": [
+    "function 'def nc401m_charbr1() -> None:': body replaced with pass+TODO",
+    "function 'def nc401m_arithexp() -> None:': body replaced with pass+TODO",
+    "function 'def nc401m_sigcond() -> None:': body replaced with pass+TODO",
+    "function 'def nc401m_corresadd() -> None:': body replaced with pass+TODO",
+    "function 'def nc401m_corressub() -> None:': body replaced with pass+TODO",
+    "function 'def nc401_divremainder() -> None:': body replaced with pass+TODO",
+    "function 'def nc401m_eval() -> None:': body replaced with pass+TODO",
+    "function 'def nc401m_search() -> None:': body replaced with pass+TODO",
+    "repaired 8 unparseable line(s)"
+  ],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": true,
+  "stage3_refined_code": "\"\"\"Translated from COBOL program NC401M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'frec': None,\n    'gubbins': '',\n    'frec_2': None,\n    'colontest': '',\n    'test_customer_record': None,\n    'test_ar_customer_id': '',\n    'test_ar_customer_name': '',\n    'test_ar_number_invoices': 0,\n    'test_ar_invoice_data': None,\n    'test_invoice_date': None,\n    'test_invoice_yy': 0,\n    'test_invoice_mm': 0,\n    'test_invoice_dd': 0,\n    'test_descend_record': None,\n    'test_descend_cust_id': '',\n    'test_descend_cust_name': '',\n    'test_descend_no_inv': 0,\n    'test_descend_invoice': None,\n    'test_desc_date': None,\n    'test_desc_yy': 0,\n    'test_desc_mm': 0,\n    'test_desc_dd': 0,\n    'test_ascend_time': 0,\n    'test_code_table': None,\n    'test_code': '',\n    'cust_rec': None,\n    'cust_codes': '',\n    'cust_paid': \"A\",\n    'group_1': None,\n    'item_1': 10,\n    'item_2': 12,\n    'item_3': 14,\n    'group_2': None,\n    'sales_data': None,\n    'store_info': '',\n    'mon_sales': None,\n    'am_sales': 0,\n    'tue_sales': None,\n    'wed_sales': None,\n    'thu_sales': None,\n    'fri_sales': None,\n    'pm_sales': 0,\n    'variables': None,\n    'edfield': 0,\n    'state': 'ALL',\n    'rkey': '',\n    'grandtotal': '',\n    'box_a': '',\n    'box_b': '',\n    'box_c': '',\n    'box_d': '',\n    'marypoppins': \"SUPERCALIFRAGILISTICEXPIALIDO\",\n    'mp_1_a': '',\n    'mp_1_a_1': None,\n    'mp_1_a_1_a': '',\n    'vara': None,\n    'varb': '',\n    'varc': '',\n    'dday': 0,\n    'vard': '',\n    'vare': '',\n    'varf': 0,\n})\n\ndef nc401m_control() -> None:\n    state['tfil'] = open('tfil', 'r')\n    for _ in range(1):\n        nc401m_colon()\n    state['_alter_seen'] = True\n    if hasattr(state['tfil'], 'close'): state['tfil'].close()\n    return\n\ndef nc401m_colon() -> None:\n    print(state['colontest'], state['para'], state['para'])\n\ndef nc401m_qualif() -> None:\n    state['gubbins'] = state['frec']\n    state['of'] = state['frec']\n    state['frec_2'] = state['frec']\n\ndef nc401m_subscr() -> None:\n    state['pm_sales'] = zero\n    state['box_a'] = zero\n    state['box_b'] = zero\n    state['box_c'] = zero\n    state['box_d'] = zero\n    state['p_1'] = zero\n\ndef nc401m_charbr1() -> None:\n    pass\ndef nc401m_charbr2() -> None:\n    state['box_a'] = 20\n\ndef nc401m_arithexp() -> None:\n    pass\ndef nc401m_sigcond() -> None:\n    pass\ndef nc401m_compcond() -> None:\n    if state['box_a'] > state['box_b'] and not state['box_c'] > state['box_a']:\n        state['box_b'] = 7\n\ndef nc401m_corresadd() -> None:\n    pass\ndef nc401m_corresmove() -> None:\n    state['group_2'] = state['group_1']\n\ndef nc401m_corressub() -> None:\n    pass\ndef nc401m_compute() -> None:\n    state['box_a'] = 10 + 6\n\ndef nc401m_getday() -> None:\n    state['dday'] = input()\n\ndef nc401m_dispupon() -> None:\n    print(\"PFILE\", state['upon'], state['vdunit'])\n\ndef nc401_divremainder() -> None:\n    pass\ndef nc401m_eval() -> None:\n    pass\ndef nc401m_goto() -> None:\n    pass\n\ndef nc401m_goto_2() -> None:\n    pass\n\ndef nc401m_nestif() -> None:\n    if state['box_a'] > state['box_b']:\n        state['vard'] = \"AAAA\"\n    else:\n        if state['box_b'] > state['box_c']:\n            state['vard'] = \"BBBB\"\n        else:\n            state['vard'] = \"CCCC\"\n\ndef nc401m_init() -> None:\n    state['varb'] = 0 if isinstance(state['varb'], (int, float)) else ''\n\ndef nc401m_insct() -> None:\n    state['_inspect_target'] = state['marypoppins']\n\ndef nc401m_pwt() -> None:\n    while not (state['box_b'] == state['box_a']):\n        nc401m_nestif()\n\ndef nc401m_pwv() -> None:\n    while not (state['grandtotal'] == state['varf']):\n        nc401m_nestif()\n\ndef nc401m_search() -> None:\n    pass\ndef nc401m_stt() -> None:\n    state['cust_paid'] = True\n\ndef nc401m_st() -> None:\n    state['varc'] = str(state['vard'] + state['varb'])\n\ndef nc401m_ust() -> None:\n    pass\n\ndef nc401m_end() -> None:\n    pass\n\ndef nc401m() -> None:\n    pass\n\nif __name__ == \"__main__\":\n    try:\n        nc401m_control()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n",
+  "stage3_rename_map": {
+    "MARYPOPPINS": "MARYPOPPINS"
+  },
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "openai",
+  "stage3_error": "",
+  "verdict": "FAIL",
+  "verdict_summary": "1 check(s) failed: body_non_trivial.",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "30/30 paragraphs found as Python functions",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "NC401M-CONTROL",
+          "NC401M-COLON",
+          "NC401M-QUALIF",
+          "NC401M-SUBSCR",
+          "NC401M-CHARBR1",
+          "NC401M-CHARBR2",
+          "NC401M-ARITHEXP",
+          "NC401M-SIGCOND",
+          "NC401M-COMPCOND",
+          "NC401M-CORRESADD",
+          "NC401M-CORRESMOVE",
+          "NC401M-CORRESSUB",
+          "NC401M-COMPUTE",
+          "NC401M-GETDAY",
+          "NC401M-DISPUPON",
+          "NC401-DIVREMAINDER",
+          "NC401M-EVAL",
+          "NC401M-GOTO",
+          "NC401M-GOTO-2",
+          "NC401M-NESTIF",
+          "NC401M-INIT",
+          "NC401M-INSCT",
+          "NC401M-PWT",
+          "NC401M-PWV",
+          "NC401M-SEARCH",
+          "NC401M-STT",
+          "NC401M-ST",
+          "NC401M-UST",
+          "NC401M-END",
+          "NC401M"
+        ],
+        "missing": [],
+        "total": 30
+      }
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "70/70 identifiers traced into the Python",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "FREC",
+          "GUBBINS",
+          "FREC-2",
+          "COLONTEST",
+          "GUBBINS",
+          "TEST-CUSTOMER-RECORD",
+          "TEST-AR-CUSTOMER-ID",
+          "TEST-AR-CUSTOMER-NAME",
+          "TEST-AR-NUMBER-INVOICES",
+          "TEST-AR-INVOICE-DATA",
+          "TEST-INVOICE-DATE",
+          "TEST-INVOICE-YY",
+          "TEST-INVOICE-MM",
+          "TEST-INVOICE-DD",
+          "TEST-DESCEND-RECORD",
+          "TEST-DESCEND-CUST-ID",
+          "TEST-DESCEND-CUST-NAME",
+          "TEST-DESCEND-NO-INV",
+          "TEST-DESCEND-INVOICE",
+          "TEST-DESC-DATE",
+          "TEST-DESC-YY",
+          "TEST-DESC-MM",
+          "TEST-DESC-DD",
+          "TEST-ASCEND-TIME",
+          "TEST-CODE-TABLE",
+          "TEST-CODE",
+          "CUST-REC",
+          "CUST-CODES",
+          "CUST-PAID",
+          "GROUP-1",
+          "ITEM-1",
+          "ITEM-2",
+          "ITEM-3",
+          "GROUP-2",
+          "ITEM-1",
+          "ITEM-2",
+          "ITEM-3",
+          "SALES-DATA",
+          "STORE-INFO",
+          "MON-SALES",
+          "AM-SALES",
+          "TUE-SALES",
+          "AM-SALES",
+          "WED-SALES",
+          "AM-SALES",
+          "THU-SALES",
+          "AM-SALES",
+          "FRI-SALES",
+          "PM-SALES",
+          "VARIABLES",
+          "EDFIELD",
+          "STATE",
+          "RKEY",
+          "GRANDTOTAL",
+          "BOX-A",
+          "BOX-B",
+          "BOX-C",
+          "BOX-D",
+          "MARYPOPPINS",
+          "MP-1-A",
+          "MP-1-A-1",
+          "MP-1-A-1-A",
+          "VARA",
+          "VARB",
+          "VARC",
+          "VARA",
+          "DDAY",
+          "VARD",
+          "VARE",
+          "VARF"
+        ],
+        "missing": [],
+        "total": 70
+      }
+    },
+    {
+      "name": "body_non_trivial",
+      "ran": true,
+      "passed": false,
+      "score": 0.429,
+      "detail": "3/7 paragraphs have non-trivial bodies; stubbed: NC401M-ARITHEXP, NC401M-SIGCOND, NC401M-EVAL, NC401M-SEARCH",
+      "skipped_reason": "",
+      "extra": {
+        "non_trivial": [
+          "NC401M-CONTROL",
+          "NC401M-COMPCOND",
+          "NC401M-NESTIF"
+        ],
+        "trivial": [
+          "NC401M-ARITHEXP",
+          "NC401M-SIGCOND",
+          "NC401M-EVAL",
+          "NC401M-SEARCH"
+        ],
+        "exempt": [
+          "NC401M-COLON",
+          "NC401M-QUALIF",
+          "NC401M-SUBSCR",
+          "NC401M-CHARBR1",
+          "NC401M-CHARBR2",
+          "NC401M-CORRESADD",
+          "NC401M-CORRESMOVE",
+          "NC401M-CORRESSUB",
+          "NC401M-COMPUTE",
+          "NC401M-GETDAY",
+          "NC401M-DISPUPON",
+          "NC401-DIVREMAINDER",
+          "NC401M-GOTO",
+          "NC401M-GOTO-2",
+          "NC401M-INIT",
+          "NC401M-INSCT",
+          "NC401M-PWT",
+          "NC401M-PWV",
+          "NC401M-STT",
+          "NC401M-ST",
+          "NC401M-UST",
+          "NC401M-END",
+          "NC401M"
+        ],
+        "total_eligible": 7
+      }
+    },
+    {
+      "name": "python_smoke",
+      "ran": false,
+      "passed": null,
+      "score": null,
+      "detail": "skipped: uses I/O verbs requiring environment (ACCEPT, CLOSE, OPEN)",
+      "skipped_reason": "uses I/O verbs requiring environment (ACCEPT, CLOSE, OPEN)",
+      "extra": {}
+    },
+    {
+      "name": "execution_match",
+      "ran": false,
+      "passed": null,
+      "score": null,
+      "detail": "skipped: uses I/O verbs requiring environment (ACCEPT, CLOSE, OPEN)",
+      "skipped_reason": "uses I/O verbs requiring environment (ACCEPT, CLOSE, OPEN)",
+      "extra": {}
+    },
+    {
+      "name": "llm_judge",
+      "ran": false,
+      "passed": null,
+      "score": null,
+      "detail": "skipped: openai: judge call failed (Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}) | anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-",
+      "skipped_reason": "openai: judge call failed (Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}) | anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CbVFNXgXjTSk4d16gC76A'})",
+      "extra": {
+        "providers_tried": [
+          "openai: judge call failed (Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}})",
+          "anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CbVFNXgXjTSk4d16gC76A'})"
+        ]
+      }
+    }
+  ],
+  "timestamp": 1779984155.6051168
+}

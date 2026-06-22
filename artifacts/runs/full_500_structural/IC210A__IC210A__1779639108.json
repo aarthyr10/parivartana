@@ -1,0 +1,350 @@
+{
+  "program_id": "IC210A",
+  "record_id": "IC210A",
+  "cobol_source": "      *HEADER,COBOL,IC209A,SUBRTN,IC210A                                              \n000100 IDENTIFICATION DIVISION.                                         IC2104.2\n000200 PROGRAM-ID.                                                      IC2104.2\n000300     IC210A.                                                      IC2104.2\n000400****************************************************************  IC2104.2\n000500*                                                              *  IC2104.2\n000600*    VALIDATION FOR:-                                          *  IC2104.2\n000700*                                                              *  IC2104.2\n000800*    \"ON-SITE VALIDATION, NATIONAL INSTITUTE OF STD & TECH.     \".IC2104.2\n000900*                                                              *  IC2104.2\n001000*    \"COBOL 85 VERSION 4.2, Apr  1993 SSVG                      \".IC2104.2\n001100*                                                              *  IC2104.2\n001200****************************************************************  IC2104.2\n001300*                                                              *  IC2104.2\n001400*      X-CARDS USED BY THIS PROGRAM ARE :-                     *  IC2104.2\n001500*                                                              *  IC2104.2\n001600*        X-55  - SYSTEM PRINTER NAME.                          *  IC2104.2\n001700*        X-82  - SOURCE COMPUTER NAME.                         *  IC2104.2\n001800*        X-83  - OBJECT COMPUTER NAME.                         *  IC2104.2\n001900*                                                              *  IC2104.2\n002000****************************************************************  IC2104.2\n002100* 1  THIS IS SUBPROGRAM IC210.                                    IC2104.2\n002200****************************************************************  IC2104.2\n002300 ENVIRONMENT DIVISION.                                            IC2104.2\n002400 CONFIGURATION SECTION.                                           IC2104.2\n002500 SOURCE-COMPUTER.                                                 IC2104.2\n002600     XXXXX082.                                                    IC2104.2\n002700 OBJECT-COMPUTER.                                                 IC2104.2\n002800     XXXXX083.                                                    IC2104.2\n002900 DATA DIVISION.                                                   IC2104.2\n003000 LINKAGE SECTION.                                                 IC2104.2\n003100 01  TEST-AREA.                                                   IC2104.2\n003200     02  TEST1                   PICTURE X.                       IC2104.2\n003300     02  TEST2                   PICTURE X.                       IC2104.2\n003400     02  TEST3                   PICTURE X.                       IC2104.2\n003500     02  TEST4                   PICTURE X.                       IC2104.2\n003600 PROCEDURE DIVISION USING TEST-AREA.                              IC2104.2\n003700 CALL-TEST-2.                                                     IC2104.2\n003800     MOVE \"Y\" TO TEST1.                                           IC2104.2\n003900     CALL \"IC211A\" USING TEST-AREA.                               IC2104.2\n004000     IF TEST2 = \"Y\" GO TO CALL-TEST-3.                            IC2104.2\n004100     MOVE \"N\" TO TEST2.                                           IC2104.2\n004200 CALL-TEST-3.                                                     IC2104.2\n004300     CALL \"IC212A\" USING TEST-AREA.                               IC2104.2\n004400     IF TEST3 = \"Y\" GO TO CANCEL-TEST-1.                          IC2104.2\n004500     MOVE \"N\" TO TEST3.                                           IC2104.2\n004600 CANCEL-TEST-1.                                                   IC2104.2\n004700     CANCEL \"IC211A\".                                             IC2104.2\n004800     MOVE \"Y\" TO TEST4.                                           IC2104.2\n004900 IC210-EXIT.                                                      IC2104.2\n005000     EXIT PROGRAM.                                                IC2104.2\n      *END-OF,IC210A                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "IC210A",
+  "stage1_division_count": 4,
+  "stage1_paragraph_count": 5,
+  "stage1_token_count": 116,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {
+      "program_id": "IC210A"
+    },
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 4,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 10,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "DATA"
+        },
+        "children": [
+          {
+            "node_type": "DataItem",
+            "line": 12,
+            "attributes": {
+              "level": 1,
+              "name": "TEST-AREA"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 13,
+            "attributes": {
+              "level": 2,
+              "name": "TEST1",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 14,
+            "attributes": {
+              "level": 2,
+              "name": "TEST2",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 15,
+            "attributes": {
+              "level": 2,
+              "name": "TEST3",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 16,
+            "attributes": {
+              "level": 2,
+              "name": "TEST4",
+              "pic": "X"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 17,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 17,
+            "attributes": {
+              "name": "TEST-AREA"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 18,
+            "attributes": {
+              "name": "CALL-TEST-2"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 19,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"Y\"",
+                    "TO",
+                    "TEST1"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 20,
+                "attributes": {
+                  "verb": "CALL",
+                  "operands": [
+                    "\"IC211A\"",
+                    "USING",
+                    "TEST-AREA"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 21,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "TEST2",
+                    "=",
+                    "\"Y\""
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 21,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "CALL-TEST-3"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 22,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"N\"",
+                    "TO",
+                    "TEST2"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 23,
+            "attributes": {
+              "name": "CALL-TEST-3"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 24,
+                "attributes": {
+                  "verb": "CALL",
+                  "operands": [
+                    "\"IC212A\"",
+                    "USING",
+                    "TEST-AREA"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 25,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "TEST3",
+                    "=",
+                    "\"Y\""
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 25,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "CANCEL-TEST-1"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 26,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"N\"",
+                    "TO",
+                    "TEST3"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 27,
+            "attributes": {
+              "name": "CANCEL-TEST-1"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 28,
+                "attributes": {
+                  "verb": "CANCEL",
+                  "operands": [
+                    "\"IC211A\""
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 29,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"Y\"",
+                    "TO",
+                    "TEST4"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 30,
+            "attributes": {
+              "name": "IC210-EXIT"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 31,
+                "attributes": {
+                  "verb": "EXIT",
+                  "operands": [
+                    "PROGRAM"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "complexity_tier": "simple",
+  "complexity_score": 7.9,
+  "ast_depth": 4,
+  "unique_verbs": 6,
+  "cross_refs": 2,
+  "stage2_source": "rule-based",
+  "stage2_rule_based_code": "\"\"\"Translated from COBOL program IC210A.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'test_area': None,\n    'test1': '',\n    'test2': '',\n    'test3': '',\n    'test4': '',\n})\n\ndef test_area() -> None:\n    pass\n\ndef call_test_2() -> None:\n    state['test1'] = \"Y\"\n    # external call: IC211A()  -- preserved as comment\n    pass\n    if state['test2'] == \"Y\":\n        call_test_3()\n        return\n        state['test2'] = \"N\"\n\ndef call_test_3() -> None:\n    # external call: IC212A()  -- preserved as comment\n    pass\n    if state['test3'] == \"Y\":\n        cancel_test_1()\n        return\n        state['test3'] = \"N\"\n\ndef cancel_test_1() -> None:\n    pass  # CANCEL (no-op in Python)\n    state['test4'] = \"Y\"\n\ndef ic210_exit() -> None:\n    return\n\nif __name__ == \"__main__\":\n    try:\n        test_area()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_neural_code": "",
+  "stage2_final_code": "\"\"\"Translated from COBOL program IC210A.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'test_area': None,\n    'test1': '',\n    'test2': '',\n    'test3': '',\n    'test4': '',\n})\n\ndef test_area() -> None:\n    pass\n\ndef call_test_2() -> None:\n    state['test1'] = \"Y\"\n    # external call: IC211A()  -- preserved as comment\n    pass\n    if state['test2'] == \"Y\":\n        call_test_3()\n        return\n        state['test2'] = \"N\"\n\ndef call_test_3() -> None:\n    # external call: IC212A()  -- preserved as comment\n    pass\n    if state['test3'] == \"Y\":\n        cancel_test_1()\n        return\n        state['test3'] = \"N\"\n\ndef cancel_test_1() -> None:\n    pass  # CANCEL (no-op in Python)\n    state['test4'] = \"Y\"\n\ndef ic210_exit() -> None:\n    return\n\nif __name__ == \"__main__\":\n    try:\n        test_area()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_warnings": [],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": false,
+  "stage3_refined_code": "",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "",
+  "stage3_error": "",
+  "verdict": "INCONCLUSIVE",
+  "verdict_summary": "3 structural check(s) passed, but no behavioural signal (execution_match / llm_judge) was available.",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": ""
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "5/5 paragraphs found as Python functions",
+      "skipped_reason": ""
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "5/5 identifiers traced into the Python",
+      "skipped_reason": ""
+    }
+  ],
+  "timestamp": 1779639108.3704886
+}

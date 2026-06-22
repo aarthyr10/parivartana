@@ -1,0 +1,17 @@
+digraph pipeline {
+  rankdir=LR; node [shape=box, style="rounded,filled", fontname="Helvetica"];
+  cob [label="COBOL source\l(fixed-format)\l", fillcolor="#e5e7eb"];
+  norm [label="normalise + lex\l(strip cols 1-6/73-80)\l", fillcolor="#e5e7eb"];
+  ast [label="Stage-1 AST\lroot=Program, tier=simple\l", fillcolor="#dbeafe"];
+  n0 [label="Division", shape=box, fillcolor="#eff6ff"];
+  ast -> n0;
+  n1 [label="Division", shape=box, fillcolor="#eff6ff"];
+  ast -> n1;
+  n2 [label="Division", shape=box, fillcolor="#eff6ff"];
+  ast -> n2;
+  prompt [label="PromptBuilder\llinearised AST + tier token\l", fillcolor="#fef9c3"];
+  enc [label="CodeT5+ encoder\l(transformer stack)\l", fillcolor="#dcfce7"];
+  dec [label="CodeT5+ decoder\ltier-aware beam search\l", fillcolor="#dcfce7"];
+  py [label="Python 3\l(idiomatic translation)\l", fillcolor="#bbf7d0"];
+  cob -> norm -> ast; ast -> prompt -> enc -> dec -> py;
+}

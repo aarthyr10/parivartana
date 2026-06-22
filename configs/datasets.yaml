@@ -1,0 +1,190 @@
+# Priority policy (set after the P3 proposal review):
+#   P0 = active; pulled by `scripts/ingest.py --all`; required for the
+#        headline ML claim and evaluation.
+#   P1 = approved but not auto-pulled; opt in with `--priority P1`.
+#   P2 = deferred; code remains in repo but the dataset is not on the
+#        critical path. Opt in with `--include-deferred`.
+
+datasets:
+  nist_cobol:
+    name: NIST COBOL Test Suite
+    role: gold_evaluation
+    priority: P0
+    samples: 2400
+    license: public_domain
+    source:
+      type: github
+      repo: nist-cobol-tests
+      url: https://github.com/nist-gov/nist-cobol-tests
+    local_path: ./data/raw/nist_cobol
+    splits:
+      eval: 2400
+    metadata_fields:
+      - construct_categories
+      - cobol_edition
+      - expected_stdout
+
+  ibm_open_cobol:
+    name: IBM Open COBOL Samples
+    role: primary_training
+    priority: P0
+    samples: 800
+    license: apache-2.0
+    source:
+      type: github
+      repo: IBM/open-cobol-samples
+      url: https://github.com/IBM/open-cobol-samples
+    local_path: ./data/raw/ibm_open_cobol
+    splits:
+      train: 0.70
+      valid: 0.15
+      test: 0.15
+    metadata_fields:
+      - domain_tag
+      - business_comments
+      - pic_clauses
+
+  codexglue:
+    name: CodeXGLUE Code-to-Code Java to Python
+    role: transfer_pretraining
+    priority: P0
+    samples: 110000
+    license: mit
+    source:
+      type: huggingface
+      repo: code_x_glue_cc_code_to_code_trans
+      url: https://huggingface.co/datasets/code_x_glue_cc_code_to_code_trans
+    local_path: ./data/raw/codexglue
+    splits:
+      train: 0.85
+      valid: 0.075
+      test: 0.075
+    metadata_fields:
+      - src_lang
+      - tgt_lang
+      - code
+      - docstring
+
+  stack_v2_cobol:
+    name: The Stack v2 COBOL Subset
+    role: encoder_pretraining
+    priority: P2  # deferred per P3 review — not on the headline critical path
+    samples: 45000
+    license: permissive_only
+    source:
+      type: huggingface
+      repo: bigcode/the-stack-v2
+      url: https://huggingface.co/datasets/bigcode/the-stack-v2
+      filter: language=COBOL
+    local_path: ./data/raw/stack_v2_cobol
+    deduplication:
+      method: minhash_lsh
+      jaccard_threshold: 0.85
+    metadata_fields:
+      - repo
+      - license
+      - file_path
+
+  cosqa_codesearchnet:
+    name: CoSQA + CodeSearchNet
+    role: docstring_identifier_generation
+    priority: P2  # deferred — docstring synthesis uses the LLM directly
+    samples: 99000
+    license: mit
+    source:
+      type: huggingface
+      repo: code_search_net
+      url: https://huggingface.co/datasets/code_search_net
+    local_path: ./data/raw/cosqa_codesearchnet
+    metadata_fields:
+      - intent
+      - code
+      - docstring
+      - func_name
+
+  cobol_identifier_dict:
+    name: COBOL Identifier Dictionary
+    role: identifier_renaming_lookup
+    priority: P0  # ships with repo; required for Stage 3 rename
+    samples: 12500
+    license: cc-by-4.0
+    source:
+      type: project_asset
+      description: Curated by the project; ships under data/raw/cobol_identifier_dict/
+    local_path: ./data/raw/cobol_identifier_dict
+    domain_distribution:
+      banking: 4200
+      insurance: 2800
+      hr: 2100
+      government: 1400
+      logistics: 1200
+      other: 800
+    metadata_fields:
+      - cobol_name
+      - python_name
+      - domain
+      - confidence
+
+  fever_nli:
+    name: FEVER NLI Corpus
+    role: semantic_validation
+    priority: P0  # trains the NLI semantic validator (novelty #4)
+    samples: 185445
+    license: cc-by-sa-3.0
+    source:
+      type: huggingface
+      repo: fever
+      url: https://huggingface.co/datasets/fever
+    local_path: ./data/raw/fever_nli
+    splits:
+      train: 145000
+      valid: 20000
+      test: 20445
+    label_set:
+      - SUPPORTED
+      - REFUTED
+      - NEI
+    inter_annotator_agreement: 0.6841
+
+  swe_bench:
+    name: SWE-bench Python Subset
+    role: execution_evaluation
+    priority: P2  # deferred — execution accuracy uses GnuCOBOL on NIST/IBM
+    samples: 2294
+    license: cc-by-4.0
+    source:
+      type: huggingface
+      repo: princeton-nlp/SWE-bench
+      url: https://huggingface.co/datasets/princeton-nlp/SWE-bench
+    local_path: ./data/raw/swe_bench
+    derived_subset:
+      train: 120
+      test: 80
+    metadata_fields:
+      - repo
+      - issue_text
+      - patch
+      - test_cases
+
+  gfg_multilingual:
+    name: GeeksForGeeks Multilingual COBOL Subset
+    role: ood_evaluation
+    priority: P2  # deferred — OOD evaluation is a stretch goal
+    samples: 5000
+    license: cc-by-sa-4.0
+    source:
+      type: github
+      repo: TheAlgorithms/COBOL
+      url: https://github.com/TheAlgorithms/COBOL
+    local_path: ./data/raw/gfg_multilingual
+    cobol_implementations: 1200
+    categories:
+      - sort
+      - search
+      - dynamic_programming
+      - string
+      - math
+    metadata_fields:
+      - algorithm_name
+      - language
+      - expected_output

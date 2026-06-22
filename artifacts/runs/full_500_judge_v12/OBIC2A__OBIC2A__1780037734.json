@@ -1,0 +1,2688 @@
+{
+  "program_id": "OBIC2A",
+  "record_id": "OBIC2A",
+  "cobol_source": "      *HEADER,COBOL,OBIC1A,SUBRTN,OBIC2A                                              \n000100 IDENTIFICATION DIVISION.                                         OBIC24.2\n000200 PROGRAM-ID.                                                      OBIC24.2\n000300     OBIC2A.                                                      OBIC24.2\n000400****************************************************************  OBIC24.2\n000500*                                                              *  OBIC24.2\n000600*    VALIDATION FOR:-                                          *  OBIC24.2\n000700*                                                              *  OBIC24.2\n000800*    \"ON-SITE VALIDATION, NATIONAL INSTITUTE OF STD & TECH.     \".OBIC24.2\n000900*                                                              *  OBIC24.2\n001000*    \"COBOL 85 VERSION 4.2, Apr  1993 SSVG                      \".OBIC24.2\n001100*                                                              *  OBIC24.2\n001200****************************************************************  OBIC24.2\n001300*                                                              *  OBIC24.2\n001400*      X-CARDS USED BY THIS PROGRAM ARE :-                     *  OBIC24.2\n001500*                                                              *  OBIC24.2\n001600*        X-55  - SYSTEM PRINTER NAME.                          *  OBIC24.2\n001700*        X-82  - SOURCE COMPUTER NAME.                         *  OBIC24.2\n001800*        X-83  - OBJECT COMPUTER NAME.                         *  OBIC24.2\n001900*                                                              *  OBIC24.2\n002000****************************************************************  OBIC24.2\n002100*                                                                 OBIC24.2\n002200*        THE SUBPROGRAM IC219 TESTS THE USE OF A SORT STATEMENT   OBIC24.2\n002300*    IN A SEGMENTED SUBPROGRAM.  THE FIRST NON-DECLARATIVE SECTIONOBIC24.2\n002400*    OF THE SUBPROGRAM CONSISTS OF A SORT STATEMENT AND A STOP RUNOBIC24.2\n002500*    STATEMENT IN A FIXED PERMANENT SEGMENT.  THE SORT INPUT      OBIC24.2\n002600*    PROCEDURE AND THE SORT OUTPUT PROCEDURE ARE CONTAINED IN TWO OBIC24.2\n002700*    INDEPENDENT SEGMENTS.  THE MAIN PROGRAM IC218 CALLS THIS     OBIC24.2\n002800*    SUBPROGRAM AND THE SUBPROGRAM IC220 IS CALLED FROM THE       OBIC24.2\n002900*    OUTPUT PROCEDURE SECTION TO PRINT THE OUTPUT REPORT.         OBIC24.2\n003000*                                                                 OBIC24.2\n003100******************************************************************OBIC24.2\n003200 ENVIRONMENT DIVISION.                                            OBIC24.2\n003300 CONFIGURATION SECTION.                                           OBIC24.2\n003400 SOURCE-COMPUTER.                                                 OBIC24.2\n003500     XXXXX082.                                                    OBIC24.2\n003600 OBJECT-COMPUTER.                                                 OBIC24.2\n003700     XXXXX083.                                                    OBIC24.2\n003800 INPUT-OUTPUT SECTION.                                            OBIC24.2\n003900 FILE-CONTROL.                                                    OBIC24.2\n004000     SELECT ST-FS1 ASSIGN TO                                      OBIC24.2\n004100     XXXXX027.                                                    OBIC24.2\n004200 DATA DIVISION.                                                   OBIC24.2\n004300 FILE SECTION.                                                    OBIC24.2\n004400 SD  ST-FS1                                                       OBIC24.2\n004500     DATA RECORD IS ST-FS1R1-F-G-126.                             OBIC24.2\n004600 01  ST-FS1R1-F-G-126.                                            OBIC24.2\n004700     02  ST-FS1-1-120.                                            OBIC24.2\n004800         03  FILLER          PICTURE X(34).                       OBIC24.2\n004900         03  ST-FS1-REC-NO   PICTURE 9(6).                        OBIC24.2\n005000         03  FILLER          PICTURE X(80).                       OBIC24.2\n005100     02  ST-FS1-121-124      PICTURE X(4).                        OBIC24.2\n005200     02  ST-FS1-125-126      PICTURE 99.                          OBIC24.2\n005300 WORKING-STORAGE SECTION.                                         OBIC24.2\n005400 01  TEMP1               PICTURE X(4).                            OBIC24.2\n005500 01  TEMP2               PICTURE 999.                             OBIC24.2\n005600 01  TEMP3               PICTURE 999.                             OBIC24.2\n005700 01  TEMP4               PICTURE 9(6).                            OBIC24.2\n005800 01  FAIL-COUNT          PICTURE 999    VALUE ZERO.               OBIC24.2\n005900 01  EOF-FLAG            PICTURE 9    VALUE ZERO.                 OBIC24.2\n006000 01  PRINT-LINE-VALUES.                                           OBIC24.2\n006100     02  PASS-OR-FAIL        PICTURE X(5).                        OBIC24.2\n006200     02  R-COUNT             PICTURE 99.                          OBIC24.2\n006300     02  FEATURE-TESTED      PICTURE X(20).                       OBIC24.2\n006400     02  COMPUTED-SORT-KEY.                                       OBIC24.2\n006500         03  COMPUTED-1-4    PICTURE X(4).                        OBIC24.2\n006600         03  COMPUTED-5-6    PICTURE 99.                          OBIC24.2\n006700         03  COMPUTED-7-12   PICTURE 9(6).                        OBIC24.2\n006800         03  FILLER          PICTURE X(8)  VALUE SPACE.           OBIC24.2\n006900     02  CORRECT-SORT-KEY.                                        OBIC24.2\n007000         03  CORRECT-1-4     PICTURE X(4).                        OBIC24.2\n007100         03  CORRECT-5-6     PICTURE 99.                          OBIC24.2\n007200         03  CORRECT-7-12    PICTURE 9(6).                        OBIC24.2\n007300         03  FILLER          PICTURE X(8)   VALUE SPACE.          OBIC24.2\n007400     02  PARAGRAPH-NAME      PICTURE X(12).                       OBIC24.2\n007500 01  PRINT-FLAG              PICTURE 9.                           OBIC24.2\n007600 01  FILE-RECORD-INFORMATION-REC.                                 OBIC24.2\n007700     03 FILE-RECORD-INFO-SKELETON.                                OBIC24.2\n007800        05 FILLER                 PICTURE X(48)       VALUE       OBIC24.2\n007900             \"FILE=      ,RECORD=      /0,RECNO=000000,UPDT=00\".  OBIC24.2\n008000        05 FILLER                 PICTURE X(46)       VALUE       OBIC24.2\n008100             \",ODO=0000,PGM=     ,LRECL=000000,BLKSIZ  =0000\".    OBIC24.2\n008200        05 FILLER                 PICTURE X(26)       VALUE       OBIC24.2\n008300             \",LFIL=000000,ORG=  ,LBLR= \".                        OBIC24.2\n008400        05 FILLER                 PICTURE X(37)       VALUE       OBIC24.2\n008500             \",RECKEY=                             \".             OBIC24.2\n008600        05 FILLER                 PICTURE X(38)       VALUE       OBIC24.2\n008700             \",ALTKEY1=                             \".            OBIC24.2\n008800        05 FILLER                 PICTURE X(38)       VALUE       OBIC24.2\n008900             \",ALTKEY2=                             \".            OBIC24.2\n009000        05 FILLER                 PICTURE X(7)        VALUE SPACE.OBIC24.2\n009100     03 FILE-RECORD-INFO          OCCURS  10  TIMES.              OBIC24.2\n009200        05 FILE-RECORD-INFO-P1-120.                               OBIC24.2\n009300           07 FILLER              PIC X(5).                       OBIC24.2\n009400           07 XFILE-NAME           PIC X(6).                      OBIC24.2\n009500           07 FILLER              PIC X(8).                       OBIC24.2\n009600           07 XRECORD-NAME         PIC X(6).                      OBIC24.2\n009700           07 FILLER              PIC X(1).                       OBIC24.2\n009800           07 REELUNIT-NUMBER     PIC 9(1).                       OBIC24.2\n009900           07 FILLER              PIC X(7).                       OBIC24.2\n010000           07 XRECORD-NUMBER       PIC 9(6).                      OBIC24.2\n010100           07 FILLER              PIC X(6).                       OBIC24.2\n010200           07 UPDATE-NUMBER       PIC 9(2).                       OBIC24.2\n010300           07 FILLER              PIC X(5).                       OBIC24.2\n010400           07 ODO-NUMBER          PIC 9(4).                       OBIC24.2\n010500           07 FILLER              PIC X(5).                       OBIC24.2\n010600           07 XPROGRAM-NAME        PIC X(5).                      OBIC24.2\n010700           07 FILLER              PIC X(7).                       OBIC24.2\n010800           07 XRECORD-LENGTH       PIC 9(6).                      OBIC24.2\n010900           07 FILLER              PIC X(7).                       OBIC24.2\n011000           07 CHARS-OR-RECORDS    PIC X(2).                       OBIC24.2\n011100           07 FILLER              PIC X(1).                       OBIC24.2\n011200           07 XBLOCK-SIZE          PIC 9(4).                      OBIC24.2\n011300           07 FILLER              PIC X(6).                       OBIC24.2\n011400           07 RECORDS-IN-FILE     PIC 9(6).                       OBIC24.2\n011500           07 FILLER              PIC X(5).                       OBIC24.2\n011600           07 XFILE-ORGANIZATION   PIC X(2).                      OBIC24.2\n011700           07 FILLER              PIC X(6).                       OBIC24.2\n011800           07 XLABEL-TYPE          PIC X(1).                      OBIC24.2\n011900        05 FILE-RECORD-INFO-P121-240.                             OBIC24.2\n012000           07 FILLER              PIC X(8).                       OBIC24.2\n012100           07 XRECORD-KEY          PIC X(29).                     OBIC24.2\n012200           07 FILLER              PIC X(9).                       OBIC24.2\n012300           07 ALTERNATE-KEY1      PIC X(29).                      OBIC24.2\n012400           07 FILLER              PIC X(9).                       OBIC24.2\n012500           07 ALTERNATE-KEY2      PIC X(29).                      OBIC24.2\n012600           07 FILLER              PIC X(7).                       OBIC24.2\n012700 LINKAGE SECTION.                                                 OBIC24.2\n012800 01  SORT-LINK           PICTURE 9.                               OBIC24.2\n012900 PROCEDURE DIVISION USING SORT-LINK.                              OBIC24.2\n013000 SECT-IC219-0001 SECTION 30.                                      OBIC24.2\n013100*                                                                 OBIC24.2\n013200*        THIS SECTION CONTAINS A SORT STATEMENT AND A STOP RUN    OBIC24.2\n013300*    STATEMENT, THE ONLY STATEMENTS PERMITTED IN THE FIRST NON-   OBIC24.2\n013400*    DECLARATIVE PORTION OF THE PROCEDURE DIVISION IN SORT LEVEL 1OBIC24.2\n013500*                                                                 OBIC24.2\n013600 SORT-PARAGRAPH.                                                  OBIC24.2\n013700     SORT ST-FS1                                                  OBIC24.2\n013800         ASCENDING KEY ST-FS1-121-124                             OBIC24.2\n013900         ASCENDING KEY ST-FS1-125-126                             OBIC24.2\n014000         ASCENDING KEY ST-FS1-REC-NO                              OBIC24.2\n014100             INPUT PROCEDURE IS SECT-IC219-0002                   OBIC24.2\n014200             OUTPUT PROCEDURE IS SECT-IC219-0003.                 OBIC24.2\n014300     STOP RUN.                                                    OBIC24.2\n014400 SECT-IC219-0002 SECTION 60.                                      OBIC24.2\n014500*                                                                 OBIC24.2\n014600*        THE SORT INPUT PROCEDURE RELEASES 500 SORT RECORDS OF    OBIC24.2\n014700*    LENGTH 126 CHARACTERS.  THREE ITEMS ARE USED AS THE SORT KEY,OBIC24.2\n014800*    THEY ARE CHARACTERS 121-124 PICX(4), CHARACTERS 125-126      OBIC24.2\n014900*    PIC 99, AND THE RECORD NUMBER FIELD CHARACTERS 35-40 PIC 9(6)OBIC24.2\n015000*    THE RECORDS ARE WRITTEN WITH THE SORT KEY ITEMS CONTAINING   OBIC24.2\n015100*    THE FOLLOWING CHARACTERS                                     OBIC24.2\n015200*                                                                 OBIC24.2\n015300*        FIRST 100 RECORDS  ABCD  00 THRU 99  000001 THRU 000100  OBIC24.2\n015400*        SECOND 100 RECORDS AAAA  00 THRU 99  000101 THRU 000200  OBIC24.2\n015500*        THIRD 100 RECORDS  ABCD  00 THRU 99  000201 THRU 00300   OBIC24.2\n015600*        FOURTH 100 RECORDS UVWY  00 THRU 99  000301 THRU 000400  OBIC24.2\n015700*        FIFTH 100 RECORDS  UVWX  00 THRU 99  000401 THRU 000500  OBIC24.2\n015800*                                                                 OBIC24.2\n015900 SORT-INPUT-PROCEDURE.                                            OBIC24.2\n016000     MOVE 1 TO SORT-LINK.                                         OBIC24.2\n016100     MOVE FILE-RECORD-INFO-SKELETON TO FILE-RECORD-INFO (1).      OBIC24.2\n016200     PERFORM RECORD-AREA-INIT.                                    OBIC24.2\n016300     MOVE \"ABCD\" TO TEMP1.                                        OBIC24.2\n016400     MOVE 0 TO TEMP2.                                             OBIC24.2\n016500     PERFORM RELEASE-RECORD 100 TIMES.                            OBIC24.2\n016600     MOVE \"AAAA\" TO TEMP1.                                        OBIC24.2\n016700     MOVE 0 TO TEMP2.                                             OBIC24.2\n016800     PERFORM RELEASE-RECORD 100 TIMES.                            OBIC24.2\n016900     MOVE \"ABCD\" TO TEMP1.                                        OBIC24.2\n017000     MOVE 0 TO TEMP2.                                             OBIC24.2\n017100     PERFORM RELEASE-RECORD 100 TIMES.                            OBIC24.2\n017200     MOVE \"UVWY\" TO TEMP1.                                        OBIC24.2\n017300     MOVE 0 TO TEMP2.                                             OBIC24.2\n017400     PERFORM RELEASE-RECORD 100 TIMES.                            OBIC24.2\n017500     MOVE \"UVWX\" TO TEMP1.                                        OBIC24.2\n017600     MOVE 0 TO TEMP2.                                             OBIC24.2\n017700     PERFORM RELEASE-RECORD 100 TIMES.                            OBIC24.2\n017800     GO TO SECT-IC219-0002-EXIT.                                  OBIC24.2\n017900 RECORD-AREA-INIT.                                                OBIC24.2\n018000     MOVE \"ST-FS1\" TO XFILE-NAME (1).                             OBIC24.2\n018100     MOVE \"R1-F-G\" TO XRECORD-NAME (1).                           OBIC24.2\n018200     MOVE \"IC219\" TO XPROGRAM-NAME (1).                           OBIC24.2\n018300     MOVE 126 TO XRECORD-LENGTH (1).                              OBIC24.2\n018400     MOVE \"RC\" TO CHARS-OR-RECORDS (1).                           OBIC24.2\n018500     MOVE 0001 TO XBLOCK-SIZE (1).                                OBIC24.2\n018600     MOVE 500 TO RECORDS-IN-FILE (1).                             OBIC24.2\n018700     MOVE \"NA\" TO XFILE-ORGANIZATION (1).                         OBIC24.2\n018800     MOVE \"N\" TO XLABEL-TYPE (1).                                 OBIC24.2\n018900     MOVE 1 TO XRECORD-NUMBER (1).                                OBIC24.2\n019000 RELEASE-RECORD.                                                  OBIC24.2\n019100     MOVE FILE-RECORD-INFO-P1-120 (1) TO ST-FS1-1-120.            OBIC24.2\n019200     MOVE TEMP1 TO ST-FS1-121-124.                                OBIC24.2\n019300     MOVE TEMP2 TO ST-FS1-125-126.                                OBIC24.2\n019400     RELEASE ST-FS1R1-F-G-126.                                    OBIC24.2\n019500     ADD 1 TO XRECORD-NUMBER (1).                                 OBIC24.2\n019600     ADD 1 TO TEMP2.                                              OBIC24.2\n019700 SECT-IC219-0002-EXIT.                                            OBIC24.2\n019800     EXIT.                                                        OBIC24.2\n019900 SECT-IC219-0003 SECTION 80.                                      OBIC24.2\n020000*                                                                 OBIC24.2\n020100*        THE SORT OUTPUT PROCEDURE RETURNS 500 SORT RECORDS.  THE OBIC24.2\n020200*    DATA ITEMS COMPRISING THE SORT KEY ARE CHECKED TO ENSURE THE OBIC24.2\n020300*    RECORDS ARE RETURNED IN THE EXPECTED SORT ORDER.  THE SUBPRO-OBIC24.2\n020400*    GRAM IC220 IS CALLED TO PRODUCE THE OUTPUT REPORT FOR THE    OBIC24.2\n020500*    TEST RESULTS.                                                OBIC24.2\n020600*                                                                 OBIC24.2\n020700*        THE RECORDS SHOULD BE RETURNED WITH THE SORT KEY ITEMS   OBIC24.2\n020800*    CONTAINING THE FOLLOWING CHARACTERS                          OBIC24.2\n020900*                                                                 OBIC24.2\n021000*        FIRST 100 RECORDS  AAAA  00 THRU 99  000101 THRU 000200  OBIC24.2\n021100*                           ABCD  00          000001              OBIC24.2\n021200*        NEXT               ABCD  00          000201              OBIC24.2\n021300*            200            ABCD  01          000002              OBIC24.2\n021400*               RECORDS     ABCD  01          000202              OBIC24.2\n021500*                            . . .            . . .               OBIC24.2\n021600*                           ABCD  99          000100              OBIC24.2\n021700*                           ABCD  99          000300              OBIC24.2\n021800*        FOURTH 100 RECORDS UVWX  00 THRU 99  000401 THRU 000500  OBIC24.2\n021900*        FIFTH 100 RECORDS  UVWY  00 THRU 99  000301 THRU 000400  OBIC24.2\n022000*                                                                 OBIC24.2\n022100 SORT-OUTPUT-INIT.                                                OBIC24.2\n022200     MOVE 2 TO SORT-LINK.                                         OBIC24.2\n022300     MOVE 1 TO PRINT-FLAG.                                        OBIC24.2\n022400     CALL \"OBIC3A\" USING PRINT-LINE-VALUES  PRINT-FLAG.           OBIC24.2\n022500     MOVE \"SORT IN SUBPROGRAM\" TO FEATURE-TESTED.                 OBIC24.2\n022600     MOVE \"IC-SORT-TEST\" TO PARAGRAPH-NAME.                       OBIC24.2\n022700     MOVE 0 TO R-COUNT.                                           OBIC24.2\n022800 CHECK-OUTPUT-FROM-SORT.                                          OBIC24.2\n022900     MOVE \"AAAA\" TO TEMP1.                                        OBIC24.2\n023000     MOVE 0 TO TEMP3.                                             OBIC24.2\n023100     MOVE 100 TO TEMP4.                                           OBIC24.2\n023200     PERFORM CHECK-RECORD 100 TIMES.                              OBIC24.2\n023300     MOVE \"ABCD\" TO TEMP1.                                        OBIC24.2\n023400     MOVE 0 TO TEMP3.                                             OBIC24.2\n023500     MOVE 0 TO TEMP4.                                             OBIC24.2\n023600     PERFORM CHECK-ABCD-RECORDS 100 TIMES.                        OBIC24.2\n023700     MOVE \"UVWX\" TO TEMP1.                                        OBIC24.2\n023800     MOVE 0 TO TEMP3.                                             OBIC24.2\n023900     MOVE 400 TO TEMP4.                                           OBIC24.2\n024000     PERFORM CHECK-RECORD 100 TIMES.                              OBIC24.2\n024100     MOVE \"UVWY\" TO TEMP1.                                        OBIC24.2\n024200     MOVE 0 TO TEMP3.                                             OBIC24.2\n024300     MOVE 300 TO TEMP4.                                           OBIC24.2\n024400     PERFORM CHECK-RECORD 100 TIMES.                              OBIC24.2\n024500 CHECK-RESULTS.                                                   OBIC24.2\n024600     IF EOF-FLAG EQUAL TO 1                                       OBIC24.2\n024700         MOVE \"PREMATURE EOF\" TO COMPUTED-SORT-KEY                OBIC24.2\n024800         MOVE \"DATA RECORD EXPECTED\" TO CORRECT-SORT-KEY          OBIC24.2\n024900         GO TO FAIL-WRITE.                                        OBIC24.2\n025000     RETURN ST-FS1 AT END GO TO CHECK-FAIL-COUNT.                 OBIC24.2\n025100     MOVE \"NO EOF - 500 READ\" TO COMPUTED-SORT-KEY.               OBIC24.2\n025200     MOVE \"EOF EXPECTED\" TO CORRECT-SORT-KEY.                     OBIC24.2\n025300     GO TO FAIL-WRITE.                                            OBIC24.2\n025400 CHECK-FAIL-COUNT.                                                OBIC24.2\n025500     IF FAIL-COUNT EQUAL TO ZERO                                  OBIC24.2\n025600         MOVE \"PASS \" TO PASS-OR-FAIL                             OBIC24.2\n025700         GO TO WRITE-RESULTS.                                     OBIC24.2\n025800     MOVE \"SORT ERRORS\" TO COMPUTED-SORT-KEY.                     OBIC24.2\n025900     MOVE SPACE TO CORRECT-SORT-KEY.                              OBIC24.2\n026000 FAIL-WRITE.                                                      OBIC24.2\n026100     MOVE \"FAIL \" TO PASS-OR-FAIL.                                OBIC24.2\n026200 WRITE-RESULTS.                                                   OBIC24.2\n026300     MOVE 0 TO R-COUNT.                                           OBIC24.2\n026400     MOVE 2 TO PRINT-FLAG.                                        OBIC24.2\n026500     CALL \"OBIC3A\" USING PRINT-LINE-VALUES  PRINT-FLAG.           OBIC24.2\n026600 WRAPUP-OUTPUT-PROC.                                              OBIC24.2\n026700     MOVE 3 TO PRINT-FLAG.                                        OBIC24.2\n026800     CALL \"OBIC3A\" USING PRINT-LINE-VALUES  PRINT-FLAG.           OBIC24.2\n026900     GO TO SECT-IC219-0003-EXIT.                                  OBIC24.2\n027000 CHECK-RECORD.                                                    OBIC24.2\n027100     PERFORM RETURN-RECORD THROUGH RETURN-EXIT.                   OBIC24.2\n027200     ADD 1 TO TEMP4.                                              OBIC24.2\n027300     PERFORM COMPARE-VALUES THROUGH COMPARE-EXIT.                 OBIC24.2\n027400     ADD 1 TO TEMP3.                                              OBIC24.2\n027500 RETURN-RECORD.                                                   OBIC24.2\n027600     IF EOF-FLAG EQUAL TO 1                                       OBIC24.2\n027700         GO TO RETURN-EXIT.                                       OBIC24.2\n027800     RETURN ST-FS1  AT END  MOVE 1 TO EOF-FLAG.                   OBIC24.2\n027900 RETURN-EXIT.                                                     OBIC24.2\n028000     EXIT.                                                        OBIC24.2\n028100 CHECK-ABCD-RECORDS.                                              OBIC24.2\n028200     PERFORM CHECK-RECORD.                                        OBIC24.2\n028300     SUBTRACT 1 FROM TEMP3.                                       OBIC24.2\n028400     ADD 199 TO TEMP4.                                            OBIC24.2\n028500     PERFORM CHECK-RECORD.                                        OBIC24.2\n028600     SUBTRACT 200 FROM TEMP4.                                     OBIC24.2\n028700 COMPARE-VALUES.                                                  OBIC24.2\n028800     IF TEMP1 NOT EQUAL TO ST-FS1-121-124                         OBIC24.2\n028900         GO TO SORT-FAIL.                                         OBIC24.2\n029000     IF TEMP3 NOT EQUAL TO ST-FS1-125-126                         OBIC24.2\n029100         GO TO SORT-FAIL.                                         OBIC24.2\n029200     IF TEMP4 NOT EQUAL TO ST-FS1-REC-NO                          OBIC24.2\n029300         GO TO SORT-FAIL.                                         OBIC24.2\n029400     GO TO COMPARE-EXIT.                                          OBIC24.2\n029500 SORT-FAIL.                                                       OBIC24.2\n029600     MOVE \"FAIL \" TO PASS-OR-FAIL.                                OBIC24.2\n029700     ADD 1 TO R-COUNT.                                            OBIC24.2\n029800     MOVE TEMP1 TO CORRECT-1-4.                                   OBIC24.2\n029900     MOVE TEMP3 TO CORRECT-5-6.                                   OBIC24.2\n030000     MOVE TEMP4 TO CORRECT-7-12.                                  OBIC24.2\n030100     MOVE ST-FS1-121-124 TO COMPUTED-1-4.                         OBIC24.2\n030200     MOVE ST-FS1-125-126 TO COMPUTED-5-6.                         OBIC24.2\n030300     MOVE ST-FS1-REC-NO TO COMPUTED-7-12.                         OBIC24.2\n030400     MOVE 2 TO PRINT-FLAG.                                        OBIC24.2\n030500     CALL \"OBIC3A\" USING PRINT-LINE-VALUES  PRINT-FLAG.           OBIC24.2\n030600     ADD 1 TO FAIL-COUNT.                                         OBIC24.2\n030700 COMPARE-EXIT.                                                    OBIC24.2\n030800     EXIT.                                                        OBIC24.2\n030900 SECT-IC219-0003-EXIT.                                            OBIC24.2\n031000     EXIT.                                                        OBIC24.2\n      *END-OF,OBIC2A                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "OBIC2A",
+  "stage1_division_count": 4,
+  "stage1_paragraph_count": 21,
+  "stage1_token_count": 1245,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {
+      "program_id": "OBIC2A"
+    },
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 4,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 14,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "DATA"
+        },
+        "children": [
+          {
+            "node_type": "DataItem",
+            "line": 18,
+            "attributes": {
+              "level": 1,
+              "name": "ST-FS1R1-F-G-126"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 19,
+            "attributes": {
+              "level": 2,
+              "name": "ST-FS1-1-120"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 20,
+            "attributes": {
+              "level": 3,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 21,
+            "attributes": {
+              "level": 3,
+              "name": "ST-FS1-REC-NO",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 22,
+            "attributes": {
+              "level": 3,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 23,
+            "attributes": {
+              "level": 2,
+              "name": "ST-FS1-121-124",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 24,
+            "attributes": {
+              "level": 2,
+              "name": "ST-FS1-125-126",
+              "pic": "99"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 26,
+            "attributes": {
+              "level": 1,
+              "name": "TEMP1",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 27,
+            "attributes": {
+              "level": 1,
+              "name": "TEMP2",
+              "pic": "999"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 28,
+            "attributes": {
+              "level": 1,
+              "name": "TEMP3",
+              "pic": "999"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 29,
+            "attributes": {
+              "level": 1,
+              "name": "TEMP4",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 30,
+            "attributes": {
+              "level": 1,
+              "name": "FAIL-COUNT",
+              "pic": "999",
+              "value": "ZERO"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 31,
+            "attributes": {
+              "level": 1,
+              "name": "EOF-FLAG",
+              "pic": "9",
+              "value": "ZERO"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 32,
+            "attributes": {
+              "level": 1,
+              "name": "PRINT-LINE-VALUES"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 33,
+            "attributes": {
+              "level": 2,
+              "name": "PASS-OR-FAIL",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 34,
+            "attributes": {
+              "level": 2,
+              "name": "R-COUNT",
+              "pic": "99"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 35,
+            "attributes": {
+              "level": 2,
+              "name": "FEATURE-TESTED",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 36,
+            "attributes": {
+              "level": 2,
+              "name": "COMPUTED-SORT-KEY"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 37,
+            "attributes": {
+              "level": 3,
+              "name": "COMPUTED-1-4",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 38,
+            "attributes": {
+              "level": 3,
+              "name": "COMPUTED-5-6",
+              "pic": "99"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 39,
+            "attributes": {
+              "level": 3,
+              "name": "COMPUTED-7-12",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 40,
+            "attributes": {
+              "level": 3,
+              "pic": "X",
+              "value": "SPACE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 41,
+            "attributes": {
+              "level": 2,
+              "name": "CORRECT-SORT-KEY"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 42,
+            "attributes": {
+              "level": 3,
+              "name": "CORRECT-1-4",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 43,
+            "attributes": {
+              "level": 3,
+              "name": "CORRECT-5-6",
+              "pic": "99"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 44,
+            "attributes": {
+              "level": 3,
+              "name": "CORRECT-7-12",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 45,
+            "attributes": {
+              "level": 3,
+              "pic": "X",
+              "value": "SPACE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 46,
+            "attributes": {
+              "level": 2,
+              "name": "PARAGRAPH-NAME",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 47,
+            "attributes": {
+              "level": 1,
+              "name": "PRINT-FLAG",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 48,
+            "attributes": {
+              "level": 1,
+              "name": "FILE-RECORD-INFORMATION-REC"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 49,
+            "attributes": {
+              "level": 3,
+              "name": "FILE-RECORD-INFO-SKELETON"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 50,
+            "attributes": {
+              "level": 5,
+              "pic": "X",
+              "value": "\"FILE=      ,RECORD=      /0,RECNO=000000,UPDT=00\""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 52,
+            "attributes": {
+              "level": 5,
+              "pic": "X",
+              "value": "\",ODO=0000,PGM=     ,LRECL=000000,BLKSIZ  =0000\""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 54,
+            "attributes": {
+              "level": 5,
+              "pic": "X",
+              "value": "\",LFIL=000000,ORG=  ,LBLR= \""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 56,
+            "attributes": {
+              "level": 5,
+              "pic": "X",
+              "value": "\",RECKEY=                             \""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 58,
+            "attributes": {
+              "level": 5,
+              "pic": "X",
+              "value": "\",ALTKEY1=                             \""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 60,
+            "attributes": {
+              "level": 5,
+              "pic": "X",
+              "value": "\",ALTKEY2=                             \""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 62,
+            "attributes": {
+              "level": 5,
+              "pic": "X",
+              "value": "SPACE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 63,
+            "attributes": {
+              "level": 3,
+              "name": "FILE-RECORD-INFO"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 64,
+            "attributes": {
+              "level": 5,
+              "name": "FILE-RECORD-INFO-P1-120"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 65,
+            "attributes": {
+              "level": 7,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 66,
+            "attributes": {
+              "level": 7,
+              "name": "XFILE-NAME",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 67,
+            "attributes": {
+              "level": 7,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 68,
+            "attributes": {
+              "level": 7,
+              "name": "XRECORD-NAME",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 69,
+            "attributes": {
+              "level": 7,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 70,
+            "attributes": {
+              "level": 7,
+              "name": "REELUNIT-NUMBER",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 71,
+            "attributes": {
+              "level": 7,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 72,
+            "attributes": {
+              "level": 7,
+              "name": "XRECORD-NUMBER",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 73,
+            "attributes": {
+              "level": 7,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 74,
+            "attributes": {
+              "level": 7,
+              "name": "UPDATE-NUMBER",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 75,
+            "attributes": {
+              "level": 7,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 76,
+            "attributes": {
+              "level": 7,
+              "name": "ODO-NUMBER",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 77,
+            "attributes": {
+              "level": 7,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 78,
+            "attributes": {
+              "level": 7,
+              "name": "XPROGRAM-NAME",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 79,
+            "attributes": {
+              "level": 7,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 80,
+            "attributes": {
+              "level": 7,
+              "name": "XRECORD-LENGTH",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 81,
+            "attributes": {
+              "level": 7,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 82,
+            "attributes": {
+              "level": 7,
+              "name": "CHARS-OR-RECORDS",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 83,
+            "attributes": {
+              "level": 7,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 84,
+            "attributes": {
+              "level": 7,
+              "name": "XBLOCK-SIZE",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 85,
+            "attributes": {
+              "level": 7,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 86,
+            "attributes": {
+              "level": 7,
+              "name": "RECORDS-IN-FILE",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 87,
+            "attributes": {
+              "level": 7,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 88,
+            "attributes": {
+              "level": 7,
+              "name": "XFILE-ORGANIZATION",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 89,
+            "attributes": {
+              "level": 7,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 90,
+            "attributes": {
+              "level": 7,
+              "name": "XLABEL-TYPE",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 91,
+            "attributes": {
+              "level": 5,
+              "name": "FILE-RECORD-INFO-P121-240"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 92,
+            "attributes": {
+              "level": 7,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 93,
+            "attributes": {
+              "level": 7,
+              "name": "XRECORD-KEY",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 94,
+            "attributes": {
+              "level": 7,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 95,
+            "attributes": {
+              "level": 7,
+              "name": "ALTERNATE-KEY1",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 96,
+            "attributes": {
+              "level": 7,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 97,
+            "attributes": {
+              "level": 7,
+              "name": "ALTERNATE-KEY2",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 98,
+            "attributes": {
+              "level": 7,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 100,
+            "attributes": {
+              "level": 1,
+              "name": "SORT-LINK",
+              "pic": "9"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 101,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 101,
+            "attributes": {
+              "name": "SORT-LINK"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 103,
+            "attributes": {
+              "name": "SORT-PARAGRAPH"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 104,
+                "attributes": {
+                  "verb": "SORT",
+                  "operands": [
+                    "ST-FS1",
+                    "ASCENDING",
+                    "KEY",
+                    "ST-FS1-121-124",
+                    "ASCENDING",
+                    "KEY",
+                    "ST-FS1-125-126",
+                    "ASCENDING",
+                    "KEY",
+                    "ST-FS1-REC-NO",
+                    "INPUT",
+                    "PROCEDURE",
+                    "IS",
+                    "SECT-IC219-0002",
+                    "OUTPUT",
+                    "PROCEDURE",
+                    "IS",
+                    "SECT-IC219-0003"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 110,
+                "attributes": {
+                  "verb": "STOP",
+                  "operands": [
+                    "RUN"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 112,
+            "attributes": {
+              "name": "SORT-INPUT-PROCEDURE"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 113,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "1",
+                    "TO",
+                    "SORT-LINK"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 114,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "FILE-RECORD-INFO-SKELETON",
+                    "TO",
+                    "FILE-RECORD-INFO",
+                    "(",
+                    "1",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 115,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "RECORD-AREA-INIT"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 116,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"ABCD\"",
+                    "TO",
+                    "TEMP1"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 117,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "0",
+                    "TO",
+                    "TEMP2"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 118,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "RELEASE-RECORD",
+                    "100",
+                    "TIMES"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 119,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"AAAA\"",
+                    "TO",
+                    "TEMP1"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 120,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "0",
+                    "TO",
+                    "TEMP2"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 121,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "RELEASE-RECORD",
+                    "100",
+                    "TIMES"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 122,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"ABCD\"",
+                    "TO",
+                    "TEMP1"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 123,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "0",
+                    "TO",
+                    "TEMP2"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 124,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "RELEASE-RECORD",
+                    "100",
+                    "TIMES"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 125,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"UVWY\"",
+                    "TO",
+                    "TEMP1"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 126,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "0",
+                    "TO",
+                    "TEMP2"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 127,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "RELEASE-RECORD",
+                    "100",
+                    "TIMES"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 128,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"UVWX\"",
+                    "TO",
+                    "TEMP1"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 129,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "0",
+                    "TO",
+                    "TEMP2"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 130,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "RELEASE-RECORD",
+                    "100",
+                    "TIMES"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 131,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "SECT-IC219-0002-EXIT"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 132,
+            "attributes": {
+              "name": "RECORD-AREA-INIT"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 133,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"ST-FS1\"",
+                    "TO",
+                    "XFILE-NAME",
+                    "(",
+                    "1",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 134,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"R1-F-G\"",
+                    "TO",
+                    "XRECORD-NAME",
+                    "(",
+                    "1",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 135,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"IC219\"",
+                    "TO",
+                    "XPROGRAM-NAME",
+                    "(",
+                    "1",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 136,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "126",
+                    "TO",
+                    "XRECORD-LENGTH",
+                    "(",
+                    "1",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 137,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"RC\"",
+                    "TO",
+                    "CHARS-OR-RECORDS",
+                    "(",
+                    "1",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 138,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "0001",
+                    "TO",
+                    "XBLOCK-SIZE",
+                    "(",
+                    "1",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 139,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "500",
+                    "TO",
+                    "RECORDS-IN-FILE",
+                    "(",
+                    "1",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 140,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"NA\"",
+                    "TO",
+                    "XFILE-ORGANIZATION",
+                    "(",
+                    "1",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 141,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"N\"",
+                    "TO",
+                    "XLABEL-TYPE",
+                    "(",
+                    "1",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 142,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "1",
+                    "TO",
+                    "XRECORD-NUMBER",
+                    "(",
+                    "1",
+                    ")"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 143,
+            "attributes": {
+              "name": "RELEASE-RECORD"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 144,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "FILE-RECORD-INFO-P1-120",
+                    "(",
+                    "1",
+                    ")",
+                    "TO",
+                    "ST-FS1-1-120"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 145,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "TEMP1",
+                    "TO",
+                    "ST-FS1-121-124"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 146,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "TEMP2",
+                    "TO",
+                    "ST-FS1-125-126"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 147,
+                "attributes": {
+                  "verb": "RELEASE",
+                  "operands": [
+                    "ST-FS1R1-F-G-126"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 148,
+                "attributes": {
+                  "verb": "ADD",
+                  "operands": [
+                    "1",
+                    "TO",
+                    "XRECORD-NUMBER",
+                    "(",
+                    "1",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 149,
+                "attributes": {
+                  "verb": "ADD",
+                  "operands": [
+                    "1",
+                    "TO",
+                    "TEMP2"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 150,
+            "attributes": {
+              "name": "SECT-IC219-0002-EXIT"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 151,
+                "attributes": {
+                  "verb": "EXIT",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 153,
+            "attributes": {
+              "name": "SORT-OUTPUT-INIT"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 154,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "2",
+                    "TO",
+                    "SORT-LINK"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 155,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "1",
+                    "TO",
+                    "PRINT-FLAG"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 156,
+                "attributes": {
+                  "verb": "CALL",
+                  "operands": [
+                    "\"OBIC3A\"",
+                    "USING",
+                    "PRINT-LINE-VALUES",
+                    "PRINT-FLAG"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 157,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"SORT IN SUBPROGRAM\"",
+                    "TO",
+                    "FEATURE-TESTED"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 158,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"IC-SORT-TEST\"",
+                    "TO",
+                    "PARAGRAPH-NAME"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 159,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "0",
+                    "TO",
+                    "R-COUNT"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 160,
+            "attributes": {
+              "name": "CHECK-OUTPUT-FROM-SORT"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 161,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"AAAA\"",
+                    "TO",
+                    "TEMP1"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 162,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "0",
+                    "TO",
+                    "TEMP3"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 163,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "100",
+                    "TO",
+                    "TEMP4"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 164,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "CHECK-RECORD",
+                    "100",
+                    "TIMES"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 165,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"ABCD\"",
+                    "TO",
+                    "TEMP1"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 166,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "0",
+                    "TO",
+                    "TEMP3"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 167,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "0",
+                    "TO",
+                    "TEMP4"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 168,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "CHECK-ABCD-RECORDS",
+                    "100",
+                    "TIMES"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 169,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"UVWX\"",
+                    "TO",
+                    "TEMP1"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 170,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "0",
+                    "TO",
+                    "TEMP3"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 171,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "400",
+                    "TO",
+                    "TEMP4"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 172,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "CHECK-RECORD",
+                    "100",
+                    "TIMES"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 173,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"UVWY\"",
+                    "TO",
+                    "TEMP1"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 174,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "0",
+                    "TO",
+                    "TEMP3"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 175,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "300",
+                    "TO",
+                    "TEMP4"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 176,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "CHECK-RECORD",
+                    "100",
+                    "TIMES"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 177,
+            "attributes": {
+              "name": "CHECK-RESULTS"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 178,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "EOF-FLAG",
+                    "EQUAL",
+                    "TO",
+                    "1"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 179,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"PREMATURE EOF\"",
+                    "TO",
+                    "COMPUTED-SORT-KEY"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 180,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"DATA RECORD EXPECTED\"",
+                    "TO",
+                    "CORRECT-SORT-KEY"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 181,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "FAIL-WRITE"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 182,
+                "attributes": {
+                  "verb": "RETURN",
+                  "operands": [
+                    "ST-FS1"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 182,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "CHECK-FAIL-COUNT"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 183,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"NO EOF - 500 READ\"",
+                    "TO",
+                    "COMPUTED-SORT-KEY"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 184,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"EOF EXPECTED\"",
+                    "TO",
+                    "CORRECT-SORT-KEY"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 185,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "FAIL-WRITE"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 186,
+            "attributes": {
+              "name": "CHECK-FAIL-COUNT"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 187,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "FAIL-COUNT",
+                    "EQUAL",
+                    "TO",
+                    "ZERO"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 188,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"PASS \"",
+                    "TO",
+                    "PASS-OR-FAIL"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 189,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "WRITE-RESULTS"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 190,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"SORT ERRORS\"",
+                    "TO",
+                    "COMPUTED-SORT-KEY"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 191,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "SPACE",
+                    "TO",
+                    "CORRECT-SORT-KEY"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 192,
+            "attributes": {
+              "name": "FAIL-WRITE"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 193,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"FAIL \"",
+                    "TO",
+                    "PASS-OR-FAIL"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 194,
+            "attributes": {
+              "name": "WRITE-RESULTS"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 195,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "0",
+                    "TO",
+                    "R-COUNT"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 196,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "2",
+                    "TO",
+                    "PRINT-FLAG"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 197,
+                "attributes": {
+                  "verb": "CALL",
+                  "operands": [
+                    "\"OBIC3A\"",
+                    "USING",
+                    "PRINT-LINE-VALUES",
+                    "PRINT-FLAG"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 198,
+            "attributes": {
+              "name": "WRAPUP-OUTPUT-PROC"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 199,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "3",
+                    "TO",
+                    "PRINT-FLAG"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 200,
+                "attributes": {
+                  "verb": "CALL",
+                  "operands": [
+                    "\"OBIC3A\"",
+                    "USING",
+                    "PRINT-LINE-VALUES",
+                    "PRINT-FLAG"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 201,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "SECT-IC219-0003-EXIT"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 202,
+            "attributes": {
+              "name": "CHECK-RECORD"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 203,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "RETURN-RECORD",
+                    "THROUGH",
+                    "RETURN-EXIT"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 204,
+                "attributes": {
+                  "verb": "ADD",
+                  "operands": [
+                    "1",
+                    "TO",
+                    "TEMP4"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 205,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "COMPARE-VALUES",
+                    "THROUGH",
+                    "COMPARE-EXIT"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 206,
+                "attributes": {
+                  "verb": "ADD",
+                  "operands": [
+                    "1",
+                    "TO",
+                    "TEMP3"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 207,
+            "attributes": {
+              "name": "RETURN-RECORD"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 208,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "EOF-FLAG",
+                    "EQUAL",
+                    "TO",
+                    "1"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 209,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "RETURN-EXIT"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 210,
+                "attributes": {
+                  "verb": "RETURN",
+                  "operands": [
+                    "ST-FS1"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 210,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "1",
+                    "TO",
+                    "EOF-FLAG"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 211,
+            "attributes": {
+              "name": "RETURN-EXIT"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 212,
+                "attributes": {
+                  "verb": "EXIT",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 213,
+            "attributes": {
+              "name": "CHECK-ABCD-RECORDS"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 214,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "CHECK-RECORD"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 215,
+                "attributes": {
+                  "verb": "SUBTRACT",
+                  "operands": [
+                    "1",
+                    "FROM",
+                    "TEMP3"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 216,
+                "attributes": {
+                  "verb": "ADD",
+                  "operands": [
+                    "199",
+                    "TO",
+                    "TEMP4"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 217,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "CHECK-RECORD"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 218,
+                "attributes": {
+                  "verb": "SUBTRACT",
+                  "operands": [
+                    "200",
+                    "FROM",
+                    "TEMP4"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 219,
+            "attributes": {
+              "name": "COMPARE-VALUES"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 220,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "TEMP1",
+                    "NOT",
+                    "EQUAL",
+                    "TO",
+                    "ST-FS1-121-124"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 221,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "SORT-FAIL"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 222,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "TEMP3",
+                    "NOT",
+                    "EQUAL",
+                    "TO",
+                    "ST-FS1-125-126"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 223,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "SORT-FAIL"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 224,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "TEMP4",
+                    "NOT",
+                    "EQUAL",
+                    "TO",
+                    "ST-FS1-REC-NO"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 225,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "SORT-FAIL"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 226,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "COMPARE-EXIT"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 227,
+            "attributes": {
+              "name": "SORT-FAIL"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 228,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"FAIL \"",
+                    "TO",
+                    "PASS-OR-FAIL"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 229,
+                "attributes": {
+                  "verb": "ADD",
+                  "operands": [
+                    "1",
+                    "TO",
+                    "R-COUNT"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 230,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "TEMP1",
+                    "TO",
+                    "CORRECT-1-4"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 231,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "TEMP3",
+                    "TO",
+                    "CORRECT-5-6"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 232,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "TEMP4",
+                    "TO",
+                    "CORRECT-7-12"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 233,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "ST-FS1-121-124",
+                    "TO",
+                    "COMPUTED-1-4"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 234,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "ST-FS1-125-126",
+                    "TO",
+                    "COMPUTED-5-6"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 235,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "ST-FS1-REC-NO",
+                    "TO",
+                    "COMPUTED-7-12"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 236,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "2",
+                    "TO",
+                    "PRINT-FLAG"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 237,
+                "attributes": {
+                  "verb": "CALL",
+                  "operands": [
+                    "\"OBIC3A\"",
+                    "USING",
+                    "PRINT-LINE-VALUES",
+                    "PRINT-FLAG"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 238,
+                "attributes": {
+                  "verb": "ADD",
+                  "operands": [
+                    "1",
+                    "TO",
+                    "FAIL-COUNT"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 239,
+            "attributes": {
+              "name": "COMPARE-EXIT"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 240,
+                "attributes": {
+                  "verb": "EXIT",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 241,
+            "attributes": {
+              "name": "SECT-IC219-0003-EXIT"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 242,
+                "attributes": {
+                  "verb": "EXIT",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "stage1_cobc_status": "",
+  "stage1_cobc_stderr": "",
+  "complexity_tier": "medium",
+  "complexity_score": 13.4,
+  "ast_depth": 4,
+  "unique_verbs": 12,
+  "cross_refs": 18,
+  "stage2_source": "rule-based",
+  "stage2_rule_based_code": "\"\"\"Translated from COBOL program OBIC2A.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'st_fs1r1_f_g_126': None,\n    'st_fs1_1_120': None,\n    'st_fs1_rec_no': 0,\n    'st_fs1_121_124': \" \",\n    'st_fs1_125_126': 0,\n    'temp1': \" \",\n    'temp2': 0,\n    'temp3': 0,\n    'temp4': 0,\n    'fail_count': 0,\n    'eof_flag': 0,\n    'print_line_values': None,\n    'pass_or_fail': \" \",\n    'r_count': 0,\n    'feature_tested': \" \",\n    'computed_sort_key': None,\n    'computed_1_4': \" \",\n    'computed_5_6': 0,\n    'computed_7_12': 0,\n    'correct_sort_key': None,\n    'correct_1_4': \" \",\n    'correct_5_6': 0,\n    'correct_7_12': 0,\n    'paragraph_name': \" \",\n    'print_flag': 0,\n    'file_record_information_rec': None,\n    'file_record_info_skeleton': None,\n    'file_record_info': None,\n    'file_record_info_p1_120': None,\n    'xfile_name': \" \",\n    'xrecord_name': \" \",\n    'reelunit_number': 0,\n    'xrecord_number': 0,\n    'update_number': 0,\n    'odo_number': 0,\n    'xprogram_name': \" \",\n    'xrecord_length': 0,\n    'chars_or_records': \" \",\n    'xblock_size': 0,\n    'records_in_file': 0,\n    'xfile_organization': \" \",\n    'xlabel_type': \" \",\n    'file_record_info_p121_240': None,\n    'xrecord_key': \" \",\n    'alternate_key1': \" \",\n    'alternate_key2': \" \",\n    'sort_link': 0,\n})\n\ndef sort_link() -> None:\n    pass\n\ndef sort_paragraph() -> None:\n    state['st_fs1'] = sorted(state['st_fs1']) if isinstance(state['st_fs1'], (list, tuple)) else state['st_fs1']\n    return\n\ndef sort_input_procedure() -> None:\n    state['sort_link'] = 1\n    state['file_record_info'] = state['file_record_info_skeleton']\n    state['p_1'] = state['file_record_info_skeleton']\n    record_area_init()\n    state['temp1'] = \"ABCD\"\n    state['temp2'] = 0\n    for _ in range(100):\n        release_record()\n    state['temp1'] = \"AAAA\"\n    state['temp2'] = 0\n    for _ in range(100):\n        release_record()\n    state['temp1'] = \"ABCD\"\n    state['temp2'] = 0\n    for _ in range(100):\n        release_record()\n    state['temp1'] = \"UVWY\"\n    state['temp2'] = 0\n    for _ in range(100):\n        release_record()\n    state['temp1'] = \"UVWX\"\n    state['temp2'] = 0\n    for _ in range(100):\n        release_record()\n    sect_ic219_0002_exit()\n    return\n\ndef record_area_init() -> None:\n    state['xfile_name'] = \"ST-FS1\"\n    state['p_1'] = \"ST-FS1\"\n    state['xrecord_name'] = \"R1-F-G\"\n    state['p_1'] = \"R1-F-G\"\n    state['xprogram_name'] = \"IC219\"\n    state['p_1'] = \"IC219\"\n    state['xrecord_length'] = 126\n    state['p_1'] = 126\n    state['chars_or_records'] = \"RC\"\n    state['p_1'] = \"RC\"\n    state['xblock_size'] = 1\n    state['p_1'] = 1\n    state['records_in_file'] = 500\n    state['p_1'] = 500\n    state['xfile_organization'] = \"NA\"\n    state['p_1'] = \"NA\"\n    state['xlabel_type'] = \"N\"\n    state['p_1'] = \"N\"\n    state['xrecord_number'] = 1\n    state['p_1'] = 1\n\ndef release_record() -> None:\n    pass  # TODO: malformed Stage-1 output (state['st_fs1_1_120'] = 1)\ndef sect_ic219_0002_exit() -> None:\n    return\n\ndef sort_output_init() -> None:\n    state['sort_link'] = 2\n    state['print_flag'] = 1\n    state['_call_target'] = 'OBIC3A'  # CALL OBIC3A\n    state['feature_tested'] = \"SORT IN SUBPROGRAM\"\n    state['paragraph_name'] = \"IC-SORT-TEST\"\n    state['r_count'] = 0\n\ndef check_output_from_sort() -> None:\n    state['temp1'] = \"AAAA\"\n    state['temp3'] = 0\n    state['temp4'] = 100\n    for _ in range(100):\n        check_record()\n    state['temp1'] = \"ABCD\"\n    state['temp3'] = 0\n    state['temp4'] = 0\n    for _ in range(100):\n        check_abcd_records()\n    state['temp1'] = \"UVWX\"\n    state['temp3'] = 0\n    state['temp4'] = 400\n    for _ in range(100):\n        check_record()\n    state['temp1'] = \"UVWY\"\n    state['temp3'] = 0\n    state['temp4'] = 300\n    for _ in range(100):\n        check_record()\n\ndef check_results() -> None:\n    if state['eof_flag'] == 1:\n        state['computed_sort_key'] = \"PREMATURE EOF\"\n        state['correct_sort_key'] = \"DATA RECORD EXPECTED\"\n        fail_write()\n        return\n        # RETURN ST-FS1\n        return\n        check_fail_count()\n        return\n        state['computed_sort_key'] = \"NO EOF - 500 READ\"\n        state['correct_sort_key'] = \"EOF EXPECTED\"\n        fail_write()\n        return\n\ndef check_fail_count() -> None:\n    if state['fail_count'] == 0:\n        state['pass_or_fail'] = \"PASS \"\n        write_results()\n        return\n        state['computed_sort_key'] = \"SORT ERRORS\"\n        state['correct_sort_key'] = ' '\n\ndef fail_write() -> None:\n    state['pass_or_fail'] = \"FAIL \"\n\ndef write_results() -> None:\n    state['r_count'] = 0\n    state['print_flag'] = 2\n    state['_call_target'] = 'OBIC3A'  # CALL OBIC3A\n\ndef wrapup_output_proc() -> None:\n    state['print_flag'] = 3\n    state['_call_target'] = 'OBIC3A'  # CALL OBIC3A\n    sect_ic219_0003_exit()\n    return\n\ndef check_record() -> None:\n    return_record()\n    state['temp4'] = state['temp4'] + 1\n    compare_values()\n    state['temp3'] = state['temp3'] + 1\n\ndef return_record() -> None:\n    if state['eof_flag'] == 1:\n        return_exit()\n        return\n        # RETURN ST-FS1\n        return\n        state['eof_flag'] = 1\n\ndef return_exit() -> None:\n    return\n\ndef check_abcd_records() -> None:\n    check_record()\n    state['temp3'] = state['temp3'] - 1\n    state['temp4'] = state['temp4'] + 199\n    check_record()\n    state['temp4'] = state['temp4'] - 200\n\ndef compare_values() -> None:\n    if state['temp1'] != state['st_fs1_121_124']:\n        sort_fail()\n        return\n        if state['temp3'] != state['st_fs1_125_126']:\n            sort_fail()\n            return\n            if state['temp4'] != state['st_fs1_rec_no']:\n                sort_fail()\n                return\n                compare_exit()\n                return\n\ndef sort_fail() -> None:\n    state['pass_or_fail'] = \"FAIL \"\n    state['r_count'] = state['r_count'] + 1\n    state['correct_1_4'] = state['temp1']\n    state['correct_5_6'] = state['temp3']\n    state['correct_7_12'] = state['temp4']\n    state['computed_1_4'] = state['st_fs1_121_124']\n    state['computed_5_6'] = state['st_fs1_125_126']\n    state['computed_7_12'] = state['st_fs1_rec_no']\n    state['print_flag'] = 2\n    state['_call_target'] = 'OBIC3A'  # CALL OBIC3A\n    state['fail_count'] = state['fail_count'] + 1\n\ndef compare_exit() -> None:\n    return\n\ndef sect_ic219_0003_exit() -> None:\n    return\n\nif __name__ == \"__main__\":\n    try:\n        sort_link()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_neural_code": "",
+  "stage2_final_code": "\"\"\"Translated from COBOL program OBIC2A.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'st_fs1r1_f_g_126': None,\n    'st_fs1_1_120': None,\n    'st_fs1_rec_no': 0,\n    'st_fs1_121_124': \" \",\n    'st_fs1_125_126': 0,\n    'temp1': \" \",\n    'temp2': 0,\n    'temp3': 0,\n    'temp4': 0,\n    'fail_count': 0,\n    'eof_flag': 0,\n    'print_line_values': None,\n    'pass_or_fail': \" \",\n    'r_count': 0,\n    'feature_tested': \" \",\n    'computed_sort_key': None,\n    'computed_1_4': \" \",\n    'computed_5_6': 0,\n    'computed_7_12': 0,\n    'correct_sort_key': None,\n    'correct_1_4': \" \",\n    'correct_5_6': 0,\n    'correct_7_12': 0,\n    'paragraph_name': \" \",\n    'print_flag': 0,\n    'file_record_information_rec': None,\n    'file_record_info_skeleton': None,\n    'file_record_info': None,\n    'file_record_info_p1_120': None,\n    'xfile_name': \" \",\n    'xrecord_name': \" \",\n    'reelunit_number': 0,\n    'xrecord_number': 0,\n    'update_number': 0,\n    'odo_number': 0,\n    'xprogram_name': \" \",\n    'xrecord_length': 0,\n    'chars_or_records': \" \",\n    'xblock_size': 0,\n    'records_in_file': 0,\n    'xfile_organization': \" \",\n    'xlabel_type': \" \",\n    'file_record_info_p121_240': None,\n    'xrecord_key': \" \",\n    'alternate_key1': \" \",\n    'alternate_key2': \" \",\n    'sort_link': 0,\n})\n\ndef sort_link() -> None:\n    pass\n\ndef sort_paragraph() -> None:\n    state['st_fs1'] = sorted(state['st_fs1']) if isinstance(state['st_fs1'], (list, tuple)) else state['st_fs1']\n    return\n\ndef sort_input_procedure() -> None:\n    state['sort_link'] = 1\n    state['file_record_info'] = state['file_record_info_skeleton']\n    state['p_1'] = state['file_record_info_skeleton']\n    record_area_init()\n    state['temp1'] = \"ABCD\"\n    state['temp2'] = 0\n    for _ in range(100):\n        release_record()\n    state['temp1'] = \"AAAA\"\n    state['temp2'] = 0\n    for _ in range(100):\n        release_record()\n    state['temp1'] = \"ABCD\"\n    state['temp2'] = 0\n    for _ in range(100):\n        release_record()\n    state['temp1'] = \"UVWY\"\n    state['temp2'] = 0\n    for _ in range(100):\n        release_record()\n    state['temp1'] = \"UVWX\"\n    state['temp2'] = 0\n    for _ in range(100):\n        release_record()\n    sect_ic219_0002_exit()\n    return\n\ndef record_area_init() -> None:\n    state['xfile_name'] = \"ST-FS1\"\n    state['p_1'] = \"ST-FS1\"\n    state['xrecord_name'] = \"R1-F-G\"\n    state['p_1'] = \"R1-F-G\"\n    state['xprogram_name'] = \"IC219\"\n    state['p_1'] = \"IC219\"\n    state['xrecord_length'] = 126\n    state['p_1'] = 126\n    state['chars_or_records'] = \"RC\"\n    state['p_1'] = \"RC\"\n    state['xblock_size'] = 1\n    state['p_1'] = 1\n    state['records_in_file'] = 500\n    state['p_1'] = 500\n    state['xfile_organization'] = \"NA\"\n    state['p_1'] = \"NA\"\n    state['xlabel_type'] = \"N\"\n    state['p_1'] = \"N\"\n    state['xrecord_number'] = 1\n    state['p_1'] = 1\n\ndef release_record() -> None:\n    pass  # TODO: malformed Stage-1 output (state['st_fs1_1_120'] = 1)\ndef sect_ic219_0002_exit() -> None:\n    return\n\ndef sort_output_init() -> None:\n    state['sort_link'] = 2\n    state['print_flag'] = 1\n    state['_call_target'] = 'OBIC3A'  # CALL OBIC3A\n    state['feature_tested'] = \"SORT IN SUBPROGRAM\"\n    state['paragraph_name'] = \"IC-SORT-TEST\"\n    state['r_count'] = 0\n\ndef check_output_from_sort() -> None:\n    state['temp1'] = \"AAAA\"\n    state['temp3'] = 0\n    state['temp4'] = 100\n    for _ in range(100):\n        check_record()\n    state['temp1'] = \"ABCD\"\n    state['temp3'] = 0\n    state['temp4'] = 0\n    for _ in range(100):\n        check_abcd_records()\n    state['temp1'] = \"UVWX\"\n    state['temp3'] = 0\n    state['temp4'] = 400\n    for _ in range(100):\n        check_record()\n    state['temp1'] = \"UVWY\"\n    state['temp3'] = 0\n    state['temp4'] = 300\n    for _ in range(100):\n        check_record()\n\ndef check_results() -> None:\n    if state['eof_flag'] == 1:\n        state['computed_sort_key'] = \"PREMATURE EOF\"\n        state['correct_sort_key'] = \"DATA RECORD EXPECTED\"\n        fail_write()\n        return\n        # RETURN ST-FS1\n        return\n        check_fail_count()\n        return\n        state['computed_sort_key'] = \"NO EOF - 500 READ\"\n        state['correct_sort_key'] = \"EOF EXPECTED\"\n        fail_write()\n        return\n\ndef check_fail_count() -> None:\n    if state['fail_count'] == 0:\n        state['pass_or_fail'] = \"PASS \"\n        write_results()\n        return\n        state['computed_sort_key'] = \"SORT ERRORS\"\n        state['correct_sort_key'] = ' '\n\ndef fail_write() -> None:\n    state['pass_or_fail'] = \"FAIL \"\n\ndef write_results() -> None:\n    state['r_count'] = 0\n    state['print_flag'] = 2\n    state['_call_target'] = 'OBIC3A'  # CALL OBIC3A\n\ndef wrapup_output_proc() -> None:\n    state['print_flag'] = 3\n    state['_call_target'] = 'OBIC3A'  # CALL OBIC3A\n    sect_ic219_0003_exit()\n    return\n\ndef check_record() -> None:\n    return_record()\n    state['temp4'] = state['temp4'] + 1\n    compare_values()\n    state['temp3'] = state['temp3'] + 1\n\ndef return_record() -> None:\n    if state['eof_flag'] == 1:\n        return_exit()\n        return\n        # RETURN ST-FS1\n        return\n        state['eof_flag'] = 1\n\ndef return_exit() -> None:\n    return\n\ndef check_abcd_records() -> None:\n    check_record()\n    state['temp3'] = state['temp3'] - 1\n    state['temp4'] = state['temp4'] + 199\n    check_record()\n    state['temp4'] = state['temp4'] - 200\n\ndef compare_values() -> None:\n    if state['temp1'] != state['st_fs1_121_124']:\n        sort_fail()\n        return\n        if state['temp3'] != state['st_fs1_125_126']:\n            sort_fail()\n            return\n            if state['temp4'] != state['st_fs1_rec_no']:\n                sort_fail()\n                return\n                compare_exit()\n                return\n\ndef sort_fail() -> None:\n    state['pass_or_fail'] = \"FAIL \"\n    state['r_count'] = state['r_count'] + 1\n    state['correct_1_4'] = state['temp1']\n    state['correct_5_6'] = state['temp3']\n    state['correct_7_12'] = state['temp4']\n    state['computed_1_4'] = state['st_fs1_121_124']\n    state['computed_5_6'] = state['st_fs1_125_126']\n    state['computed_7_12'] = state['st_fs1_rec_no']\n    state['print_flag'] = 2\n    state['_call_target'] = 'OBIC3A'  # CALL OBIC3A\n    state['fail_count'] = state['fail_count'] + 1\n\ndef compare_exit() -> None:\n    return\n\ndef sect_ic219_0003_exit() -> None:\n    return\n\nif __name__ == \"__main__\":\n    try:\n        sort_link()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_warnings": [
+    "function 'def release_record() -> None:': body replaced with pass+TODO",
+    "repaired 1 unparseable line(s)"
+  ],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": false,
+  "stage3_refined_code": "",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "",
+  "stage3_error": "",
+  "verdict": "PASS",
+  "verdict_summary": "All 5 active check(s) passed.",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "21/21 paragraphs found as Python functions",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "SORT-LINK",
+          "SORT-PARAGRAPH",
+          "SORT-INPUT-PROCEDURE",
+          "RECORD-AREA-INIT",
+          "RELEASE-RECORD",
+          "SECT-IC219-0002-EXIT",
+          "SORT-OUTPUT-INIT",
+          "CHECK-OUTPUT-FROM-SORT",
+          "CHECK-RESULTS",
+          "CHECK-FAIL-COUNT",
+          "FAIL-WRITE",
+          "WRITE-RESULTS",
+          "WRAPUP-OUTPUT-PROC",
+          "CHECK-RECORD",
+          "RETURN-RECORD",
+          "RETURN-EXIT",
+          "CHECK-ABCD-RECORDS",
+          "COMPARE-VALUES",
+          "SORT-FAIL",
+          "COMPARE-EXIT",
+          "SECT-IC219-0003-EXIT"
+        ],
+        "missing": [],
+        "total": 21
+      }
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "47/47 identifiers traced into the Python",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "ST-FS1R1-F-G-126",
+          "ST-FS1-1-120",
+          "ST-FS1-REC-NO",
+          "ST-FS1-121-124",
+          "ST-FS1-125-126",
+          "TEMP1",
+          "TEMP2",
+          "TEMP3",
+          "TEMP4",
+          "FAIL-COUNT",
+          "EOF-FLAG",
+          "PRINT-LINE-VALUES",
+          "PASS-OR-FAIL",
+          "R-COUNT",
+          "FEATURE-TESTED",
+          "COMPUTED-SORT-KEY",
+          "COMPUTED-1-4",
+          "COMPUTED-5-6",
+          "COMPUTED-7-12",
+          "CORRECT-SORT-KEY",
+          "CORRECT-1-4",
+          "CORRECT-5-6",
+          "CORRECT-7-12",
+          "PARAGRAPH-NAME",
+          "PRINT-FLAG",
+          "FILE-RECORD-INFORMATION-REC",
+          "FILE-RECORD-INFO-SKELETON",
+          "FILE-RECORD-INFO",
+          "FILE-RECORD-INFO-P1-120",
+          "XFILE-NAME",
+          "XRECORD-NAME",
+          "REELUNIT-NUMBER",
+          "XRECORD-NUMBER",
+          "UPDATE-NUMBER",
+          "ODO-NUMBER",
+          "XPROGRAM-NAME",
+          "XRECORD-LENGTH",
+          "CHARS-OR-RECORDS",
+          "XBLOCK-SIZE",
+          "RECORDS-IN-FILE",
+          "XFILE-ORGANIZATION",
+          "XLABEL-TYPE",
+          "FILE-RECORD-INFO-P121-240",
+          "XRECORD-KEY",
+          "ALTERNATE-KEY1",
+          "ALTERNATE-KEY2",
+          "SORT-LINK"
+        ],
+        "missing": [],
+        "total": 47
+      }
+    },
+    {
+      "name": "body_non_trivial",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "15/15 paragraphs have non-trivial bodies",
+      "skipped_reason": "",
+      "extra": {
+        "non_trivial": [
+          "SORT-PARAGRAPH",
+          "SORT-INPUT-PROCEDURE",
+          "RECORD-AREA-INIT",
+          "RELEASE-RECORD",
+          "SORT-OUTPUT-INIT",
+          "CHECK-OUTPUT-FROM-SORT",
+          "CHECK-RESULTS",
+          "CHECK-FAIL-COUNT",
+          "WRITE-RESULTS",
+          "WRAPUP-OUTPUT-PROC",
+          "CHECK-RECORD",
+          "RETURN-RECORD",
+          "CHECK-ABCD-RECORDS",
+          "COMPARE-VALUES",
+          "SORT-FAIL"
+        ],
+        "trivial": [],
+        "exempt": [
+          "SORT-LINK",
+          "SECT-IC219-0002-EXIT",
+          "FAIL-WRITE",
+          "RETURN-EXIT",
+          "COMPARE-EXIT",
+          "SECT-IC219-0003-EXIT"
+        ],
+        "total_eligible": 15
+      }
+    },
+    {
+      "name": "python_smoke",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "ran cleanly",
+      "skipped_reason": "",
+      "extra": {
+        "exit_code": 0,
+        "stdout_bytes": 0,
+        "stderr_bytes": 0,
+        "stderr_head": ""
+      }
+    },
+    {
+      "name": "execution_match",
+      "ran": false,
+      "passed": null,
+      "score": null,
+      "detail": "skipped: cobol side could not be executed (stdout_mismatch; rc=1)",
+      "skipped_reason": "cobol side could not be executed (stdout_mismatch; rc=1)",
+      "extra": {
+        "cobol_stdout": "/var/folders/rl/r9ygvg0x7_l7sdtfq9pq99fm0000gn/T/tmpdwe20_cl/program.cob:131: error: executable program requested but PROCEDURE/ENTRY has USING clause\n  129 | 012800 01  SORT-LINK           PICTURE 9.                               O..\n  130 | 012900 PROCEDURE DIVISION USING SORT-LINK.                              O..\n  131 > 013000 SECT-IC219-0001 SECTION 30.                                      O",
+        "cobol_returncode": 1
+      }
+    }
+  ],
+  "timestamp": 1780037734.004858
+}

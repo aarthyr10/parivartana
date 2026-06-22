@@ -1,0 +1,14 @@
+{
+  "stage3_skipped": [
+    {
+      "reason": "tier=simple below medium",
+      "count": 112
+    }
+  ],
+  "failed_execution_match": [
+    {
+      "reason": "stdout mismatch (cobol_compiler_not_found)",
+      "count": 500
+    }
+  ]
+}

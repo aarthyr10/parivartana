@@ -1,0 +1,585 @@
+{
+  "program_id": "ST116A",
+  "record_id": "ST116A",
+  "cobol_source": "      *HEADER,COBOL,ST115A,SUBPRG,ST116A                                              \n000100 IDENTIFICATION DIVISION.                                         ST1164.2\n000200 PROGRAM-ID.                                                      ST1164.2\n000300     ST116A.                                                      ST1164.2\n000400****************************************************************  ST1164.2\n000500*                                                              *  ST1164.2\n000600*    VALIDATION FOR:-                                          *  ST1164.2\n000700*                                                              *  ST1164.2\n000800*    \"ON-SITE VALIDATION, NATIONAL INSTITUTE OF STD & TECH.     \".ST1164.2\n000900*                                                              *  ST1164.2\n001000*    \"COBOL 85 VERSION 4.2, Apr  1993 SSVG                      \".ST1164.2\n001100*                                                              *  ST1164.2\n001200****************************************************************  ST1164.2\n001300*                                                              *  ST1164.2\n001400*      X-CARDS USED BY THIS PROGRAM ARE :-                     *  ST1164.2\n001500*                                                              *  ST1164.2\n001600*        X-55  - SYSTEM PRINTER NAME.                          *  ST1164.2\n001700*        X-82  - SOURCE COMPUTER NAME.                         *  ST1164.2\n001800*        X-83  - OBJECT COMPUTER NAME.                         *  ST1164.2\n001900*        X-XXXD01  -  SQ-FS1             *                        ST1164.2\n002000*        X-XXXP02  -  SQ-FS2             *                        ST1164.2\n002100*        X-XXX027  -  SORT FILE ST-FS1   *                        ST1164.2\n002200*                                                              *  ST1164.2\n002300****************************************************************  ST1164.2\n002400******************************************************************ST1164.2\n002500*                                                                 ST1164.2\n002600*                                                                 ST1164.2\n002700*    ST116                                                        ST1164.2\n002800*                                                                 ST1164.2\n002900*                                                                 ST1164.2\n003000*    OBJECTIVE -                                                  ST1164.2\n003100*        ROUTINE ST116 IS A TEST OF THE SORT STATEMENT USING      ST1164.2\n003200*    FIXED LENGTH RECORDS ( 507 CHARACTERS PER RECORD ).          ST1164.2\n003300*                                                                 ST1164.2\n003400*                                                                 ST1164.2\n003500*    FEATURES TESTED -                                            ST1164.2\n003600*    *   COLLATING SEQUENCE IS NATIVE.  NO COLLATING SEQUENCE     ST1164.2\n003700*            STATEMENT IS USED IN THE ACTUAL SORT STATEMENT.      ST1164.2\n003800*    *   FIXED LENGTH RECORDS                                     ST1164.2\n003900*    *   OCCURS CLAUSES                                           ST1164.2\n004000*    *   QUALIFIED ALPHANUMERIC AND NUMERIC SORT KEYS             ST1164.2\n004100*                                                                 ST1164.2\n004200*    *   SORT  SORT-FILE-NAME                                     ST1164.2\n004300*        ON ASCENDING KEY KEY-1 OF DATA-NAME-1                    ST1164.2\n004400*        ASCENDING KEY-2 OF DATA-NAME-2                           ST1164.2\n004500*        USING FILE-NAME-1                                        ST1164.2\n004600*        GIVING FILE-NAME-2.                                      ST1164.2\n004700*                                                                 ST1164.2\n004800*                                                                 ST1164.2\n004900*    ANSI X3.23-1974 REFERENCES -                                 ST1164.2\n005000*    *   SECTION 4.4  THE SORT STATEMENT  PAGE VII-14             ST1164.2\n005100*                                                                 ST1164.2\n005200*                                                                 ST1164.2\n005300*    FILES USED -                                                 ST1164.2\n005400*    *   FILES SQ-FS1 AND SQ-FS2 ON MAGNETIC TAPE OR MASS-STORAGE ST1164.2\n005500*                                                                 ST1164.2\n005600*    FILE SQ-FS1 IS CREATED IN ST115 AND PASSED TO ST116.  THE    ST1164.2\n005700*    FILE SQ-FS2 IS PASSED TO ROUTINE ST117 FOR CHECKING.         ST1164.2\n005800*                                                                 ST1164.2\n005900*        SQ-FS1 -                                                 ST1164.2\n006000*    NUMBER OF RECORDS IS SET BY THE INTEGER X-65.                ST1164.2\n006100*    FIXED LENGTH ( 507 CHARACTERS PER RECORD )                   ST1164.2\n006200*    BLOCKED 1                                                    ST1164.2\n006300*    RESERVE 2 AREAS                                              ST1164.2\n006400*                                                                 ST1164.2\n006500*    SQ-FS1 IS SORTED GIVING SQ-FS2.                              ST1164.2\n006600*                                                                 ST1164.2\n006700*        SQ-FS2 -                                                 ST1164.2\n006800*    SAME NUMBER OF RECORDS AS IN SQ-FS1  ( SET BY X-65 )         ST1164.2\n006900*    FIXED LENGTH ( 507 CHARACTERS PER RECORD )                   ST1164.2\n007000*    BLOCKED 2                                                    ST1164.2\n007100*    RESERVE 4 AREAS                                              ST1164.2\n007200*                                                                 ST1164.2\n007300*                                                                 ST1164.2\n007400*                                                                 ST1164.2\n007500*                                                                 ST1164.2\n007600*    OPTIONS RECOMMENDED -                                        ST1164.2\n007700*        NOT APPLICABLE.                                          ST1164.2\n007800*                                                                 ST1164.2\n007900*                                                                 ST1164.2\n008000*    TEST DESCRIPTIONS -                                          ST1164.2\n008100*        NOT APPLICABLE.  ROUTINE ST116 ONLY CONTAINS THE SORT.   ST1164.2\n008200*                                                                 ST1164.2\n008300*                                                                 ST1164.2\n008400*    ************************************************************ ST1164.2\n008500 ENVIRONMENT DIVISION.                                            ST1164.2\n008600 CONFIGURATION SECTION.                                           ST1164.2\n008700 SOURCE-COMPUTER.                                                 ST1164.2\n008800     XXXXX082.                                                    ST1164.2\n008900 OBJECT-COMPUTER.                                                 ST1164.2\n009000     XXXXX083.                                                    ST1164.2\n009100 INPUT-OUTPUT SECTION.                                            ST1164.2\n009200 FILE-CONTROL.                                                    ST1164.2\n009300     SELECT SQ-FS1 ASSIGN TO                                      ST1164.2\n009400     XXXXD001                                                     ST1164.2\n009500     ORGANIZATION IS SEQUENTIAL                                   ST1164.2\n009600     ACCESS MODE IS SEQUENTIAL.                                   ST1164.2\n009700     SELECT SQ-FS2 ASSIGN TO                                      ST1164.2\n009800     XXXXP002                                                     ST1164.2\n009900     ORGANIZATION IS SEQUENTIAL                                   ST1164.2\n010000     ACCESS MODE IS SEQUENTIAL.                                   ST1164.2\n010100     SELECT ST-FS1 ASSIGN TO                                      ST1164.2\n010200     XXXXX027.                                                    ST1164.2\n010300 DATA DIVISION.                                                   ST1164.2\n010400 FILE SECTION.                                                    ST1164.2\n010500 FD  SQ-FS1                                                       ST1164.2\n010600     LABEL RECORDS STANDARD                                       ST1164.2\n010700C    VALUE OF                                                     ST1164.2\n010800C    XXXXX074                                                     ST1164.2\n010900C    IS                                                           ST1164.2\n011000C    XXXXX075                                                     ST1164.2\n011100*    XXXXX069                                                     ST1164.2\n011200     BLOCK CONTAINS 1 RECORDS                                     ST1164.2\n011300     RECORD CONTAINS 507 CHARACTERS                               ST1164.2\n011400     DATA RECORD IS SQ-FS1R1-F-G-507.                             ST1164.2\n011500 01  SQ-FS1R1-F-G-507.                                            ST1164.2\n011600     10 REC-PREAMBLE PIC X(120).                                  ST1164.2\n011700     10  LENGTH-1  PIC 999.                                       ST1164.2\n011800     10  THE-THREE-KEYS.                                          ST1164.2\n011900     20 KEY-1.                                                    ST1164.2\n012000         30 ALPHAN-KEY PIC X.                                     ST1164.2\n012100         30 NUM-KEY PIC 999.                                      ST1164.2\n012200     20 KEY-2.                                                    ST1164.2\n012300         30 ALPHAN-KEY PIC X.                                     ST1164.2\n012400         30 NUM-KEY PIC 999.                                      ST1164.2\n012500     20 KEY-3.                                                    ST1164.2\n012600         30 ALPHAN-KEY PIC X.                                     ST1164.2\n012700         30 NUM-KEY PIC 999.                                      ST1164.2\n012800     10  STUFF-1 OCCURS                                           ST1164.2\n012900             31 TIMES.                                            ST1164.2\n013000         30  FILL-ME-UPS  PIC  X(12).                             ST1164.2\n013100 FD  SQ-FS2                                                       ST1164.2\n013200     LABEL RECORDS STANDARD                                       ST1164.2\n013300C    VALUE OF                                                     ST1164.2\n013400C    XXXXX074                                                     ST1164.2\n013500C    IS                                                           ST1164.2\n013600C    XXXXX076                                                     ST1164.2\n013700*    XXXXX069                                                     ST1164.2\n013800     BLOCK CONTAINS 2 RECORDS                                     ST1164.2\n013900     RECORD CONTAINS 507 CHARACTERS                               ST1164.2\n014000     DATA RECORD IS SQ-FS2R1-F-G-507.                             ST1164.2\n014100 01  SQ-FS2R1-F-G-507.                                            ST1164.2\n014200     10 REC-PRE-2 PIC X(120).                                     ST1164.2\n014300     10  LENGTH-2  PIC 999.                                       ST1164.2\n014400     10  THE-NEW-KEYS.                                            ST1164.2\n014500     20 KEY-4.                                                    ST1164.2\n014600         30 ALPHAN-KEY PIC X.                                     ST1164.2\n014700         30 NUM-KEY PIC 999.                                      ST1164.2\n014800     20 KEY-5.                                                    ST1164.2\n014900         30 ALPHAN-KEY PIC X.                                     ST1164.2\n015000         30 NUM-KEY PIC 999.                                      ST1164.2\n015100     20 KEY-6.                                                    ST1164.2\n015200         30 ALPHAN-KEY PIC X.                                     ST1164.2\n015300         30 NUM-KEY PIC 999.                                      ST1164.2\n015400     10  STUFF-2 OCCURS                                           ST1164.2\n015500             31 TIMES.                                            ST1164.2\n015600         30  FILLER PIC X(12).                                    ST1164.2\n015700 SD  ST-FS1                                                       ST1164.2\n015800     RECORD CONTAINS 507 CHARACTERS                               ST1164.2\n015900     DATA RECORD IS ST-FS1R1-F-G-507.                             ST1164.2\n016000 01  ST-FS1R1-F-G-507.                                            ST1164.2\n016100     02 FILLER PIC X(120).                                        ST1164.2\n016200     02 LENGTH-3 PIC 999.                                         ST1164.2\n016300     02 NON-KEY-1.                                                ST1164.2\n016400         03 A-KEY-NK1 PIC X.                                      ST1164.2\n016500         03 N-KEY-NK1 PIC 999.                                    ST1164.2\n016600     02 SORT-KEY.                                                 ST1164.2\n016700         03 A-KEY-SK PIC X.                                       ST1164.2\n016800         03 N-KEY-SK PIC 999.                                     ST1164.2\n016900     02 NON-KEY-2.                                                ST1164.2\n017000         03 A-KEY-NK2 PIC X.                                      ST1164.2\n017100         03 N-KEY-NK2 PIC 999.                                    ST1164.2\n017200     02  STUFF-3 OCCURS                                           ST1164.2\n017300             31 TIMES.                                            ST1164.2\n017400         03  FILLER PIC X(12).                                    ST1164.2\n017500 PROCEDURE DIVISION.                                              ST1164.2\n017600 SECT-ST116-0001 SECTION.                                         ST1164.2\n017700 SRT-INIT-001.                                                    ST1164.2\n017800     SORT ST-FS1                                                  ST1164.2\n017900         ON ASCENDING KEY A-KEY-SK                                ST1164.2\n018000         ASCENDING N-KEY-NK2                                      ST1164.2\n018100         USING SQ-FS1                                             ST1164.2\n018200         GIVING SQ-FS2.                                           ST1164.2\n018300 STOP-THE-RUN.                                                    ST1164.2\n018400     STOP RUN.                                                    ST1164.2\n      *END-OF,ST116A                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "ST116A",
+  "stage1_division_count": 4,
+  "stage1_paragraph_count": 2,
+  "stage1_token_count": 361,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {
+      "program_id": "ST116A"
+    },
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 4,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 22,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "DATA"
+        },
+        "children": [
+          {
+            "node_type": "DataItem",
+            "line": 33,
+            "attributes": {
+              "level": 1,
+              "name": "SQ-FS1R1-F-G-507"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 34,
+            "attributes": {
+              "level": 10,
+              "name": "REC-PREAMBLE",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 35,
+            "attributes": {
+              "level": 10,
+              "name": "LENGTH-1",
+              "pic": "999"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 36,
+            "attributes": {
+              "level": 10,
+              "name": "THE-THREE-KEYS"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 37,
+            "attributes": {
+              "level": 20,
+              "name": "KEY-1"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 38,
+            "attributes": {
+              "level": 30,
+              "name": "ALPHAN-KEY",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 39,
+            "attributes": {
+              "level": 30,
+              "name": "NUM-KEY",
+              "pic": "999"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 40,
+            "attributes": {
+              "level": 20,
+              "name": "KEY-2"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 41,
+            "attributes": {
+              "level": 30,
+              "name": "ALPHAN-KEY",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 42,
+            "attributes": {
+              "level": 30,
+              "name": "NUM-KEY",
+              "pic": "999"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 43,
+            "attributes": {
+              "level": 20,
+              "name": "KEY-3"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 44,
+            "attributes": {
+              "level": 30,
+              "name": "ALPHAN-KEY",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 45,
+            "attributes": {
+              "level": 30,
+              "name": "NUM-KEY",
+              "pic": "999"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 46,
+            "attributes": {
+              "level": 10,
+              "name": "STUFF-1"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 48,
+            "attributes": {
+              "level": 30,
+              "name": "FILL-ME-UPS",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 58,
+            "attributes": {
+              "level": 1,
+              "name": "SQ-FS2R1-F-G-507"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 59,
+            "attributes": {
+              "level": 10,
+              "name": "REC-PRE-2",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 60,
+            "attributes": {
+              "level": 10,
+              "name": "LENGTH-2",
+              "pic": "999"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 61,
+            "attributes": {
+              "level": 10,
+              "name": "THE-NEW-KEYS"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 62,
+            "attributes": {
+              "level": 20,
+              "name": "KEY-4"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 63,
+            "attributes": {
+              "level": 30,
+              "name": "ALPHAN-KEY",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 64,
+            "attributes": {
+              "level": 30,
+              "name": "NUM-KEY",
+              "pic": "999"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 65,
+            "attributes": {
+              "level": 20,
+              "name": "KEY-5"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 66,
+            "attributes": {
+              "level": 30,
+              "name": "ALPHAN-KEY",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 67,
+            "attributes": {
+              "level": 30,
+              "name": "NUM-KEY",
+              "pic": "999"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 68,
+            "attributes": {
+              "level": 20,
+              "name": "KEY-6"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 69,
+            "attributes": {
+              "level": 30,
+              "name": "ALPHAN-KEY",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 70,
+            "attributes": {
+              "level": 30,
+              "name": "NUM-KEY",
+              "pic": "999"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 71,
+            "attributes": {
+              "level": 10,
+              "name": "STUFF-2"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 73,
+            "attributes": {
+              "level": 30,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 77,
+            "attributes": {
+              "level": 1,
+              "name": "ST-FS1R1-F-G-507"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 78,
+            "attributes": {
+              "level": 2,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 79,
+            "attributes": {
+              "level": 2,
+              "name": "LENGTH-3",
+              "pic": "999"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 80,
+            "attributes": {
+              "level": 2,
+              "name": "NON-KEY-1"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 81,
+            "attributes": {
+              "level": 3,
+              "name": "A-KEY-NK1",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 82,
+            "attributes": {
+              "level": 3,
+              "name": "N-KEY-NK1",
+              "pic": "999"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 83,
+            "attributes": {
+              "level": 2,
+              "name": "SORT-KEY"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 84,
+            "attributes": {
+              "level": 3,
+              "name": "A-KEY-SK",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 85,
+            "attributes": {
+              "level": 3,
+              "name": "N-KEY-SK",
+              "pic": "999"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 86,
+            "attributes": {
+              "level": 2,
+              "name": "NON-KEY-2"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 87,
+            "attributes": {
+              "level": 3,
+              "name": "A-KEY-NK2",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 88,
+            "attributes": {
+              "level": 3,
+              "name": "N-KEY-NK2",
+              "pic": "999"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 89,
+            "attributes": {
+              "level": 2,
+              "name": "STUFF-3"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 91,
+            "attributes": {
+              "level": 3,
+              "pic": "X"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 92,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 94,
+            "attributes": {
+              "name": "SRT-INIT-001"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 95,
+                "attributes": {
+                  "verb": "SORT",
+                  "operands": [
+                    "ST-FS1",
+                    "ON",
+                    "ASCENDING",
+                    "KEY",
+                    "A-KEY-SK",
+                    "ASCENDING",
+                    "N-KEY-NK2",
+                    "USING",
+                    "SQ-FS1",
+                    "GIVING",
+                    "SQ-FS2"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 100,
+            "attributes": {
+              "name": "STOP-THE-RUN"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 101,
+                "attributes": {
+                  "verb": "STOP",
+                  "operands": [
+                    "RUN"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "complexity_tier": "simple",
+  "complexity_score": 6.4,
+  "ast_depth": 4,
+  "unique_verbs": 2,
+  "cross_refs": 0,
+  "stage2_source": "rule-based",
+  "stage2_rule_based_code": "\"\"\"Translated from COBOL program ST116A.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'sq_fs1r1_f_g_507': None,\n    'rec_preamble': '',\n    'length_1': 0,\n    'the_three_keys': None,\n    'key_1': None,\n    'alphan_key': '',\n    'num_key': 0,\n    'key_2': None,\n    'key_3': None,\n    'stuff_1': None,\n    'fill_me_ups': '',\n    'sq_fs2r1_f_g_507': None,\n    'rec_pre_2': '',\n    'length_2': 0,\n    'the_new_keys': None,\n    'key_4': None,\n    'key_5': None,\n    'key_6': None,\n    'stuff_2': None,\n    'st_fs1r1_f_g_507': None,\n    'length_3': 0,\n    'non_key_1': None,\n    'a_key_nk1': '',\n    'n_key_nk1': 0,\n    'sort_key': None,\n    'a_key_sk': '',\n    'n_key_sk': 0,\n    'non_key_2': None,\n    'a_key_nk2': '',\n    'n_key_nk2': 0,\n    'stuff_3': None,\n})\n\ndef srt_init_001() -> None:\n    state['st_fs1'] = sorted(state['st_fs1']) if isinstance(state['st_fs1'], (list, tuple)) else state['st_fs1']\n\ndef stop_the_run() -> None:\n    return\n\nif __name__ == \"__main__\":\n    try:\n        srt_init_001()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_neural_code": "",
+  "stage2_final_code": "\"\"\"Translated from COBOL program ST116A.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'sq_fs1r1_f_g_507': None,\n    'rec_preamble': '',\n    'length_1': 0,\n    'the_three_keys': None,\n    'key_1': None,\n    'alphan_key': '',\n    'num_key': 0,\n    'key_2': None,\n    'key_3': None,\n    'stuff_1': None,\n    'fill_me_ups': '',\n    'sq_fs2r1_f_g_507': None,\n    'rec_pre_2': '',\n    'length_2': 0,\n    'the_new_keys': None,\n    'key_4': None,\n    'key_5': None,\n    'key_6': None,\n    'stuff_2': None,\n    'st_fs1r1_f_g_507': None,\n    'length_3': 0,\n    'non_key_1': None,\n    'a_key_nk1': '',\n    'n_key_nk1': 0,\n    'sort_key': None,\n    'a_key_sk': '',\n    'n_key_sk': 0,\n    'non_key_2': None,\n    'a_key_nk2': '',\n    'n_key_nk2': 0,\n    'stuff_3': None,\n})\n\ndef srt_init_001() -> None:\n    state['st_fs1'] = sorted(state['st_fs1']) if isinstance(state['st_fs1'], (list, tuple)) else state['st_fs1']\n\ndef stop_the_run() -> None:\n    return\n\nif __name__ == \"__main__\":\n    try:\n        srt_init_001()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_warnings": [],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": true,
+  "stage3_refined_code": "\"\"\"Translated from COBOL program ST116A.\"\"\"\n\nfrom typing import Any, Dict, Optional, Union\n\n\nclass State(dict):\n    def __missing__(self, key: str) -> Union[int, str]:\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: State = State({\n    'sq_fs1r1_f_g_507': None,\n    'rec_preamble': '',\n    'length_1': 0,\n    'the_three_keys': None,\n    'key_1': None,\n    'alphan_key': '',\n    'num_key': 0,\n    'key_2': None,\n    'key_3': None,\n    'stuff_1': None,\n    'fill_me_ups': '',\n    'sq_fs2r1_f_g_507': None,\n    'rec_pre_2': '',\n    'length_2': 0,\n    'the_new_keys': None,\n    'key_4': None,\n    'key_5': None,\n    'key_6': None,\n    'stuff_2': None,\n    'st_fs1r1_f_g_507': None,\n    'length_3': 0,\n    'non_key_1': None,\n    'a_key_nk1': '',\n    'n_key_nk1': 0,\n    'sort_key': None,\n    'a_key_sk': '',\n    'n_key_sk': 0,\n    'non_key_2': None,\n    'a_key_nk2': '',\n    'n_key_nk2': 0,\n    'stuff_3': None,\n})\n\n\ndef srt_init_001() -> None:\n    if isinstance(state.get('st_fs1'), (list, tuple)):\n        state['st_fs1'] = sorted(state['st_fs1'])\n\n\ndef stop_the_run() -> None:\n    pass\n\n\nif __name__ == \"__main__\":\n    try:\n        srt_init_001()\n    except Exception as exc:\n        import sys\n        print(f\"runtime: {type(exc).__name__}: {exc}\", file=sys.stderr)",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "",
+  "stage3_error": "'RefinementResult' object has no attribute 'rename_map'",
+  "verdict": "INCONCLUSIVE",
+  "verdict_summary": "3 structural check(s) passed, but no behavioural signal (execution_match / llm_judge) was available. llm_judge skipped: anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CbMjMhttfHP5HV26cLKDc'})",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": ""
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "2/2 paragraphs found as Python functions",
+      "skipped_reason": ""
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "41/41 identifiers traced into the Python",
+      "skipped_reason": ""
+    },
+    {
+      "name": "llm_judge",
+      "ran": false,
+      "passed": null,
+      "score": null,
+      "detail": "skipped: anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CbMjMhttfHP5HV26cLKDc'})",
+      "skipped_reason": "anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CbMjMhttfHP5HV26cLKDc'})"
+    }
+  ],
+  "timestamp": 1779641088.36364
+}

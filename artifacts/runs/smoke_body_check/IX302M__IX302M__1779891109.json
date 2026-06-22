@@ -1,0 +1,306 @@
+{
+  "program_id": "IX302M",
+  "record_id": "IX302M",
+  "cobol_source": "      *HEADER,COBOL,IX302M                                                            \n000100 IDENTIFICATION DIVISION.                                         IX3024.2\n000200 PROGRAM-ID.                                                      IX3024.2\n000300     IX302M.                                                      IX3024.2\n000400*THE FOLLOWING PROGRAM TESTS THE FLAGGING OF                      IX3024.2\n000500*OBSOLETE FEATURES THAT ARE USED IN INTERMEDIATE SUBSET INDEXED   IX3024.2\n000600*INPUT-OUTPUT.                                                    IX3024.2\n000700 ENVIRONMENT DIVISION.                                            IX3024.2\n000800 CONFIGURATION SECTION.                                           IX3024.2\n000900 SOURCE-COMPUTER.                                                 IX3024.2\n001000     XXXXX082.                                                    IX3024.2\n001100 OBJECT-COMPUTER.                                                 IX3024.2\n001200     XXXXX083.                                                    IX3024.2\n001300 INPUT-OUTPUT SECTION.                                            IX3024.2\n001400 FILE-CONTROL.                                                    IX3024.2\n001500     SELECT TFIL ASSIGN                                           IX3024.2\n001600     XXXXX024                                                     IX3024.2\n001700         ORGANIZATION IS INDEXED                                  IX3024.2\n001800         ACCESS MODE IS SEQUENTIAL                                IX3024.2\n001900         RECORD KEY IS RKEY.                                      IX3024.2\n002000                                                                  IX3024.2\n002100     SELECT SQ-FRR ASSIGN                                         IX3024.2\n002200     XXXXX013.                                                    IX3024.2\n002300                                                                  IX3024.2\n002400                                                                  IX3024.2\n002500     SELECT RR-FS1 ASSIGN                                         IX3024.2\n002600     XXXXX024                                                     IX3024.2\n002700         ORGANIZATION IS INDEXED                                  IX3024.2\n002800         RECORD KEY IS FKEY.                                      IX3024.2\n002900 I-O-CONTROL.                                                     IX3024.2\n003000     XXXXX053.                                                    IX3024.2\n003100*Message expected for above statement: OBSOLETE                   IX3024.2\n003200                                                                  IX3024.2\n003300 DATA DIVISION.                                                   IX3024.2\n003400 FILE SECTION.                                                    IX3024.2\n003500 FD TFIL                                                          IX3024.2\n003600     LABEL RECORDS STANDARD                                       IX3024.2\n003700*Message expected for above statement: OBSOLETE                   IX3024.2\n003800                                                                  IX3024.2\n003900     VALUE OF                                                     IX3024.2\n004000     XXXXX074                                                     IX3024.2\n004100     IS                                                           IX3024.2\n004200     XXXXX075                                                     IX3024.2\n004300*Message expected for above statement: OBSOLETE                   IX3024.2\n004400                                                                  IX3024.2\n004500     DATA RECORDS ARE FREC.                                       IX3024.2\n004600*Message expected for above statement: OBSOLETE                   IX3024.2\n004700                                                                  IX3024.2\n004800 01 FREC.                                                         IX3024.2\n004900     03 RKEY PIC X(8).                                            IX3024.2\n005000                                                                  IX3024.2\n005100 FD SQ-FRR.                                                       IX3024.2\n005200    01 SREC.                                                      IX3024.2\n005300     03 SKEY PIC X(8).                                            IX3024.2\n005400                                                                  IX3024.2\n005500                                                                  IX3024.2\n005600 FD RR-FS1.                                                       IX3024.2\n005700    01 RREC.                                                      IX3024.2\n005800     03 FKEY PIC X(8).                                            IX3024.2\n005900                                                                  IX3024.2\n006000 WORKING-STORAGE SECTION.                                         IX3024.2\n006100 01 VARIABLES.                                                    IX3024.2\n006200     03 VKEY PIC 9(8) VALUE ZERO.                                 IX3024.2\n006300     03 DKEY PIC 9(8) VALUE ZERO.                                 IX3024.2\n006400                                                                  IX3024.2\n006500 PROCEDURE DIVISION.                                              IX3024.2\n006600                                                                  IX3024.2\n006700 IX302M-CONTROL.                                                  IX3024.2\n006800     DISPLAY \"THIS IS A DUMMY PARAGRAPH\".                         IX3024.2\n006900     STOP RUN.                                                    IX3024.2\n007000                                                                  IX3024.2\n007100*TOTAL NUMBER OF FLAGS EXPECTED = 4.                              IX3024.2\n      *END-OF,IX302M                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "",
+  "stage1_division_count": 3,
+  "stage1_paragraph_count": 19,
+  "stage1_token_count": 141,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {},
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": ""
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 4,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": ""
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 6,
+            "attributes": {
+              "name": "COMPUTER"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 7,
+            "attributes": {
+              "name": "XX082"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 8,
+            "attributes": {
+              "name": "COMPUTER"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 9,
+            "attributes": {
+              "name": "XX083"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 11,
+            "attributes": {
+              "name": "NTROL"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 16,
+            "attributes": {
+              "name": "RKEY"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 19,
+            "attributes": {
+              "name": "XX013"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 25,
+            "attributes": {
+              "name": "FKEY"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 26,
+            "attributes": {
+              "name": "TROL"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 27,
+            "attributes": {
+              "name": "XX053"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 29,
+            "attributes": {
+              "name": "VISION"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 30,
+            "attributes": {
+              "name": "CTION"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 39,
+            "attributes": {
+              "name": "FREC"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 44,
+            "attributes": {
+              "name": "RR"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 45,
+            "attributes": {
+              "name": "REC"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 49,
+            "attributes": {
+              "name": "S1"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 50,
+            "attributes": {
+              "name": "REC"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 54,
+            "attributes": {
+              "name": "ABLES"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 58,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": ""
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 60,
+            "attributes": {
+              "name": "CONTROL"
+            },
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "stage1_cobc_status": "",
+  "stage1_cobc_stderr": "",
+  "complexity_tier": "simple",
+  "complexity_score": 1.05,
+  "ast_depth": 3,
+  "unique_verbs": 0,
+  "cross_refs": 0,
+  "stage2_source": "rule-based",
+  "stage2_rule_based_code": "\"\"\"Translated from COBOL program program.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\nstate: _State = _State()\n\ndef computer() -> None:\n    pass\n\ndef xx082() -> None:\n    pass\n\ndef computer() -> None:\n    pass\n\ndef xx083() -> None:\n    pass\n\ndef ntrol() -> None:\n    pass\n\ndef rkey() -> None:\n    pass\n\ndef xx013() -> None:\n    pass\n\ndef fkey() -> None:\n    pass\n\ndef trol() -> None:\n    pass\n\ndef xx053() -> None:\n    pass\n\ndef vision() -> None:\n    pass\n\ndef ction() -> None:\n    pass\n\ndef frec() -> None:\n    pass\n\ndef rr() -> None:\n    pass\n\ndef rec() -> None:\n    pass\n\ndef s1() -> None:\n    pass\n\ndef rec() -> None:\n    pass\n\ndef ables() -> None:\n    pass\n\ndef control() -> None:\n    pass\n\nif __name__ == \"__main__\":\n    try:\n        computer()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_neural_code": "",
+  "stage2_final_code": "\"\"\"Translated from COBOL program program.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\nstate: _State = _State()\n\ndef computer() -> None:\n    pass\n\ndef xx082() -> None:\n    pass\n\ndef computer() -> None:\n    pass\n\ndef xx083() -> None:\n    pass\n\ndef ntrol() -> None:\n    pass\n\ndef rkey() -> None:\n    pass\n\ndef xx013() -> None:\n    pass\n\ndef fkey() -> None:\n    pass\n\ndef trol() -> None:\n    pass\n\ndef xx053() -> None:\n    pass\n\ndef vision() -> None:\n    pass\n\ndef ction() -> None:\n    pass\n\ndef frec() -> None:\n    pass\n\ndef rr() -> None:\n    pass\n\ndef rec() -> None:\n    pass\n\ndef s1() -> None:\n    pass\n\ndef rec() -> None:\n    pass\n\ndef ables() -> None:\n    pass\n\ndef control() -> None:\n    pass\n\nif __name__ == \"__main__\":\n    try:\n        computer()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_warnings": [],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": false,
+  "stage3_refined_code": "",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "",
+  "stage3_error": "",
+  "verdict": "INCONCLUSIVE",
+  "verdict_summary": "4 structural check(s) passed, but no behavioural signal (execution_match / llm_judge) was available.",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "19/19 paragraphs found as Python functions",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "COMPUTER",
+          "XX082",
+          "COMPUTER",
+          "XX083",
+          "NTROL",
+          "RKEY",
+          "XX013",
+          "FKEY",
+          "TROL",
+          "XX053",
+          "VISION",
+          "CTION",
+          "FREC",
+          "RR",
+          "REC",
+          "S1",
+          "REC",
+          "ABLES",
+          "CONTROL"
+        ],
+        "missing": [],
+        "total": 19
+      }
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "COBOL program had no data items to cover.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "body_non_trivial",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "All 17 paragraph(s) were <=1 statement; nothing to score.",
+      "skipped_reason": "",
+      "extra": {
+        "exempt": [
+          "COMPUTER",
+          "XX082",
+          "XX083",
+          "NTROL",
+          "RKEY",
+          "XX013",
+          "FKEY",
+          "TROL",
+          "XX053",
+          "VISION",
+          "CTION",
+          "FREC",
+          "RR",
+          "REC",
+          "S1",
+          "ABLES",
+          "CONTROL"
+        ]
+      }
+    }
+  ],
+  "timestamp": 1779891109.6434937
+}

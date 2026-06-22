@@ -1,0 +1,132 @@
+# ---------------------------------------------------------------------------
+# PARIVARTANA .gitignore
+# Large datasets, trained models, and run artifacts are NOT tracked in git.
+# See README.md ("Data & model downloads") for how to obtain and place them.
+# ---------------------------------------------------------------------------
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+build/
+dist/
+*.so
+
+# --- Virtual environments ---
+.venv/
+venv/
+env/
+ENV/
+
+# --- Environment / secrets ---
+.env
+.env.local
+.env.*.local
+.streamlit/secrets.toml
+
+# --- Editors / OS ---
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# --- Test / coverage / lint caches ---
+.coverage
+coverage.xml
+htmlcov/
+.pytest_cache/
+pytest-cache-files-*/
+.ruff_cache/
+.mypy_cache/
+
+# --- Logs ---
+logs/
+*.log
+
+# ---------------------------------------------------------------------------
+# Datasets (download separately — see README "Data & model downloads")
+# The trailing-slash negations re-include the directory tree so the tracked
+# .gitkeep placeholders inside ignored folders survive a fresh clone.
+# ---------------------------------------------------------------------------
+data/raw/**
+data/interim/**
+data/processed/**
+data/external/**
+!data/raw/**/
+!data/interim/**/
+!data/processed/**/
+!data/external/**/
+!data/**/.gitkeep
+!data/samples/**
+
+# ---------------------------------------------------------------------------
+# Models, checkpoints, generated outputs (download / regenerate — see README)
+# ---------------------------------------------------------------------------
+artifacts/models/**
+artifacts/checkpoints/**
+artifacts/outputs/**
+artifacts/training/**
+artifacts/training_data/**
+artifacts/training_data_smoke/**
+artifacts/cache/**
+!artifacts/**/
+!artifacts/**/.gitkeep
+
+# Model weight / tensor formats anywhere
+*.pt
+*.bin
+*.ckpt
+*.safetensors
+*.pth
+*.onnx
+*.gguf
+
+# --- Pipeline snapshots (large, regenerated) ---
+pipeline_snapshots/
+
+# --- Archives ---
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.7z
+
+# ---------------------------------------------------------------------------
+# COBOL runtime / scratch files emitted into the repo root during local runs
+# ---------------------------------------------------------------------------
+PRINT-FILE
+PRTDONE
+PRTLINE
+XXXX*
+acct_rec
+cardin
+chkptfil
+cur1
+deadweight_file
+end_exec
+external_file
+file1
+ix_fs1
+phony_print_file
+print_file
+print_line
+prt_done
+prt_line
+prtdone.txt
+prtline.txt
+recin
+repout
+reversed
+sortin_*
+sortout_*
+sq_fs*
+test_file
+test_file2
+tfil
+tfil2
+topicfil
+useless_file

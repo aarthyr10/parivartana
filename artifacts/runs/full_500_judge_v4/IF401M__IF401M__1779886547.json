@@ -1,0 +1,684 @@
+{
+  "program_id": "IF401M",
+  "record_id": "IF401M",
+  "cobol_source": "      *HEADER,COBOL,IF401M                                                            \n000100 IDENTIFICATION DIVISION.                                         IF4014.2\n000200 PROGRAM-ID.                                                      IF4014.2\n000300      IF401M.                                                     IF4014.2\n000400                                                                  IF4014.2\n000500                                                                  IF4014.2\n000600*THIS PROGRAM TESTS THE FLAGGING OF HIGH SUBSET INTRINSIC FUNCTIONIF4014.2\n000700*FEATURES.                                                        IF4014.2\n000800******************************************************************IF4014.2\n000900*    THIS PROGRAMS CONTAINS TESTS FOR THE FOLLOWING INTRINSIC    *IF4014.2\n001000*    FUNCTIONS:  ACOS, ANNUITY, ASIN, ATAN, CHAR, COS,           *IF4014.2\n001100*                CURRENT-DATE, DATE-OF-INTEGER, DAY-OF-INTEGER,  *IF4014.2\n001200*                FACTORIAL, INTEGER, INTEGER-OF-DATE,            *IF4014.2\n001300*                INTEGER-OF-DAY AND INTEGER-PART.                *IF4014.2\n001400******************************************************************IF4014.2\n001500                                                                  IF4014.2\n001600 ENVIRONMENT DIVISION.                                            IF4014.2\n001700 CONFIGURATION SECTION.                                           IF4014.2\n001800 SOURCE-COMPUTER.                                                 IF4014.2\n001900     XXXXX082.                                                    IF4014.2\n002000 OBJECT-COMPUTER.                                                 IF4014.2\n002100     XXXXX083.                                                    IF4014.2\n002200                                                                  IF4014.2\n002300 DATA DIVISION.                                                   IF4014.2\n002400 FILE SECTION.                                                    IF4014.2\n002500 WORKING-STORAGE SECTION.                                         IF4014.2\n002600 01  TEMP1        PICTURE    X(21).                               IF4014.2\n002700 01  WS-ANUM      PICTURE    X.                                   IF4014.2\n002800                                                                  IF4014.2\n002900 PROCEDURE DIVISION.                                              IF4014.2\n003000 IF401M-ACOS.                                                     IF4014.2\n003100     IF FUNCTION ACOS (1.0) = FUNCTION ACOS (1.0)                 IF4014.2\n003200                 CONTINUE.                                        IF4014.2\n003300*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4014.2\n003400                                                                  IF4014.2\n003500 IF401M-ANNUITY.                                                  IF4014.2\n003600     IF FUNCTION ANNUITY (0, 4) = FUNCTION ANNUITY (0, 4)         IF4014.2\n003700                 CONTINUE.                                        IF4014.2\n003800*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4014.2\n003900                                                                  IF4014.2\n004000 IF401M-ASIN.                                                     IF4014.2\n004100     IF FUNCTION ASIN (1.0) = FUNCTION ASIN (1.0)                 IF4014.2\n004200                 CONTINUE.                                        IF4014.2\n004300*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4014.2\n004400                                                                  IF4014.2\n004500 IF401M-ATAN.                                                     IF4014.2\n004600     IF FUNCTION ATAN (1.0) = FUNCTION ATAN (1.0)                 IF4014.2\n004700                 CONTINUE.                                        IF4014.2\n004800*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4014.2\n004900                                                                  IF4014.2\n005000 IF401M-CHAR.                                                     IF4014.2\n005100     MOVE FUNCTION CHAR (37) TO WS-ANUM.                          IF4014.2\n005200*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4014.2\n005300                                                                  IF4014.2\n005400 IF401M-COS.                                                      IF4014.2\n005500     IF FUNCTION COS (1.0) = FUNCTION COS (1.0)                   IF4014.2\n005600                 CONTINUE.                                        IF4014.2\n005700*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4014.2\n005800                                                                  IF4014.2\n005900 IF401M-CURRENT-DATE.                                             IF4014.2\n006000     MOVE FUNCTION CURRENT-DATE TO TEMP1.                         IF4014.2\n006100*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4014.2\n006200                                                                  IF4014.2\n006300 IF401M-DATE-OF-INTEGER.                                          IF4014.2\n006400     IF FUNCTION DATE-OF-INTEGER (1) =                            IF4014.2\n006500        FUNCTION DATE-OF-INTEGER (1)                              IF4014.2\n006600                 CONTINUE.                                        IF4014.2\n006700*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4014.2\n006800                                                                  IF4014.2\n006900 IF401M-DAY-OF-INTEGER.                                           IF4014.2\n007000     IF FUNCTION DAY-OF-INTEGER (1) = FUNCTION DAY-OF-INTEGER (1) IF4014.2\n007100                 CONTINUE.                                        IF4014.2\n007200*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4014.2\n007300                                                                  IF4014.2\n007400 IF401M-FACTORIAL.                                                IF4014.2\n007500     IF FUNCTION FACTORIAL (1) = FUNCTION FACTORIAL (1)           IF4014.2\n007600                 CONTINUE.                                        IF4014.2\n007700*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4014.2\n007800                                                                  IF4014.2\n007900 IF401M-INTEGER.                                                  IF4014.2\n008000     IF FUNCTION INTEGER (1.0) = FUNCTION INTEGER (1.0)           IF4014.2\n008100                 CONTINUE.                                        IF4014.2\n008200*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4014.2\n008300                                                                  IF4014.2\n008400 IF401M-INTEGER-OF-DATE.                                          IF4014.2\n008500     IF FUNCTION INTEGER-OF-DATE (16010101) =                     IF4014.2\n008600        FUNCTION INTEGER-OF-DATE (16010101)                       IF4014.2\n008700                 CONTINUE.                                        IF4014.2\n008800*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4014.2\n008900                                                                  IF4014.2\n009000 IF401M-INTEGER-OF-DAY.                                           IF4014.2\n009100     IF FUNCTION INTEGER-OF-DAY (1601001) =                       IF4014.2\n009200        FUNCTION INTEGER-OF-DAY (1601001)                         IF4014.2\n009300                 CONTINUE.                                        IF4014.2\n009400*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4014.2\n009500                                                                  IF4014.2\n009600 IF401M-INTEGER-PART.                                             IF4014.2\n009700     IF FUNCTION INTEGER-PART (4.578) =                           IF4014.2\n009800        FUNCTION INTEGER-PART (4.578)                             IF4014.2\n009900                 CONTINUE.                                        IF4014.2\n010000*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4014.2\n010100                                                                  IF4014.2\n010200 IF401M-END.                                                      IF4014.2\n010300                                                                  IF4014.2\n010400*TOTAL NUMBER OF FLAGS EXPECTED = 14.                             IF4014.2\n      *END-OF,IF401M                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "IF401M",
+  "stage1_division_count": 4,
+  "stage1_paragraph_count": 15,
+  "stage1_token_count": 288,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {
+      "program_id": "IF401M"
+    },
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 7,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 14,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "DATA"
+        },
+        "children": [
+          {
+            "node_type": "DataItem",
+            "line": 17,
+            "attributes": {
+              "level": 1,
+              "name": "TEMP1",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 18,
+            "attributes": {
+              "level": 1,
+              "name": "WS-ANUM",
+              "pic": "X"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 20,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 21,
+            "attributes": {
+              "name": "IF401M-ACOS"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 22,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "FUNCTION",
+                    "ACOS",
+                    "(",
+                    "1"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 23,
+                "attributes": {
+                  "verb": "CONTINUE",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 25,
+            "attributes": {
+              "name": "IF401M-ANNUITY"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 26,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "FUNCTION",
+                    "ANNUITY",
+                    "(",
+                    "0",
+                    "4",
+                    ")",
+                    "=",
+                    "FUNCTION",
+                    "ANNUITY",
+                    "(",
+                    "0",
+                    "4",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 27,
+                "attributes": {
+                  "verb": "CONTINUE",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 29,
+            "attributes": {
+              "name": "IF401M-ASIN"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 30,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "FUNCTION",
+                    "ASIN",
+                    "(",
+                    "1"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 31,
+                "attributes": {
+                  "verb": "CONTINUE",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 33,
+            "attributes": {
+              "name": "IF401M-ATAN"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 34,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "FUNCTION",
+                    "ATAN",
+                    "(",
+                    "1"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 35,
+                "attributes": {
+                  "verb": "CONTINUE",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 37,
+            "attributes": {
+              "name": "IF401M-CHAR"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 38,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "FUNCTION",
+                    "CHAR",
+                    "(",
+                    "37",
+                    ")",
+                    "TO",
+                    "WS-ANUM"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 40,
+            "attributes": {
+              "name": "IF401M-COS"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 41,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "FUNCTION",
+                    "COS",
+                    "(",
+                    "1"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 42,
+                "attributes": {
+                  "verb": "CONTINUE",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 44,
+            "attributes": {
+              "name": "IF401M-CURRENT-DATE"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 45,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "FUNCTION",
+                    "CURRENT-DATE",
+                    "TO",
+                    "TEMP1"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 47,
+            "attributes": {
+              "name": "IF401M-DATE-OF-INTEGER"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 48,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "FUNCTION",
+                    "DATE-OF-INTEGER",
+                    "(",
+                    "1",
+                    ")",
+                    "=",
+                    "FUNCTION",
+                    "DATE-OF-INTEGER",
+                    "(",
+                    "1",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 50,
+                "attributes": {
+                  "verb": "CONTINUE",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 52,
+            "attributes": {
+              "name": "IF401M-DAY-OF-INTEGER"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 53,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "FUNCTION",
+                    "DAY-OF-INTEGER",
+                    "(",
+                    "1",
+                    ")",
+                    "=",
+                    "FUNCTION",
+                    "DAY-OF-INTEGER",
+                    "(",
+                    "1",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 54,
+                "attributes": {
+                  "verb": "CONTINUE",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 56,
+            "attributes": {
+              "name": "IF401M-FACTORIAL"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 57,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "FUNCTION",
+                    "FACTORIAL",
+                    "(",
+                    "1",
+                    ")",
+                    "=",
+                    "FUNCTION",
+                    "FACTORIAL",
+                    "(",
+                    "1",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 58,
+                "attributes": {
+                  "verb": "CONTINUE",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 60,
+            "attributes": {
+              "name": "IF401M-INTEGER"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 61,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "FUNCTION",
+                    "INTEGER",
+                    "(",
+                    "1"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 62,
+                "attributes": {
+                  "verb": "CONTINUE",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 64,
+            "attributes": {
+              "name": "IF401M-INTEGER-OF-DATE"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 65,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "FUNCTION",
+                    "INTEGER-OF-DATE",
+                    "(",
+                    "16010101",
+                    ")",
+                    "=",
+                    "FUNCTION",
+                    "INTEGER-OF-DATE",
+                    "(",
+                    "16010101",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 67,
+                "attributes": {
+                  "verb": "CONTINUE",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 69,
+            "attributes": {
+              "name": "IF401M-INTEGER-OF-DAY"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 70,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "FUNCTION",
+                    "INTEGER-OF-DAY",
+                    "(",
+                    "1601001",
+                    ")",
+                    "=",
+                    "FUNCTION",
+                    "INTEGER-OF-DAY",
+                    "(",
+                    "1601001",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 72,
+                "attributes": {
+                  "verb": "CONTINUE",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 74,
+            "attributes": {
+              "name": "IF401M-INTEGER-PART"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 75,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "FUNCTION",
+                    "INTEGER-PART",
+                    "(",
+                    "4"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 77,
+                "attributes": {
+                  "verb": "CONTINUE",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 79,
+            "attributes": {
+              "name": "IF401M-END"
+            },
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "complexity_tier": "simple",
+  "complexity_score": 2.15,
+  "ast_depth": 4,
+  "unique_verbs": 3,
+  "cross_refs": 0,
+  "stage2_source": "rule-based",
+  "stage2_rule_based_code": "\"\"\"Translated from COBOL program IF401M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'temp1': '',\n    'ws_anum': '',\n})\n\ndef if401m_acos() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['acos'] ( 1:)\ndef if401m_annuity() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['annuity'] ( 0 4 ) == state['function'] state['annuity'] ( 0 4 ):)\ndef if401m_asin() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['asin'] ( 1:)\ndef if401m_atan() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['atan'] ( 1:)\ndef if401m_char() -> None:\n    state['ws_anum'] = 37\n\ndef if401m_cos() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['cos'] ( 1:)\ndef if401m_current_date() -> None:\n    state['temp1'] = state['current_date']\n\ndef if401m_date_of_integer() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['date_of_integer'] ( 1 ) == state['function'] state['date_of_integer']...)\ndef if401m_day_of_integer() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['day_of_integer'] ( 1 ) == state['function'] state['day_of_integer'] (...)\ndef if401m_factorial() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['factorial'] ( 1 ) == state['function'] state['factorial'] ( 1 ):)\ndef if401m_integer() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['integer'] ( 1:)\ndef if401m_integer_of_date() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['integer_of_date'] ( 16010101 ) == state['function'] state['integer_of...)\ndef if401m_integer_of_day() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['integer_of_day'] ( 1601001 ) == state['function'] state['integer_of_d...)\ndef if401m_integer_part() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['integer_part'] ( 4:)\ndef if401m_end() -> None:\n    pass\n\nif __name__ == \"__main__\":\n    try:\n        if401m_acos()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_neural_code": "",
+  "stage2_final_code": "\"\"\"Translated from COBOL program IF401M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'temp1': '',\n    'ws_anum': '',\n})\n\ndef if401m_acos() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['acos'] ( 1:)\ndef if401m_annuity() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['annuity'] ( 0 4 ) == state['function'] state['annuity'] ( 0 4 ):)\ndef if401m_asin() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['asin'] ( 1:)\ndef if401m_atan() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['atan'] ( 1:)\ndef if401m_char() -> None:\n    state['ws_anum'] = 37\n\ndef if401m_cos() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['cos'] ( 1:)\ndef if401m_current_date() -> None:\n    state['temp1'] = state['current_date']\n\ndef if401m_date_of_integer() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['date_of_integer'] ( 1 ) == state['function'] state['date_of_integer']...)\ndef if401m_day_of_integer() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['day_of_integer'] ( 1 ) == state['function'] state['day_of_integer'] (...)\ndef if401m_factorial() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['factorial'] ( 1 ) == state['function'] state['factorial'] ( 1 ):)\ndef if401m_integer() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['integer'] ( 1:)\ndef if401m_integer_of_date() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['integer_of_date'] ( 16010101 ) == state['function'] state['integer_of...)\ndef if401m_integer_of_day() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['integer_of_day'] ( 1601001 ) == state['function'] state['integer_of_d...)\ndef if401m_integer_part() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['integer_part'] ( 4:)\ndef if401m_end() -> None:\n    pass\n\nif __name__ == \"__main__\":\n    try:\n        if401m_acos()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_warnings": [
+    "function 'def if401m_acos() -> None:': body replaced with pass+TODO",
+    "function 'def if401m_annuity() -> None:': body replaced with pass+TODO",
+    "function 'def if401m_asin() -> None:': body replaced with pass+TODO",
+    "function 'def if401m_atan() -> None:': body replaced with pass+TODO",
+    "function 'def if401m_cos() -> None:': body replaced with pass+TODO",
+    "function 'def if401m_date_of_integer() -> None:': body replaced with pass+TODO",
+    "function 'def if401m_day_of_integer() -> None:': body replaced with pass+TODO",
+    "function 'def if401m_factorial() -> None:': body replaced with pass+TODO",
+    "function 'def if401m_integer() -> None:': body replaced with pass+TODO",
+    "function 'def if401m_integer_of_date() -> None:': body replaced with pass+TODO",
+    "function 'def if401m_integer_of_day() -> None:': body replaced with pass+TODO",
+    "function 'def if401m_integer_part() -> None:': body replaced with pass+TODO",
+    "repaired 12 unparseable line(s)"
+  ],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": false,
+  "stage3_refined_code": "",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "",
+  "stage3_error": "",
+  "verdict": "FAIL",
+  "verdict_summary": "1 check(s) failed: execution_match.",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "15/15 paragraphs found as Python functions",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "IF401M-ACOS",
+          "IF401M-ANNUITY",
+          "IF401M-ASIN",
+          "IF401M-ATAN",
+          "IF401M-CHAR",
+          "IF401M-COS",
+          "IF401M-CURRENT-DATE",
+          "IF401M-DATE-OF-INTEGER",
+          "IF401M-DAY-OF-INTEGER",
+          "IF401M-FACTORIAL",
+          "IF401M-INTEGER",
+          "IF401M-INTEGER-OF-DATE",
+          "IF401M-INTEGER-OF-DAY",
+          "IF401M-INTEGER-PART",
+          "IF401M-END"
+        ],
+        "missing": [],
+        "total": 15
+      }
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "2/2 identifiers traced into the Python",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "TEMP1",
+          "WS-ANUM"
+        ],
+        "missing": [],
+        "total": 2
+      }
+    },
+    {
+      "name": "execution_match",
+      "ran": true,
+      "passed": false,
+      "score": 0.0,
+      "detail": "stdout mismatch (cobol_compiler_not_found)",
+      "skipped_reason": "",
+      "extra": {
+        "cobol_stdout": "",
+        "python_stdout": "",
+        "cobol_returncode": -1,
+        "python_returncode": -1
+      }
+    },
+    {
+      "name": "llm_judge",
+      "ran": false,
+      "passed": null,
+      "score": null,
+      "detail": "skipped: openai: judge call failed (Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}) | anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-",
+      "skipped_reason": "openai: judge call failed (Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}) | anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CbT7KErEEKi7qtF9acFQN'})",
+      "extra": {
+        "providers_tried": [
+          "openai: judge call failed (Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}})",
+          "anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CbT7KErEEKi7qtF9acFQN'})"
+        ]
+      }
+    }
+  ],
+  "timestamp": 1779886547.626632
+}

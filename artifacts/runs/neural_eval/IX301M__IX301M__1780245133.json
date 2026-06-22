@@ -1,0 +1,510 @@
+{
+  "program_id": "IX301M",
+  "record_id": "IX301M",
+  "cobol_source": "      *HEADER,COBOL,IX301M                                                            \n000100 IDENTIFICATION DIVISION.                                         IX3014.2\n000200 PROGRAM-ID.                                                      IX3014.2\n000300      IX301M.                                                     IX3014.2\n000400*THE FOLLOWING PROGRAM TESTS THE FLAGGING OF INTERMEDIATE         IX3014.2\n000500*SUBSET FEATURES THAT ARE USED IN LEVEL 1 INDEXED                 IX3014.2\n000600*INPUT-OUTPUT.                                                    IX3014.2\n000700 ENVIRONMENT DIVISION.                                            IX3014.2\n000800 CONFIGURATION SECTION.                                           IX3014.2\n000900 SOURCE-COMPUTER.                                                 IX3014.2\n001000     XXXXX082.                                                    IX3014.2\n001100 OBJECT-COMPUTER.                                                 IX3014.2\n001200     XXXXX083.                                                    IX3014.2\n001300 INPUT-OUTPUT SECTION.                                            IX3014.2\n001400 FILE-CONTROL.                                                    IX3014.2\n001500     SELECT TFIL ASSIGN                                           IX3014.2\n001600     XXXXX024                                                     IX3014.2\n001700            ORGANIZATION IS INDEXED                               IX3014.2\n001800*Message expected for above statement: NON-CONFORMING STANDARD    IX3014.2\n001900                                                                  IX3014.2\n002000            ACCESS MODE IS RANDOM                                 IX3014.2\n002100*Message expected for above statement: NON-CONFORMING STANDARD    IX3014.2\n002200                                                                  IX3014.2\n002300            RECORD KEY IS RKEY.                                   IX3014.2\n002400*Message expected for above statement: NON-CONFORMING STANDARD    IX3014.2\n002500                                                                  IX3014.2\n002600 DATA DIVISION.                                                   IX3014.2\n002700 FILE SECTION.                                                    IX3014.2\n002800 FD  TFIL.                                                        IX3014.2\n002900 01  FREC.                                                        IX3014.2\n003000     03 RKEY  PIC X(8).                                           IX3014.2\n003100                                                                  IX3014.2\n003200 WORKING-STORAGE SECTION.                                         IX3014.2\n003300 01  VARIABLES.                                                   IX3014.2\n003400   03  STATE     PIC X(4) VALUE SPACES.                           IX3014.2\n003500                                                                  IX3014.2\n003600 PROCEDURE DIVISION.                                              IX3014.2\n003700                                                                  IX3014.2\n003800 IX301M-CONTROL.                                                  IX3014.2\n003900     OPEN I-O TFIL.                                               IX3014.2\n004000     PERFORM IX301M-READ THRU IX301M-DELETE 1 TIMES.              IX3014.2\n004100     CLOSE TFIL.                                                  IX3014.2\n004200     STOP RUN.                                                    IX3014.2\n004300                                                                  IX3014.2\n004400 IX301M-READ.                                                     IX3014.2\n004500     READ TFIL INVALID KEY PERFORM INV-PARA                       IX3014.2\n004600                 NOT INVALID KEY PERFORM DONE-PARA.               IX3014.2\n004700*Message expected for above statement: NON-CONFORMING STANDARD    IX3014.2\n004800                                                                  IX3014.2\n004900 IX301M-REWRITE.                                                  IX3014.2\n005000     REWRITE FREC INVALID KEY PERFORM INV-PARA                    IX3014.2\n005100                 NOT INVALID KEY PERFORM DONE-PARA.               IX3014.2\n005200*Message expected for above statement: NON-CONFORMING STANDARD    IX3014.2\n005300                                                                  IX3014.2\n005400 IX301M-WRITE.                                                    IX3014.2\n005500     WRITE FREC INVALID KEY PERFORM INV-PARA                      IX3014.2\n005600                 NOT INVALID KEY PERFORM DONE-PARA.               IX3014.2\n005700*Message expected for above statement: NON-CONFORMING STANDARD    IX3014.2\n005800                                                                  IX3014.2\n005900 IX301M-DELETE.                                                   IX3014.2\n006000     DELETE TFIL INVALID KEY PERFORM INV-PARA                     IX3014.2\n006100                 NOT INVALID KEY PERFORM DONE-PARA.               IX3014.2\n006200*Message expected for above statement: NON-CONFORMING STANDARD    IX3014.2\n006300                                                                  IX3014.2\n006400 INV-PARA.                                                        IX3014.2\n006500     MOVE \"INVA\" TO STATE.                                        IX3014.2\n006600                                                                  IX3014.2\n006700 DONE-PARA.                                                       IX3014.2\n006800     MOVE \"DONE\" TO STATE.                                        IX3014.2\n006900                                                                  IX3014.2\n007000*TOTAL NUMBER OF FLAGS EXPECTED = 7.                              IX3014.2\n      *END-OF,IX301M                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "IX301M",
+  "stage1_division_count": 4,
+  "stage1_paragraph_count": 7,
+  "stage1_token_count": 151,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {
+      "program_id": "IX301M"
+    },
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 4,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 20,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "DATA"
+        },
+        "children": [
+          {
+            "node_type": "DataItem",
+            "line": 23,
+            "attributes": {
+              "level": 1,
+              "name": "FREC"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 24,
+            "attributes": {
+              "level": 3,
+              "name": "RKEY",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 27,
+            "attributes": {
+              "level": 1,
+              "name": "VARIABLES"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 28,
+            "attributes": {
+              "level": 3,
+              "name": "STATE",
+              "pic": "X",
+              "value": "SPACES"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 30,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 32,
+            "attributes": {
+              "name": "IX301M-CONTROL"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 33,
+                "attributes": {
+                  "verb": "OPEN",
+                  "operands": [
+                    "I-O",
+                    "TFIL"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 34,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "IX301M-READ",
+                    "THRU",
+                    "IX301M-DELETE",
+                    "1",
+                    "TIMES"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 35,
+                "attributes": {
+                  "verb": "CLOSE",
+                  "operands": [
+                    "TFIL"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 36,
+                "attributes": {
+                  "verb": "STOP",
+                  "operands": [
+                    "RUN"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 38,
+            "attributes": {
+              "name": "IX301M-READ"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 39,
+                "attributes": {
+                  "verb": "READ",
+                  "operands": [
+                    "TFIL"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 39,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "INV-PARA"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 40,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "DONE-PARA"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 42,
+            "attributes": {
+              "name": "IX301M-REWRITE"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 43,
+                "attributes": {
+                  "verb": "REWRITE",
+                  "operands": [
+                    "FREC"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 43,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "INV-PARA"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 44,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "DONE-PARA"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 46,
+            "attributes": {
+              "name": "IX301M-WRITE"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 47,
+                "attributes": {
+                  "verb": "WRITE",
+                  "operands": [
+                    "FREC"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 47,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "INV-PARA"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 48,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "DONE-PARA"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 50,
+            "attributes": {
+              "name": "IX301M-DELETE"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 51,
+                "attributes": {
+                  "verb": "DELETE",
+                  "operands": [
+                    "TFIL"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 51,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "INV-PARA"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 52,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "DONE-PARA"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 54,
+            "attributes": {
+              "name": "INV-PARA"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 55,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"INVA\"",
+                    "TO",
+                    "STATE"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 57,
+            "attributes": {
+              "name": "DONE-PARA"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 58,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"DONE\"",
+                    "TO",
+                    "STATE"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "stage1_cobc_status": "",
+  "stage1_cobc_stderr": "",
+  "complexity_tier": "simple",
+  "complexity_score": 5.9,
+  "ast_depth": 4,
+  "unique_verbs": 9,
+  "cross_refs": 9,
+  "stage2_source": "neural",
+  "stage2_rule_based_code": "/*\n * Licensed to the Apache Software Foundation (ASF) under one\n * or more contributor license agreements.  See the NOTICE file\n * distributed with this work for additional information\n * regarding copyright ownership.  The ASF licenses this file\n * to you under the Apache License, Version 2.0 (the\n * \"License\"); you may not use this file except in compliance\n * with the License.  You may obtain a copy of the License at\n *\n *   http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing,\n * software distributed under the License is distributed on an\n * \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY\n * KIND, either express or implied.  See the License for the\n * specific language governing permissions and limitations\n * under the License.\n */\npackage org.apache.asterix.runtime.evaluators.functions;\n\nimport org.apache.asterix.om.functions.IFunctionDescriptor;\nimport org.apache.asterix.om.functions.IFunctionDescriptor",
+  "stage2_neural_code": "",
+  "stage2_final_code": "/*\n * Licensed to the Apache Software Foundation (ASF) under one\n * or more contributor license agreements.  See the NOTICE file\n * distributed with this work for additional information\n * regarding copyright ownership.  The ASF licenses this file\n * to you under the Apache License, Version 2.0 (the\n * \"License\"); you may not use this file except in compliance\n * with the License.  You may obtain a copy of the License at\n *\n *   http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing,\n * software distributed under the License is distributed on an\n * \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY\n * KIND, either express or implied.  See the License for the\n * specific language governing permissions and limitations\n * under the License.\n */\npackage org.apache.asterix.runtime.evaluators.functions;\n\nimport org.apache.asterix.om.functions.IFunctionDescriptor;\nimport org.apache.asterix.om.functions.IFunctionDescriptor",
+  "stage2_warnings": [],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": true,
+  "stage3_refined_code": "from dataclasses import dataclass\nfrom typing import List\n\n@dataclass\nclass FunctionDescriptor:\n    name: str\n    parameters: List[str]\n\ndef evaluate_function(descriptor: FunctionDescriptor, args: List[str]) -> str:\n    if descriptor.name == \"concat\":\n        return concat_function(args)\n    elif descriptor.name == \"sum\":\n        return sum_function(args)\n    else:\n        raise ValueError(\"Unknown function\")\n\ndef concat_function(args: List[str]) -> str:\n    return ''.join(args)\n\ndef sum_function(args: List[str]) -> str:\n    total = sum(int(arg) for arg in args)\n    return str(total)\n\ndef main():\n    descriptor = FunctionDescriptor(name=\"concat\", parameters=[\"arg1\", \"arg2\"])\n    result = evaluate_function(descriptor, [\"Hello, \", \"World!\"])\n    print(result)\n\n    descriptor = FunctionDescriptor(name=\"sum\", parameters=[\"arg1\", \"arg2\"])\n    result = evaluate_function(descriptor, [\"10\", \"20\"])\n    print(result)\n\nif __name__ == \"__main__\":\n    main()",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "openai",
+  "stage3_error": "",
+  "verdict": "FAIL",
+  "verdict_summary": "4 check(s) failed: paragraph_coverage, identifier_coverage, body_non_trivial, llm_judge.",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": false,
+      "score": 0.0,
+      "detail": "0/7 paragraphs found as Python functions; missing: IX301M-CONTROL, IX301M-READ, IX301M-REWRITE, IX301M-WRITE, IX301M-DELETE",
+      "skipped_reason": "",
+      "extra": {
+        "found": [],
+        "missing": [
+          "IX301M-CONTROL",
+          "IX301M-READ",
+          "IX301M-REWRITE",
+          "IX301M-WRITE",
+          "IX301M-DELETE",
+          "INV-PARA",
+          "DONE-PARA"
+        ],
+        "total": 7
+      }
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": false,
+      "score": 0.0,
+      "detail": "0/4 identifiers traced into the Python; missing: FREC, RKEY, VARIABLES, STATE",
+      "skipped_reason": "",
+      "extra": {
+        "found": [],
+        "missing": [
+          "FREC",
+          "RKEY",
+          "VARIABLES",
+          "STATE"
+        ],
+        "total": 4
+      }
+    },
+    {
+      "name": "body_non_trivial",
+      "ran": true,
+      "passed": false,
+      "score": 0.0,
+      "detail": "0/5 paragraphs have non-trivial bodies; stubbed: IX301M-CONTROL, IX301M-READ, IX301M-REWRITE, IX301M-WRITE, IX301M-DELETE",
+      "skipped_reason": "",
+      "extra": {
+        "non_trivial": [],
+        "trivial": [
+          "IX301M-CONTROL",
+          "IX301M-READ",
+          "IX301M-REWRITE",
+          "IX301M-WRITE",
+          "IX301M-DELETE"
+        ],
+        "exempt": [
+          "INV-PARA",
+          "DONE-PARA"
+        ],
+        "total_eligible": 5
+      }
+    },
+    {
+      "name": "python_smoke",
+      "ran": false,
+      "passed": null,
+      "score": null,
+      "detail": "skipped: uses I/O verbs requiring environment (DELETE, READ, REWRITE)",
+      "skipped_reason": "uses I/O verbs requiring environment (DELETE, READ, REWRITE)",
+      "extra": {}
+    },
+    {
+      "name": "execution_match",
+      "ran": false,
+      "passed": null,
+      "score": null,
+      "detail": "skipped: cobol side could not be executed (stdout_mismatch; rc=1)",
+      "skipped_reason": "cobol side could not be executed (stdout_mismatch; rc=1)",
+      "extra": {
+        "cobol_stdout": "",
+        "cobol_returncode": 1
+      }
+    },
+    {
+      "name": "llm_judge",
+      "ran": true,
+      "passed": false,
+      "score": 0.52,
+      "detail": "[openai] correctness=0.00, readability=0.60, pep8=1.00, pythonic=0.50, types=1.00",
+      "skipped_reason": "",
+      "extra": {
+        "rationale": "The translation does not maintain the behavioral fidelity to the COBOL source, which is focused on file operations and handling specific records, while the Python code implements a completely different functionality related to function evaluation. Readability is moderate due to clear naming conventions, but the context is lost. The code adheres to PEP 8 standards. Some Python idioms are used, but the overall structure is more of a literal translation of concepts rather than idiomatic Python. Type annotations are complete and correctly applied.",
+        "components": {
+          "correctness": 0.0,
+          "readability": 0.6,
+          "pep8_compliance": 1.0,
+          "pythonic_idioms": 0.5,
+          "type_annotations": 1.0,
+          "rationale": "The translation does not maintain the behavioral fidelity to the COBOL source, which is focused on file operations and handling specific records, while the Python code implements a completely different functionality related to function evaluation. Readability is moderate due to clear naming conventions, but the context is lost. The code adheres to PEP 8 standards. Some Python idioms are used, but the overall structure is more of a literal translation of concepts rather than idiomatic Python. Type annotations are complete and correctly applied.",
+          "weighted": 0.52
+        },
+        "provider_used": "openai",
+        "providers_tried": [
+          "openai: ok"
+        ]
+      }
+    }
+  ],
+  "timestamp": 1780245133.785546
+}

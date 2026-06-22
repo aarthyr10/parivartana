@@ -1,0 +1,329 @@
+{
+  "program_id": "RL302M",
+  "record_id": "RL302M",
+  "cobol_source": "      *HEADER,COBOL,RL302M                                                            \n000100 IDENTIFICATION DIVISION.                                         RL3024.2\n000200 PROGRAM-ID.                                                      RL3024.2\n000300     RL302M.                                                      RL3024.2\n000400*THE FOLLOWING PROGRAM TESTS THE FLAGGING OF                      RL3024.2\n000500*OBSOLETE FEATURES THAT ARE USED IN INTERMEDIATE SUBSET           RL3024.2\n000600*RELATIVE INPUT-OUTPUT.                                           RL3024.2\n000700*INPUT-OUTPUT.                                                    RL3024.2\n000800 ENVIRONMENT DIVISION.                                            RL3024.2\n000900 CONFIGURATION SECTION.                                           RL3024.2\n001000 SOURCE-COMPUTER.                                                 RL3024.2\n001100     XXXXX082.                                                    RL3024.2\n001200 OBJECT-COMPUTER.                                                 RL3024.2\n001300     XXXXX083.                                                    RL3024.2\n001400 INPUT-OUTPUT SECTION.                                            RL3024.2\n001500 FILE-CONTROL.                                                    RL3024.2\n001600     SELECT TFIL ASSIGN                                           RL3024.2\n001700     XXXXX021                                                     RL3024.2\n001800         ORGANIZATION IS RELATIVE                                 RL3024.2\n001900         ACCESS MODE IS RANDOM                                    RL3024.2\n002000         RELATIVE KEY IS RKEY.                                    RL3024.2\n002100                                                                  RL3024.2\n002200     SELECT SQ-FRR ASSIGN                                         RL3024.2\n002300     XXXXX013                                                     RL3024.2\n002400         ORGANIZATION IS SEQUENTIAL.                              RL3024.2\n002500                                                                  RL3024.2\n002600     SELECT RR-FS1 ASSIGN                                         RL3024.2\n002700     XXXXX021                                                     RL3024.2\n002800         ORGANIZATION IS RELATIVE.                                RL3024.2\n002900 I-O-CONTROL.                                                     RL3024.2\n003000     XXXXX053.                                                    RL3024.2\n003100*Message expected for above statement: OBSOLETE                   RL3024.2\n003200                                                                  RL3024.2\n003300 DATA DIVISION.                                                   RL3024.2\n003400 FILE SECTION.                                                    RL3024.2\n003500 FD TFIL                                                          RL3024.2\n003600     LABEL RECORDS STANDARD                                       RL3024.2\n003700*Message expected for above statement: OBSOLETE                   RL3024.2\n003800     VALUE OF                                                     RL3024.2\n003900     XXXXX074                                                     RL3024.2\n004000     IS                                                           RL3024.2\n004100     XXXXX075                                                     RL3024.2\n004200*Message expected for above statement: OBSOLETE                   RL3024.2\n004300     DATA RECORDS ARE FREC.                                       RL3024.2\n004400*Message expected for above statement: OBSOLETE                   RL3024.2\n004500                                                                  RL3024.2\n004600 01 FREC.                                                         RL3024.2\n004700     03 GUBBINS PIC 9(8).                                         RL3024.2\n004800                                                                  RL3024.2\n004900 FD SQ-FRR.                                                       RL3024.2\n005000 01 SREC.                                                         RL3024.2\n005100    03  SKEY    PIC X(8).                                         RL3024.2\n005200                                                                  RL3024.2\n005300 FD RR-FS1.                                                       RL3024.2\n005400 01 RREC.                                                         RL3024.2\n005500    03  FKEY    PIC X(8).                                         RL3024.2\n005600                                                                  RL3024.2\n005700 WORKING-STORAGE SECTION.                                         RL3024.2\n005800                                                                  RL3024.2\n005900 01 VARIABLES.                                                    RL3024.2\n006000     03 RKEY PIC 9(8) VALUE ZERO.                                 RL3024.2\n006100     03 VKEY PIC 9(8) VALUE ZERO.                                 RL3024.2\n006200     03 DKEY PIC 9(8) VALUE ZERO.                                 RL3024.2\n006300                                                                  RL3024.2\n006400 PROCEDURE DIVISION.                                              RL3024.2\n006500                                                                  RL3024.2\n006600 RL302M-CONTROL.                                                  RL3024.2\n006700     DISPLAY \"THIS IS A DUMMY PARAGRAPH\".                         RL3024.2\n006800     STOP RUN.                                                    RL3024.2\n006900                                                                  RL3024.2\n007000*TOTAL NUMBER OF FLAGS EXPECTED = 4.                              RL3024.2\n      *END-OF,RL302M                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "RL302M",
+  "stage1_division_count": 4,
+  "stage1_paragraph_count": 1,
+  "stage1_token_count": 170,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {
+      "program_id": "RL302M"
+    },
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 4,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 28,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "DATA"
+        },
+        "children": [
+          {
+            "node_type": "DataItem",
+            "line": 38,
+            "attributes": {
+              "level": 1,
+              "name": "FREC"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 39,
+            "attributes": {
+              "level": 3,
+              "name": "GUBBINS",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 42,
+            "attributes": {
+              "level": 1,
+              "name": "SREC"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 43,
+            "attributes": {
+              "level": 3,
+              "name": "SKEY",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 46,
+            "attributes": {
+              "level": 1,
+              "name": "RREC"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 47,
+            "attributes": {
+              "level": 3,
+              "name": "FKEY",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 51,
+            "attributes": {
+              "level": 1,
+              "name": "VARIABLES"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 52,
+            "attributes": {
+              "level": 3,
+              "name": "RKEY",
+              "pic": "9",
+              "value": "ZERO"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 53,
+            "attributes": {
+              "level": 3,
+              "name": "VKEY",
+              "pic": "9",
+              "value": "ZERO"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 54,
+            "attributes": {
+              "level": 3,
+              "name": "DKEY",
+              "pic": "9",
+              "value": "ZERO"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 56,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 58,
+            "attributes": {
+              "name": "RL302M-CONTROL"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 59,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\"THIS IS A DUMMY PARAGRAPH\""
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 60,
+                "attributes": {
+                  "verb": "STOP",
+                  "operands": [
+                    "RUN"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "stage1_cobc_status": "",
+  "stage1_cobc_stderr": "",
+  "complexity_tier": "simple",
+  "complexity_score": 1.9,
+  "ast_depth": 4,
+  "unique_verbs": 2,
+  "cross_refs": 0,
+  "stage2_source": "neural",
+  "stage2_rule_based_code": "/*\n * Licensed to the Apache Software Foundation (ASF) under one\n * or more contributor license agreements.  See the NOTICE file\n * distributed with this work for additional information\n * regarding copyright ownership.  The ASF licenses this file\n * to you under the Apache License, Version 2.0 (the\n * \"License\"); you may not use this file except in compliance\n * with the License.  You may obtain a copy of the License at\n *\n *   http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing,\n * software distributed under the License is distributed on an\n * \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY\n * KIND, either express or implied.  See the License for the\n * specific language governing permissions and limitations\n * under the License.\n */\npackage org.apache.asterix.runtime.evaluators.functions;\n\nimport org.apache.asterix.om.functions.BuiltinFunctions;\nimport org.apache.asterix.om.functions.IFunctionDescriptor;",
+  "stage2_neural_code": "",
+  "stage2_final_code": "/*\n * Licensed to the Apache Software Foundation (ASF) under one\n * or more contributor license agreements.  See the NOTICE file\n * distributed with this work for additional information\n * regarding copyright ownership.  The ASF licenses this file\n * to you under the Apache License, Version 2.0 (the\n * \"License\"); you may not use this file except in compliance\n * with the License.  You may obtain a copy of the License at\n *\n *   http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing,\n * software distributed under the License is distributed on an\n * \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY\n * KIND, either express or implied.  See the License for the\n * specific language governing permissions and limitations\n * under the License.\n */\npackage org.apache.asterix.runtime.evaluators.functions;\n\nimport org.apache.asterix.om.functions.BuiltinFunctions;\nimport org.apache.asterix.om.functions.IFunctionDescriptor;",
+  "stage2_warnings": [],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": true,
+  "stage3_refined_code": "from dataclasses import dataclass\nfrom typing import List\n\n@dataclass\nclass FunctionDescriptor:\n    name: str\n    parameters: List[str]\n\ndef main() -> None:\n    function_descriptors = [\n        FunctionDescriptor(name=\"function1\", parameters=[\"param1\", \"param2\"]),\n        FunctionDescriptor(name=\"function2\", parameters=[\"param1\"])\n    ]\n    display_function_descriptors(function_descriptors)\n\ndef display_function_descriptors(function_descriptors: List[FunctionDescriptor]) -> None:\n    for descriptor in function_descriptors:\n        print(f\"Function Name: {descriptor.name}\")\n        print(\"Parameters: \", end=\"\")\n        for param in descriptor.parameters:\n            print(param, end=\" \")\n        print()\n\nif __name__ == \"__main__\":\n    main()",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "openai",
+  "stage3_error": "",
+  "verdict": "FAIL",
+  "verdict_summary": "4 check(s) failed: paragraph_coverage, identifier_coverage, body_non_trivial, llm_judge.",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": false,
+      "score": 0.0,
+      "detail": "0/1 paragraphs found as Python functions; missing: RL302M-CONTROL",
+      "skipped_reason": "",
+      "extra": {
+        "found": [],
+        "missing": [
+          "RL302M-CONTROL"
+        ],
+        "total": 1
+      }
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": false,
+      "score": 0.0,
+      "detail": "0/10 identifiers traced into the Python; missing: FREC, GUBBINS, SREC, SKEY, RREC",
+      "skipped_reason": "",
+      "extra": {
+        "found": [],
+        "missing": [
+          "FREC",
+          "GUBBINS",
+          "SREC",
+          "SKEY",
+          "RREC",
+          "FKEY",
+          "VARIABLES",
+          "RKEY",
+          "VKEY",
+          "DKEY"
+        ],
+        "total": 10
+      }
+    },
+    {
+      "name": "body_non_trivial",
+      "ran": true,
+      "passed": false,
+      "score": 0.0,
+      "detail": "0/1 paragraphs have non-trivial bodies; stubbed: RL302M-CONTROL",
+      "skipped_reason": "",
+      "extra": {
+        "non_trivial": [],
+        "trivial": [
+          "RL302M-CONTROL"
+        ],
+        "exempt": [],
+        "total_eligible": 1
+      }
+    },
+    {
+      "name": "python_smoke",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "ran cleanly",
+      "skipped_reason": "",
+      "extra": {
+        "exit_code": 0,
+        "stdout_bytes": 97,
+        "stderr_bytes": 0,
+        "stderr_head": ""
+      }
+    },
+    {
+      "name": "execution_match",
+      "ran": false,
+      "passed": null,
+      "score": null,
+      "detail": "skipped: cobol side could not be executed (stdout_mismatch; rc=1)",
+      "skipped_reason": "cobol side could not be executed (stdout_mismatch; rc=1)",
+      "extra": {
+        "cobol_stdout": "/var/folders/rl/r9ygvg0x7_l7sdtfq9pq99fm0000gn/T/tmpn872rqin/program.cob:17: error: missing file description for FILE TFIL\n   15 | 001400 INPUT-OUTPUT SECTION.                                            R..\n   16 | 001500 FILE-CONTROL.                                                    R..\n   17 > 001600     SELECT TFIL ASSIGN                                           R..\n   18 | 001700     XXXXX0",
+        "cobol_returncode": 1
+      }
+    },
+    {
+      "name": "llm_judge",
+      "ran": true,
+      "passed": false,
+      "score": 0.54,
+      "detail": "[openai] correctness=0.00, readability=0.70, pep8=1.00, pythonic=0.50, types=1.00",
+      "skipped_reason": "",
+      "extra": {
+        "rationale": "The Python translation does not maintain the behavioral fidelity to the COBOL source, as it introduces a completely different structure and functionality that is unrelated to the original COBOL program's purpose. While the code is readable and follows PEP 8 guidelines, it does not use Python idioms effectively, as it translates COBOL constructs into a different context without preserving the original logic. Type annotations are complete, but the overall correctness is severely lacking.",
+        "components": {
+          "correctness": 0.0,
+          "readability": 0.7,
+          "pep8_compliance": 1.0,
+          "pythonic_idioms": 0.5,
+          "type_annotations": 1.0,
+          "rationale": "The Python translation does not maintain the behavioral fidelity to the COBOL source, as it introduces a completely different structure and functionality that is unrelated to the original COBOL program's purpose. While the code is readable and follows PEP 8 guidelines, it does not use Python idioms effectively, as it translates COBOL constructs into a different context without preserving the original logic. Type annotations are complete, but the overall correctness is severely lacking.",
+          "weighted": 0.54
+        },
+        "provider_used": "openai",
+        "providers_tried": [
+          "openai: ok"
+        ]
+      }
+    }
+  ],
+  "timestamp": 1780244699.472076
+}

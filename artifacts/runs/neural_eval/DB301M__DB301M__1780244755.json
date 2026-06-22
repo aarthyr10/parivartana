@@ -1,0 +1,279 @@
+{
+  "program_id": "DB301M",
+  "record_id": "DB301M",
+  "cobol_source": "      *HEADER,COBOL,DB301M                                                            \n000100 IDENTIFICATION DIVISION.                                         DB3014.2\n000200 PROGRAM-ID.                                                      DB3014.2\n000300     DB301M.                                                      DB3014.2\n000400*THE FOLLOWING PROGRAM TESTS THE FLAGGING OF LEVEL 1              DB3014.2\n000500*FEATURES OF THE DEBUGGING MODULE.                                DB3014.2\n000600 ENVIRONMENT DIVISION.                                            DB3014.2\n000700 CONFIGURATION SECTION.                                           DB3014.2\n000800 SOURCE-COMPUTER.                                                 DB3014.2\n000900     XXXXX082                                                     DB3014.2\n001000     WITH DEBUGGING MODE.                                         DB3014.2\n001100 OBJECT-COMPUTER.                                                 DB3014.2\n001200     XXXXX083.                                                    DB3014.2\n001300 INPUT-OUTPUT SECTION.                                            DB3014.2\n001400 FILE-CONTROL.                                                    DB3014.2\n001500     SELECT TFIL ASSIGN                                           DB3014.2\n001600     XXXXX014                                                     DB3014.2\n001700         ORGANIZATION IS SEQUENTIAL                               DB3014.2\n001800         ACCESS MODE IS SEQUENTIAL.                               DB3014.2\n001900 DATA DIVISION.                                                   DB3014.2\n002000 FILE SECTION.                                                    DB3014.2\n002100 FD TFIL.                                                         DB3014.2\n002200 01 FREC.                                                         DB3014.2\n002300     03 RKEY PIC 9(8).                                            DB3014.2\n002400                                                                  DB3014.2\n002500 PROCEDURE DIVISION.                                              DB3014.2\n002600                                                                  DB3014.2\n002700 DECLARATIVES.                                                    DB3014.2\n002800                                                                  DB3014.2\n002900                                                                  DB3014.2\n003000 BUGGING-2 SECTION.                                               DB3014.2\n003100                                                                  DB3014.2\n003200                                                                  DB3014.2\n003300     USE FOR DEBUGGING ON ALL PROCEDURES.                         DB3014.2\n003400*Message expected for above statement: NON-CONFORMING STANDARD    DB3014.2\n003500                                                                  DB3014.2\n003600                                                                  DB3014.2\n003700 END DECLARATIVES.                                                DB3014.2\n003800                                                                  DB3014.2\n003900 DB301M-FLAGS SECTION.                                            DB3014.2\n004000 DB301M-CONTROL.                                                  DB3014.2\n004100     DISPLAY \"THIS IS A DUMMY PROCEDURE\".                         DB3014.2\n004200     STOP RUN.                                                    DB3014.2\n004300                                                                  DB3014.2\n004400                                                                  DB3014.2\n004500*TOTAL NUMBER OF FLAGS EXPECTED = 1.                              DB3014.2\n      *END-OF,DB301M                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "DB301M",
+  "stage1_division_count": 4,
+  "stage1_paragraph_count": 3,
+  "stage1_token_count": 91,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {
+      "program_id": "DB301M"
+    },
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 4,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 17,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "DATA"
+        },
+        "children": [
+          {
+            "node_type": "DataItem",
+            "line": 20,
+            "attributes": {
+              "level": 1,
+              "name": "FREC"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 21,
+            "attributes": {
+              "level": 3,
+              "name": "RKEY",
+              "pic": "9"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 23,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 25,
+            "attributes": {
+              "name": "DECLARATIVES"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 31,
+                "attributes": {
+                  "verb": "USE",
+                  "operands": [
+                    "FOR",
+                    "DEBUGGING",
+                    "ON",
+                    "ALL",
+                    "PROCEDURES"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 34,
+            "attributes": {
+              "name": "DECLARATIVES"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 37,
+            "attributes": {
+              "name": "DB301M-CONTROL"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 38,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\"THIS IS A DUMMY PROCEDURE\""
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 39,
+                "attributes": {
+                  "verb": "STOP",
+                  "operands": [
+                    "RUN"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "stage1_cobc_status": "",
+  "stage1_cobc_stderr": "",
+  "complexity_tier": "simple",
+  "complexity_score": 2.15,
+  "ast_depth": 4,
+  "unique_verbs": 3,
+  "cross_refs": 0,
+  "stage2_source": "neural",
+  "stage2_rule_based_code": "/*\n * Licensed to the Apache Software Foundation (ASF) under one or more\n * contributor license agreements.  See the NOTICE file distributed with\n * this work for additional information regarding copyright ownership.\n * The ASF licenses this file to You under the Apache License, Version 2.0\n * (the \"License\"); you may not use this file except in compliance with\n * the License.  You may obtain a copy of the License at\n *\n *      http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n */\npackage org.apache.camel.component.db301m;\n\nimport org.apache.camel.Exchange;\nimport org.apache.camel.Processor;\nimport org.apache.camel.builder.RouteBuilder;\nimport org.apache.camel.",
+  "stage2_neural_code": "",
+  "stage2_final_code": "/*\n * Licensed to the Apache Software Foundation (ASF) under one or more\n * contributor license agreements.  See the NOTICE file distributed with\n * this work for additional information regarding copyright ownership.\n * The ASF licenses this file to You under the Apache License, Version 2.0\n * (the \"License\"); you may not use this file except in compliance with\n * the License.  You may obtain a copy of the License at\n *\n *      http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n */\npackage org.apache.camel.component.db301m;\n\nimport org.apache.camel.Exchange;\nimport org.apache.camel.Processor;\nimport org.apache.camel.builder.RouteBuilder;\nimport org.apache.camel.",
+  "stage2_warnings": [],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": true,
+  "stage3_refined_code": "from typing import Dict\n\ndef main() -> None:\n    state = {\n        'input_value': 0,\n        'result': 0\n    }\n    perform_calculation(state)\n    display_result(state)\n\ndef perform_calculation(state: Dict[str, int]) -> None:\n    state['result'] = state['input_value'] * 2\n\ndef display_result(state: Dict[str, int]) -> None:\n    print(f\"Result: {state['result']}\")\n\nif __name__ == \"__main__\":\n    main()",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "openai",
+  "stage3_error": "",
+  "verdict": "FAIL",
+  "verdict_summary": "5 check(s) failed: paragraph_coverage, identifier_coverage, body_non_trivial, execution_match, llm_judge.",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": false,
+      "score": 0.0,
+      "detail": "0/3 paragraphs found as Python functions; missing: DECLARATIVES, DECLARATIVES, DB301M-CONTROL",
+      "skipped_reason": "",
+      "extra": {
+        "found": [],
+        "missing": [
+          "DECLARATIVES",
+          "DECLARATIVES",
+          "DB301M-CONTROL"
+        ],
+        "total": 3
+      }
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": false,
+      "score": 0.0,
+      "detail": "0/2 identifiers traced into the Python; missing: FREC, RKEY",
+      "skipped_reason": "",
+      "extra": {
+        "found": [],
+        "missing": [
+          "FREC",
+          "RKEY"
+        ],
+        "total": 2
+      }
+    },
+    {
+      "name": "body_non_trivial",
+      "ran": true,
+      "passed": false,
+      "score": 0.0,
+      "detail": "0/1 paragraphs have non-trivial bodies; stubbed: DB301M-CONTROL",
+      "skipped_reason": "",
+      "extra": {
+        "non_trivial": [],
+        "trivial": [
+          "DB301M-CONTROL"
+        ],
+        "exempt": [
+          "DECLARATIVES"
+        ],
+        "total_eligible": 1
+      }
+    },
+    {
+      "name": "python_smoke",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "ran cleanly",
+      "skipped_reason": "",
+      "extra": {
+        "exit_code": 0,
+        "stdout_bytes": 10,
+        "stderr_bytes": 0,
+        "stderr_head": ""
+      }
+    },
+    {
+      "name": "execution_match",
+      "ran": true,
+      "passed": false,
+      "score": 0.0,
+      "detail": "stdout mismatch (stdout_mismatch)",
+      "skipped_reason": "",
+      "extra": {
+        "cobol_stdout": "THIS IS A DUMMY PROCEDURE\n",
+        "python_stdout": "Result: 0\n",
+        "cobol_returncode": 0,
+        "python_returncode": 0
+      }
+    },
+    {
+      "name": "llm_judge",
+      "ran": true,
+      "passed": false,
+      "score": 0.53,
+      "detail": "[openai] correctness=0.20, readability=0.60, pep8=0.80, pythonic=0.40, types=1.00",
+      "skipped_reason": "",
+      "extra": {
+        "rationale": "The translation does not accurately reflect the behavior of the COBOL program, which primarily displays a message and stops execution. The Python version introduces a calculation and state management that is not present in the COBOL source. Readability is moderate, with some clarity in naming but lacking context from the original COBOL. The code mostly follows PEP 8 guidelines, but could improve in spacing and line length. It uses some Python idioms, but the overall structure is too literal and does not leverage Python's strengths. Type annotations are complete and correctly applied.",
+        "components": {
+          "correctness": 0.2,
+          "readability": 0.6,
+          "pep8_compliance": 0.8,
+          "pythonic_idioms": 0.4,
+          "type_annotations": 1.0,
+          "rationale": "The translation does not accurately reflect the behavior of the COBOL program, which primarily displays a message and stops execution. The Python version introduces a calculation and state management that is not present in the COBOL source. Readability is moderate, with some clarity in naming but lacking context from the original COBOL. The code mostly follows PEP 8 guidelines, but could improve in spacing and line length. It uses some Python idioms, but the overall structure is too literal and does not leverage Python's strengths. Type annotations are complete and correctly applied.",
+          "weighted": 0.53
+        },
+        "provider_used": "openai",
+        "providers_tried": [
+          "openai: ok"
+        ]
+      }
+    }
+  ],
+  "timestamp": 1780244755.409376
+}

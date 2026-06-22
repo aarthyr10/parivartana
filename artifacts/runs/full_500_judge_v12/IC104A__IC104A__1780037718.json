@@ -1,0 +1,447 @@
+{
+  "program_id": "IC104A",
+  "record_id": "IC104A",
+  "cobol_source": "      *HEADER,COBOL,IC103A,SUBRTN,IC104A                                              \n000100 IDENTIFICATION DIVISION.                                         IC1044.2\n000200 PROGRAM-ID.                                                      IC1044.2\n000300     IC104A.                                                      IC1044.2\n000400****************************************************************  IC1044.2\n000500*                                                              *  IC1044.2\n000600*    VALIDATION FOR:-                                          *  IC1044.2\n000700*                                                              *  IC1044.2\n000800*    \"ON-SITE VALIDATION, NATIONAL INSTITUTE OF STD & TECH.     \".IC1044.2\n000900*                                                              *  IC1044.2\n001000*    \"COBOL 85 VERSION 4.2, Apr  1993 SSVG                      \".IC1044.2\n001100*                                                              *  IC1044.2\n001200****************************************************************  IC1044.2\n001300*                                                              *  IC1044.2\n001400*      X-CARDS USED BY THIS PROGRAM ARE :-                     *  IC1044.2\n001500*                                                              *  IC1044.2\n001600*        X-55  - SYSTEM PRINTER NAME.                          *  IC1044.2\n001700*        X-82  - SOURCE COMPUTER NAME.                         *  IC1044.2\n001800*        X-83  - OBJECT COMPUTER NAME.                         *  IC1044.2\n001900*                                                              *  IC1044.2\n002000****************************************************************  IC1044.2\n002100*        THE SUBPROGRAM IC104 HAS THREE OPERANDS IN THE           IC1044.2\n002200*    USING PHRASE OF THE PROCEDURE DIVISION HEADER.  TWO          IC1044.2\n002300*    OPERANDS ARE 01 GROUP ITEMS AND THE THIRD OPERAND IS         IC1044.2\n002400*    AN ELEMENTARY 77 ITEM.  THE DATA DESCRIPTIONS OF THESE       IC1044.2\n002500*    OPERANDS IN THE LINKAGE SECTION ARE NOT THE SAME AS THE      IC1044.2\n002600*    DATA DESCRIPTIONS IN THE WORKING-STORAGE SECTION OF THE      IC1044.2\n002700*    CALLING PROGRAM, BUT AN EQUAL NUMBER OF CHARACTER            IC1044.2\n002800*    POSITIONS ARE DEFINED.  THE CALLING PROGRAM IS IC103.        IC1044.2\n002900 ENVIRONMENT DIVISION.                                            IC1044.2\n003000 CONFIGURATION SECTION.                                           IC1044.2\n003100 SOURCE-COMPUTER.                                                 IC1044.2\n003200     XXXXX082.                                                    IC1044.2\n003300 OBJECT-COMPUTER.                                                 IC1044.2\n003400     XXXXX083.                                                    IC1044.2\n003500 INPUT-OUTPUT SECTION.                                            IC1044.2\n003600 FILE-CONTROL.                                                    IC1044.2\n003700     SELECT PRINT-FILE ASSIGN TO                                  IC1044.2\n003800     XXXXX055.                                                    IC1044.2\n003900 DATA DIVISION.                                                   IC1044.2\n004000 FILE SECTION.                                                    IC1044.2\n004100 FD  PRINT-FILE.                                                  IC1044.2\n004200 01  PRINT-REC PICTURE X(120).                                    IC1044.2\n004300 01  DUMMY-RECORD PICTURE X(120).                                 IC1044.2\n004400 WORKING-STORAGE SECTION.                                         IC1044.2\n004500 01  CONSTANT-VALUES.                                             IC1044.2\n004600     02  AN-CONSTANT PIC X(5) VALUE \"IC104\".                      IC1044.2\n004700     02  NUM-CONSTANT PIC 99V9999 VALUE 0.7654.                   IC1044.2\n004800 LINKAGE SECTION.                                                 IC1044.2\n004900 01  GRP-01.                                                      IC1044.2\n005000     02  AN-FIELD PICTURE X(5).                                   IC1044.2\n005100     02  NUM-DISPLAY PIC 99.                                      IC1044.2\n005200     02  GRP-LEVEL.                                               IC1044.2\n005300         03  A-FIELD PICTURE A(3).                                IC1044.2\n005400 77  ELEM-01 PIC  V9(4) COMPUTATIONAL.                            IC1044.2\n005500 01  GRP-02.                                                      IC1044.2\n005600     02  GRP-03.                                                  IC1044.2\n005700         03  NUM-ITEM PICTURE S99.                                IC1044.2\n005800         03  EDITED-FIELD  PIC XXBX0X.                            IC1044.2\n005900 PROCEDURE DIVISION USING GRP-01 ELEM-01 GRP-02.                  IC1044.2\n006000 SECT-IC104-0001 SECTION.                                         IC1044.2\n006100*        THIS SECTION SETS THE PARAMETER FIELDS REFERRED TO       IC1044.2\n006200*    IN THE USING PHRASE AND DEFINED IN THE LINKAGE SECTION.      IC1044.2\n006300 CALL-TEST-06.                                                    IC1044.2\n006400     MOVE AN-CONSTANT TO AN-FIELD.                                IC1044.2\n006500     ADD 25 TO NUM-DISPLAY.                                       IC1044.2\n006600     MOVE \"YES\" TO A-FIELD.                                       IC1044.2\n006700     MOVE NUM-CONSTANT TO ELEM-01.                                IC1044.2\n006800     MOVE NUM-DISPLAY TO NUM-ITEM.                                IC1044.2\n006900     MOVE \"ABCD\" TO EDITED-FIELD.                                 IC1044.2\n007000 CALL-EXIT-06.                                                    IC1044.2\n007100     EXIT PROGRAM.                                                IC1044.2\n      *END-OF,IC104A                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "IC104A",
+  "stage1_division_count": 4,
+  "stage1_paragraph_count": 3,
+  "stage1_token_count": 185,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {
+      "program_id": "IC104A"
+    },
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 4,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 14,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "DATA"
+        },
+        "children": [
+          {
+            "node_type": "DataItem",
+            "line": 17,
+            "attributes": {
+              "level": 1,
+              "name": "PRINT-REC",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 18,
+            "attributes": {
+              "level": 1,
+              "name": "DUMMY-RECORD",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 20,
+            "attributes": {
+              "level": 1,
+              "name": "CONSTANT-VALUES"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 21,
+            "attributes": {
+              "level": 2,
+              "name": "AN-CONSTANT",
+              "pic": "X",
+              "value": "\"IC104\""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 22,
+            "attributes": {
+              "level": 2,
+              "name": "NUM-CONSTANT",
+              "pic": "99V9999",
+              "value": "0"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 24,
+            "attributes": {
+              "level": 1,
+              "name": "GRP-01"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 25,
+            "attributes": {
+              "level": 2,
+              "name": "AN-FIELD",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 26,
+            "attributes": {
+              "level": 2,
+              "name": "NUM-DISPLAY",
+              "pic": "99"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 27,
+            "attributes": {
+              "level": 2,
+              "name": "GRP-LEVEL"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 28,
+            "attributes": {
+              "level": 3,
+              "name": "A-FIELD",
+              "pic": "A"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 29,
+            "attributes": {
+              "level": 77,
+              "name": "ELEM-01",
+              "pic": "V9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 30,
+            "attributes": {
+              "level": 1,
+              "name": "GRP-02"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 31,
+            "attributes": {
+              "level": 2,
+              "name": "GRP-03"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 32,
+            "attributes": {
+              "level": 3,
+              "name": "NUM-ITEM",
+              "pic": "S99"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 33,
+            "attributes": {
+              "level": 3,
+              "name": "EDITED-FIELD",
+              "pic": "XXBX0X"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 34,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 34,
+            "attributes": {
+              "name": "GRP-02"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 36,
+            "attributes": {
+              "name": "CALL-TEST-06"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 37,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "AN-CONSTANT",
+                    "TO",
+                    "AN-FIELD"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 38,
+                "attributes": {
+                  "verb": "ADD",
+                  "operands": [
+                    "25",
+                    "TO",
+                    "NUM-DISPLAY"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 39,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"YES\"",
+                    "TO",
+                    "A-FIELD"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 40,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "NUM-CONSTANT",
+                    "TO",
+                    "ELEM-01"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 41,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "NUM-DISPLAY",
+                    "TO",
+                    "NUM-ITEM"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 42,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"ABCD\"",
+                    "TO",
+                    "EDITED-FIELD"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 43,
+            "attributes": {
+              "name": "CALL-EXIT-06"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 44,
+                "attributes": {
+                  "verb": "EXIT",
+                  "operands": [
+                    "PROGRAM"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "stage1_cobc_status": "",
+  "stage1_cobc_stderr": "",
+  "complexity_tier": "simple",
+  "complexity_score": 2.15,
+  "ast_depth": 4,
+  "unique_verbs": 3,
+  "cross_refs": 0,
+  "stage2_source": "rule-based",
+  "stage2_rule_based_code": "\"\"\"Translated from COBOL program IC104A.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nfrom decimal import Decimal\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'print_rec': \" \",\n    'dummy_record': \" \",\n    'constant_values': None,\n    'an_constant': \"IC104\",\n    'num_constant': 0,\n    'grp_01': None,\n    'an_field': \" \",\n    'num_display': 0,\n    'grp_level': None,\n    'a_field': \" \",\n    'elem_01': Decimal(\"0.0\"),\n    'grp_02': None,\n    'grp_03': None,\n    'num_item': 0,\n    'edited_field': '',\n})\n\ndef grp_02() -> None:\n    pass\n\ndef call_test_06() -> None:\n    state['an_field'] = state['an_constant']\n    state['num_display'] = state['num_display'] + 25\n    state['a_field'] = \"YES\"\n    state['elem_01'] = state['num_constant']\n    state['num_item'] = state['num_display']\n    state['edited_field'] = \"ABCD\"\n\ndef call_exit_06() -> None:\n    return\n\nif __name__ == \"__main__\":\n    try:\n        grp_02()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_neural_code": "",
+  "stage2_final_code": "\"\"\"Translated from COBOL program IC104A.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nfrom decimal import Decimal\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'print_rec': \" \",\n    'dummy_record': \" \",\n    'constant_values': None,\n    'an_constant': \"IC104\",\n    'num_constant': 0,\n    'grp_01': None,\n    'an_field': \" \",\n    'num_display': 0,\n    'grp_level': None,\n    'a_field': \" \",\n    'elem_01': Decimal(\"0.0\"),\n    'grp_02': None,\n    'grp_03': None,\n    'num_item': 0,\n    'edited_field': '',\n})\n\ndef grp_02() -> None:\n    pass\n\ndef call_test_06() -> None:\n    state['an_field'] = state['an_constant']\n    state['num_display'] = state['num_display'] + 25\n    state['a_field'] = \"YES\"\n    state['elem_01'] = state['num_constant']\n    state['num_item'] = state['num_display']\n    state['edited_field'] = \"ABCD\"\n\ndef call_exit_06() -> None:\n    return\n\nif __name__ == \"__main__\":\n    try:\n        grp_02()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_warnings": [],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": false,
+  "stage3_refined_code": "",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "",
+  "stage3_error": "",
+  "verdict": "PASS",
+  "verdict_summary": "All 5 active check(s) passed.",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "3/3 paragraphs found as Python functions",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "GRP-02",
+          "CALL-TEST-06",
+          "CALL-EXIT-06"
+        ],
+        "missing": [],
+        "total": 3
+      }
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "15/15 identifiers traced into the Python",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "PRINT-REC",
+          "DUMMY-RECORD",
+          "CONSTANT-VALUES",
+          "AN-CONSTANT",
+          "NUM-CONSTANT",
+          "GRP-01",
+          "AN-FIELD",
+          "NUM-DISPLAY",
+          "GRP-LEVEL",
+          "A-FIELD",
+          "ELEM-01",
+          "GRP-02",
+          "GRP-03",
+          "NUM-ITEM",
+          "EDITED-FIELD"
+        ],
+        "missing": [],
+        "total": 15
+      }
+    },
+    {
+      "name": "body_non_trivial",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "1/1 paragraphs have non-trivial bodies",
+      "skipped_reason": "",
+      "extra": {
+        "non_trivial": [
+          "CALL-TEST-06"
+        ],
+        "trivial": [],
+        "exempt": [
+          "GRP-02",
+          "CALL-EXIT-06"
+        ],
+        "total_eligible": 1
+      }
+    },
+    {
+      "name": "python_smoke",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "ran cleanly",
+      "skipped_reason": "",
+      "extra": {
+        "exit_code": 0,
+        "stdout_bytes": 0,
+        "stderr_bytes": 0,
+        "stderr_head": ""
+      }
+    },
+    {
+      "name": "execution_match",
+      "ran": false,
+      "passed": null,
+      "score": null,
+      "detail": "skipped: cobol side could not be executed (stdout_mismatch; rc=1)",
+      "skipped_reason": "cobol side could not be executed (stdout_mismatch; rc=1)",
+      "extra": {
+        "cobol_stdout": "/var/folders/rl/r9ygvg0x7_l7sdtfq9pq99fm0000gn/T/tmpn3dluvs1/program.cob:61: error: executable program requested but PROCEDURE/ENTRY has USING clause\n   59 | 005800         03  EDITED-FIELD  PIC XXBX0X.                            I..\n   60 | 005900 PROCEDURE DIVISION USING GRP-01 ELEM-01 GRP-02.                  I..\n   61 > 006000 SECT-IC104-0001 SECTION.                                         I.",
+        "cobol_returncode": 1
+      }
+    }
+  ],
+  "timestamp": 1780037718.5061371
+}

@@ -1,0 +1,296 @@
+{
+  "program_id": "IC109A",
+  "record_id": "IC109A",
+  "cobol_source": "      *HEADER,COBOL,IC108A,SUBRTN,IC109A                                              \n000100 IDENTIFICATION DIVISION.                                         IC1094.2\n000200 PROGRAM-ID.                                                      IC1094.2\n000300     IC109A.                                                      IC1094.2\n000400****************************************************************  IC1094.2\n000500*                                                              *  IC1094.2\n000600*    VALIDATION FOR:-                                          *  IC1094.2\n000700*                                                              *  IC1094.2\n000800*    \"ON-SITE VALIDATION, NATIONAL INSTITUTE OF STD & TECH.     \".IC1094.2\n000900*                                                              *  IC1094.2\n001000*    \"COBOL 85 VERSION 4.2, Apr  1993 SSVG                      \".IC1094.2\n001100*                                                              *  IC1094.2\n001200****************************************************************  IC1094.2\n001300*                                                              *  IC1094.2\n001400*      X-CARDS USED BY THIS PROGRAM ARE :-                     *  IC1094.2\n001500*                                                              *  IC1094.2\n001600*        X-55  - SYSTEM PRINTER NAME.                          *  IC1094.2\n001700*        X-82  - SOURCE COMPUTER NAME.                         *  IC1094.2\n001800*        X-83  - OBJECT COMPUTER NAME.                         *  IC1094.2\n001900*                                                              *  IC1094.2\n002000****************************************************************  IC1094.2\n002100*        THE SUBPROGRAM IC109 IS THE FIRST SUBPROGRAM IN A        IC1094.2\n002200*    SEQUENCE OF CALLS WHICH START IN THE MAIN PROGRAM IC108.     IC1094.2\n002300*    IC109 CALLS IC110 WITH ONE OPERAND IN THE WORKING-STORAGE    IC1094.2\n002400*    SECTION AND ONE OPERAND IN THE LINKAGE SECTION.              IC1094.2\n002500 ENVIRONMENT DIVISION.                                            IC1094.2\n002600 CONFIGURATION SECTION.                                           IC1094.2\n002700 SOURCE-COMPUTER.                                                 IC1094.2\n002800     XXXXX082.                                                    IC1094.2\n002900 OBJECT-COMPUTER.                                                 IC1094.2\n003000     XXXXX083.                                                    IC1094.2\n003100 INPUT-OUTPUT SECTION.                                            IC1094.2\n003200 FILE-CONTROL.                                                    IC1094.2\n003300     SELECT PRINT-FILE ASSIGN TO                                  IC1094.2\n003400     XXXXX055.                                                    IC1094.2\n003500 DATA DIVISION.                                                   IC1094.2\n003600 FILE SECTION.                                                    IC1094.2\n003700 FD  PRINT-FILE.                                                  IC1094.2\n003800 01  PRINT-REC PICTURE X(120).                                    IC1094.2\n003900 01  DUMMY-RECORD PICTURE X(120).                                 IC1094.2\n004000 WORKING-STORAGE SECTION.                                         IC1094.2\n004100 77  WS1 PICTURE X.                                               IC1094.2\n004200 LINKAGE SECTION.                                                 IC1094.2\n004300 01  GRP-01.                                                      IC1094.2\n004400     02  SUB-CALLED.                                              IC1094.2\n004500         03  DN1  PICTURE X(6).                                   IC1094.2\n004600         03  DN2  PICTURE X(6).                                   IC1094.2\n004700         03  DN3  PICTURE X(6).                                   IC1094.2\n004800     02  TIMES-CALLED.                                            IC1094.2\n004900         03  DN4  PICTURE S999.                                   IC1094.2\n005000         03  DN5  PICTURE S999.                                   IC1094.2\n005100         03  DN6  PICTURE S999.                                   IC1094.2\n005200     02  SPECIAL-FLAGS.                                           IC1094.2\n005300         03  DN7 PICTURE X.                                       IC1094.2\n005400         03  DN8 PICTURE X.                                       IC1094.2\n005500         03  DN9 PICTURE X.                                       IC1094.2\n005600 PROCEDURE DIVISION USING GRP-01.                                 IC1094.2\n005700 SECT-IC109-0001 SECTION.                                         IC1094.2\n005800 PARA-IC109.                                                      IC1094.2\n005900     MOVE \"IC109A\" TO DN1.                                        IC1094.2\n006000     MOVE SPACE TO WS1.                                           IC1094.2\n006100     CALL \"IC110A\" USING WS1 GRP-01.                              IC1094.2\n006200     ADD 1 TO DN4.                                                IC1094.2\n006300     MOVE WS1 TO DN9.                                             IC1094.2\n006400 EXIT-IC109.                                                      IC1094.2\n006500     EXIT PROGRAM.                                                IC1094.2\n      *END-OF,IC109A                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "",
+  "stage1_division_count": 3,
+  "stage1_paragraph_count": 18,
+  "stage1_token_count": 159,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {},
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": ""
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 4,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": ""
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 6,
+            "attributes": {
+              "name": "COMPUTER"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 7,
+            "attributes": {
+              "name": "XX082"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 8,
+            "attributes": {
+              "name": "COMPUTER"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 9,
+            "attributes": {
+              "name": "XX083"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 11,
+            "attributes": {
+              "name": "NTROL"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 13,
+            "attributes": {
+              "name": "XX055"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 14,
+            "attributes": {
+              "name": "VISION"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 15,
+            "attributes": {
+              "name": "CTION"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 16,
+            "attributes": {
+              "name": "NT-FILE"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 23,
+            "attributes": {
+              "name": "SUB-CALLED"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 27,
+            "attributes": {
+              "name": "TIMES-CALLED"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 31,
+            "attributes": {
+              "name": "SPECIAL-FLAGS"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 35,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": ""
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 35,
+            "attributes": {
+              "name": "GRP-01"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 38,
+            "attributes": {
+              "name": "DN1"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 39,
+            "attributes": {
+              "name": "WS1"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 40,
+            "attributes": {
+              "name": "GRP-01"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 41,
+            "attributes": {
+              "name": "DN4"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 42,
+            "attributes": {
+              "name": "DN9"
+            },
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "stage1_cobc_status": "",
+  "stage1_cobc_stderr": "",
+  "complexity_tier": "simple",
+  "complexity_score": 1.05,
+  "ast_depth": 3,
+  "unique_verbs": 0,
+  "cross_refs": 0,
+  "stage2_source": "rule-based",
+  "stage2_rule_based_code": "\"\"\"Translated from COBOL program program.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\nstate: _State = _State()\n\ndef computer() -> None:\n    pass\n\ndef xx082() -> None:\n    pass\n\ndef computer() -> None:\n    pass\n\ndef xx083() -> None:\n    pass\n\ndef ntrol() -> None:\n    pass\n\ndef xx055() -> None:\n    pass\n\ndef vision() -> None:\n    pass\n\ndef ction() -> None:\n    pass\n\ndef nt_file() -> None:\n    pass\n\ndef sub_called() -> None:\n    pass\n\ndef times_called() -> None:\n    pass\n\ndef special_flags() -> None:\n    pass\n\ndef grp_01() -> None:\n    pass\n\ndef dn1() -> None:\n    pass\n\ndef ws1() -> None:\n    pass\n\ndef grp_01() -> None:\n    pass\n\ndef dn4() -> None:\n    pass\n\ndef dn9() -> None:\n    pass\n\nif __name__ == \"__main__\":\n    try:\n        computer()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_neural_code": "",
+  "stage2_final_code": "\"\"\"Translated from COBOL program program.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\nstate: _State = _State()\n\ndef computer() -> None:\n    pass\n\ndef xx082() -> None:\n    pass\n\ndef computer() -> None:\n    pass\n\ndef xx083() -> None:\n    pass\n\ndef ntrol() -> None:\n    pass\n\ndef xx055() -> None:\n    pass\n\ndef vision() -> None:\n    pass\n\ndef ction() -> None:\n    pass\n\ndef nt_file() -> None:\n    pass\n\ndef sub_called() -> None:\n    pass\n\ndef times_called() -> None:\n    pass\n\ndef special_flags() -> None:\n    pass\n\ndef grp_01() -> None:\n    pass\n\ndef dn1() -> None:\n    pass\n\ndef ws1() -> None:\n    pass\n\ndef grp_01() -> None:\n    pass\n\ndef dn4() -> None:\n    pass\n\ndef dn9() -> None:\n    pass\n\nif __name__ == \"__main__\":\n    try:\n        computer()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_warnings": [],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": false,
+  "stage3_refined_code": "",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "",
+  "stage3_error": "",
+  "verdict": "INCONCLUSIVE",
+  "verdict_summary": "4 structural check(s) passed, but no behavioural signal (execution_match / llm_judge) was available.",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "18/18 paragraphs found as Python functions",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "COMPUTER",
+          "XX082",
+          "COMPUTER",
+          "XX083",
+          "NTROL",
+          "XX055",
+          "VISION",
+          "CTION",
+          "NT-FILE",
+          "SUB-CALLED",
+          "TIMES-CALLED",
+          "SPECIAL-FLAGS",
+          "GRP-01",
+          "DN1",
+          "WS1",
+          "GRP-01",
+          "DN4",
+          "DN9"
+        ],
+        "missing": [],
+        "total": 18
+      }
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "COBOL program had no data items to cover.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "body_non_trivial",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "All 16 paragraph(s) were <=1 statement; nothing to score.",
+      "skipped_reason": "",
+      "extra": {
+        "exempt": [
+          "COMPUTER",
+          "XX082",
+          "XX083",
+          "NTROL",
+          "XX055",
+          "VISION",
+          "CTION",
+          "NT-FILE",
+          "SUB-CALLED",
+          "TIMES-CALLED",
+          "SPECIAL-FLAGS",
+          "GRP-01",
+          "DN1",
+          "WS1",
+          "DN4",
+          "DN9"
+        ]
+      }
+    }
+  ],
+  "timestamp": 1779891109.6483607
+}

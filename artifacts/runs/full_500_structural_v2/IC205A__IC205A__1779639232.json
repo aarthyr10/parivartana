@@ -1,0 +1,454 @@
+{
+  "program_id": "IC205A",
+  "record_id": "IC205A",
+  "cobol_source": "      *HEADER,COBOL,IC203A,SUBRTN,IC205A                                              \n000100 IDENTIFICATION DIVISION.                                         IC2054.2\n000200 PROGRAM-ID.                                                      IC2054.2\n000300     IC205A.                                                      IC2054.2\n000400****************************************************************  IC2054.2\n000500*                                                              *  IC2054.2\n000600*    VALIDATION FOR:-                                          *  IC2054.2\n000700*                                                              *  IC2054.2\n000800*    \"ON-SITE VALIDATION, NATIONAL INSTITUTE OF STD & TECH.     \".IC2054.2\n000900*                                                              *  IC2054.2\n001000*    \"COBOL 85 VERSION 4.2, Apr  1993 SSVG                      \".IC2054.2\n001100*                                                              *  IC2054.2\n001200****************************************************************  IC2054.2\n001300*                                                              *  IC2054.2\n001400*      X-CARDS USED BY THIS PROGRAM ARE :-                     *  IC2054.2\n001500*                                                              *  IC2054.2\n001600*        X-55  - SYSTEM PRINTER NAME.                          *  IC2054.2\n001700*        X-82  - SOURCE COMPUTER NAME.                         *  IC2054.2\n001800*        X-83  - OBJECT COMPUTER NAME.                         *  IC2054.2\n001900*                                                              *  IC2054.2\n002000****************************************************************  IC2054.2\n002100*        THE SUBPROGRAM IC205 TESTS THE USE OF THE CANCEL      *  IC2054.2\n002200*    STATEMENT WITHIN A SUBPROGRAM.  THIS SUBPROGRAM IS        *  IC2054.2\n002300*    CALLED BY IC203 AND CALLS THE SUBPROGRAMS IC204 AND IC206.*  IC2054.2\n002400****************************************************************  IC2054.2\n002500 ENVIRONMENT DIVISION.                                            IC2054.2\n002600 CONFIGURATION SECTION.                                           IC2054.2\n002700 SOURCE-COMPUTER.                                                 IC2054.2\n002800     XXXXX082.                                                    IC2054.2\n002900 OBJECT-COMPUTER.                                                 IC2054.2\n003000     XXXXX083.                                                    IC2054.2\n003100 INPUT-OUTPUT SECTION.                                            IC2054.2\n003200 FILE-CONTROL.                                                    IC2054.2\n003300     SELECT PRINT-FILE ASSIGN TO                                  IC2054.2\n003400     XXXXX055.                                                    IC2054.2\n003500 DATA DIVISION.                                                   IC2054.2\n003600 FILE SECTION.                                                    IC2054.2\n003700 FD  PRINT-FILE.                                                  IC2054.2\n003800 01  PRINT-REC PICTURE X(120).                                    IC2054.2\n003900 01  DUMMY-RECORD PICTURE X(120).                                 IC2054.2\n004000 WORKING-STORAGE SECTION.                                         IC2054.2\n004100 77  ID1 PICTURE X(6) VALUE \"IC204A\".                             IC2054.2\n004200 77  DN2 PICTURE S9(8) USAGE COMP VALUE ZERO.                     IC2054.2\n004300 LINKAGE SECTION.                                                 IC2054.2\n004400 01  TABLE-1.                                                     IC2054.2\n004500     02  T-DN1 PIC XXX.                                           IC2054.2\n004600     02  T-DN2 PIC 99.                                            IC2054.2\n004700     02  T-DN3 PIC X(5).                                          IC2054.2\n004800 77  DN1 PICTURE S999.                                            IC2054.2\n004900 01  TABLE-2.                                                     IC2054.2\n005000     02  TV-1 PIC X.                                              IC2054.2\n005100     02  TV-2 PIC X.                                              IC2054.2\n005200 PROCEDURE DIVISION USING TABLE-1, TABLE-2, DN1.                  IC2054.2\n005300 CNCL-TEST-05.                                                    IC2054.2\n005400     CALL \"IC206A\" USING DN2.                                     IC2054.2\n005500     CALL \"IC206A\" USING DN2.                                     IC2054.2\n005600     CALL \"IC206A\" USING DN2.                                     IC2054.2\n005700     MOVE \"X\" TO TV-1.                                            IC2054.2\n005800     IF DN2 EQUAL TO 3                                            IC2054.2\n005900         MOVE \"A\" TO TV-1.                                        IC2054.2\n006000     CANCEL \"IC206A\".                                             IC2054.2\n006100     MOVE ZERO TO DN2.                                            IC2054.2\n006200     CALL \"IC206A\" USING DN2.                                     IC2054.2\n006300     IF DN2 NOT EQUAL TO 1                                        IC2054.2\n006400         MOVE \"Y\" TO TV-2,                                        IC2054.2\n006500         GO TO CNCL-TEST-06.                                      IC2054.2\n006600     MOVE \"B\" TO TV-2.                                            IC2054.2\n006700 CNCL-TEST-06.                                                    IC2054.2\n006800     CANCEL ID1.                                                  IC2054.2\n006900 EXIT-IC205.                                                      IC2054.2\n007000     EXIT PROGRAM.                                                IC2054.2\n      *END-OF,IC205A                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "IC205A",
+  "stage1_division_count": 4,
+  "stage1_paragraph_count": 4,
+  "stage1_token_count": 209,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {
+      "program_id": "IC205A"
+    },
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 4,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 14,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "DATA"
+        },
+        "children": [
+          {
+            "node_type": "DataItem",
+            "line": 17,
+            "attributes": {
+              "level": 1,
+              "name": "PRINT-REC",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 18,
+            "attributes": {
+              "level": 1,
+              "name": "DUMMY-RECORD",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 20,
+            "attributes": {
+              "level": 77,
+              "name": "ID1",
+              "pic": "X",
+              "value": "\"IC204A\""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 21,
+            "attributes": {
+              "level": 77,
+              "name": "DN2",
+              "pic": "S9",
+              "usage": "COMP",
+              "value": "ZERO"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 23,
+            "attributes": {
+              "level": 1,
+              "name": "TABLE-1"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 24,
+            "attributes": {
+              "level": 2,
+              "name": "T-DN1",
+              "pic": "XXX"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 25,
+            "attributes": {
+              "level": 2,
+              "name": "T-DN2",
+              "pic": "99"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 26,
+            "attributes": {
+              "level": 2,
+              "name": "T-DN3",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 27,
+            "attributes": {
+              "level": 77,
+              "name": "DN1",
+              "pic": "S999"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 28,
+            "attributes": {
+              "level": 1,
+              "name": "TABLE-2"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 29,
+            "attributes": {
+              "level": 2,
+              "name": "TV-1",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 30,
+            "attributes": {
+              "level": 2,
+              "name": "TV-2",
+              "pic": "X"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 31,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 31,
+            "attributes": {
+              "name": "DN1"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 32,
+            "attributes": {
+              "name": "CNCL-TEST-05"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 33,
+                "attributes": {
+                  "verb": "CALL",
+                  "operands": [
+                    "\"IC206A\"",
+                    "USING",
+                    "DN2"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 34,
+                "attributes": {
+                  "verb": "CALL",
+                  "operands": [
+                    "\"IC206A\"",
+                    "USING",
+                    "DN2"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 35,
+                "attributes": {
+                  "verb": "CALL",
+                  "operands": [
+                    "\"IC206A\"",
+                    "USING",
+                    "DN2"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 36,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"X\"",
+                    "TO",
+                    "TV-1"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 37,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "DN2",
+                    "EQUAL",
+                    "TO",
+                    "3"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 38,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"A\"",
+                    "TO",
+                    "TV-1"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 39,
+                "attributes": {
+                  "verb": "CANCEL",
+                  "operands": [
+                    "\"IC206A\""
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 40,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "ZERO",
+                    "TO",
+                    "DN2"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 41,
+                "attributes": {
+                  "verb": "CALL",
+                  "operands": [
+                    "\"IC206A\"",
+                    "USING",
+                    "DN2"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 42,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "DN2",
+                    "NOT",
+                    "EQUAL",
+                    "TO",
+                    "1"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 43,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"Y\"",
+                    "TO",
+                    "TV-2"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 44,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "CNCL-TEST-06"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 45,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"B\"",
+                    "TO",
+                    "TV-2"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 46,
+            "attributes": {
+              "name": "CNCL-TEST-06"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 47,
+                "attributes": {
+                  "verb": "CANCEL",
+                  "operands": [
+                    "ID1"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 48,
+            "attributes": {
+              "name": "EXIT-IC205"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 49,
+                "attributes": {
+                  "verb": "EXIT",
+                  "operands": [
+                    "PROGRAM"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "complexity_tier": "simple",
+  "complexity_score": 8.4,
+  "ast_depth": 4,
+  "unique_verbs": 6,
+  "cross_refs": 4,
+  "stage2_source": "rule-based",
+  "stage2_rule_based_code": "\"\"\"Translated from COBOL program IC205A.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'print_rec': '',\n    'dummy_record': '',\n    'id1': \"IC204A\",\n    'dn2': 0,\n    'table_1': None,\n    't_dn1': '',\n    't_dn2': 0,\n    't_dn3': '',\n    'dn1': 0,\n    'table_2': None,\n    'tv_1': '',\n    'tv_2': '',\n})\n\ndef dn1() -> None:\n    pass\n\ndef cncl_test_05() -> None:\n    # external call: IC206A()  -- preserved as comment\n    pass\n    # external call: IC206A()  -- preserved as comment\n    pass\n    # external call: IC206A()  -- preserved as comment\n    pass\n    state['tv_1'] = \"X\"\n    if state['dn2'] == 3:\n        state['tv_1'] = \"A\"\n        pass  # CANCEL (no-op in Python)\n        state['dn2'] = zero\n        # external call: IC206A()  -- preserved as comment\n        pass\n        if state['dn2'] != 1:\n            state['tv_2'] = \"Y\"\n            cncl_test_06()\n            return\n            state['tv_2'] = \"B\"\n\ndef cncl_test_06() -> None:\n    pass  # CANCEL (no-op in Python)\n\ndef exit_ic205() -> None:\n    return\n\nif __name__ == \"__main__\":\n    try:\n        dn1()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_neural_code": "",
+  "stage2_final_code": "\"\"\"Translated from COBOL program IC205A.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'print_rec': '',\n    'dummy_record': '',\n    'id1': \"IC204A\",\n    'dn2': 0,\n    'table_1': None,\n    't_dn1': '',\n    't_dn2': 0,\n    't_dn3': '',\n    'dn1': 0,\n    'table_2': None,\n    'tv_1': '',\n    'tv_2': '',\n})\n\ndef dn1() -> None:\n    pass\n\ndef cncl_test_05() -> None:\n    # external call: IC206A()  -- preserved as comment\n    pass\n    # external call: IC206A()  -- preserved as comment\n    pass\n    # external call: IC206A()  -- preserved as comment\n    pass\n    state['tv_1'] = \"X\"\n    if state['dn2'] == 3:\n        state['tv_1'] = \"A\"\n        pass  # CANCEL (no-op in Python)\n        state['dn2'] = zero\n        # external call: IC206A()  -- preserved as comment\n        pass\n        if state['dn2'] != 1:\n            state['tv_2'] = \"Y\"\n            cncl_test_06()\n            return\n            state['tv_2'] = \"B\"\n\ndef cncl_test_06() -> None:\n    pass  # CANCEL (no-op in Python)\n\ndef exit_ic205() -> None:\n    return\n\nif __name__ == \"__main__\":\n    try:\n        dn1()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_warnings": [],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": false,
+  "stage3_refined_code": "",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "",
+  "stage3_error": "",
+  "verdict": "INCONCLUSIVE",
+  "verdict_summary": "3 structural check(s) passed, but no behavioural signal (execution_match / llm_judge) was available.",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": ""
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "4/4 paragraphs found as Python functions",
+      "skipped_reason": ""
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "12/12 identifiers traced into the Python",
+      "skipped_reason": ""
+    }
+  ],
+  "timestamp": 1779639232.853322
+}

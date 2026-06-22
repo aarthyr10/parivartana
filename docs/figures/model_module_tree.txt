@@ -1,0 +1,36 @@
+shared [Embedding] 24,656,640
+encoder [T5Stack] 109,610,880
+  embed_tokens [Embedding] 24,656,640
+  block [ModuleList] 84,953,472
+    0 [T5Block] 7,079,808
+    1 [T5Block] 7,079,424
+    2 [T5Block] 7,079,424
+    3 [T5Block] 7,079,424
+    4 [T5Block] 7,079,424
+    5 [T5Block] 7,079,424
+    6 [T5Block] 7,079,424
+    7 [T5Block] 7,079,424
+    8 [T5Block] 7,079,424
+    9 [T5Block] 7,079,424
+    10 [T5Block] 7,079,424
+    11 [T5Block] 7,079,424
+  final_layer_norm [T5LayerNorm] 768
+  dropout [Dropout] 0
+decoder [T5Stack] 137,931,648
+  embed_tokens [Embedding] 24,656,640
+  block [ModuleList] 113,274,240
+    0 [T5Block] 9,439,872
+    1 [T5Block] 9,439,488
+    2 [T5Block] 9,439,488
+    3 [T5Block] 9,439,488
+    4 [T5Block] 9,439,488
+    5 [T5Block] 9,439,488
+    6 [T5Block] 9,439,488
+    7 [T5Block] 9,439,488
+    8 [T5Block] 9,439,488
+    9 [T5Block] 9,439,488
+    10 [T5Block] 9,439,488
+    11 [T5Block] 9,439,488
+  final_layer_norm [T5LayerNorm] 768
+  dropout [Dropout] 0
+lm_head [Linear] 24,656,640

@@ -1,0 +1,257 @@
+{
+  "program_id": "ST113M",
+  "record_id": "ST113M",
+  "cobol_source": "      *HEADER,COBOL,ST112M,SUBPRG,ST113M                                              \n000100 IDENTIFICATION DIVISION.                                         ST1134.2\n000200 PROGRAM-ID.                                                      ST1134.2\n000300     ST113M.                                                      ST1134.2\n000400****************************************************************  ST1134.2\n000500*                                                              *  ST1134.2\n000600*    VALIDATION FOR:-                                          *  ST1134.2\n000700*                                                              *  ST1134.2\n000800*    \"ON-SITE VALIDATION, NATIONAL INSTITUTE OF STD & TECH.     \".ST1134.2\n000900*                                                              *  ST1134.2\n001000*    \"COBOL 85 VERSION 4.2, Apr  1993 SSVG                      \".ST1134.2\n001100*                                                              *  ST1134.2\n001200****************************************************************  ST1134.2\n001300*                                                              *  ST1134.2\n001400*      X-CARDS USED BY THIS PROGRAM ARE :-                     *  ST1134.2\n001500*                                                              *  ST1134.2\n001600*        X-55  - SYSTEM PRINTER NAME.                          *  ST1134.2\n001700*        X-82  - SOURCE COMPUTER NAME.                         *  ST1134.2\n001800*        X-83  - OBJECT COMPUTER NAME.                         *  ST1134.2\n001900*                                                              *  ST1134.2\n002000****************************************************************  ST1134.2\n002100 ENVIRONMENT DIVISION.                                            ST1134.2\n002200 CONFIGURATION SECTION.                                           ST1134.2\n002300 SOURCE-COMPUTER.                                                 ST1134.2\n002400     XXXXX082.                                                    ST1134.2\n002500 OBJECT-COMPUTER.                                                 ST1134.2\n002600     XXXXX083.                                                    ST1134.2\n002700 INPUT-OUTPUT SECTION.                                            ST1134.2\n002800 FILE-CONTROL.                                                    ST1134.2\n002900     SELECT PRINT-FILE ASSIGN TO                                  ST1134.2\n003000     XXXXX055.                                                    ST1134.2\n003100     SELECT   SORTIN-1M ASSIGN TO                                 ST1134.2\n003200     XXXXP006.                                                    ST1134.2\n003300     SELECT   SORTOUT-1M ASSIGN TO                                ST1134.2\n003400     XXXXP001.                                                    ST1134.2\n003500     SELECT   SORTFILE-1M ASSIGN TO                               ST1134.2\n003600     XXXXX027.                                                    ST1134.2\n003700 DATA DIVISION.                                                   ST1134.2\n003800 FILE SECTION.                                                    ST1134.2\n003900 FD  PRINT-FILE.                                                  ST1134.2\n004000 01  PRINT-REC PICTURE X(120).                                    ST1134.2\n004100 01  DUMMY-RECORD PICTURE X(120).                                 ST1134.2\n004200 FD  SORTIN-1M                                                    ST1134.2\n004300C    VALUE OF                                                     ST1134.2\n004400C    XXXXX074                                                     ST1134.2\n004500C    IS                                                           ST1134.2\n004600C    XXXXX079                                                     ST1134.2\n004700*    XXXXX069                                                     ST1134.2\n004800     .                                                            ST1134.2\n004900 01  SORT-KEY-IN        PICTURE X(33).                            ST1134.2\n005000 FD  SORTOUT-1M                                                   ST1134.2\n005100C    VALUE OF                                                     ST1134.2\n005200C    XXXXX074                                                     ST1134.2\n005300C    IS                                                           ST1134.2\n005400C    XXXXX075                                                     ST1134.2\n005500*    XXXXX069                                                     ST1134.2\n005600     .                                                            ST1134.2\n005700 01  SORT-KEY-OUT       PICTURE X(33).                            ST1134.2\n005800 SD  SORTFILE-1M.                                                 ST1134.2\n005900 01  SORT-KEY           PICTURE X(33).                            ST1134.2\n006000 PROCEDURE    DIVISION.                                           ST1134.2\n006100 SORT-PARA SECTION.                                               ST1134.2\n006200 SORT-PARAGRAPH.                                                  ST1134.2\n006300     SORT     SORTFILE-1M DESCENDING                              ST1134.2\n006400              SORT-KEY                                            ST1134.2\n006500              USING SORTIN-1M                                     ST1134.2\n006600              GIVING SORTOUT-1M.                                  ST1134.2\n006700     STOP     RUN.                                                ST1134.2\n      *END-OF,ST113M                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "ST113M",
+  "stage1_division_count": 4,
+  "stage1_paragraph_count": 1,
+  "stage1_token_count": 139,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {
+      "program_id": "ST113M"
+    },
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 4,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 20,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "DATA"
+        },
+        "children": [
+          {
+            "node_type": "DataItem",
+            "line": 23,
+            "attributes": {
+              "level": 1,
+              "name": "PRINT-REC",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 24,
+            "attributes": {
+              "level": 1,
+              "name": "DUMMY-RECORD",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 31,
+            "attributes": {
+              "level": 1,
+              "name": "SORT-KEY-IN",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 38,
+            "attributes": {
+              "level": 1,
+              "name": "SORT-KEY-OUT",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 40,
+            "attributes": {
+              "level": 1,
+              "name": "SORT-KEY",
+              "pic": "X"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 41,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 43,
+            "attributes": {
+              "name": "SORT-PARAGRAPH"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 44,
+                "attributes": {
+                  "verb": "SORT",
+                  "operands": [
+                    "SORTFILE-1M",
+                    "DESCENDING",
+                    "SORT-KEY",
+                    "USING",
+                    "SORTIN-1M",
+                    "GIVING",
+                    "SORTOUT-1M"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 48,
+                "attributes": {
+                  "verb": "STOP",
+                  "operands": [
+                    "RUN"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "stage1_cobc_status": "",
+  "stage1_cobc_stderr": "",
+  "complexity_tier": "simple",
+  "complexity_score": 6.4,
+  "ast_depth": 4,
+  "unique_verbs": 2,
+  "cross_refs": 0,
+  "stage2_source": "rule-based",
+  "stage2_rule_based_code": "\"\"\"Translated from COBOL program ST113M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'print_rec': \" \",\n    'dummy_record': \" \",\n    'sort_key_in': \" \",\n    'sort_key_out': \" \",\n    'sort_key': \" \",\n})\n\ndef sort_paragraph() -> None:\n    state['sortfile_1m'] = sorted(state['sortfile_1m']) if isinstance(state['sortfile_1m'], (list, tuple)) else state['sortfile_1m']\n    return\n\nif __name__ == \"__main__\":\n    try:\n        sort_paragraph()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_neural_code": "",
+  "stage2_final_code": "\"\"\"Translated from COBOL program ST113M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'print_rec': \" \",\n    'dummy_record': \" \",\n    'sort_key_in': \" \",\n    'sort_key_out': \" \",\n    'sort_key': \" \",\n})\n\ndef sort_paragraph() -> None:\n    state['sortfile_1m'] = sorted(state['sortfile_1m']) if isinstance(state['sortfile_1m'], (list, tuple)) else state['sortfile_1m']\n    return\n\nif __name__ == \"__main__\":\n    try:\n        sort_paragraph()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_warnings": [],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": false,
+  "stage3_refined_code": "",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "",
+  "stage3_error": "",
+  "verdict": "PASS",
+  "verdict_summary": "All 5 active check(s) passed.",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "1/1 paragraphs found as Python functions",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "SORT-PARAGRAPH"
+        ],
+        "missing": [],
+        "total": 1
+      }
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "5/5 identifiers traced into the Python",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "PRINT-REC",
+          "DUMMY-RECORD",
+          "SORT-KEY-IN",
+          "SORT-KEY-OUT",
+          "SORT-KEY"
+        ],
+        "missing": [],
+        "total": 5
+      }
+    },
+    {
+      "name": "body_non_trivial",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "1/1 paragraphs have non-trivial bodies",
+      "skipped_reason": "",
+      "extra": {
+        "non_trivial": [
+          "SORT-PARAGRAPH"
+        ],
+        "trivial": [],
+        "exempt": [],
+        "total_eligible": 1
+      }
+    },
+    {
+      "name": "python_smoke",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "ran cleanly",
+      "skipped_reason": "",
+      "extra": {
+        "exit_code": 0,
+        "stdout_bytes": 0,
+        "stderr_bytes": 0,
+        "stderr_head": ""
+      }
+    },
+    {
+      "name": "execution_match",
+      "ran": false,
+      "passed": null,
+      "score": null,
+      "detail": "skipped: cobol side could not be executed (stdout_mismatch; rc=1)",
+      "skipped_reason": "cobol side could not be executed (stdout_mismatch; rc=1)",
+      "extra": {
+        "cobol_stdout": "/var/folders/rl/r9ygvg0x7_l7sdtfq9pq99fm0000gn/T/tmp0njykab3/program.cob:44: error: invalid indicator 'C' at column 7\n   42 | 004100 01  DUMMY-RECORD PICTURE X(120).                                 S..\n   43 | 004200 FD  SORTIN-1M                                                    S..\n   44 > 004300C    VALUE OF                                                     S..\n   45 | 004400C    XXXXX074   ",
+        "cobol_returncode": 1
+      }
+    }
+  ],
+  "timestamp": 1780037730.1972108
+}

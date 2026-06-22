@@ -1,0 +1,240 @@
+{
+  "program_id": "DB302M",
+  "record_id": "DB302M",
+  "cobol_source": "      *HEADER,COBOL,DB302M                                                            \n000100 IDENTIFICATION DIVISION.                                         DB3024.2\n000200 PROGRAM-ID.                                                      DB3024.2\n000300     DB302M.                                                      DB3024.2\n000400*THE FOLLOWING PROGRAM TESTS THE FLAGGING OF LEVEL 1              DB3024.2\n000500*OBSOLETE FEATURES THAT ARE USED IN DEBUGGING.                    DB3024.2\n000600 ENVIRONMENT DIVISION.                                            DB3024.2\n000700 CONFIGURATION SECTION.                                           DB3024.2\n000800 SOURCE-COMPUTER.                                                 DB3024.2\n000900     XXXXX082                                                     DB3024.2\n001000     WITH DEBUGGING MODE.                                         DB3024.2\n001100 OBJECT-COMPUTER.                                                 DB3024.2\n001200     XXXXX083.                                                    DB3024.2\n001300                                                                  DB3024.2\n001400 INPUT-OUTPUT SECTION.                                            DB3024.2\n001500 FILE-CONTROL.                                                    DB3024.2\n001600     SELECT TFIL ASSIGN                                           DB3024.2\n001700     XXXXX014                                                     DB3024.2\n001800         ORGANIZATION IS SEQUENTIAL                               DB3024.2\n001900         ACCESS MODE IS SEQUENTIAL.                               DB3024.2\n002000                                                                  DB3024.2\n002100 DATA DIVISION.                                                   DB3024.2\n002200 FILE SECTION.                                                    DB3024.2\n002300 FD TFIL.                                                         DB3024.2\n002400 01 FREC.                                                         DB3024.2\n002500     03 RKEY  PIC 9(8).                                           DB3024.2\n002600                                                                  DB3024.2\n002700 PROCEDURE DIVISION.                                              DB3024.2\n002800                                                                  DB3024.2\n002900 DECLARATIVES.                                                    DB3024.2\n003000                                                                  DB3024.2\n003100 BUGGING SECTION.                                                 DB3024.2\n003200                                                                  DB3024.2\n003300     USE FOR DEBUGGING ON DB302M-CONTROL.                         DB3024.2\n003400*Message expected for above statement: OBSOLETE                   DB3024.2\n003500                                                                  DB3024.2\n003600 END DECLARATIVES.                                                DB3024.2\n003700                                                                  DB3024.2\n003800 DB302-FLAGS SECTION.                                             DB3024.2\n003900                                                                  DB3024.2\n004000 DB302M-CONTROL.                                                  DB3024.2\n004100     DISPLAY \"THIS IS A DUMMY PROCEDURE\".                         DB3024.2\n004200     STOP RUN.                                                    DB3024.2\n004300                                                                  DB3024.2\n004400*TOTAL NUMBER OF FLAGS EXPECTED = 1.                              DB3024.2\n      *END-OF,DB302M                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "DB302M",
+  "stage1_division_count": 4,
+  "stage1_paragraph_count": 3,
+  "stage1_token_count": 90,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {
+      "program_id": "DB302M"
+    },
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 4,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 19,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "DATA"
+        },
+        "children": [
+          {
+            "node_type": "DataItem",
+            "line": 22,
+            "attributes": {
+              "level": 1,
+              "name": "FREC"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 23,
+            "attributes": {
+              "level": 3,
+              "name": "RKEY",
+              "pic": "9"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 25,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 27,
+            "attributes": {
+              "name": "DECLARATIVES"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 31,
+                "attributes": {
+                  "verb": "USE",
+                  "operands": [
+                    "FOR",
+                    "DEBUGGING",
+                    "ON",
+                    "DB302M-CONTROL"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 33,
+            "attributes": {
+              "name": "DECLARATIVES"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 37,
+            "attributes": {
+              "name": "DB302M-CONTROL"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 38,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\"THIS IS A DUMMY PROCEDURE\""
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 39,
+                "attributes": {
+                  "verb": "STOP",
+                  "operands": [
+                    "RUN"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "stage1_cobc_status": "",
+  "stage1_cobc_stderr": "",
+  "complexity_tier": "simple",
+  "complexity_score": 2.15,
+  "ast_depth": 4,
+  "unique_verbs": 3,
+  "cross_refs": 0,
+  "stage2_source": "rule-based",
+  "stage2_rule_based_code": "\"\"\"Translated from COBOL program DB302M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'frec': None,\n    'rkey': 0,\n})\n\ndef declaratives() -> None:\n    state['_declarative_active'] = True  # USE (declarative)\n\ndef declaratives() -> None:\n    pass\n\ndef db302m_control() -> None:\n    print(\"THIS IS A DUMMY PROCEDURE\")\n    return\n\nif __name__ == \"__main__\":\n    try:\n        db302m_control()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_neural_code": "",
+  "stage2_final_code": "\"\"\"Translated from COBOL program DB302M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'frec': None,\n    'rkey': 0,\n})\n\ndef declaratives() -> None:\n    state['_declarative_active'] = True  # USE (declarative)\n\ndef declaratives() -> None:\n    pass\n\ndef db302m_control() -> None:\n    print(\"THIS IS A DUMMY PROCEDURE\")\n    return\n\nif __name__ == \"__main__\":\n    try:\n        db302m_control()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_warnings": [],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": false,
+  "stage3_refined_code": "",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "",
+  "stage3_error": "",
+  "verdict": "PASS",
+  "verdict_summary": "All 5 active check(s) passed.",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "3/3 paragraphs found as Python functions",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "DECLARATIVES",
+          "DECLARATIVES",
+          "DB302M-CONTROL"
+        ],
+        "missing": [],
+        "total": 3
+      }
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "2/2 identifiers traced into the Python",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "FREC",
+          "RKEY"
+        ],
+        "missing": [],
+        "total": 2
+      }
+    },
+    {
+      "name": "body_non_trivial",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "1/1 paragraphs have non-trivial bodies",
+      "skipped_reason": "",
+      "extra": {
+        "non_trivial": [
+          "DB302M-CONTROL"
+        ],
+        "trivial": [],
+        "exempt": [
+          "DECLARATIVES"
+        ],
+        "total_eligible": 1
+      }
+    },
+    {
+      "name": "python_smoke",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "ran cleanly",
+      "skipped_reason": "",
+      "extra": {
+        "exit_code": 0,
+        "stdout_bytes": 26,
+        "stderr_bytes": 0,
+        "stderr_head": ""
+      }
+    }
+  ],
+  "timestamp": 1780029485.840685
+}

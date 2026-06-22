@@ -1,0 +1,264 @@
+{
+  "program_id": "NC303M",
+  "record_id": "NC303M",
+  "cobol_source": "      *HEADER,COBOL,NC303M                                                            \n000100 IDENTIFICATION DIVISION.                                         NC3034.2\n000200 PROGRAM-ID.                                                      NC3034.2\n000300     NC303M.                                                      NC3034.2\n000400*THE FOLLOWING PROGRAM TESTS THE FLAGGING OF                      NC3034.2\n000500*OBSOLETE HIGH SUBSET NUCLEUS FEATURES.                           NC3034.2\n000600 DATE-COMPILED.  22ND AUG 1988.                                   NC3034.2\n000700*Message expected for above statement: OBSOLETE                   NC3034.2\n000800 ENVIRONMENT DIVISION.                                            NC3034.2\n000900 CONFIGURATION SECTION.                                           NC3034.2\n001000 SOURCE-COMPUTER.                                                 NC3034.2\n001100     XXXXX082.                                                    NC3034.2\n001200 OBJECT-COMPUTER.                                                 NC3034.2\n001300     XXXXX083.                                                    NC3034.2\n001400                                                                  NC3034.2\n001500                                                                  NC3034.2\n001600 PROCEDURE DIVISION.                                              NC3034.2\n001700                                                                  NC3034.2\n001800 NC303M-CONTROL.                                                  NC3034.2\n001900     ALTER NC303M-GOTO TO PROCEED TO NC303M-GOTO-2,               NC3034.2\n002000         NC303M-GOTO-2 TO PROCEED TO NC303M-CONTROL.              NC3034.2\n002100*Message expected for above statement: OBSOLETE                   NC3034.2\n002200     STOP RUN.                                                    NC3034.2\n002300                                                                  NC3034.2\n002400 NC303M-GOTO.                                                     NC3034.2\n002500     GO TO.                                                       NC3034.2\n002600*Message expected for above statement: OBSOLETE                   NC3034.2\n002700                                                                  NC3034.2\n002800 NC303M-GOTO-2.                                                   NC3034.2\n002900     GO TO.                                                       NC3034.2\n003000*Message expected for above statement: OBSOLETE                   NC3034.2\n003100                                                                  NC3034.2\n003200*TOTAL NUMBER OF FLAGS EXPECTED = 4.                              NC3034.2\n      *END-OF,NC303M                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "NC303M",
+  "stage1_division_count": 3,
+  "stage1_paragraph_count": 3,
+  "stage1_token_count": 58,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {
+      "program_id": "NC303M",
+      "metadata": {
+        "date-compiled": "AUG 1988 ENVIRONMENT"
+      }
+    },
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 5,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 13,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 15,
+            "attributes": {
+              "name": "NC303M-CONTROL"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 16,
+                "attributes": {
+                  "verb": "ALTER",
+                  "operands": [
+                    "NC303M-GOTO",
+                    "TO",
+                    "PROCEED",
+                    "TO",
+                    "NC303M-GOTO-2",
+                    "NC303M-GOTO-2",
+                    "TO",
+                    "PROCEED",
+                    "TO",
+                    "NC303M-CONTROL"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 18,
+                "attributes": {
+                  "verb": "STOP",
+                  "operands": [
+                    "RUN"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 20,
+            "attributes": {
+              "name": "NC303M-GOTO"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 21,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 23,
+            "attributes": {
+              "name": "NC303M-GOTO-2"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 24,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "stage1_cobc_status": "",
+  "stage1_cobc_stderr": "",
+  "complexity_tier": "simple",
+  "complexity_score": 6.65,
+  "ast_depth": 4,
+  "unique_verbs": 3,
+  "cross_refs": 0,
+  "stage2_source": "neural",
+  "stage2_rule_based_code": "// Copyright (c) 2012 The Chromium Authors. All rights reserved.\n// Use of this source code is governed by a BSD-style license that can be\n// found in the LICENSE file.\n\n#ifndef CHROME_BROWSER_UI_WEBUI_CHROMEOS_LOGIN_SCREEN_H_\n#define CHROME_BROWSER_UI_WEBUI_CHROMEOS_LOGIN_SCREEN_H_\n\n#include <string>\n\n#include \"base/basictypes.h\"\n#include \"base/memory/scoped_ptr.h\"\n#include \"base/memory/weak_ptr.h\"\n#include \"base/memory/weak_ptr_set.h\"\n#include \"base/memory/weak_ptr_util.h\"\n#include \"base/memory/weak_vector.h\"\n#include \"base/memory/weak_string.h\"\n#include \"base/time/time.h\"\n#include \"base/values.h\"\n#include \"chrome/browser/profiles/profile.h\"\n#include \"ch",
+  "stage2_neural_code": "",
+  "stage2_final_code": "// Copyright (c) 2012 The Chromium Authors. All rights reserved.\n// Use of this source code is governed by a BSD-style license that can be\n// found in the LICENSE file.\n\n#ifndef CHROME_BROWSER_UI_WEBUI_CHROMEOS_LOGIN_SCREEN_H_\n#define CHROME_BROWSER_UI_WEBUI_CHROMEOS_LOGIN_SCREEN_H_\n\n#include <string>\n\n#include \"base/basictypes.h\"\n#include \"base/memory/scoped_ptr.h\"\n#include \"base/memory/weak_ptr.h\"\n#include \"base/memory/weak_ptr_set.h\"\n#include \"base/memory/weak_ptr_util.h\"\n#include \"base/memory/weak_vector.h\"\n#include \"base/memory/weak_string.h\"\n#include \"base/time/time.h\"\n#include \"base/values.h\"\n#include \"chrome/browser/profiles/profile.h\"\n#include \"ch",
+  "stage2_warnings": [],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": true,
+  "stage3_refined_code": "from dataclasses import dataclass\nfrom typing import List, Dict\n\n@dataclass\nclass UserProfile:\n    username: str\n    password: str\n\nclass LoginScreen:\n    def __init__(self):\n        self.users: List[UserProfile] = []\n        self.current_user: UserProfile = None\n\n    def add_user(self, username: str, password: str) -> None:\n        user = UserProfile(username, password)\n        self.users.append(user)\n\n    def authenticate_user(self, username: str, password: str) -> bool:\n        for user in self.users:\n            if user.username == username and user.password == password:\n                self.current_user = user\n                return True\n        return False\n\n    def display_welcome_message(self) -> None:\n        if self.current_user:\n            print(f\"Welcome {self.current_user.username}!\")\n        else:\n            print(\"No user is currently logged in.\")\n\ndef main() -> None:\n    login_screen = LoginScreen()\n    login_screen.add_user(\"user1\", \"password1\")\n    login_screen.add_user(\"user2\", \"password2\")\n\n    if login_screen.authenticate_user(\"user1\", \"password1\"):\n        login_screen.display_welcome_message()\n    else:\n        print(\"Authentication failed.\")\n\nif __name__ == \"__main__\":\n    main()",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "openai",
+  "stage3_error": "",
+  "verdict": "FAIL",
+  "verdict_summary": "4 check(s) failed: paragraph_coverage, body_non_trivial, execution_match, llm_judge.",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": false,
+      "score": 0.0,
+      "detail": "0/3 paragraphs found as Python functions; missing: NC303M-CONTROL, NC303M-GOTO, NC303M-GOTO-2",
+      "skipped_reason": "",
+      "extra": {
+        "found": [],
+        "missing": [
+          "NC303M-CONTROL",
+          "NC303M-GOTO",
+          "NC303M-GOTO-2"
+        ],
+        "total": 3
+      }
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "COBOL program had no data items to cover.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "body_non_trivial",
+      "ran": true,
+      "passed": false,
+      "score": 0.0,
+      "detail": "0/1 paragraphs have non-trivial bodies; stubbed: NC303M-CONTROL",
+      "skipped_reason": "",
+      "extra": {
+        "non_trivial": [],
+        "trivial": [
+          "NC303M-CONTROL"
+        ],
+        "exempt": [
+          "NC303M-GOTO",
+          "NC303M-GOTO-2"
+        ],
+        "total_eligible": 1
+      }
+    },
+    {
+      "name": "python_smoke",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "ran cleanly",
+      "skipped_reason": "",
+      "extra": {
+        "exit_code": 0,
+        "stdout_bytes": 15,
+        "stderr_bytes": 0,
+        "stderr_head": ""
+      }
+    },
+    {
+      "name": "execution_match",
+      "ran": true,
+      "passed": false,
+      "score": 0.0,
+      "detail": "stdout mismatch (stdout_mismatch)",
+      "skipped_reason": "",
+      "extra": {
+        "cobol_stdout": "",
+        "python_stdout": "Welcome user1!\n",
+        "cobol_returncode": 0,
+        "python_returncode": 0
+      }
+    },
+    {
+      "name": "llm_judge",
+      "ran": true,
+      "passed": false,
+      "score": 0.47,
+      "detail": "[openai] correctness=0.00, readability=0.60, pep8=0.80, pythonic=0.40, types=1.00",
+      "skipped_reason": "",
+      "extra": {
+        "rationale": "The Python translation does not reflect the behavior of the COBOL source code, which is focused on flagging obsolete features and contains control flow statements. The translation instead implements a user login system, which is unrelated to the original COBOL program. Readability is moderate due to clear class and method names, but the overall context is misleading. PEP 8 compliance is mostly followed, with minor issues. The use of Python idioms is limited, as the translation closely follows COBOL logic rather than utilizing Python's strengths. Type annotations are complete and correctly applied.",
+        "components": {
+          "correctness": 0.0,
+          "readability": 0.6,
+          "pep8_compliance": 0.8,
+          "pythonic_idioms": 0.4,
+          "type_annotations": 1.0,
+          "rationale": "The Python translation does not reflect the behavior of the COBOL source code, which is focused on flagging obsolete features and contains control flow statements. The translation instead implements a user login system, which is unrelated to the original COBOL program. Readability is moderate due to clear class and method names, but the overall context is misleading. PEP 8 compliance is mostly followed, with minor issues. The use of Python idioms is limited, as the translation closely follows COBOL logic rather than utilizing Python's strengths. Type annotations are complete and correctly applied.",
+          "weighted": 0.47
+        },
+        "provider_used": "openai",
+        "providers_tried": [
+          "openai: ok"
+        ]
+      }
+    }
+  ],
+  "timestamp": 1780245231.045233
+}

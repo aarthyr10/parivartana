@@ -1,0 +1,380 @@
+{
+  "program_id": "IC204A",
+  "record_id": "IC204A",
+  "cobol_source": "      *HEADER,COBOL,IC203A,SUBRTN,IC204A                                              \n000100 IDENTIFICATION DIVISION.                                         IC2044.2\n000200 PROGRAM-ID.                                                      IC2044.2\n000300     IC204A.                                                      IC2044.2\n000400****************************************************************  IC2044.2\n000500*                                                              *  IC2044.2\n000600*    VALIDATION FOR:-                                          *  IC2044.2\n000700*                                                              *  IC2044.2\n000800*    \"ON-SITE VALIDATION, NATIONAL INSTITUTE OF STD & TECH.     \".IC2044.2\n000900*                                                              *  IC2044.2\n001000*    \"COBOL 85 VERSION 4.2, Apr  1993 SSVG                      \".IC2044.2\n001100*                                                              *  IC2044.2\n001200****************************************************************  IC2044.2\n001300*                                                              *  IC2044.2\n001400*      X-CARDS USED BY THIS PROGRAM ARE :-                     *  IC2044.2\n001500*                                                              *  IC2044.2\n001600*        X-55  - SYSTEM PRINTER NAME.                          *  IC2044.2\n001700*        X-82  - SOURCE COMPUTER NAME.                         *  IC2044.2\n001800*        X-83  - OBJECT COMPUTER NAME.                         *  IC2044.2\n001900*                                                              *  IC2044.2\n002000****************************************************************  IC2044.2\n002100*        THE SUBPROGRAM IC204 HAS TWO VARIABLES IN WORKING-       IC2044.2\n002200*    STORAGE WHICH ARE INITIALIZED BY A VALUE STATEMENT.  THE     IC2044.2\n002300*    DATA CONTENTS OF THESE VARIABLES ARE MODIFIED DURING         IC2044.2\n002400*    EXECUTION OF THE SUBPROGRAM.  INDICATORS ARE SET FOR         IC2044.2\n002500*    VARIABLES IN THE LINKAGE SECTION WHICH RELATE HOW MANY       IC2044.2\n002600*    TIMES THE SUBPROGRAM HAS BEEN CALLED SINCE IT WAS            IC2044.2\n002700*    INITIALIZED, AND WHETHER OR NOT THE SUBPROGRAM IS IN         IC2044.2\n002800*    ITS INITIAL STATE.                                           IC2044.2\n002900****************************************************************  IC2044.2\n003000 ENVIRONMENT DIVISION.                                            IC2044.2\n003100 CONFIGURATION SECTION.                                           IC2044.2\n003200 SOURCE-COMPUTER.                                                 IC2044.2\n003300     XXXXX082.                                                    IC2044.2\n003400 OBJECT-COMPUTER.                                                 IC2044.2\n003500     XXXXX083.                                                    IC2044.2\n003600 INPUT-OUTPUT SECTION.                                            IC2044.2\n003700 FILE-CONTROL.                                                    IC2044.2\n003800     SELECT PRINT-FILE ASSIGN TO                                  IC2044.2\n003900     XXXXX055.                                                    IC2044.2\n004000 DATA DIVISION.                                                   IC2044.2\n004100 FILE SECTION.                                                    IC2044.2\n004200 FD  PRINT-FILE.                                                  IC2044.2\n004300 01  PRINT-REC PICTURE X(120).                                    IC2044.2\n004400 01  DUMMY-RECORD PICTURE X(120).                                 IC2044.2\n004500 WORKING-STORAGE SECTION.                                         IC2044.2\n004600 77  WS1  PICTURE 99 VALUE ZERO.                                  IC2044.2\n004700 77  WS2 PICTURE X(5)   VALUE \"FIRST\".                            IC2044.2\n004800 LINKAGE SECTION.                                                 IC2044.2\n004900 77  SUB-DN1 PICTURE S999.                                        IC2044.2\n005000 01  SUB-TABLE-1.                                                 IC2044.2\n005100     02  SUB-DN2 PIC XXX.                                         IC2044.2\n005200     02  SUB-DN3 PIC 99.                                          IC2044.2\n005300     02  SUB-DN4 PIC X(5).                                        IC2044.2\n005400 PROCEDURE DIVISION USING SUB-TABLE-1, SUB-DN1.                   IC2044.2\n005500 SECT-IC204-0001 SECTION.                                         IC2044.2\n005600 CNCL-TEST-01.                                                    IC2044.2\n005700     ADD 1 TO WS1.                                                IC2044.2\n005800     MOVE WS1 TO SUB-DN1.                                         IC2044.2\n005900 CNCL-TEST-02.                                                    IC2044.2\n006000     MOVE \"NO\" TO SUB-DN2.                                        IC2044.2\n006100     IF WS2 EQUAL TO \"FIRST\"                                      IC2044.2\n006200         MOVE SPACE TO WS2                                        IC2044.2\n006300         MOVE \"YES\" TO SUB-DN2.                                   IC2044.2\n006400 CNCL-TEST-03.                                                    IC2044.2\n006500     MOVE SPACE TO SUB-DN4.                                       IC2044.2\n006600     IF WS1 EQUAL TO SUB-DN3                                      IC2044.2\n006700         MOVE \"EQUAL\" TO SUB-DN4.                                 IC2044.2\n006800 IC204-EXIT.                                                      IC2044.2\n006900     EXIT PROGRAM.                                                IC2044.2\n007000*        THE PARAMETER SUB-DN3 IS SET IN THE CALLING PROGRAM      IC2044.2\n007100*    EQUAL TO THE NUMBER OF TIMES THE SUBPROGRAM HAS BEEN         IC2044.2\n007200*    CALLED SINCE BEING INITIALIZED, EITHER BY THE FIRST CALL     IC2044.2\n007300*    OR THE FIRST CALL AFTER A CANCEL STATEMENT.                  IC2044.2\n      *END-OF,IC204A                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "IC204A",
+  "stage1_division_count": 4,
+  "stage1_paragraph_count": 5,
+  "stage1_token_count": 172,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {
+      "program_id": "IC204A"
+    },
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 4,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 14,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "DATA"
+        },
+        "children": [
+          {
+            "node_type": "DataItem",
+            "line": 17,
+            "attributes": {
+              "level": 1,
+              "name": "PRINT-REC",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 18,
+            "attributes": {
+              "level": 1,
+              "name": "DUMMY-RECORD",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 20,
+            "attributes": {
+              "level": 77,
+              "name": "WS1",
+              "pic": "99",
+              "value": "ZERO"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 21,
+            "attributes": {
+              "level": 77,
+              "name": "WS2",
+              "pic": "X",
+              "value": "\"FIRST\""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 23,
+            "attributes": {
+              "level": 77,
+              "name": "SUB-DN1",
+              "pic": "S999"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 24,
+            "attributes": {
+              "level": 1,
+              "name": "SUB-TABLE-1"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 25,
+            "attributes": {
+              "level": 2,
+              "name": "SUB-DN2",
+              "pic": "XXX"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 26,
+            "attributes": {
+              "level": 2,
+              "name": "SUB-DN3",
+              "pic": "99"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 27,
+            "attributes": {
+              "level": 2,
+              "name": "SUB-DN4",
+              "pic": "X"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 28,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 28,
+            "attributes": {
+              "name": "SUB-DN1"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 30,
+            "attributes": {
+              "name": "CNCL-TEST-01"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 31,
+                "attributes": {
+                  "verb": "ADD",
+                  "operands": [
+                    "1",
+                    "TO",
+                    "WS1"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 32,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "WS1",
+                    "TO",
+                    "SUB-DN1"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 33,
+            "attributes": {
+              "name": "CNCL-TEST-02"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 34,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"NO\"",
+                    "TO",
+                    "SUB-DN2"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 35,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "WS2",
+                    "EQUAL",
+                    "TO",
+                    "\"FIRST\""
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 36,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "SPACE",
+                    "TO",
+                    "WS2"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 37,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"YES\"",
+                    "TO",
+                    "SUB-DN2"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 38,
+            "attributes": {
+              "name": "CNCL-TEST-03"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 39,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "SPACE",
+                    "TO",
+                    "SUB-DN4"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 40,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "WS1",
+                    "EQUAL",
+                    "TO",
+                    "SUB-DN3"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 41,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"EQUAL\"",
+                    "TO",
+                    "SUB-DN4"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 42,
+            "attributes": {
+              "name": "IC204-EXIT"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 43,
+                "attributes": {
+                  "verb": "EXIT",
+                  "operands": [
+                    "PROGRAM"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "complexity_tier": "simple",
+  "complexity_score": 2.4,
+  "ast_depth": 4,
+  "unique_verbs": 4,
+  "cross_refs": 0,
+  "stage2_source": "rule-based",
+  "stage2_rule_based_code": "\"\"\"Translated from COBOL program IC204A.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'print_rec': '',\n    'dummy_record': '',\n    'ws1': 0,\n    'ws2': \"FIRST\",\n    'sub_dn1': 0,\n    'sub_table_1': None,\n    'sub_dn2': '',\n    'sub_dn3': 0,\n    'sub_dn4': '',\n})\n\ndef sub_dn1() -> None:\n    pass\n\ndef cncl_test_01() -> None:\n    state['ws1'] = state['ws1'] + 1\n    state['sub_dn1'] = state['ws1']\n\ndef cncl_test_02() -> None:\n    state['sub_dn2'] = \"NO\"\n    if state['ws2'] == \"FIRST\":\n        state['ws2'] = space\n        state['sub_dn2'] = \"YES\"\n\ndef cncl_test_03() -> None:\n    state['sub_dn4'] = space\n    if state['ws1'] == state['sub_dn3']:\n        state['sub_dn4'] = \"EQUAL\"\n\ndef ic204_exit() -> None:\n    return\n\nif __name__ == \"__main__\":\n    try:\n        sub_dn1()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_neural_code": "",
+  "stage2_final_code": "\"\"\"Translated from COBOL program IC204A.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'print_rec': '',\n    'dummy_record': '',\n    'ws1': 0,\n    'ws2': \"FIRST\",\n    'sub_dn1': 0,\n    'sub_table_1': None,\n    'sub_dn2': '',\n    'sub_dn3': 0,\n    'sub_dn4': '',\n})\n\ndef sub_dn1() -> None:\n    pass\n\ndef cncl_test_01() -> None:\n    state['ws1'] = state['ws1'] + 1\n    state['sub_dn1'] = state['ws1']\n\ndef cncl_test_02() -> None:\n    state['sub_dn2'] = \"NO\"\n    if state['ws2'] == \"FIRST\":\n        state['ws2'] = space\n        state['sub_dn2'] = \"YES\"\n\ndef cncl_test_03() -> None:\n    state['sub_dn4'] = space\n    if state['ws1'] == state['sub_dn3']:\n        state['sub_dn4'] = \"EQUAL\"\n\ndef ic204_exit() -> None:\n    return\n\nif __name__ == \"__main__\":\n    try:\n        sub_dn1()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_warnings": [],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": true,
+  "stage3_refined_code": "\"\"\"Translated from COBOL program IC204A.\"\"\"\n\nfrom typing import Dict, Any\n\nclass State(Dict[str, Any]):\n    def __missing__(self, key: str) -> Any:\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\nstate: State = State({\n    'print_rec': '',\n    'dummy_record': '',\n    'ws1': 0,\n    'ws2': \"FIRST\",\n    'sub_dn1': 0,\n    'sub_table_1': None,\n    'sub_dn2': '',\n    'sub_dn3': 0,\n    'sub_dn4': '',\n})\n\ndef sub_dn1() -> None:\n    pass\n\ndef cncl_test_01() -> None:\n    state['ws1'] += 1\n    state['sub_dn1'] = state['ws1']\n\ndef cncl_test_02() -> None:\n    state['sub_dn2'] = \"NO\"\n    if state['ws2'] == \"FIRST\":\n        state['ws2'] = ''\n        state['sub_dn2'] = \"YES\"\n\ndef cncl_test_03() -> None:\n    state['sub_dn4'] = ''\n    if state['ws1'] == state['sub_dn3']:\n        state['sub_dn4'] = \"EQUAL\"\n\ndef ic204_exit() -> None:\n    return\n\nif __name__ == \"__main__\":\n    try:\n        sub_dn1()\n    except Exception as exc:\n        import sys\n        print(f\"runtime: {type(exc).__name__}: {exc}\", file=sys.stderr)",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "",
+  "stage3_error": "'RefinementResult' object has no attribute 'rename_map'",
+  "verdict": "INCONCLUSIVE",
+  "verdict_summary": "3 structural check(s) passed, but no behavioural signal (execution_match / llm_judge) was available. llm_judge skipped: anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CbMjECVdLGBwnot7FngHt'})",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": ""
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "5/5 paragraphs found as Python functions",
+      "skipped_reason": ""
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "9/9 identifiers traced into the Python",
+      "skipped_reason": ""
+    },
+    {
+      "name": "llm_judge",
+      "ran": false,
+      "passed": null,
+      "score": null,
+      "detail": "skipped: anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CbMjECVdLGBwnot7FngHt'})",
+      "skipped_reason": "anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CbMjECVdLGBwnot7FngHt'})"
+    }
+  ],
+  "timestamp": 1779640987.858848
+}

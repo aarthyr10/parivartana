@@ -1,0 +1,217 @@
+{
+  "program_id": "DB301M",
+  "record_id": "DB301M",
+  "cobol_source": "      *HEADER,COBOL,DB301M                                                            \n000100 IDENTIFICATION DIVISION.                                         DB3014.2\n000200 PROGRAM-ID.                                                      DB3014.2\n000300     DB301M.                                                      DB3014.2\n000400*THE FOLLOWING PROGRAM TESTS THE FLAGGING OF LEVEL 1              DB3014.2\n000500*FEATURES OF THE DEBUGGING MODULE.                                DB3014.2\n000600 ENVIRONMENT DIVISION.                                            DB3014.2\n000700 CONFIGURATION SECTION.                                           DB3014.2\n000800 SOURCE-COMPUTER.                                                 DB3014.2\n000900     XXXXX082                                                     DB3014.2\n001000     WITH DEBUGGING MODE.                                         DB3014.2\n001100 OBJECT-COMPUTER.                                                 DB3014.2\n001200     XXXXX083.                                                    DB3014.2\n001300 INPUT-OUTPUT SECTION.                                            DB3014.2\n001400 FILE-CONTROL.                                                    DB3014.2\n001500     SELECT TFIL ASSIGN                                           DB3014.2\n001600     XXXXX014                                                     DB3014.2\n001700         ORGANIZATION IS SEQUENTIAL                               DB3014.2\n001800         ACCESS MODE IS SEQUENTIAL.                               DB3014.2\n001900 DATA DIVISION.                                                   DB3014.2\n002000 FILE SECTION.                                                    DB3014.2\n002100 FD TFIL.                                                         DB3014.2\n002200 01 FREC.                                                         DB3014.2\n002300     03 RKEY PIC 9(8).                                            DB3014.2\n002400                                                                  DB3014.2\n002500 PROCEDURE DIVISION.                                              DB3014.2\n002600                                                                  DB3014.2\n002700 DECLARATIVES.                                                    DB3014.2\n002800                                                                  DB3014.2\n002900                                                                  DB3014.2\n003000 BUGGING-2 SECTION.                                               DB3014.2\n003100                                                                  DB3014.2\n003200                                                                  DB3014.2\n003300     USE FOR DEBUGGING ON ALL PROCEDURES.                         DB3014.2\n003400*Message expected for above statement: NON-CONFORMING STANDARD    DB3014.2\n003500                                                                  DB3014.2\n003600                                                                  DB3014.2\n003700 END DECLARATIVES.                                                DB3014.2\n003800                                                                  DB3014.2\n003900 DB301M-FLAGS SECTION.                                            DB3014.2\n004000 DB301M-CONTROL.                                                  DB3014.2\n004100     DISPLAY \"THIS IS A DUMMY PROCEDURE\".                         DB3014.2\n004200     STOP RUN.                                                    DB3014.2\n004300                                                                  DB3014.2\n004400                                                                  DB3014.2\n004500*TOTAL NUMBER OF FLAGS EXPECTED = 1.                              DB3014.2\n      *END-OF,DB301M                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "",
+  "stage1_division_count": 3,
+  "stage1_paragraph_count": 10,
+  "stage1_token_count": 80,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {},
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": ""
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 4,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": ""
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 6,
+            "attributes": {
+              "name": "COMPUTER"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 9,
+            "attributes": {
+              "name": "COMPUTER"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 10,
+            "attributes": {
+              "name": "XX083"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 12,
+            "attributes": {
+              "name": "NTROL"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 17,
+            "attributes": {
+              "name": "VISION"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 18,
+            "attributes": {
+              "name": "CTION"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 23,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": ""
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 25,
+            "attributes": {
+              "name": "TIVES"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 31,
+            "attributes": {
+              "name": "PROCEDURES"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 34,
+            "attributes": {
+              "name": "LARATIVES"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 37,
+            "attributes": {
+              "name": "CONTROL"
+            },
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "stage1_cobc_status": "",
+  "stage1_cobc_stderr": "",
+  "complexity_tier": "simple",
+  "complexity_score": 1.05,
+  "ast_depth": 3,
+  "unique_verbs": 0,
+  "cross_refs": 0,
+  "stage2_source": "rule-based",
+  "stage2_rule_based_code": "\"\"\"Translated from COBOL program program.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\nstate: _State = _State()\n\ndef computer() -> None:\n    pass\n\ndef computer() -> None:\n    pass\n\ndef xx083() -> None:\n    pass\n\ndef ntrol() -> None:\n    pass\n\ndef vision() -> None:\n    pass\n\ndef ction() -> None:\n    pass\n\ndef tives() -> None:\n    pass\n\ndef procedures() -> None:\n    pass\n\ndef laratives() -> None:\n    pass\n\ndef control() -> None:\n    pass\n\nif __name__ == \"__main__\":\n    try:\n        computer()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_neural_code": "",
+  "stage2_final_code": "\"\"\"Translated from COBOL program program.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\nstate: _State = _State()\n\ndef computer() -> None:\n    pass\n\ndef computer() -> None:\n    pass\n\ndef xx083() -> None:\n    pass\n\ndef ntrol() -> None:\n    pass\n\ndef vision() -> None:\n    pass\n\ndef ction() -> None:\n    pass\n\ndef tives() -> None:\n    pass\n\ndef procedures() -> None:\n    pass\n\ndef laratives() -> None:\n    pass\n\ndef control() -> None:\n    pass\n\nif __name__ == \"__main__\":\n    try:\n        computer()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_warnings": [],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": false,
+  "stage3_refined_code": "",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "",
+  "stage3_error": "",
+  "verdict": "INCONCLUSIVE",
+  "verdict_summary": "4 structural check(s) passed, but no behavioural signal (execution_match / llm_judge) was available.",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "10/10 paragraphs found as Python functions",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "COMPUTER",
+          "COMPUTER",
+          "XX083",
+          "NTROL",
+          "VISION",
+          "CTION",
+          "TIVES",
+          "PROCEDURES",
+          "LARATIVES",
+          "CONTROL"
+        ],
+        "missing": [],
+        "total": 10
+      }
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "COBOL program had no data items to cover.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "body_non_trivial",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "All 9 paragraph(s) were <=1 statement; nothing to score.",
+      "skipped_reason": "",
+      "extra": {
+        "exempt": [
+          "COMPUTER",
+          "XX083",
+          "NTROL",
+          "VISION",
+          "CTION",
+          "TIVES",
+          "PROCEDURES",
+          "LARATIVES",
+          "CONTROL"
+        ]
+      }
+    }
+  ],
+  "timestamp": 1779891109.6501844
+}

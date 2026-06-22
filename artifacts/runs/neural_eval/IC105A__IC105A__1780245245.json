@@ -1,0 +1,523 @@
+{
+  "program_id": "IC105A",
+  "record_id": "IC105A",
+  "cobol_source": "      *HEADER,COBOL,IC103A,SUBRTN,IC105A                                              \n000100 IDENTIFICATION DIVISION.                                         IC1054.2\n000200 PROGRAM-ID.                                                      IC1054.2\n000300     IC105A.                                                      IC1054.2\n000400****************************************************************  IC1054.2\n000500*                                                              *  IC1054.2\n000600*    VALIDATION FOR:-                                          *  IC1054.2\n000700*                                                              *  IC1054.2\n000800*    \"ON-SITE VALIDATION, NATIONAL INSTITUTE OF STD & TECH.     \".IC1054.2\n000900*                                                              *  IC1054.2\n001000*    \"COBOL 85 VERSION 4.2, Apr  1993 SSVG                      \".IC1054.2\n001100*                                                              *  IC1054.2\n001200****************************************************************  IC1054.2\n001300*                                                              *  IC1054.2\n001400*      X-CARDS USED BY THIS PROGRAM ARE :-                     *  IC1054.2\n001500*                                                              *  IC1054.2\n001600*        X-55  - SYSTEM PRINTER NAME.                          *  IC1054.2\n001700*        X-82  - SOURCE COMPUTER NAME.                         *  IC1054.2\n001800*        X-83  - OBJECT COMPUTER NAME.                         *  IC1054.2\n001900*                                                              *  IC1054.2\n002000****************************************************************  IC1054.2\n002100*        THE SUBPROGRAM IC105 HAS TWO OPERANDS IN THE             IC1054.2\n002200*    PROCEDURE DIVISION HEADER AND THE ROUTINE CONTAINS           IC1054.2\n002300*    FOUR EXIT PROGRAM STATEMENTS.  THE CALLING PROGRAM           IC1054.2\n002400*    IS IC103.                                                    IC1054.2\n002500 ENVIRONMENT DIVISION.                                            IC1054.2\n002600 CONFIGURATION SECTION.                                           IC1054.2\n002700 SOURCE-COMPUTER.                                                 IC1054.2\n002800     XXXXX082.                                                    IC1054.2\n002900 OBJECT-COMPUTER.                                                 IC1054.2\n003000     XXXXX083.                                                    IC1054.2\n003100 DATA DIVISION.                                                   IC1054.2\n003200 LINKAGE SECTION.                                                 IC1054.2\n003300 77  DN1 PICTURE 999.                                             IC1054.2\n003400 77  DN2 PICTURE S99 COMPUTATIONAL.                               IC1054.2\n003500 PROCEDURE DIVISION  USING DN1 DN2.                               IC1054.2\n003600*        THIS SUBPROGRAM CONTANS FOUR EXIT PROGRAM STATEMENTS.    IC1054.2\n003700*    REFERENCE  X3.23-1974, SECTION XII, 3.4.                     IC1054.2\n003800 SECT-IC105-0001 SECTION.                                         IC1054.2\n003900 EXIT-TEST-001.                                                   IC1054.2\n004000     IF DN1 IS NOT EQUAL TO 1                                     IC1054.2\n004100          GO TO EXIT-TEST-002.                                    IC1054.2\n004200     MOVE 1 TO DN2.                                               IC1054.2\n004300 EXIT-STATEMENT-001.                                              IC1054.2\n004400     EXIT PROGRAM.                                                IC1054.2\n004500 EXIT-TEST-002.                                                   IC1054.2\n004600     IF DN1 IS NOT EQUAL TO 2                                     IC1054.2\n004700          GO TO EXIT-TEST-003.                                    IC1054.2\n004800     MOVE 2 TO DN2.                                               IC1054.2\n004900 EXIT-STATEMENT-002.                                              IC1054.2\n005000     EXIT PROGRAM.                                                IC1054.2\n005100 EXIT-TEST-003.                                                   IC1054.2\n005200     IF DN1 NOT EQUAL TO 3                                        IC1054.2\n005300          GO TO EXIT-TEST-004.                                    IC1054.2\n005400     MOVE 3 TO DN2.                                               IC1054.2\n005500 EXIT-STATEMENT-003.                                              IC1054.2\n005600     EXIT PROGRAM.                                                IC1054.2\n005700 EXIT-TEST-004.                                                   IC1054.2\n005800     MOVE 4 TO DN2.                                               IC1054.2\n005900     GO TO EXIT-STATEMENT-004.                                    IC1054.2\n006000 EXTRANEOUS-PARAGRAPH.                                            IC1054.2\n006100*        THIS PARAGRAPH IS NEVER EXECUTED.                        IC1054.2\n006200     MOVE 5 TO DN2.                                               IC1054.2\n006300 EXIT-STATEMENT-004.                                              IC1054.2\n006400     EXIT PROGRAM.                                                IC1054.2\n      *END-OF,IC105A                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "IC105A",
+  "stage1_division_count": 4,
+  "stage1_paragraph_count": 10,
+  "stage1_token_count": 139,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {
+      "program_id": "IC105A"
+    },
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 4,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 10,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "DATA"
+        },
+        "children": [
+          {
+            "node_type": "DataItem",
+            "line": 12,
+            "attributes": {
+              "level": 77,
+              "name": "DN1",
+              "pic": "999"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 13,
+            "attributes": {
+              "level": 77,
+              "name": "DN2",
+              "pic": "S99"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 14,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 14,
+            "attributes": {
+              "name": "DN2"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 16,
+            "attributes": {
+              "name": "EXIT-TEST-001"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 17,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "DN1",
+                    "IS",
+                    "NOT",
+                    "EQUAL",
+                    "TO",
+                    "1"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 18,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "EXIT-TEST-002"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 19,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "1",
+                    "TO",
+                    "DN2"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 20,
+            "attributes": {
+              "name": "EXIT-STATEMENT-001"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 21,
+                "attributes": {
+                  "verb": "EXIT",
+                  "operands": [
+                    "PROGRAM"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 22,
+            "attributes": {
+              "name": "EXIT-TEST-002"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 23,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "DN1",
+                    "IS",
+                    "NOT",
+                    "EQUAL",
+                    "TO",
+                    "2"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 24,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "EXIT-TEST-003"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 25,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "2",
+                    "TO",
+                    "DN2"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 26,
+            "attributes": {
+              "name": "EXIT-STATEMENT-002"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 27,
+                "attributes": {
+                  "verb": "EXIT",
+                  "operands": [
+                    "PROGRAM"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 28,
+            "attributes": {
+              "name": "EXIT-TEST-003"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 29,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "DN1",
+                    "NOT",
+                    "EQUAL",
+                    "TO",
+                    "3"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 30,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "EXIT-TEST-004"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 31,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "3",
+                    "TO",
+                    "DN2"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 32,
+            "attributes": {
+              "name": "EXIT-STATEMENT-003"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 33,
+                "attributes": {
+                  "verb": "EXIT",
+                  "operands": [
+                    "PROGRAM"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 34,
+            "attributes": {
+              "name": "EXIT-TEST-004"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 35,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "4",
+                    "TO",
+                    "DN2"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 36,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "EXIT-STATEMENT-004"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 37,
+            "attributes": {
+              "name": "EXTRANEOUS-PARAGRAPH"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 38,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "5",
+                    "TO",
+                    "DN2"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 39,
+            "attributes": {
+              "name": "EXIT-STATEMENT-004"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 40,
+                "attributes": {
+                  "verb": "EXIT",
+                  "operands": [
+                    "PROGRAM"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "stage1_cobc_status": "",
+  "stage1_cobc_stderr": "",
+  "complexity_tier": "simple",
+  "complexity_score": 6.9,
+  "ast_depth": 4,
+  "unique_verbs": 4,
+  "cross_refs": 0,
+  "stage2_source": "neural",
+  "stage2_rule_based_code": "/*\n * Licensed to the Apache Software Foundation (ASF) under one\n * or more contributor license agreements.  See the NOTICE file\n * distributed with this work for additional information\n * regarding copyright ownership.  The ASF licenses this file\n * to you under the Apache License, Version 2.0 (the\n * \"License\"); you may not use this file except in compliance\n * with the License.  You may obtain a copy of the License at\n *\n *   http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing,\n * software distributed under the License is distributed on an\n * \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY\n * KIND, either express or implied.  See the License for the\n * specific language governing permissions and limitations\n * under the License.\n */\npackage org.apache.asterix.runtime.evaluators.functions;\n\nimport org.apache.asterix.om.functions.BuiltinFunctions;\nimport org.apache.asterix.om.functions.IFunctionDescriptor;",
+  "stage2_neural_code": "",
+  "stage2_final_code": "/*\n * Licensed to the Apache Software Foundation (ASF) under one\n * or more contributor license agreements.  See the NOTICE file\n * distributed with this work for additional information\n * regarding copyright ownership.  The ASF licenses this file\n * to you under the Apache License, Version 2.0 (the\n * \"License\"); you may not use this file except in compliance\n * with the License.  You may obtain a copy of the License at\n *\n *   http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing,\n * software distributed under the License is distributed on an\n * \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY\n * KIND, either express or implied.  See the License for the\n * specific language governing permissions and limitations\n * under the License.\n */\npackage org.apache.asterix.runtime.evaluators.functions;\n\nimport org.apache.asterix.om.functions.BuiltinFunctions;\nimport org.apache.asterix.om.functions.IFunctionDescriptor;",
+  "stage2_warnings": [],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": true,
+  "stage3_refined_code": "def main() -> None:\n    display_welcome_message()\n    perform_calculation()\n    display_goodbye_message()\n\ndef display_welcome_message() -> None:\n    print(\"Welcome to the program!\")\n\ndef perform_calculation() -> None:\n    result = compute_sum(5, 10)\n    print(\"The result of the calculation is:\", result)\n\ndef compute_sum(a: int, b: int) -> int:\n    return a + b\n\ndef display_goodbye_message() -> None:\n    print(\"Thank you for using the program. Goodbye!\")\n\nif __name__ == \"__main__\":\n    main()",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "openai",
+  "stage3_error": "",
+  "verdict": "FAIL",
+  "verdict_summary": "4 check(s) failed: paragraph_coverage, identifier_coverage, body_non_trivial, llm_judge.",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": false,
+      "score": 0.0,
+      "detail": "0/10 paragraphs found as Python functions; missing: DN2, EXIT-TEST-001, EXIT-STATEMENT-001, EXIT-TEST-002, EXIT-STATEMENT-002",
+      "skipped_reason": "",
+      "extra": {
+        "found": [],
+        "missing": [
+          "DN2",
+          "EXIT-TEST-001",
+          "EXIT-STATEMENT-001",
+          "EXIT-TEST-002",
+          "EXIT-STATEMENT-002",
+          "EXIT-TEST-003",
+          "EXIT-STATEMENT-003",
+          "EXIT-TEST-004",
+          "EXTRANEOUS-PARAGRAPH",
+          "EXIT-STATEMENT-004"
+        ],
+        "total": 10
+      }
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": false,
+      "score": 0.0,
+      "detail": "0/2 identifiers traced into the Python; missing: DN1, DN2",
+      "skipped_reason": "",
+      "extra": {
+        "found": [],
+        "missing": [
+          "DN1",
+          "DN2"
+        ],
+        "total": 2
+      }
+    },
+    {
+      "name": "body_non_trivial",
+      "ran": true,
+      "passed": false,
+      "score": 0.0,
+      "detail": "0/4 paragraphs have non-trivial bodies; stubbed: EXIT-TEST-001, EXIT-TEST-002, EXIT-TEST-003, EXIT-TEST-004",
+      "skipped_reason": "",
+      "extra": {
+        "non_trivial": [],
+        "trivial": [
+          "EXIT-TEST-001",
+          "EXIT-TEST-002",
+          "EXIT-TEST-003",
+          "EXIT-TEST-004"
+        ],
+        "exempt": [
+          "DN2",
+          "EXIT-STATEMENT-001",
+          "EXIT-STATEMENT-002",
+          "EXIT-STATEMENT-003",
+          "EXTRANEOUS-PARAGRAPH",
+          "EXIT-STATEMENT-004"
+        ],
+        "total_eligible": 4
+      }
+    },
+    {
+      "name": "python_smoke",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "ran cleanly",
+      "skipped_reason": "",
+      "extra": {
+        "exit_code": 0,
+        "stdout_bytes": 103,
+        "stderr_bytes": 0,
+        "stderr_head": ""
+      }
+    },
+    {
+      "name": "execution_match",
+      "ran": false,
+      "passed": null,
+      "score": null,
+      "detail": "skipped: cobol side could not be executed (stdout_mismatch; rc=1)",
+      "skipped_reason": "cobol side could not be executed (stdout_mismatch; rc=1)",
+      "extra": {
+        "cobol_stdout": "/var/folders/rl/r9ygvg0x7_l7sdtfq9pq99fm0000gn/T/tmpr3br_mvu/program.cob:39: error: executable program requested but PROCEDURE/ENTRY has USING clause\n   37 | 003600*        THIS SUBPROGRAM CONTANS FOUR EXIT PROGRAM STATEMENTS.    I..\n   38 | 003700*    REFERENCE  X3.23-1974, SECTION XII, 3.4.                     I..\n   39 > 003800 SECT-IC105-0001 SECTION.                                         I.",
+        "cobol_returncode": 1
+      }
+    },
+    {
+      "name": "llm_judge",
+      "ran": true,
+      "passed": false,
+      "score": 0.5,
+      "detail": "[openai] correctness=0.00, readability=0.60, pep8=1.00, pythonic=0.40, types=1.00",
+      "skipped_reason": "",
+      "extra": {
+        "rationale": "The Python translation does not reflect the logic of the COBOL program at all, leading to a correctness score of 0.0. While the code is readable and follows PEP 8 guidelines, it does not use Python idioms effectively, as it translates the COBOL structure too literally without capturing the intended functionality. Type annotations are complete, but they do not correspond to the original COBOL program's logic.",
+        "components": {
+          "correctness": 0.0,
+          "readability": 0.6,
+          "pep8_compliance": 1.0,
+          "pythonic_idioms": 0.4,
+          "type_annotations": 1.0,
+          "rationale": "The Python translation does not reflect the logic of the COBOL program at all, leading to a correctness score of 0.0. While the code is readable and follows PEP 8 guidelines, it does not use Python idioms effectively, as it translates the COBOL structure too literally without capturing the intended functionality. Type annotations are complete, but they do not correspond to the original COBOL program's logic.",
+          "weighted": 0.5
+        },
+        "provider_used": "openai",
+        "providers_tried": [
+          "openai: ok"
+        ]
+      }
+    }
+  ],
+  "timestamp": 1780245245.069088
+}

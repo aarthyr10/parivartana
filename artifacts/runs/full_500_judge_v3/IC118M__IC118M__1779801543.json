@@ -1,0 +1,247 @@
+{
+  "program_id": "IC118M",
+  "record_id": "IC118M",
+  "cobol_source": "      *HEADER,COBOL,IC116M,SUBRTN,IC118M                                              \n000100 IDENTIFICATION DIVISION.                                         IC1184.2\n000200 PROGRAM-ID.                                                      IC1184.2\n000300     IC118M.                                                      IC1184.2\n000400****************************************************************  IC1184.2\n000500*                                                              *  IC1184.2\n000600*    VALIDATION FOR:-                                          *  IC1184.2\n000700*                                                              *  IC1184.2\n000800*    \"ON-SITE VALIDATION, NATIONAL INSTITUTE OF STD & TECH.     \".IC1184.2\n000900*                                                              *  IC1184.2\n001000*    \"COBOL 85 VERSION 4.2, Apr  1993 SSVG                      \".IC1184.2\n001100*                                                              *  IC1184.2\n001200****************************************************************  IC1184.2\n001300*                                                              *  IC1184.2\n001400*      X-CARDS USED BY THIS PROGRAM ARE :-                     *  IC1184.2\n001500*                                                              *  IC1184.2\n001600*        X-55  - SYSTEM PRINTER NAME.                          *  IC1184.2\n001700*        X-82  - SOURCE COMPUTER NAME.                         *  IC1184.2\n001800*        X-83  - OBJECT COMPUTER NAME.                         *  IC1184.2\n001900*                                                              *  IC1184.2\n002000****************************************************************  IC1184.2\n002100*                                                                 IC1184.2\n002200*        THE SUBPROGRAM IC118 IS CALLED BY THE SUBPROGRAM IC117.  IC1184.2\n002300*    THE SUBPROGRAM IC118 DOES NOT CONTAIN A LINKAGE SECTION OR   IC1184.2\n002400*    AN USING PHRASE IN THE PROCEDURE DIVISION HEADER.  A DISPLAY IC1184.2\n002500*    STATEMENT IS EXECUTED TO VERIFY THAT THIS SUBPROGRAM WAS     IC1184.2\n002600*    EXECUTED.                                                    IC1184.2\n002700*                                                                 IC1184.2\n002800******************************************************************IC1184.2\n002900 ENVIRONMENT DIVISION.                                            IC1184.2\n003000 CONFIGURATION SECTION.                                           IC1184.2\n003100 SOURCE-COMPUTER.                                                 IC1184.2\n003200     XXXXX082.                                                    IC1184.2\n003300 OBJECT-COMPUTER.                                                 IC1184.2\n003400     XXXXX083.                                                    IC1184.2\n003500 DATA DIVISION.                                                   IC1184.2\n003600 WORKING-STORAGE SECTION.                                         IC1184.2\n003700 01  IC118-TEMP1         PICTURE 9.                               IC1184.2\n003800 01  TWO                 PICTURE 9   VALUE 2.                     IC1184.2\n003900 01  IC118-TEMP2         PICTURE 99   VALUE 97.                   IC1184.2\n004000 PROCEDURE DIVISION.                                              IC1184.2\n004100*USNG-TEST-04.                                                    IC1184.2\n004200*                                                                 IC1184.2\n004300*    THIS TEST VERIFIES THAT A SUBPROGRAM PROCEDURE DIVISION      IC1184.2\n004400*    HEADER IS NOT REQUIRED TO HAVE THE OPTIONAL USING PHRASE.    IC1184.2\n004500*                                                                 IC1184.2\n004600 USNG-VERIFY-04.                                                  IC1184.2\n004700     MOVE 2 TO IC118-TEMP1.                                       IC1184.2\n004800     ADD TWO TO IC118-TEMP2.                                      IC1184.2\n004900*                                                                 IC1184.2\n005000*    THE RESULTS OF THE ABOVE STATEMENTS ARE NOT TESTED.          IC1184.2\n005100*                                                                 IC1184.2\n005200 USNG-DISPLAY-04.                                                 IC1184.2\n005300     DISPLAY \"IC118M CALLED\".                                     IC1184.2\n005400 IC118-EXIT.                                                      IC1184.2\n005500     EXIT PROGRAM.                                                IC1184.2\n      *END-OF,IC118M                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "IC118M",
+  "stage1_division_count": 4,
+  "stage1_paragraph_count": 3,
+  "stage1_token_count": 72,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {
+      "program_id": "IC118M"
+    },
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 4,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 10,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "DATA"
+        },
+        "children": [
+          {
+            "node_type": "DataItem",
+            "line": 12,
+            "attributes": {
+              "level": 1,
+              "name": "IC118-TEMP1",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 13,
+            "attributes": {
+              "level": 1,
+              "name": "TWO",
+              "pic": "9",
+              "value": "2"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 14,
+            "attributes": {
+              "level": 1,
+              "name": "IC118-TEMP2",
+              "pic": "99",
+              "value": "97"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 15,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 16,
+            "attributes": {
+              "name": "USNG-VERIFY-04"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 17,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "2",
+                    "TO",
+                    "IC118-TEMP1"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 18,
+                "attributes": {
+                  "verb": "ADD",
+                  "operands": [
+                    "TWO",
+                    "TO",
+                    "IC118-TEMP2"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 19,
+            "attributes": {
+              "name": "USNG-DISPLAY-04"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 20,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\"IC118M CALLED\""
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 21,
+            "attributes": {
+              "name": "IC118-EXIT"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 22,
+                "attributes": {
+                  "verb": "EXIT",
+                  "operands": [
+                    "PROGRAM"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "complexity_tier": "simple",
+  "complexity_score": 2.4,
+  "ast_depth": 4,
+  "unique_verbs": 4,
+  "cross_refs": 0,
+  "stage2_source": "rule-based",
+  "stage2_rule_based_code": "\"\"\"Translated from COBOL program IC118M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'ic118_temp1': 0,\n    'two': 2,\n    'ic118_temp2': 97,\n})\n\ndef usng_verify_04() -> None:\n    state['ic118_temp1'] = 2\n    state['ic118_temp2'] = state['ic118_temp2'] + state['two']\n\ndef usng_display_04() -> None:\n    print(\"IC118M CALLED\")\n\ndef ic118_exit() -> None:\n    return\n\nif __name__ == \"__main__\":\n    try:\n        usng_verify_04()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_neural_code": "",
+  "stage2_final_code": "\"\"\"Translated from COBOL program IC118M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'ic118_temp1': 0,\n    'two': 2,\n    'ic118_temp2': 97,\n})\n\ndef usng_verify_04() -> None:\n    state['ic118_temp1'] = 2\n    state['ic118_temp2'] = state['ic118_temp2'] + state['two']\n\ndef usng_display_04() -> None:\n    print(\"IC118M CALLED\")\n\ndef ic118_exit() -> None:\n    return\n\nif __name__ == \"__main__\":\n    try:\n        usng_verify_04()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_warnings": [],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": true,
+  "stage3_refined_code": "\"\"\"Translated from COBOL program IC118M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'ic118_temp1': 0,\n    'two': 2,\n    'ic118_temp2': 97,\n})\n\ndef usng_verify_04() -> None:\n    state['ic118_temp1'] = 2\n    state['ic118_temp2'] = state['ic118_temp2'] + state['two']\n\ndef usng_display_04() -> None:\n    print(\"IC118M CALLED\")\n\ndef ic118_exit() -> None:\n    return\n\nif __name__ == \"__main__\":\n    try:\n        usng_verify_04()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "openai",
+  "stage3_error": "",
+  "verdict": "INCONCLUSIVE",
+  "verdict_summary": "3 structural check(s) passed, but no behavioural signal (execution_match / llm_judge) was available. llm_judge skipped: openai: judge call failed (Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}) | anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CbRFHPuK5b8EETpvxyVbx'})",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "3/3 paragraphs found as Python functions",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "USNG-VERIFY-04",
+          "USNG-DISPLAY-04",
+          "IC118-EXIT"
+        ],
+        "missing": [],
+        "total": 3
+      }
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "3/3 identifiers traced into the Python",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "IC118-TEMP1",
+          "TWO",
+          "IC118-TEMP2"
+        ],
+        "missing": [],
+        "total": 3
+      }
+    },
+    {
+      "name": "llm_judge",
+      "ran": false,
+      "passed": null,
+      "score": null,
+      "detail": "skipped: openai: judge call failed (Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}) | anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-",
+      "skipped_reason": "openai: judge call failed (Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}) | anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CbRFHPuK5b8EETpvxyVbx'})",
+      "extra": {
+        "providers_tried": [
+          "openai: judge call failed (Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}})",
+          "anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CbRFHPuK5b8EETpvxyVbx'})"
+        ]
+      }
+    }
+  ],
+  "timestamp": 1779801543.473998
+}

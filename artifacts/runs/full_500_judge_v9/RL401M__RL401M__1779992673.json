@@ -1,0 +1,428 @@
+{
+  "program_id": "RL401M",
+  "record_id": "RL401M",
+  "cobol_source": "      *HEADER,COBOL,RL401M                                                            \n000100 IDENTIFICATION DIVISION.                                         RL4014.2\n000200 PROGRAM-ID.                                                      RL4014.2\n000300      RL401M.                                                     RL4014.2\n000400*THE FOLLOWING PROGRAM TESTS THE FLAGGING OF                      RL4014.2\n000500*HIGH SUBSET FEATURES THAT ARE USED IN RELATIVE                   RL4014.2\n000600*INPUT-OUTPUT.                                                    RL4014.2\n000700 ENVIRONMENT DIVISION.                                            RL4014.2\n000800 CONFIGURATION SECTION.                                           RL4014.2\n000900 SOURCE-COMPUTER.                                                 RL4014.2\n001000     XXXXX082.                                                    RL4014.2\n001100 OBJECT-COMPUTER.                                                 RL4014.2\n001200     XXXXX083.                                                    RL4014.2\n001300 INPUT-OUTPUT SECTION.                                            RL4014.2\n001400 FILE-CONTROL.                                                    RL4014.2\n001500     SELECT OPTIONAL TFIL ASSIGN                                  RL4014.2\n001600*Message expected for above statement: NON-CONFORMING STANDARD    RL4014.2\n001700     XXXXX021                                                     RL4014.2\n001800         RESERVE 2 AREAS                                          RL4014.2\n001900*Message expected for above statement: NON-CONFORMING STANDARD    RL4014.2\n002000         ORGANIZATION IS RELATIVE                                 RL4014.2\n002100         ACCESS MODE IS DYNAMIC                                   RL4014.2\n002200*Message expected for above statement: NON-CONFORMING STANDARD    RL4014.2\n002300         RELATIVE KEY IS RKEY.                                    RL4014.2\n002400                                                                  RL4014.2\n002500     SELECT TFIL2 ASSIGN                                          RL4014.2\n002600     XXXXX022                                                     RL4014.2\n002700         ORGANIZATION IS RELATIVE.                                RL4014.2\n002800                                                                  RL4014.2\n002900 I-O-CONTROL.                                                     RL4014.2\n003000     SAME RECORD AREA FOR TFIL2, TFIL.                            RL4014.2\n003100*Message expected for above statement: NON-CONFORMING STANDARD    RL4014.2\n003200                                                                  RL4014.2\n003300 DATA DIVISION.                                                   RL4014.2\n003400 FILE SECTION.                                                    RL4014.2\n003500 FD TFIL                                                          RL4014.2\n003600     RECORD IS VARYING IN SIZE FROM 1 TO 8 CHARACTERS.            RL4014.2\n003700*Message expected for above statement: NON-CONFORMING STANDARD    RL4014.2\n003800                                                                  RL4014.2\n003900 01 FREC.                                                         RL4014.2\n004000     03 GUBBINS PIC 9(8).                                         RL4014.2\n004100                                                                  RL4014.2\n004200                                                                  RL4014.2\n004300 FD TFIL2.                                                        RL4014.2\n004400 01 FREC2.                                                        RL4014.2\n004500     03 RKEY2 PIC 9(8).                                           RL4014.2\n004600                                                                  RL4014.2\n004700 WORKING-STORAGE SECTION.                                         RL4014.2\n004800 01 RKEY PIC 9(8) VALUE ZERO.                                     RL4014.2\n004900                                                                  RL4014.2\n005000 PROCEDURE DIVISION.                                              RL4014.2\n005100                                                                  RL4014.2\n005200 RL401M-CONTROL.                                                  RL4014.2\n005300     OPEN INPUT TFIL.                                             RL4014.2\n005400     PERFORM RL401M-CLOSE THRU RL401M-START.                      RL4014.2\n005500     CLOSE TFIL.                                                  RL4014.2\n005600     CLOSE TFIL2.                                                 RL4014.2\n005700     STOP RUN.                                                    RL4014.2\n005800                                                                  RL4014.2\n005900 RL401M-CLOSE.                                                    RL4014.2\n006000     CLOSE TFIL WITH LOCK.                                        RL4014.2\n006100*Message expected for above statement: NON-CONFORMING STANDARD    RL4014.2\n006200     OPEN INPUT TFIL.                                             RL4014.2\n006300                                                                  RL4014.2\n006400 RL401M-OPENEXT.                                                  RL4014.2\n006500     OPEN EXTEND TFIL2.                                           RL4014.2\n006600*Message expected for above statement: NON-CONFORMING STANDARD    RL4014.2\n006700                                                                  RL4014.2\n006800 RL401M-READNEXT.                                                 RL4014.2\n006900     READ TFIL NEXT RECORD                                        RL4014.2\n007000         AT END DISPLAY \"AT END\".                                 RL4014.2\n007100*Message expected for above statement: NON-CONFORMING STANDARD    RL4014.2\n007200                                                                  RL4014.2\n007300 RL401M-START.                                                    RL4014.2\n007400     START TFIL KEY IS EQUAL TO RKEY                              RL4014.2\n007500         INVALID KEY STOP RUN.                                    RL4014.2\n007600*Message expected for above statement: NON-CONFORMING STANDARD    RL4014.2\n007700                                                                  RL4014.2\n007800*TOTAL NUMBER OF FLAGS EXPECTED = 9.                              RL4014.2\n      *END-OF,RL401M                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "RL401M",
+  "stage1_division_count": 4,
+  "stage1_paragraph_count": 5,
+  "stage1_token_count": 183,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {
+      "program_id": "RL401M"
+    },
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 4,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 26,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "DATA"
+        },
+        "children": [
+          {
+            "node_type": "DataItem",
+            "line": 31,
+            "attributes": {
+              "level": 1,
+              "name": "FREC"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 32,
+            "attributes": {
+              "level": 3,
+              "name": "GUBBINS",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 36,
+            "attributes": {
+              "level": 1,
+              "name": "FREC2"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 37,
+            "attributes": {
+              "level": 3,
+              "name": "RKEY2",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 40,
+            "attributes": {
+              "level": 1,
+              "name": "RKEY",
+              "pic": "9",
+              "value": "ZERO"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 42,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 44,
+            "attributes": {
+              "name": "RL401M-CONTROL"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 45,
+                "attributes": {
+                  "verb": "OPEN",
+                  "operands": [
+                    "INPUT",
+                    "TFIL"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 46,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "RL401M-CLOSE",
+                    "THRU",
+                    "RL401M-START"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 47,
+                "attributes": {
+                  "verb": "CLOSE",
+                  "operands": [
+                    "TFIL"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 48,
+                "attributes": {
+                  "verb": "CLOSE",
+                  "operands": [
+                    "TFIL2"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 49,
+                "attributes": {
+                  "verb": "STOP",
+                  "operands": [
+                    "RUN"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 51,
+            "attributes": {
+              "name": "RL401M-CLOSE"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 52,
+                "attributes": {
+                  "verb": "CLOSE",
+                  "operands": [
+                    "TFIL",
+                    "WITH",
+                    "LOCK"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 53,
+                "attributes": {
+                  "verb": "OPEN",
+                  "operands": [
+                    "INPUT",
+                    "TFIL"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 55,
+            "attributes": {
+              "name": "RL401M-OPENEXT"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 56,
+                "attributes": {
+                  "verb": "OPEN",
+                  "operands": [
+                    "EXTEND",
+                    "TFIL2"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 58,
+            "attributes": {
+              "name": "RL401M-READNEXT"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 59,
+                "attributes": {
+                  "verb": "READ",
+                  "operands": [
+                    "TFIL",
+                    "NEXT",
+                    "RECORD"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 60,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\"__AT_END__\""
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 62,
+            "attributes": {
+              "name": "RL401M-START"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 63,
+                "attributes": {
+                  "verb": "START",
+                  "operands": [
+                    "TFIL",
+                    "KEY",
+                    "IS",
+                    "EQUAL",
+                    "TO",
+                    "RKEY"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 64,
+                "attributes": {
+                  "verb": "STOP",
+                  "operands": [
+                    "RUN"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "stage1_cobc_status": "accepted",
+  "stage1_cobc_stderr": "",
+  "complexity_tier": "simple",
+  "complexity_score": 3.4,
+  "ast_depth": 4,
+  "unique_verbs": 7,
+  "cross_refs": 1,
+  "stage2_source": "rule-based",
+  "stage2_rule_based_code": "\"\"\"Translated from COBOL program RL401M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'frec': None,\n    'gubbins': 0,\n    'frec2': None,\n    'rkey2': 0,\n    'rkey': '',\n})\n\ndef rl401m_control() -> None:\n    state['tfil'] = open('tfil', 'r')\n    rl401m_close()\n    if hasattr(state['tfil'], 'close'): state['tfil'].close()\n    if hasattr(state['tfil2'], 'close'): state['tfil2'].close()\n    return\n\ndef rl401m_close() -> None:\n    if hasattr(state['tfil'], 'close'): state['tfil'].close()\n    if hasattr(state['with_'], 'close'): state['with_'].close()\n    if hasattr(state['lock'], 'close'): state['lock'].close()\n    state['tfil'] = open('tfil', 'r')\n\ndef rl401m_openext() -> None:\n    state['tfil2'] = open('tfil2', 'a')\n\ndef rl401m_readnext() -> None:\n    state['tfil'] = state['tfil'].readline() if hasattr(state['tfil'], 'readline') else ''\n    print(\"__AT_END__\")\n\ndef rl401m_start() -> None:\n    state['_file_status'] = '00'  # START TFIL\n    return\n\nif __name__ == \"__main__\":\n    try:\n        rl401m_control()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_neural_code": "",
+  "stage2_final_code": "\"\"\"Translated from COBOL program RL401M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'frec': None,\n    'gubbins': 0,\n    'frec2': None,\n    'rkey2': 0,\n    'rkey': '',\n})\n\ndef rl401m_control() -> None:\n    state['tfil'] = open('tfil', 'r')\n    rl401m_close()\n    if hasattr(state['tfil'], 'close'): state['tfil'].close()\n    if hasattr(state['tfil2'], 'close'): state['tfil2'].close()\n    return\n\ndef rl401m_close() -> None:\n    if hasattr(state['tfil'], 'close'): state['tfil'].close()\n    if hasattr(state['with_'], 'close'): state['with_'].close()\n    if hasattr(state['lock'], 'close'): state['lock'].close()\n    state['tfil'] = open('tfil', 'r')\n\ndef rl401m_openext() -> None:\n    state['tfil2'] = open('tfil2', 'a')\n\ndef rl401m_readnext() -> None:\n    state['tfil'] = state['tfil'].readline() if hasattr(state['tfil'], 'readline') else ''\n    print(\"__AT_END__\")\n\ndef rl401m_start() -> None:\n    state['_file_status'] = '00'  # START TFIL\n    return\n\nif __name__ == \"__main__\":\n    try:\n        rl401m_control()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_warnings": [],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": false,
+  "stage3_refined_code": "",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "",
+  "stage3_error": "",
+  "verdict": "STRUCTURAL_PASS",
+  "verdict_summary": "4 structural check(s) passed; behavioural checks skipped due to environment (python_smoke, execution_match, llm_judge).",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "5/5 paragraphs found as Python functions",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "RL401M-CONTROL",
+          "RL401M-CLOSE",
+          "RL401M-OPENEXT",
+          "RL401M-READNEXT",
+          "RL401M-START"
+        ],
+        "missing": [],
+        "total": 5
+      }
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "5/5 identifiers traced into the Python",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "FREC",
+          "GUBBINS",
+          "FREC2",
+          "RKEY2",
+          "RKEY"
+        ],
+        "missing": [],
+        "total": 5
+      }
+    },
+    {
+      "name": "body_non_trivial",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "4/4 paragraphs have non-trivial bodies",
+      "skipped_reason": "",
+      "extra": {
+        "non_trivial": [
+          "RL401M-CONTROL",
+          "RL401M-CLOSE",
+          "RL401M-READNEXT",
+          "RL401M-START"
+        ],
+        "trivial": [],
+        "exempt": [
+          "RL401M-OPENEXT"
+        ],
+        "total_eligible": 4
+      }
+    },
+    {
+      "name": "python_smoke",
+      "ran": false,
+      "passed": null,
+      "score": null,
+      "detail": "skipped: uses I/O verbs requiring environment (CLOSE, OPEN, READ, START)",
+      "skipped_reason": "uses I/O verbs requiring environment (CLOSE, OPEN, READ, START)",
+      "extra": {}
+    },
+    {
+      "name": "execution_match",
+      "ran": false,
+      "passed": null,
+      "score": null,
+      "detail": "skipped: cobol side could not be executed (compile_failed; rc=1)",
+      "skipped_reason": "cobol side could not be executed (compile_failed; rc=1)",
+      "extra": {
+        "cobol_stdout": "",
+        "cobol_returncode": 1
+      }
+    },
+    {
+      "name": "llm_judge",
+      "ran": false,
+      "passed": null,
+      "score": null,
+      "detail": "skipped: openai: judge call failed (Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}) | anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-",
+      "skipped_reason": "openai: judge call failed (Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}) | anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CbVSCJmQH9qS6PSoN3163'})",
+      "extra": {
+        "providers_tried": [
+          "openai: judge call failed (Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}})",
+          "anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CbVSCJmQH9qS6PSoN3163'})"
+        ]
+      }
+    }
+  ],
+  "timestamp": 1779992673.548769
+}

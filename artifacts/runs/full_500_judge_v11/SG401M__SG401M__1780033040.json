@@ -1,0 +1,220 @@
+{
+  "program_id": "SG401M",
+  "record_id": "SG401M",
+  "cobol_source": "      *HEADER,COBOL,SG401M                                                            \n000100 IDENTIFICATION DIVISION.                                         SG4014.2\n000200 PROGRAM-ID.                                                      SG4014.2\n000300     SG401M.                                                      SG4014.2\n000400*THE FOLLOWING PROGRAM TESTS THE FLAGGING OF LEVEL 2              SG4014.2\n000500*FEATURES OF THE SEGMENTATION MODULE.                             SG4014.2\n000600 ENVIRONMENT DIVISION.                                            SG4014.2\n000700 CONFIGURATION SECTION.                                           SG4014.2\n000800 SOURCE-COMPUTER.                                                 SG4014.2\n000900     XXXXX082.                                                    SG4014.2\n001000 OBJECT-COMPUTER.                                                 SG4014.2\n001100     XXXXX083                                                     SG4014.2\n001200     SEGMENT-LIMIT IS 18.                                         SG4014.2\n001300*Message expected for above statement: NON-CONFORMING STANDARD    SG4014.2\n001400                                                                  SG4014.2\n001500                                                                  SG4014.2\n001600 DATA DIVISION.                                                   SG4014.2\n001700 PROCEDURE DIVISION.                                              SG4014.2\n001800                                                                  SG4014.2\n001900 NUMBER1 SECTION 18.                                              SG4014.2\n002000                                                                  SG4014.2\n002100 SG401M-CONTROL.                                                  SG4014.2\n002200     EXIT.                                                        SG4014.2\n002300                                                                  SG4014.2\n002400 NUMBER2 SECTION 19.                                              SG4014.2\n002500                                                                  SG4014.2\n002600 SG401M-DUMMY.                                                    SG4014.2\n002700     DISPLAY \"THIS IS A DUMMY PARAGRAPH\".                         SG4014.2\n002800                                                                  SG4014.2\n002900 NUMBER3 SECTION 18.                                              SG4014.2\n003000*Message expected for above statement: NON-CONFORMING STANDARD    SG4014.2\n003100 SG401M-DUMMY2.                                                   SG4014.2\n003200     DISPLAY \"THIS IS A DUMMY PARAGRAPH TOO!\".                    SG4014.2\n003300                                                                  SG4014.2\n003400                                                                  SG4014.2\n003500* A MESSAGE IS EXPECTED FOR THE EXISTENCE OF TWO SECTIONS         SG4014.2\n003600* WITH THE SAME SECTION NUMBER THAT ARE NOT                       SG4014.2\n003700* \"PHYSICALLY CONTIGUOUS IN THE SOURCE PROGRAM\".                  SG4014.2\n003800                                                                  SG4014.2\n003900*TOTAL NUMBER OF FLAGS EXPECTED = 2.                              SG4014.2\n      *END-OF,SG401M                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "SG401M",
+  "stage1_division_count": 4,
+  "stage1_paragraph_count": 3,
+  "stage1_token_count": 57,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {
+      "program_id": "SG401M"
+    },
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 4,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 13,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "DATA"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 14,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 18,
+            "attributes": {
+              "name": "SG401M-CONTROL"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 19,
+                "attributes": {
+                  "verb": "EXIT",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 23,
+            "attributes": {
+              "name": "SG401M-DUMMY"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 24,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\"THIS IS A DUMMY PARAGRAPH\""
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 27,
+            "attributes": {
+              "name": "SG401M-DUMMY2"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 28,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\"THIS IS A DUMMY PARAGRAPH TOO!\""
+                  ]
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "stage1_cobc_status": "",
+  "stage1_cobc_stderr": "",
+  "complexity_tier": "simple",
+  "complexity_score": 1.9,
+  "ast_depth": 4,
+  "unique_verbs": 2,
+  "cross_refs": 0,
+  "stage2_source": "rule-based",
+  "stage2_rule_based_code": "\"\"\"Translated from COBOL program SG401M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\nstate: _State = _State()\n\ndef sg401m_control() -> None:\n    return\n\ndef sg401m_dummy() -> None:\n    print(\"THIS IS A DUMMY PARAGRAPH\")\n\ndef sg401m_dummy2() -> None:\n    print(\"THIS IS A DUMMY PARAGRAPH TOO!\")\n\nif __name__ == \"__main__\":\n    try:\n        sg401m_control()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_neural_code": "",
+  "stage2_final_code": "\"\"\"Translated from COBOL program SG401M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\nstate: _State = _State()\n\ndef sg401m_control() -> None:\n    return\n\ndef sg401m_dummy() -> None:\n    print(\"THIS IS A DUMMY PARAGRAPH\")\n\ndef sg401m_dummy2() -> None:\n    print(\"THIS IS A DUMMY PARAGRAPH TOO!\")\n\nif __name__ == \"__main__\":\n    try:\n        sg401m_control()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_warnings": [],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": false,
+  "stage3_refined_code": "",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "",
+  "stage3_error": "",
+  "verdict": "FAIL",
+  "verdict_summary": "1 check(s) failed: execution_match.",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "3/3 paragraphs found as Python functions",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "SG401M-CONTROL",
+          "SG401M-DUMMY",
+          "SG401M-DUMMY2"
+        ],
+        "missing": [],
+        "total": 3
+      }
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "COBOL program had no data items to cover.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "body_non_trivial",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "All 3 paragraph(s) were <=1 statement; nothing to score.",
+      "skipped_reason": "",
+      "extra": {
+        "exempt": [
+          "SG401M-CONTROL",
+          "SG401M-DUMMY",
+          "SG401M-DUMMY2"
+        ]
+      }
+    },
+    {
+      "name": "python_smoke",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "ran cleanly",
+      "skipped_reason": "",
+      "extra": {
+        "exit_code": 0,
+        "stdout_bytes": 0,
+        "stderr_bytes": 0,
+        "stderr_head": ""
+      }
+    },
+    {
+      "name": "execution_match",
+      "ran": true,
+      "passed": false,
+      "score": 0.0,
+      "detail": "stdout mismatch (stdout_mismatch)",
+      "skipped_reason": "",
+      "extra": {
+        "cobol_stdout": "THIS IS A DUMMY PARAGRAPH\nTHIS IS A DUMMY PARAGRAPH TOO!\n",
+        "python_stdout": "",
+        "cobol_returncode": 0,
+        "python_returncode": 0
+      }
+    }
+  ],
+  "timestamp": 1780033040.034373
+}

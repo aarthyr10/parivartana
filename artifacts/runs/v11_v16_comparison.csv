@@ -1,0 +1,7 @@
+run,config,scored,behavioural_pass,behavioural_pct,structural_pass,fail,inconclusive,stage1_fails
+v11,baseline incl fragments,500,103,20.6,397,0,0,0
+v12,+exclude-fragments,459,53,11.5,406,0,0,0
+v13,+normalise,459,53,11.5,406,0,0,0
+v14,+as-loaded order,459,53,11.5,406,0,0,0
+v15,-python-smoke,459,0,0.0,0,0,459,0
+v16,-smoke -order,459,0,0.0,0,0,459,0

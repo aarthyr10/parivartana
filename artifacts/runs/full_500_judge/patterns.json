@@ -1,0 +1,140 @@
+{
+  "stage3_error": [
+    {
+      "reason": "AttributeError",
+      "count": 500
+    }
+  ],
+  "judge_skipped_reason": [
+    {
+      "reason": "anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'typ",
+      "count": 473
+    },
+    {
+      "reason": "anthropic: judge call failed (<html>\r\n<head><title>502 Bad Gateway</title></head",
+      "count": 2
+    }
+  ],
+  "failed_paragraph_coverage": [
+    {
+      "reason": "16/28 paragraphs found as Python functions; missing: WRT-LN, BLANK-LINE-PRINT, F",
+      "count": 2
+    },
+    {
+      "reason": "20/34 paragraphs found as Python functions; missing: FAIL-ROUTINE-EX, BAIL-OUT, ",
+      "count": 2
+    },
+    {
+      "reason": "3/5 paragraphs found as Python functions; missing: CNAME1, CNAME1",
+      "count": 1
+    },
+    {
+      "reason": "23/29 paragraphs found as Python functions; missing: BAIL-OUT-EX, CCVS1-EXIT, ST",
+      "count": 1
+    },
+    {
+      "reason": "19/29 paragraphs found as Python functions; missing: FAIL-ROUTINE-WRITE, FAIL-RO",
+      "count": 1
+    },
+    {
+      "reason": "26/30 paragraphs found as Python functions; missing: WRITE-TEST-GF-01, SQ210M-EN",
+      "count": 1
+    },
+    {
+      "reason": "22/30 paragraphs found as Python functions; missing: BAIL-OUT-WRITE, BAIL-OUT-EX",
+      "count": 1
+    },
+    {
+      "reason": "23/32 paragraphs found as Python functions; missing: BAIL-OUT-EX, CCVS1-EXIT, ST",
+      "count": 1
+    },
+    {
+      "reason": "23/27 paragraphs found as Python functions; missing: END-RTN-EXIT, CCVS1-EXIT, L",
+      "count": 1
+    },
+    {
+      "reason": "21/41 paragraphs found as Python functions; missing: FAIL-ROUTINE-WRITE, FAIL-RO",
+      "count": 1
+    },
+    {
+      "reason": "24/32 paragraphs found as Python functions; missing: BAIL-OUT-EX, CCVS1-EXIT, BR",
+      "count": 1
+    },
+    {
+      "reason": "20/39 paragraphs found as Python functions; missing: FAIL-ROUTINE, FAIL-ROUTINE-",
+      "count": 1
+    },
+    {
+      "reason": "17/35 paragraphs found as Python functions; missing: WRITE-LINE, WRT-LN, BLANK-L",
+      "count": 1
+    },
+    {
+      "reason": "22/33 paragraphs found as Python functions; missing: BAIL-OUT-WRITE, BAIL-OUT-EX",
+      "count": 1
+    },
+    {
+      "reason": "21/35 paragraphs found as Python functions; missing: END-RTN-EXIT, BLANK-LINE-PR",
+      "count": 1
+    },
+    {
+      "reason": "15/33 paragraphs found as Python functions; missing: WRITE-LINE, WRT-LN, BLANK-L",
+      "count": 1
+    },
+    {
+      "reason": "20/37 paragraphs found as Python functions; missing: FAIL-ROUTINE, FAIL-ROUTINE-",
+      "count": 1
+    },
+    {
+      "reason": "19/37 paragraphs found as Python functions; missing: FAIL-ROUTINE-WRITE, FAIL-RO",
+      "count": 1
+    },
+    {
+      "reason": "23/32 paragraphs found as Python functions; missing: BAIL-OUT-EX, CCVS1-EXIT, CA",
+      "count": 1
+    },
+    {
+      "reason": "20/36 paragraphs found as Python functions; missing: FAIL-ROUTINE, FAIL-ROUTINE-",
+      "count": 1
+    }
+  ],
+  "failed_identifier_coverage": [
+    {
+      "reason": "0/4 identifiers traced into the Python; missing: FREC, RKEY, FREC2, RKEY2",
+      "count": 1
+    },
+    {
+      "reason": "0/5 identifiers traced into the Python; missing: FREC, RKEY, VARIABLES, VKEY, RR",
+      "count": 1
+    },
+    {
+      "reason": "39/72 identifiers traced into the Python; missing: TEST-RESULTS, PAR-NAME, TEST-",
+      "count": 1
+    }
+  ],
+  "failed_python_syntax_valid": [
+    {
+      "reason": "SyntaxError at line 248: expected an indented block after function definition on",
+      "count": 1
+    },
+    {
+      "reason": "SyntaxError at line 239: unterminated string literal (detected at line 239)",
+      "count": 1
+    },
+    {
+      "reason": "SyntaxError at line 249: invalid syntax",
+      "count": 1
+    },
+    {
+      "reason": "SyntaxError at line 257: unterminated string literal (detected at line 257)",
+      "count": 1
+    },
+    {
+      "reason": "SyntaxError at line 249: expected ':'",
+      "count": 1
+    },
+    {
+      "reason": "SyntaxError at line 250: unterminated string literal (detected at line 250)",
+      "count": 1
+    }
+  ]
+}

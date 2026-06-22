@@ -1,0 +1,321 @@
+{
+  "program_id": "RW301M",
+  "record_id": "RW301M",
+  "cobol_source": "      *HEADER,COBOL,RW301M                                                            \n000100 IDENTIFICATION DIVISION.                                         RW3014.2\n000200 PROGRAM-ID.                                                      RW3014.2\n000300     RW301M.                                                      RW3014.2\n000400*THE FOLLOWING PROGRAM TESTS THE FLAGGING OF                      RW3014.2\n000500*FEATURES THAT ARE USED IN REPORT WRITING.                        RW3014.2\n000600 ENVIRONMENT DIVISION.                                            RW3014.2\n000700 CONFIGURATION SECTION.                                           RW3014.2\n000800 SOURCE-COMPUTER.                                                 RW3014.2\n000900     XXXXX082.                                                    RW3014.2\n001000 OBJECT-COMPUTER.                                                 RW3014.2\n001100     XXXXX083.                                                    RW3014.2\n001200 INPUT-OUTPUT SECTION.                                            RW3014.2\n001300 FILE-CONTROL.                                                    RW3014.2\n001400     SELECT TFIL ASSIGN                                           RW3014.2\n001500     XXXXX001                                                     RW3014.2\n001600         ORGANIZATION IS SEQUENTIAL                               RW3014.2\n001700         ACCESS MODE IS SEQUENTIAL.                               RW3014.2\n001800                                                                  RW3014.2\n001900     SELECT TFIL2 ASSIGN                                          RW3014.2\n002000     XXXXX002                                                     RW3014.2\n002100     ORGANIZATION IS SEQUENTIAL                                   RW3014.2\n002200     ACCESS MODE IS SEQUENTIAL.                                   RW3014.2\n002300                                                                  RW3014.2\n002400                                                                  RW3014.2\n002500 I-O-CONTROL.                                                     RW3014.2\n002600     MULTIPLE FILE TAPE CONTAINS TFIL2.                           RW3014.2\n002700                                                                  RW3014.2\n002800 DATA DIVISION.                                                   RW3014.2\n002900 FILE SECTION.                                                    RW3014.2\n003000 FD TFIL                                                          RW3014.2\n003100     LABEL RECORDS STANDARD                                       RW3014.2\n003200     VALUE OF                                                     RW3014.2\n003300     XXXXX074                                                     RW3014.2\n003400     IS                                                           RW3014.2\n003500     XXXXX075.                                                    RW3014.2\n003600                                                                  RW3014.2\n003700                                                                  RW3014.2\n003800 01 FREC.                                                         RW3014.2\n003900     03 RKEY PIC 9(8).                                            RW3014.2\n004000                                                                  RW3014.2\n004100 FD TFIL2                                                         RW3014.2\n004200        REPORT IS RFIL2.                                          RW3014.2\n004300*Message expected for above statement: NON-CONFORMING STANDARD    RW3014.2\n004400                                                                  RW3014.2\n004500 WORKING-STORAGE SECTION.                                         RW3014.2\n004600                                                                  RW3014.2\n004700 01 VARIABLES.                                                    RW3014.2\n004800     03 VKEY PIC 9(8) VALUE ZERO.                                 RW3014.2\n004900                                                                  RW3014.2\n005000 REPORT SECTION.                                                  RW3014.2\n005100*Message expected for above statement: NON-CONFORMING STANDARD    RW3014.2\n005200 RD  RFIL2.                                                       RW3014.2\n005300*Message expected for above statement: NON-CONFORMING STANDARD    RW3014.2\n005400 01  RREC                                                         RW3014.2\n005500             TYPE IS DETAIL.                                      RW3014.2\n005600*Message expected for above statement: NON-CONFORMING STANDARD    RW3014.2\n005700     02  PIC 9(8)                                                 RW3014.2\n005800             SOURCE IS RKEY                                       RW3014.2\n005900*Message expected for above statement: NON-CONFORMING STANDARD    RW3014.2\n006000             COLUMN NUMBER IS 1                                   RW3014.2\n006100*Message expected for above statement: NON-CONFORMING STANDARD    RW3014.2\n006200             LINE NUMBER IS PLUS 1.                               RW3014.2\n006300*Message expected for above statement: NON-CONFORMING STANDARD    RW3014.2\n006400                                                                  RW3014.2\n006500 PROCEDURE DIVISION.                                              RW3014.2\n006600                                                                  RW3014.2\n006700 RW301M-CONTROL.                                                  RW3014.2\n006800     OPEN INPUT TFIL.                                             RW3014.2\n006900     READ TFIL                                                    RW3014.2\n007000         AT END                                                   RW3014.2\n007100             GO TO RW301M-END.                                    RW3014.2\n007200     OPEN OUTPUT TFIL2.                                           RW3014.2\n007300     INITIATE RFIL2.                                              RW3014.2\n007400*Message expected for above statement: NON-CONFORMING STANDARD    RW3014.2\n007500     GENERATE RREC.                                               RW3014.2\n007600*Message expected for above statement: NON-CONFORMING STANDARD    RW3014.2\n007700     TERMINATE RFIL2.                                             RW3014.2\n007800*Message expected for above statement: NON-CONFORMING STANDARD    RW3014.2\n007900 RW301M-END.                                                      RW3014.2\n008000     CLOSE TFIL, TFIL2.                                           RW3014.2\n008100     STOP RUN.                                                    RW3014.2\n008200                                                                  RW3014.2\n008300                                                                  RW3014.2\n008400*TOTAL NUMBER OF FLAGS EXPECTED = 10                              RW3014.2\n      *END-OF,RW301M                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "RW301M",
+  "stage1_division_count": 4,
+  "stage1_paragraph_count": 2,
+  "stage1_token_count": 180,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {
+      "program_id": "RW301M"
+    },
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 4,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 26,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "DATA"
+        },
+        "children": [
+          {
+            "node_type": "DataItem",
+            "line": 36,
+            "attributes": {
+              "level": 1,
+              "name": "FREC"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 37,
+            "attributes": {
+              "level": 3,
+              "name": "RKEY",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 44,
+            "attributes": {
+              "level": 1,
+              "name": "VARIABLES"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 45,
+            "attributes": {
+              "level": 3,
+              "name": "VKEY",
+              "pic": "9",
+              "value": "ZERO"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 49,
+            "attributes": {
+              "level": 1,
+              "name": "RREC"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 51,
+            "attributes": {
+              "level": 2,
+              "pic": "9"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 56,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 58,
+            "attributes": {
+              "name": "RW301M-CONTROL"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 59,
+                "attributes": {
+                  "verb": "OPEN",
+                  "operands": [
+                    "INPUT",
+                    "TFIL"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 60,
+                "attributes": {
+                  "verb": "READ",
+                  "operands": [
+                    "TFIL",
+                    "AT",
+                    "END"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 62,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "RW301M-END"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 63,
+                "attributes": {
+                  "verb": "OPEN",
+                  "operands": [
+                    "OUTPUT",
+                    "TFIL2"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 64,
+                "attributes": {
+                  "verb": "INITIATE",
+                  "operands": [
+                    "RFIL2"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 65,
+                "attributes": {
+                  "verb": "GENERATE",
+                  "operands": [
+                    "RREC"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 66,
+                "attributes": {
+                  "verb": "TERMINATE",
+                  "operands": [
+                    "RFIL2"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 67,
+            "attributes": {
+              "name": "RW301M-END"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 68,
+                "attributes": {
+                  "verb": "CLOSE",
+                  "operands": [
+                    "TFIL",
+                    "TFIL2"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 69,
+                "attributes": {
+                  "verb": "STOP",
+                  "operands": [
+                    "RUN"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "complexity_tier": "simple",
+  "complexity_score": 7.9,
+  "ast_depth": 4,
+  "unique_verbs": 8,
+  "cross_refs": 0,
+  "stage2_source": "rule-based",
+  "stage2_rule_based_code": "\"\"\"Translated from COBOL program RW301M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'frec': None,\n    'rkey': 0,\n    'variables': None,\n    'vkey': 0,\n    'rrec': None,\n})\n\ndef rw301m_control() -> None:\n    state['tfil'] = open('tfil', 'r')\n    state['tfil'] = state['tfil'].readline() if hasattr(state['tfil'], 'readline') else ''\n    rw301m_end()\n    return\n    state['tfil2'] = open('tfil2', 'w')\n    pass  # INITIATE (Report Writer)\n    pass  # GENERATE (Report Writer)\n    pass  # TERMINATE (Report Writer)\n\ndef rw301m_end() -> None:\n    if hasattr(state['tfil'], 'close'): state['tfil'].close()\n    if hasattr(state['tfil2'], 'close'): state['tfil2'].close()\n    return\n\nif __name__ == \"__main__\":\n    try:\n        rw301m_control()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_neural_code": "",
+  "stage2_final_code": "\"\"\"Translated from COBOL program RW301M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'frec': None,\n    'rkey': 0,\n    'variables': None,\n    'vkey': 0,\n    'rrec': None,\n})\n\ndef rw301m_control() -> None:\n    state['tfil'] = open('tfil', 'r')\n    state['tfil'] = state['tfil'].readline() if hasattr(state['tfil'], 'readline') else ''\n    rw301m_end()\n    return\n    state['tfil2'] = open('tfil2', 'w')\n    pass  # INITIATE (Report Writer)\n    pass  # GENERATE (Report Writer)\n    pass  # TERMINATE (Report Writer)\n\ndef rw301m_end() -> None:\n    if hasattr(state['tfil'], 'close'): state['tfil'].close()\n    if hasattr(state['tfil2'], 'close'): state['tfil2'].close()\n    return\n\nif __name__ == \"__main__\":\n    try:\n        rw301m_control()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_warnings": [],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": true,
+  "stage3_refined_code": "\"\"\"Translated from COBOL program RW301M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'frec': None,\n    'rkey': 0,\n    'variables': None,\n    'vkey': 0,\n    'rrec': None,\n})\n\ndef rw301m_control() -> None:\n    state['tfil'] = open('tfil', 'r')\n    state['tfil'] = state['tfil'].readline() if hasattr(state['tfil'], 'readline') else ''\n    rw301m_end()\n    return\n    state['tfil2'] = open('tfil2', 'w')\n    pass\n    pass\n    pass\n\ndef rw301m_end() -> None:\n    if hasattr(state['tfil'], 'close'): state['tfil'].close()\n    if hasattr(state['tfil2'], 'close'): state['tfil2'].close()\n    return\n\nif __name__ == \"__main__\":\n    try:\n        rw301m_control()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "openai",
+  "stage3_error": "",
+  "verdict": "INCONCLUSIVE",
+  "verdict_summary": "3 structural check(s) passed, but no behavioural signal (execution_match / llm_judge) was available. llm_judge skipped: openai: judge call failed (Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}) | anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CbPfsougErypihV2pYFEf'})",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "2/2 paragraphs found as Python functions",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "RW301M-CONTROL",
+          "RW301M-END"
+        ],
+        "missing": [],
+        "total": 2
+      }
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "5/5 identifiers traced into the Python",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "FREC",
+          "RKEY",
+          "VARIABLES",
+          "VKEY",
+          "RREC"
+        ],
+        "missing": [],
+        "total": 5
+      }
+    },
+    {
+      "name": "llm_judge",
+      "ran": false,
+      "passed": null,
+      "score": null,
+      "detail": "skipped: openai: judge call failed (Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}) | anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-",
+      "skipped_reason": "openai: judge call failed (Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}) | anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CbPfsougErypihV2pYFEf'})",
+      "extra": {
+        "providers_tried": [
+          "openai: judge call failed (Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}})",
+          "anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CbPfsougErypihV2pYFEf'})"
+        ]
+      }
+    }
+  ],
+  "timestamp": 1779729623.16557
+}

@@ -1,0 +1,247 @@
+{
+  "program_id": "SM401M",
+  "record_id": "SM401M",
+  "cobol_source": "      *HEADER,COBOL,SM401M                                                            \n000100 IDENTIFICATION DIVISION.                                         SM4014.2\n000200 PROGRAM-ID.                                                      SM4014.2\n000300     SM401M.                                                      SM4014.2\n000400*THE FOLLOWING PROGRAM TESTS THE FLAGGING OF HIGH                 SM4014.2\n000500*SUBSET FEATURES THAT ARE USED IN SOURCE TEXT                     SM4014.2\n000600*MANIPULATION.                                                    SM4014.2\n000700 ENVIRONMENT DIVISION.                                            SM4014.2\n000800 CONFIGURATION SECTION.                                           SM4014.2\n000900 SOURCE-COMPUTER.                                                 SM4014.2\n001000     XXXXX082.                                                    SM4014.2\n001100 OBJECT-COMPUTER.                                                 SM4014.2\n001200     XXXXX083.                                                    SM4014.2\n001300                                                                  SM4014.2\n001400                                                                  SM4014.2\n001500 DATA DIVISION.                                                   SM4014.2\n001600 PROCEDURE DIVISION.                                              SM4014.2\n001700                                                                  SM4014.2\n001800 SM401M-CONTROL.                                                  SM4014.2\n001900     PERFORM SM401M-COPYREP THRU SM401M-REPL.                     SM4014.2\n002000     STOP RUN.                                                    SM4014.2\n002100                                                                  SM4014.2\n002200 SM401M-COPYREP.                                                  SM4014.2\n002300*Message expected for following statement: NON-CONFORMING STANDARDSM3014.2\n002400     COPY KSM41 REPLACING \"PIG\" BY \"HORSE\".                       SM4014.2\n002500                                                                  SM4014.2\n002600 SM401M-REPL.                                                     SM4014.2\n002700     REPLACE OFF.                                                 SM4014.2\n002800*Message expected for above statement: NON-CONFORMING STANDARD    SM4014.2\n002900                                                                  SM4014.2\n003000*TOTAL NUMBER OF FLAGS EXPECTED = 2.                              SM4014.2\n      *END-OF,SM401M                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "SM401M",
+  "stage1_division_count": 4,
+  "stage1_paragraph_count": 4,
+  "stage1_token_count": 52,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {
+      "program_id": "SM401M"
+    },
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 4,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 12,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "DATA"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 13,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 15,
+            "attributes": {
+              "name": "SM401M-CONTROL"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 16,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "SM401M-COPYREP",
+                    "THRU",
+                    "SM401M-REPL"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 17,
+                "attributes": {
+                  "verb": "STOP",
+                  "operands": [
+                    "RUN"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 19,
+            "attributes": {
+              "name": "SM401M-COPYREP"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 22,
+            "attributes": {
+              "name": "SM401M-REPL"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 23,
+            "attributes": {
+              "name": "OFF"
+            },
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "stage1_cobc_status": "",
+  "stage1_cobc_stderr": "",
+  "complexity_tier": "simple",
+  "complexity_score": 2.15,
+  "ast_depth": 4,
+  "unique_verbs": 2,
+  "cross_refs": 1,
+  "stage2_source": "neural",
+  "stage2_rule_based_code": "/*\n * Licensed to the Apache Software Foundation (ASF) under one\n * or more contributor license agreements.  See the NOTICE file\n * distributed with this work for additional information\n * regarding copyright ownership.  The ASF licenses this file\n * to you under the Apache License, Version 2.0 (the\n * \"License\"); you may not use this file except in compliance\n * with the License.  You may obtain a copy of the License at\n *\n *     http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n */\npackage org.apache.beam.sdk.coders;\n\nimport static org.junit.Assert.assertEquals;\nimport static org.junit.Assert.assertFalse;\nimport static org.junit.Assert.assertTrue;",
+  "stage2_neural_code": "",
+  "stage2_final_code": "/*\n * Licensed to the Apache Software Foundation (ASF) under one\n * or more contributor license agreements.  See the NOTICE file\n * distributed with this work for additional information\n * regarding copyright ownership.  The ASF licenses this file\n * to you under the Apache License, Version 2.0 (the\n * \"License\"); you may not use this file except in compliance\n * with the License.  You may obtain a copy of the License at\n *\n *     http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n */\npackage org.apache.beam.sdk.coders;\n\nimport static org.junit.Assert.assertEquals;\nimport static org.junit.Assert.assertFalse;\nimport static org.junit.Assert.assertTrue;",
+  "stage2_warnings": [],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": true,
+  "stage3_refined_code": "def main() -> None:\n    display_welcome_message()\n    perform_calculations()\n    display_goodbye_message()\n\ndef display_welcome_message() -> None:\n    print(\"Welcome to the program!\")\n\ndef perform_calculations() -> None:\n    result = compute_sum(5, 10)\n    print(\"The sum of 5 and 10 is\", result)\n\ndef compute_sum(a: int, b: int) -> int:\n    return a + b\n\ndef display_goodbye_message() -> None:\n    print(\"Thank you for using the program. Goodbye!\")\n\nif __name__ == \"__main__\":\n    main()",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "openai",
+  "stage3_error": "",
+  "verdict": "FAIL",
+  "verdict_summary": "3 check(s) failed: paragraph_coverage, body_non_trivial, llm_judge.",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": false,
+      "score": 0.0,
+      "detail": "0/4 paragraphs found as Python functions; missing: SM401M-CONTROL, SM401M-COPYREP, SM401M-REPL, OFF",
+      "skipped_reason": "",
+      "extra": {
+        "found": [],
+        "missing": [
+          "SM401M-CONTROL",
+          "SM401M-COPYREP",
+          "SM401M-REPL",
+          "OFF"
+        ],
+        "total": 4
+      }
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "COBOL program had no data items to cover.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "body_non_trivial",
+      "ran": true,
+      "passed": false,
+      "score": 0.0,
+      "detail": "0/1 paragraphs have non-trivial bodies; stubbed: SM401M-CONTROL",
+      "skipped_reason": "",
+      "extra": {
+        "non_trivial": [],
+        "trivial": [
+          "SM401M-CONTROL"
+        ],
+        "exempt": [
+          "SM401M-COPYREP",
+          "SM401M-REPL",
+          "OFF"
+        ],
+        "total_eligible": 1
+      }
+    },
+    {
+      "name": "python_smoke",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "ran cleanly",
+      "skipped_reason": "",
+      "extra": {
+        "exit_code": 0,
+        "stdout_bytes": 92,
+        "stderr_bytes": 0,
+        "stderr_head": ""
+      }
+    },
+    {
+      "name": "execution_match",
+      "ran": false,
+      "passed": null,
+      "score": null,
+      "detail": "skipped: cobol side could not be executed (stdout_mismatch; rc=1)",
+      "skipped_reason": "cobol side could not be executed (stdout_mismatch; rc=1)",
+      "extra": {
+        "cobol_stdout": "/var/folders/rl/r9ygvg0x7_l7sdtfq9pq99fm0000gn/T/tmpk8osvabq/program.cob:25: error: KSM41: No such file or directory\n   23 | 002200 SM401M-COPYREP.                                                  S..\n   24 | 002300*Message expected for following statement: NON-CONFORMING STANDARDS..\n   25 > 002400     COPY KSM41 REPLACING \"PIG\" BY \"HORSE\".                       S..\n   26 | 002500                 ",
+        "cobol_returncode": 1
+      }
+    },
+    {
+      "name": "llm_judge",
+      "ran": true,
+      "passed": false,
+      "score": 0.64,
+      "detail": "[openai] correctness=0.20, readability=0.80, pep8=1.00, pythonic=0.60, types=1.00",
+      "skipped_reason": "",
+      "extra": {
+        "rationale": "The translation does not accurately reflect the behavior of the COBOL program, which focuses on flagging features in source text manipulation, while the Python version performs simple arithmetic and displays messages. Readability is good with clear function names, and it adheres to PEP 8 standards. The use of Python idioms is somewhat present, but the overall structure is more of a direct translation rather than idiomatic Python. Type annotations are complete.",
+        "components": {
+          "correctness": 0.2,
+          "readability": 0.8,
+          "pep8_compliance": 1.0,
+          "pythonic_idioms": 0.6,
+          "type_annotations": 1.0,
+          "rationale": "The translation does not accurately reflect the behavior of the COBOL program, which focuses on flagging features in source text manipulation, while the Python version performs simple arithmetic and displays messages. Readability is good with clear function names, and it adheres to PEP 8 standards. The use of Python idioms is somewhat present, but the overall structure is more of a direct translation rather than idiomatic Python. Type annotations are complete.",
+          "weighted": 0.64
+        },
+        "provider_used": "openai",
+        "providers_tried": [
+          "openai: ok"
+        ]
+      }
+    }
+  ],
+  "timestamp": 1780244892.578686
+}

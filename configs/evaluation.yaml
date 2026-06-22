@@ -1,0 +1,55 @@
+metrics:
+  primary:
+    - codebleu
+    - execution_accuracy
+    - pass_at_1
+  secondary:
+    - exact_match
+    - bleu
+    - rouge_l
+    - llm_judge_score
+
+codebleu:
+  weights:
+    ngram_match: 0.25
+    weighted_ngram_match: 0.25
+    syntax_match: 0.25
+    dataflow_match: 0.25
+  python_lang: python
+
+execution_accuracy:
+  cobol_compiler: gnucobol
+  cobol_compiler_version: "3.2"
+  python_runtime: python3
+  timeout_seconds: 30
+  compare_mode: stdout_normalised
+  whitespace_tolerant: true
+
+pass_at_1:
+  framework: pytest
+  timeout_seconds: 60
+  derived_from: swe_bench
+
+llm_judge:
+  provider: openai
+  model: gpt-4o
+  rubric:
+    correctness: 0.30
+    readability: 0.20
+    pep8_compliance: 0.15
+    pythonic_idioms: 0.20
+    type_annotations: 0.15
+  temperature: 0.0
+
+human_evaluation:
+  sample_size: 200
+  raters_per_sample: 2
+  agreement_metric: cohens_kappa
+
+reporting:
+  per_tier_breakdown: true
+  per_dataset_breakdown: true
+  output_format:
+    - csv
+    - json
+    - html

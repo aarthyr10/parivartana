@@ -1,0 +1,14 @@
+{
+  "stage1_cobc_status": [
+    {
+      "reason": "skipped",
+      "count": 10
+    }
+  ],
+  "proleap_unavailable": [
+    {
+      "reason": "jpype1 not installed (pip install jpype1)",
+      "count": 10
+    }
+  ]
+}

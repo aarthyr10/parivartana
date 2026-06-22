@@ -1,0 +1,497 @@
+{
+  "program_id": "NC110M",
+  "record_id": "NC110M",
+  "cobol_source": "      *HEADER,COBOL,NC110M                                                            \n000100 IDENTIFICATION DIVISION.                                         NC1104.2\n000200 PROGRAM-ID.                                                      NC1104.2\n000300     NC110M.                                                      NC1104.2\n000400****************************************************************  NC1104.2\n000500*                                                              *  NC1104.2\n000600*    VALIDATION FOR:-                                          *  NC1104.2\n000700*                                                              *  NC1104.2\n000800*    \"ON-SITE VALIDATION, NATIONAL INSTITUTE OF STD & TECH.     \".NC1104.2\n000900*                                                              *  NC1104.2\n001000*    \"COBOL 85 VERSION 4.2, Apr  1993 SSVG                      \".NC1104.2\n001100*                                                              *  NC1104.2\n001200****************************************************************  NC1104.2\n001300*                                                              *  NC1104.2\n001400*      X-CARDS USED BY THIS PROGRAM ARE :-                     *  NC1104.2\n001500*                                                              *  NC1104.2\n001600*        X-55  - SYSTEM PRINTER NAME.                          *  NC1104.2\n001700*        X-82  - SOURCE COMPUTER NAME.                         *  NC1104.2\n001800*        X-83  - OBJECT COMPUTER NAME.                         *  NC1104.2\n001900*                                                              *  NC1104.2\n002000****************************************************************  NC1104.2\n002100*                                                                 NC1104.2\n002200*    THE PROCEDURE DIVISION OF NC110M CONSISTS ENTIRELY OF        NC1104.2\n002300*    PARAGRAPH NAMES AND \"DISPLAY\" LITERAL STATEMENTS.            NC1104.2\n002400*                                                                 NC1104.2\n002500 ENVIRONMENT DIVISION.                                            NC1104.2\n002600 CONFIGURATION SECTION.                                           NC1104.2\n002700 SOURCE-COMPUTER.                                                 NC1104.2\n002800     XXXXX082.                                                    NC1104.2\n002900 OBJECT-COMPUTER.                                                 NC1104.2\n003000     XXXXX083.                                                    NC1104.2\n003100 DATA DIVISION.                                                   NC1104.2\n003200 PROCEDURE    DIVISION.                                           NC1104.2\n003300 HEADER-PRINT.                                                    NC1104.2\n003400     DISPLAY \" \".                                                 NC1104.2\n003500     DISPLAY                                                      NC1104.2\n003600     \" FOR OFFICIAL USE ONLY                                    \".NC1104.2\n003700     DISPLAY                                                      NC1104.2\n003800     \"     OFFICIAL COBOL COMPILER TEST SYSTEM.     \".            NC1104.2\n003900     DISPLAY                                                      NC1104.2\n004000     \"                TEST RESULTS SET- NC110M                  \".NC1104.2\n004100     DISPLAY                                                      NC1104.2\n004200     \"                                                          \".NC1104.2\n004300     DISPLAY                                                      NC1104.2\n004400     \" FOR OFFICIAL USE ONLY \"                                    NC1104.2\n004500     \"                                                         \". NC1104.2\n004600     DISPLAY                                                      NC1104.2\n004700     \"COPYRIGHT  1985\".                                           NC1104.2\n004800     DISPLAY                                                      NC1104.2\n004900     \"                                                          \".NC1104.2\n005000     DISPLAY                                                      NC1104.2\n005100     \" FEATURE     RESULTS AND                                  \".NC1104.2\n005200     DISPLAY                                                      NC1104.2\n005300     \" TESTED      REMARKS                                      \".NC1104.2\n005400     DISPLAY                                                      NC1104.2\n005500     \"                                                          \".NC1104.2\n005600     DISPLAY                                                      NC1104.2\n005700     \" ---------------------------------------------------------\".NC1104.2\n005800 GO-TEST.                                                         NC1104.2\n005900     DISPLAY                                                      NC1104.2\n006000     \" GO TO       THIS TEST PASSES UNLESS FAIL APPEARS BELOW.  \".NC1104.2\n006100     GO       TO PERFORM-TEST.                                    NC1104.2\n006200 GO-FAIL.                                                         NC1104.2\n006300     DISPLAY                                                      NC1104.2\n006400     \"             FAIL\".                                         NC1104.2\n006500 PERFORM-TEST.                                                    NC1104.2\n006600     DISPLAY                                                      NC1104.2\n006700     \" PERFORM     THIS TEST FAILS UNLESS PASS APPEARS BELOW.   \".NC1104.2\n006800     PERFORM  PASS.                                               NC1104.2\n006900 ENDER-PRINT.                                                     NC1104.2\n007000     DISPLAY                                                      NC1104.2\n007100     \" ---------------------------------------------------------\".NC1104.2\n007200     DISPLAY                                                      NC1104.2\n007300     SPACE.                                                       NC1104.2\n007400     DISPLAY                                                      NC1104.2\n007500     \"                  END OF TEST - NC110M                    \".NC1104.2\n007600     DISPLAY                                                      NC1104.2\n007700     \"                  CHECK FOR ERRORS                        \".NC1104.2\n007800     DISPLAY                                                      NC1104.2\n007900     \"                                                          \".NC1104.2\n008000     DISPLAY                                                      NC1104.2\n008100     \" FOR OFFICIAL USE ONLY \"                                    NC1104.2\n008200     DISPLAY                                                      NC1104.2\n008300     \"COPYRIGHT  1985\".                                           NC1104.2\n008400     DISPLAY                                                      NC1104.2\n008500     \"       NTIS DISTRIBUTION COBOL 1985               \".        NC1104.2\n008600     STOP RUN.                                                    NC1104.2\n008700 PASS.                                                            NC1104.2\n008800     DISPLAY                                                      NC1104.2\n008900     \"             PASS\".                                         NC1104.2\n      *END-OF,NC110M                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "NC110M",
+  "stage1_division_count": 4,
+  "stage1_paragraph_count": 6,
+  "stage1_token_count": 122,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {
+      "program_id": "NC110M"
+    },
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 4,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 10,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "DATA"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 11,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 12,
+            "attributes": {
+              "name": "HEADER-PRINT"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 13,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\" \""
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 14,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\" FOR OFFICIAL USE ONLY                                    \""
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 16,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\"     OFFICIAL COBOL COMPILER TEST SYSTEM.     \""
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 18,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\"                TEST RESULTS SET- NC110M                  \""
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 20,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\"                                                          \""
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 22,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\" FOR OFFICIAL USE ONLY \"",
+                    "\"                                                         \""
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 25,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\"COPYRIGHT  1985\""
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 27,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\"                                                          \""
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 29,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\" FEATURE     RESULTS AND                                  \""
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 31,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\" TESTED      REMARKS                                      \""
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 33,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\"                                                          \""
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 35,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\" ---------------------------------------------------------\""
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 37,
+            "attributes": {
+              "name": "GO-TEST"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 38,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\" GO TO       THIS TEST PASSES UNLESS FAIL APPEARS BELOW.  \""
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 40,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "PERFORM-TEST"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 41,
+            "attributes": {
+              "name": "GO-FAIL"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 42,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\"             FAIL\""
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 44,
+            "attributes": {
+              "name": "PERFORM-TEST"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 45,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\" PERFORM     THIS TEST FAILS UNLESS PASS APPEARS BELOW.   \""
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 47,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "PASS"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 48,
+            "attributes": {
+              "name": "ENDER-PRINT"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 49,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\" ---------------------------------------------------------\""
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 51,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "SPACE"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 53,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\"                  END OF TEST - NC110M                    \""
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 55,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\"                  CHECK FOR ERRORS                        \""
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 57,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\"                                                          \""
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 59,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\" FOR OFFICIAL USE ONLY \""
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 61,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\"COPYRIGHT  1985\""
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 63,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\"       NTIS DISTRIBUTION COBOL 1985               \""
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 65,
+                "attributes": {
+                  "verb": "STOP",
+                  "operands": [
+                    "RUN"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 66,
+            "attributes": {
+              "name": "PASS"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 67,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\"             PASS\""
+                  ]
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "stage1_cobc_status": "skipped",
+  "stage1_cobc_stderr": "",
+  "complexity_tier": "simple",
+  "complexity_score": 7.15,
+  "ast_depth": 4,
+  "unique_verbs": 4,
+  "cross_refs": 1,
+  "stage2_source": "rule-based",
+  "stage2_rule_based_code": "\"\"\"Translated from COBOL program NC110M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\nstate: _State = _State()\n\ndef header_print() -> None:\n    print(\" \")\n    print(\" FOR OFFICIAL USE ONLY                                    \")\n    print(\"     OFFICIAL COBOL COMPILER TEST SYSTEM.     \")\n    print(\"                TEST RESULTS SET- NC110M                  \")\n    print(\"                                                          \")\n    print(\" FOR OFFICIAL USE ONLY \", \"                                                         \")\n    print(\"COPYRIGHT  1985\")\n    print(\"                                                          \")\n    print(\" FEATURE     RESULTS AND                                  \")\n    print(\" TESTED      REMARKS                                      \")\n    print(\"                                                          \")\n    print(\" ---------------------------------------------------------\")\n\ndef go_test() -> None:\n    print(\" GO TO       THIS TEST PASSES UNLESS FAIL APPEARS BELOW.  \")\n    perform_test()\n    return\n\ndef go_fail() -> None:\n    print(\"             FAIL\")\n\ndef perform_test() -> None:\n    print(\" PERFORM     THIS TEST FAILS UNLESS PASS APPEARS BELOW.   \")\n    pass_()\n\ndef ender_print() -> None:\n    print(\" ---------------------------------------------------------\")\n    print(space)\n    print(\"                  END OF TEST - NC110M                    \")\n    print(\"                  CHECK FOR ERRORS                        \")\n    print(\"                                                          \")\n    print(\" FOR OFFICIAL USE ONLY \")\n    print(\"COPYRIGHT  1985\")\n    print(\"       NTIS DISTRIBUTION COBOL 1985               \")\n    return\n\ndef pass_() -> None:\n    print(\"             PASS\")\n\nif __name__ == \"__main__\":\n    try:\n        header_print()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_neural_code": "",
+  "stage2_final_code": "\"\"\"Translated from COBOL program NC110M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\nstate: _State = _State()\n\ndef header_print() -> None:\n    print(\" \")\n    print(\" FOR OFFICIAL USE ONLY                                    \")\n    print(\"     OFFICIAL COBOL COMPILER TEST SYSTEM.     \")\n    print(\"                TEST RESULTS SET- NC110M                  \")\n    print(\"                                                          \")\n    print(\" FOR OFFICIAL USE ONLY \", \"                                                         \")\n    print(\"COPYRIGHT  1985\")\n    print(\"                                                          \")\n    print(\" FEATURE     RESULTS AND                                  \")\n    print(\" TESTED      REMARKS                                      \")\n    print(\"                                                          \")\n    print(\" ---------------------------------------------------------\")\n\ndef go_test() -> None:\n    print(\" GO TO       THIS TEST PASSES UNLESS FAIL APPEARS BELOW.  \")\n    perform_test()\n    return\n\ndef go_fail() -> None:\n    print(\"             FAIL\")\n\ndef perform_test() -> None:\n    print(\" PERFORM     THIS TEST FAILS UNLESS PASS APPEARS BELOW.   \")\n    pass_()\n\ndef ender_print() -> None:\n    print(\" ---------------------------------------------------------\")\n    print(space)\n    print(\"                  END OF TEST - NC110M                    \")\n    print(\"                  CHECK FOR ERRORS                        \")\n    print(\"                                                          \")\n    print(\" FOR OFFICIAL USE ONLY \")\n    print(\"COPYRIGHT  1985\")\n    print(\"       NTIS DISTRIBUTION COBOL 1985               \")\n    return\n\ndef pass_() -> None:\n    print(\"             PASS\")\n\nif __name__ == \"__main__\":\n    try:\n        header_print()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_warnings": [],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": false,
+  "stage3_refined_code": "",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "",
+  "stage3_error": "",
+  "verdict": "INCONCLUSIVE",
+  "verdict_summary": "4 structural check(s) passed, but no behavioural signal (execution_match / llm_judge) was available.",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "6/6 paragraphs found as Python functions",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "HEADER-PRINT",
+          "GO-TEST",
+          "GO-FAIL",
+          "PERFORM-TEST",
+          "ENDER-PRINT",
+          "PASS"
+        ],
+        "missing": [],
+        "total": 6
+      }
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "COBOL program had no data items to cover.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "body_non_trivial",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "4/4 paragraphs have non-trivial bodies",
+      "skipped_reason": "",
+      "extra": {
+        "non_trivial": [
+          "HEADER-PRINT",
+          "GO-TEST",
+          "PERFORM-TEST",
+          "ENDER-PRINT"
+        ],
+        "trivial": [],
+        "exempt": [
+          "GO-FAIL",
+          "PASS"
+        ],
+        "total_eligible": 4
+      }
+    }
+  ],
+  "timestamp": 1779956892.382814
+}

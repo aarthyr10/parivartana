@@ -1,0 +1,354 @@
+{
+  "stage2_translator": [
+    {
+      "reason": "neural:Salesforce/codet5p-220m",
+      "count": 459
+    }
+  ],
+  "failed_llm_judge": [
+    {
+      "reason": "[openai] correctness=0.00, readability=0.50, pep8=1.00, pythonic=0.20, types=1.0",
+      "count": 40
+    },
+    {
+      "reason": "[openai] correctness=0.00, readability=0.80, pep8=1.00, pythonic=0.60, types=1.0",
+      "count": 30
+    },
+    {
+      "reason": "[openai] correctness=0.00, readability=0.60, pep8=1.00, pythonic=0.40, types=1.0",
+      "count": 28
+    },
+    {
+      "reason": "[openai] correctness=0.00, readability=0.60, pep8=1.00, pythonic=0.50, types=1.0",
+      "count": 22
+    },
+    {
+      "reason": "[openai] correctness=0.20, readability=0.80, pep8=1.00, pythonic=0.60, types=1.0",
+      "count": 18
+    },
+    {
+      "reason": "[openai] correctness=0.00, readability=0.70, pep8=1.00, pythonic=0.50, types=1.0",
+      "count": 18
+    },
+    {
+      "reason": "[openai] correctness=0.00, readability=0.60, pep8=0.80, pythonic=0.40, types=1.0",
+      "count": 16
+    },
+    {
+      "reason": "[openai] correctness=0.20, readability=0.60, pep8=0.80, pythonic=0.50, types=1.0",
+      "count": 13
+    },
+    {
+      "reason": "[openai] correctness=0.20, readability=0.70, pep8=1.00, pythonic=0.50, types=1.0",
+      "count": 11
+    },
+    {
+      "reason": "[openai] correctness=0.40, readability=0.70, pep8=0.90, pythonic=0.60, types=1.0",
+      "count": 11
+    },
+    {
+      "reason": "[openai] correctness=0.20, readability=0.60, pep8=1.00, pythonic=0.40, types=1.0",
+      "count": 10
+    },
+    {
+      "reason": "[openai] correctness=0.40, readability=0.70, pep8=1.00, pythonic=0.60, types=1.0",
+      "count": 9
+    },
+    {
+      "reason": "[openai] correctness=0.00, readability=0.60, pep8=0.80, pythonic=0.40, types=0.8",
+      "count": 8
+    },
+    {
+      "reason": "[openai] correctness=0.00, readability=0.40, pep8=1.00, pythonic=0.20, types=1.0",
+      "count": 8
+    },
+    {
+      "reason": "[openai] correctness=0.00, readability=0.50, pep8=1.00, pythonic=0.50, types=1.0",
+      "count": 8
+    },
+    {
+      "reason": "[openai] correctness=0.00, readability=0.70, pep8=1.00, pythonic=0.60, types=1.0",
+      "count": 6
+    },
+    {
+      "reason": "[openai] correctness=0.20, readability=0.60, pep8=0.80, pythonic=0.40, types=1.0",
+      "count": 5
+    },
+    {
+      "reason": "[openai] correctness=0.40, readability=0.60, pep8=0.80, pythonic=0.50, types=1.0",
+      "count": 5
+    },
+    {
+      "reason": "[openai] correctness=0.00, readability=0.60, pep8=0.80, pythonic=0.40, types=0.9",
+      "count": 4
+    },
+    {
+      "reason": "[openai] correctness=0.20, readability=0.70, pep8=0.90, pythonic=0.50, types=1.0",
+      "count": 4
+    }
+  ],
+  "failed_paragraph_coverage": [
+    {
+      "reason": "0/64 paragraphs found as Python functions; missing: OPEN-FILES, CLOSE-FILES, TER",
+      "count": 7
+    },
+    {
+      "reason": "0/57 paragraphs found as Python functions; missing: OPEN-FILES, CLOSE-FILES, TER",
+      "count": 7
+    },
+    {
+      "reason": "0/87 paragraphs found as Python functions; missing: OPEN-FILES, CCVS-INIT-FILE, ",
+      "count": 7
+    },
+    {
+      "reason": "0/70 paragraphs found as Python functions; missing: OPEN-FILES, CCVS-INIT-FILE, ",
+      "count": 6
+    },
+    {
+      "reason": "0/69 paragraphs found as Python functions; missing: DECLARATIVES, INPUT-PROCESS,",
+      "count": 6
+    },
+    {
+      "reason": "0/3 paragraphs found as Python functions; missing: DECLARATIVES, DECLARATIVES, D",
+      "count": 5
+    },
+    {
+      "reason": "0/39 paragraphs found as Python functions; missing: OPEN-FILES, CCVS-INIT-FILE, ",
+      "count": 5
+    },
+    {
+      "reason": "0/36 paragraphs found as Python functions; missing: OPEN-FILES, CCVS-INIT-FILE, ",
+      "count": 5
+    },
+    {
+      "reason": "0/46 paragraphs found as Python functions; missing: OPEN-FILES, CLOSE-FILES, TER",
+      "count": 5
+    },
+    {
+      "reason": "0/40 paragraphs found as Python functions; missing: OPEN-FILES, CCVS-INIT-FILE, ",
+      "count": 4
+    },
+    {
+      "reason": "0/45 paragraphs found as Python functions; missing: DECLARATIVES, INPUT-ERROR-PR",
+      "count": 4
+    },
+    {
+      "reason": "0/43 paragraphs found as Python functions; missing: OPEN-FILES, CCVS-INIT-FILE, ",
+      "count": 4
+    },
+    {
+      "reason": "0/62 paragraphs found as Python functions; missing: OPEN-FILES, CLOSE-FILES, TER",
+      "count": 4
+    },
+    {
+      "reason": "0/81 paragraphs found as Python functions; missing: OPEN-FILES, CLOSE-FILES, TER",
+      "count": 4
+    },
+    {
+      "reason": "0/88 paragraphs found as Python functions; missing: OPEN-FILES, CLOSE-FILES, TER",
+      "count": 4
+    },
+    {
+      "reason": "0/90 paragraphs found as Python functions; missing: OPEN-FILES, CLOSE-FILES, TER",
+      "count": 4
+    },
+    {
+      "reason": "0/129 paragraphs found as Python functions; missing: OPEN-FILES, CLOSE-FILES, TE",
+      "count": 4
+    },
+    {
+      "reason": "0/1 paragraphs found as Python functions; missing: SORT-PARAGRAPH",
+      "count": 3
+    },
+    {
+      "reason": "0/30 paragraphs found as Python functions; missing: OPEN-FILES, CLOSE-FILES, TER",
+      "count": 3
+    },
+    {
+      "reason": "0/34 paragraphs found as Python functions; missing: OPEN-FILES, CLOSE-FILES, TER",
+      "count": 3
+    }
+  ],
+  "failed_identifier_coverage": [
+    {
+      "reason": "0/88 identifiers traced into the Python; missing: PRINT-REC, DUMMY-RECORD, SQ-FS",
+      "count": 22
+    },
+    {
+      "reason": "0/106 identifiers traced into the Python; missing: PRINT-REC, DUMMY-RECORD, IX-F",
+      "count": 10
+    },
+    {
+      "reason": "0/89 identifiers traced into the Python; missing: PRINT-REC, DUMMY-RECORD, SQ-FS",
+      "count": 9
+    },
+    {
+      "reason": "0/106 identifiers traced into the Python; missing: PRINT-REC, DUMMY-RECORD, RL-F",
+      "count": 7
+    },
+    {
+      "reason": "0/84 identifiers traced into the Python; missing: PRINT-REC, DUMMY-RECORD, SQ-FS",
+      "count": 6
+    },
+    {
+      "reason": "0/166 identifiers traced into the Python; missing: PRINT-REC, DUMMY-RECORD, WRK-",
+      "count": 5
+    },
+    {
+      "reason": "0/2 identifiers traced into the Python; missing: FREC, RKEY",
+      "count": 4
+    },
+    {
+      "reason": "0/100 identifiers traced into the Python; missing: PRINT-REC, DUMMY-RECORD, IX-F",
+      "count": 4
+    },
+    {
+      "reason": "0/5 identifiers traced into the Python; missing: TEST-AREA, TEST1, TEST2, TEST3,",
+      "count": 3
+    },
+    {
+      "reason": "0/86 identifiers traced into the Python; missing: PRINT-REC, DUMMY-RECORD, RL-FS",
+      "count": 3
+    },
+    {
+      "reason": "0/112 identifiers traced into the Python; missing: PRINT-REC, DUMMY-RECORD, RL-F",
+      "count": 3
+    },
+    {
+      "reason": "0/97 identifiers traced into the Python; missing: PRINT-REC, DUMMY-RECORD, SQ-FS",
+      "count": 3
+    },
+    {
+      "reason": "0/95 identifiers traced into the Python; missing: PRINT-REC, DUMMY-RECORD, SQ-VS",
+      "count": 3
+    },
+    {
+      "reason": "14/101 identifiers traced into the Python; missing: PRINT-REC, DUMMY-RECORD, ARG",
+      "count": 3
+    },
+    {
+      "reason": "4/77 identifiers traced into the Python; missing: PRINT-REC, DUMMY-RECORD, RESUL",
+      "count": 3
+    },
+    {
+      "reason": "0/9 identifiers traced into the Python; missing: FREC, RKEY, SREC, SKEY, RREC",
+      "count": 2
+    },
+    {
+      "reason": "0/2 identifiers traced into the Python; missing: CREC, CNAME1",
+      "count": 2
+    },
+    {
+      "reason": "0/9 identifiers traced into the Python; missing: S-RECORD, KEYS-GROUP, KEY-1, KE",
+      "count": 2
+    },
+    {
+      "reason": "0/30 identifiers traced into the Python; missing: PRINT-REC, DUMMY-RECORD, SHORT",
+      "count": 2
+    },
+    {
+      "reason": "0/5 identifiers traced into the Python; missing: FREC, RKEY, VARIABLES, VKEY, RR",
+      "count": 2
+    }
+  ],
+  "failed_body_non_trivial": [
+    {
+      "reason": "0/51 paragraphs have non-trivial bodies; stubbed: OPEN-FILES, CCVS-INIT-FILE, CL",
+      "count": 8
+    },
+    {
+      "reason": "0/28 paragraphs have non-trivial bodies; stubbed: OPEN-FILES, CLOSE-FILES, INSPT",
+      "count": 7
+    },
+    {
+      "reason": "0/24 paragraphs have non-trivial bodies; stubbed: OPEN-FILES, CCVS-INIT-FILE, CL",
+      "count": 7
+    },
+    {
+      "reason": "0/45 paragraphs have non-trivial bodies; stubbed: OPEN-FILES, CLOSE-FILES, INSPT",
+      "count": 7
+    },
+    {
+      "reason": "0/48 paragraphs have non-trivial bodies; stubbed: INPUT-PROCESS, D-C-TEST-GF-01-",
+      "count": 6
+    },
+    {
+      "reason": "0/22 paragraphs have non-trivial bodies; stubbed: OPEN-FILES, CLOSE-FILES, INSPT",
+      "count": 5
+    },
+    {
+      "reason": "0/39 paragraphs have non-trivial bodies; stubbed: OPEN-FILES, CLOSE-FILES, INSPT",
+      "count": 5
+    },
+    {
+      "reason": "0/66 paragraphs have non-trivial bodies; stubbed: OPEN-FILES, CCVS-INIT-FILE, CL",
+      "count": 5
+    },
+    {
+      "reason": "0/33 paragraphs have non-trivial bodies; stubbed: OPEN-FILES, CCVS-INIT-FILE, CL",
+      "count": 4
+    },
+    {
+      "reason": "0/32 paragraphs have non-trivial bodies; stubbed: OPEN-FILES, CCVS-INIT-FILE, CL",
+      "count": 4
+    },
+    {
+      "reason": "0/51 paragraphs have non-trivial bodies; stubbed: OPEN-FILES, CLOSE-FILES, INSPT",
+      "count": 4
+    },
+    {
+      "reason": "0/69 paragraphs have non-trivial bodies; stubbed: OPEN-FILES, CLOSE-FILES, INSPT",
+      "count": 4
+    },
+    {
+      "reason": "0/74 paragraphs have non-trivial bodies; stubbed: OPEN-FILES, CLOSE-FILES, INSPT",
+      "count": 4
+    },
+    {
+      "reason": "0/82 paragraphs have non-trivial bodies; stubbed: OPEN-FILES, CLOSE-FILES, INSPT",
+      "count": 4
+    },
+    {
+      "reason": "0/1 paragraphs have non-trivial bodies; stubbed: SORT-PARAGRAPH",
+      "count": 3
+    },
+    {
+      "reason": "0/24 paragraphs have non-trivial bodies; stubbed: OPEN-FILES, CLOSE-FILES, INSPT",
+      "count": 3
+    },
+    {
+      "reason": "0/31 paragraphs have non-trivial bodies; stubbed: OPEN-FILES, CCVS-INIT-FILE, CL",
+      "count": 3
+    },
+    {
+      "reason": "0/29 paragraphs have non-trivial bodies; stubbed: OPEN-FILES, CCVS-INIT-FILE, CL",
+      "count": 3
+    },
+    {
+      "reason": "0/31 paragraphs have non-trivial bodies; stubbed: OPEN-FILES, CLOSE-FILES, INSPT",
+      "count": 3
+    },
+    {
+      "reason": "0/52 paragraphs have non-trivial bodies; stubbed: OPEN-FILES, CCVS-INIT-FILE, CL",
+      "count": 3
+    }
+  ],
+  "failed_python_smoke": [
+    {
+      "reason": "exit=1, stderr_head=Traceback (most recent call last):",
+      "count": 20
+    }
+  ],
+  "failed_execution_match": [
+    {
+      "reason": "stdout mismatch (stdout_mismatch)",
+      "count": 109
+    }
+  ],
+  "stage3_llm_truncated": [
+    {
+      "reason": "max_tokens hit",
+      "count": 4
+    }
+  ]
+}

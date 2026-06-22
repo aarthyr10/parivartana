@@ -1,0 +1,609 @@
+{
+  "program_id": "SQ401M",
+  "record_id": "SQ401M",
+  "cobol_source": "      *HEADER,COBOL,SQ401M                                                            \n000100 IDENTIFICATION DIVISION.                                         SQ4014.2\n000200 PROGRAM-ID.                                                      SQ4014.2\n000300     SQ401M.                                                      SQ4014.2\n000400*THE FOLLOWING PROGRAM TESTS THE FLAGGING OF HIGH                 SQ4014.2\n000500*SUBSET FEATURES THAT ARE USED IN SEQUENTIAL                      SQ4014.2\n000600*INPUT-OUTPUT.                                                    SQ4014.2\n000700 ENVIRONMENT DIVISION.                                            SQ4014.2\n000800 CONFIGURATION SECTION.                                           SQ4014.2\n000900 SOURCE-COMPUTER.                                                 SQ4014.2\n001000     XXXXX082.                                                    SQ4014.2\n001100 OBJECT-COMPUTER.                                                 SQ4014.2\n001200     XXXXX083.                                                    SQ4014.2\n001300 INPUT-OUTPUT SECTION.                                            SQ4014.2\n001400 FILE-CONTROL.                                                    SQ4014.2\n001500     SELECT OPTIONAL TFIL ASSIGN                                  SQ4014.2\n001600*Message expected for above statement: NON-CONFORMING STANDARD    SQ4014.2\n001700                                                                  SQ4014.2\n001800     XXXXX002                                                     SQ4014.2\n001900         RESERVE 2 AREAS                                          SQ4014.2\n002000*Message expected for above statement: NON-CONFORMING STANDARD    SQ4014.2\n002100                                                                  SQ4014.2\n002200         ORGANIZATION IS SEQUENTIAL                               SQ4014.2\n002300         PADDING CHARACTER IS \"P\"                                 SQ4014.2\n002400*Message expected for above statement: NON-CONFORMING STANDARD    SQ4014.2\n002500                                                                  SQ4014.2\n002600         RECORD DELIMITER IS STANDARD-1                           SQ4014.2\n002700*Message expected for above statement: NON-CONFORMING STANDARD    SQ4014.2\n002800                                                                  SQ4014.2\n002900         ACCESS MODE IS SEQUENTIAL.                               SQ4014.2\n003000                                                                  SQ4014.2\n003100     SELECT TFIL2 ASSIGN                                          SQ4014.2\n003200     XXXXX008                                                     SQ4014.2\n003300         ORGANIZATION IS SEQUENTIAL                               SQ4014.2\n003400         ACCESS MODE IS SEQUENTIAL.                               SQ4014.2\n003500                                                                  SQ4014.2\n003600                                                                  SQ4014.2\n003700     SELECT TFIL3 ASSIGN                                          SQ4014.2\n003800     XXXXX003.                                                    SQ4014.2\n003900                                                                  SQ4014.2\n004000 I-O-CONTROL.                                                     SQ4014.2\n004100     SAME RECORD AREA FOR TFIL2, TFIL                             SQ4014.2\n004200*Message expected for above statement: NON-CONFORMING STANDARD    SQ4014.2\n004300                                                                  SQ4014.2\n004400     MULTIPLE FILE TAPE CONTAINS TFIL2.                           SQ4014.2\n004500*Message expected for above statement: NON-CONFORMING STANDARD    SQ4014.2\n004600                                                                  SQ4014.2\n004700 DATA DIVISION.                                                   SQ4014.2\n004800 FILE SECTION.                                                    SQ4014.2\n004900 FD TFIL                                                          SQ4014.2\n005000     BLOCK CONTAINS 1 TO 8 RECORDS                                SQ4014.2\n005100*Message expected for above statement: NON-CONFORMING STANDARD    SQ4014.2\n005200                                                                  SQ4014.2\n005300     RECORD VARYING IN SIZE FROM 1 TO 8 CHARACTERS                SQ4014.2\n005400*Message expected for above statement: NON-CONFORMING STANDARD    SQ4014.2\n005500                                                                  SQ4014.2\n005600     LINAGE IS 20 LINES                                           SQ4014.2\n005700*Message expected for above statement: NON-CONFORMING STANDARD    SQ4014.2\n005800                                                                  SQ4014.2\n005900     LABEL RECORDS ARE STANDARD                                   SQ4014.2\n006000     VALUE OF                                                     SQ4014.2\n006100     XXXXX074                                                     SQ4014.2\n006200     IS VKEY.                                                     SQ4014.2\n006300*Message expected for above statement: NON-CONFORMING STANDARD    SQ4014.2\n006400                                                                  SQ4014.2\n006500 01 FREC.                                                         SQ4014.2\n006600     03 RKEY PIC 9(8).                                            SQ4014.2\n006700                                                                  SQ4014.2\n006800 FD TFIL2.                                                        SQ4014.2\n006900 01 FREC2.                                                        SQ4014.2\n007000     03 RKEY2 PIC 9(8).                                           SQ4014.2\n007100                                                                  SQ4014.2\n007200                                                                  SQ4014.2\n007300 FD TFIL3.                                                        SQ4014.2\n007400 01 FREC3.                                                        SQ4014.2\n007500    02  RKEY3     PIC 9(8).                                       SQ4014.2\n007600                                                                  SQ4014.2\n007700 WORKING-STORAGE SECTION.                                         SQ4014.2\n007800                                                                  SQ4014.2\n007900 01 VARIABLES.                                                    SQ4014.2\n008000                                                                  SQ4014.2\n008100     03 VKEY                                                      SQ4014.2\n008200     XXXXX086.                                                    SQ4014.2\n008300                                                                  SQ4014.2\n008400                                                                  SQ4014.2\n008500 PROCEDURE DIVISION.                                              SQ4014.2\n008600                                                                  SQ4014.2\n008700 SQ401M-CONTROL.                                                  SQ4014.2\n008800     OPEN INPUT TFIL.                                             SQ4014.2\n008900     PERFORM SQ401M-CLOSEREMOV THRU SQ401M-WRITEEOP.              SQ4014.2\n009000     CLOSE TFIL.                                                  SQ4014.2\n009100     CLOSE TFIL2.                                                 SQ4014.2\n009200     STOP RUN.                                                    SQ4014.2\n009300                                                                  SQ4014.2\n009400 SQ401M-CLOSEREMOV.                                               SQ4014.2\n009500     CLOSE TFIL REEL FOR REMOVAL.                                 SQ4014.2\n009600*Message expected for above statement: NON-CONFORMING STANDARD    SQ4014.2\n009700                                                                  SQ4014.2\n009800 SQ401M-CLOSENRW.                                                 SQ4014.2\n009900     OPEN INPUT TFIL.                                             SQ4014.2\n010000     CLOSE TFIL WITH NO REWIND.                                   SQ4014.2\n010100*Message expected for above statement: NON-CONFORMING STANDARD    SQ4014.2\n010200                                                                  SQ4014.2\n010300 SQ401M-CLOSELOCK.                                                SQ4014.2\n010400     OPEN INPUT TFIL.                                             SQ4014.2\n010500     CLOSE TFIL WITH LOCK.                                        SQ4014.2\n010600*Message expected for above statement: NON-CONFORMING STANDARD    SQ4014.2\n010700                                                                  SQ4014.2\n010800 SQ401M-OPENREV.                                                  SQ4014.2\n010900     OPEN INPUT TFIL REVERSED.                                    SQ4014.2\n011000*Message expected for above statement: NON-CONFORMING STANDARD    SQ4014.2\n011100                                                                  SQ4014.2\n011200 SQ401M-OPENNOREW.                                                SQ4014.2\n011300     CLOSE TFIL.                                                  SQ4014.2\n011400     OPEN INPUT TFIL WITH NO REWIND.                              SQ4014.2\n011500*Message expected for above statement: NON-CONFORMING STANDARD    SQ4014.2\n011600                                                                  SQ4014.2\n011700 SQ401M-EXTEND.                                                   SQ4014.2\n011800     CLOSE TFIL.                                                  SQ4014.2\n011900     OPEN EXTEND TFIL3.                                           SQ4014.2\n012000*Message expected for above statement: NON-CONFORMING STANDARD    SQ4014.2\n012100                                                                  SQ4014.2\n012200 SQ401M-READNEXT.                                                 SQ4014.2\n012300     OPEN INPUT TFIL.                                             SQ4014.2\n012400     READ TFIL NEXT RECORD                                        SQ4014.2\n012500         AT END DISPLAY \"AT END\".                                 SQ4014.2\n012600*Message expected for above statement: NON-CONFORMING STANDARD    SQ4014.2\n012700                                                                  SQ4014.2\n012800     CLOSE TFIL.                                                  SQ4014.2\n012900                                                                  SQ4014.2\n013000 SQ401M-WRITEEOP.                                                 SQ4014.2\n013100     OPEN OUTPUT TFIL.                                            SQ4014.2\n013200     WRITE FREC AT END-OF-PAGE DISPLAY \"HELLO\".                   SQ4014.2\n013300*Message expected for above statement: NON-CONFORMING STANDARD    SQ4014.2\n013400                                                                  SQ4014.2\n013500                                                                  SQ4014.2\n013600                                                                  SQ4014.2\n013700*TOTAL NUMBER OF FLAGS EXPECTED = 18.                             SQ4014.2\n      *END-OF,SQ401M                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "SQ401M",
+  "stage1_division_count": 4,
+  "stage1_paragraph_count": 9,
+  "stage1_token_count": 278,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {
+      "program_id": "SQ401M"
+    },
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 4,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 38,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "DATA"
+        },
+        "children": [
+          {
+            "node_type": "DataItem",
+            "line": 52,
+            "attributes": {
+              "level": 1,
+              "name": "FREC"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 53,
+            "attributes": {
+              "level": 3,
+              "name": "RKEY",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 56,
+            "attributes": {
+              "level": 1,
+              "name": "FREC2"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 57,
+            "attributes": {
+              "level": 3,
+              "name": "RKEY2",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 61,
+            "attributes": {
+              "level": 1,
+              "name": "FREC3"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 62,
+            "attributes": {
+              "level": 2,
+              "name": "RKEY3",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 66,
+            "attributes": {
+              "level": 1,
+              "name": "VARIABLES"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 68,
+            "attributes": {
+              "level": 3,
+              "name": "VKEY"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 72,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 74,
+            "attributes": {
+              "name": "SQ401M-CONTROL"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 75,
+                "attributes": {
+                  "verb": "OPEN",
+                  "operands": [
+                    "INPUT",
+                    "TFIL"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 76,
+                "attributes": {
+                  "verb": "PERFORM",
+                  "operands": [
+                    "SQ401M-CLOSEREMOV",
+                    "THRU",
+                    "SQ401M-WRITEEOP"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 77,
+                "attributes": {
+                  "verb": "CLOSE",
+                  "operands": [
+                    "TFIL"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 78,
+                "attributes": {
+                  "verb": "CLOSE",
+                  "operands": [
+                    "TFIL2"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 79,
+                "attributes": {
+                  "verb": "STOP",
+                  "operands": [
+                    "RUN"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 81,
+            "attributes": {
+              "name": "SQ401M-CLOSEREMOV"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 82,
+                "attributes": {
+                  "verb": "CLOSE",
+                  "operands": [
+                    "TFIL",
+                    "REEL",
+                    "FOR",
+                    "REMOVAL"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 84,
+            "attributes": {
+              "name": "SQ401M-CLOSENRW"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 85,
+                "attributes": {
+                  "verb": "OPEN",
+                  "operands": [
+                    "INPUT",
+                    "TFIL"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 86,
+                "attributes": {
+                  "verb": "CLOSE",
+                  "operands": [
+                    "TFIL",
+                    "WITH",
+                    "NO",
+                    "REWIND"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 88,
+            "attributes": {
+              "name": "SQ401M-CLOSELOCK"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 89,
+                "attributes": {
+                  "verb": "OPEN",
+                  "operands": [
+                    "INPUT",
+                    "TFIL"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 90,
+                "attributes": {
+                  "verb": "CLOSE",
+                  "operands": [
+                    "TFIL",
+                    "WITH",
+                    "LOCK"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 92,
+            "attributes": {
+              "name": "SQ401M-OPENREV"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 93,
+                "attributes": {
+                  "verb": "OPEN",
+                  "operands": [
+                    "INPUT",
+                    "TFIL",
+                    "REVERSED"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 95,
+            "attributes": {
+              "name": "SQ401M-OPENNOREW"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 96,
+                "attributes": {
+                  "verb": "CLOSE",
+                  "operands": [
+                    "TFIL"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 97,
+                "attributes": {
+                  "verb": "OPEN",
+                  "operands": [
+                    "INPUT",
+                    "TFIL",
+                    "WITH",
+                    "NO",
+                    "REWIND"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 99,
+            "attributes": {
+              "name": "SQ401M-EXTEND"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 100,
+                "attributes": {
+                  "verb": "CLOSE",
+                  "operands": [
+                    "TFIL"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 101,
+                "attributes": {
+                  "verb": "OPEN",
+                  "operands": [
+                    "EXTEND",
+                    "TFIL3"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 103,
+            "attributes": {
+              "name": "SQ401M-READNEXT"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 104,
+                "attributes": {
+                  "verb": "OPEN",
+                  "operands": [
+                    "INPUT",
+                    "TFIL"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 105,
+                "attributes": {
+                  "verb": "READ",
+                  "operands": [
+                    "TFIL",
+                    "NEXT",
+                    "RECORD"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 106,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\"__AT_END__\""
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 108,
+                "attributes": {
+                  "verb": "CLOSE",
+                  "operands": [
+                    "TFIL"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 110,
+            "attributes": {
+              "name": "SQ401M-WRITEEOP"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 111,
+                "attributes": {
+                  "verb": "OPEN",
+                  "operands": [
+                    "OUTPUT",
+                    "TFIL"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 112,
+                "attributes": {
+                  "verb": "WRITE",
+                  "operands": [
+                    "FREC"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 112,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\"HELLO\""
+                  ]
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "stage1_cobc_status": "",
+  "stage1_cobc_stderr": "",
+  "complexity_tier": "simple",
+  "complexity_score": 3.4,
+  "ast_depth": 4,
+  "unique_verbs": 7,
+  "cross_refs": 1,
+  "stage2_source": "rule-based",
+  "stage2_rule_based_code": "\"\"\"Translated from COBOL program SQ401M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'frec': None,\n    'rkey': 0,\n    'frec2': None,\n    'rkey2': 0,\n    'frec3': None,\n    'rkey3': 0,\n    'variables': None,\n    'vkey': None,\n})\n\ndef sq401m_control() -> None:\n    state['tfil'] = open('tfil', 'r')\n    sq401m_closeremov()\n    if hasattr(state['tfil'], 'close'): state['tfil'].close()\n    if hasattr(state['tfil2'], 'close'): state['tfil2'].close()\n    return\n\ndef sq401m_closeremov() -> None:\n    if hasattr(state['tfil'], 'close'): state['tfil'].close()\n    if hasattr(state['reel'], 'close'): state['reel'].close()\n    if hasattr(state['for_'], 'close'): state['for_'].close()\n    if hasattr(state['removal'], 'close'): state['removal'].close()\n\ndef sq401m_closenrw() -> None:\n    state['tfil'] = open('tfil', 'r')\n    if hasattr(state['tfil'], 'close'): state['tfil'].close()\n    if hasattr(state['with_'], 'close'): state['with_'].close()\n    if hasattr(state['no'], 'close'): state['no'].close()\n    if hasattr(state['rewind'], 'close'): state['rewind'].close()\n\ndef sq401m_closelock() -> None:\n    state['tfil'] = open('tfil', 'r')\n    if hasattr(state['tfil'], 'close'): state['tfil'].close()\n    if hasattr(state['with_'], 'close'): state['with_'].close()\n    if hasattr(state['lock'], 'close'): state['lock'].close()\n\ndef sq401m_openrev() -> None:\n    state['tfil'] = open('tfil', 'r')\n    state['reversed'] = open('reversed', 'r')\n\ndef sq401m_opennorew() -> None:\n    if hasattr(state['tfil'], 'close'): state['tfil'].close()\n    state['tfil'] = open('tfil', 'r')\n    state['with_'] = open('with_', 'r')\n    state['no'] = open('no', 'r')\n    state['rewind'] = open('rewind', 'r')\n\ndef sq401m_extend() -> None:\n    if hasattr(state['tfil'], 'close'): state['tfil'].close()\n    state['tfil3'] = open('tfil3', 'a')\n\ndef sq401m_readnext() -> None:\n    state['tfil'] = open('tfil', 'r')\n    state['tfil'] = state['tfil'].readline() if hasattr(state['tfil'], 'readline') else ''\n    print(\"__AT_END__\")\n    if hasattr(state['tfil'], 'close'): state['tfil'].close()\n\ndef sq401m_writeeop() -> None:\n    state['tfil'] = open('tfil', 'w')\n    print(state['frec'])\n    print(\"HELLO\")\n\nif __name__ == \"__main__\":\n    try:\n        sq401m_control()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_neural_code": "",
+  "stage2_final_code": "\"\"\"Translated from COBOL program SQ401M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'frec': None,\n    'rkey': 0,\n    'frec2': None,\n    'rkey2': 0,\n    'frec3': None,\n    'rkey3': 0,\n    'variables': None,\n    'vkey': None,\n})\n\ndef sq401m_control() -> None:\n    state['tfil'] = open('tfil', 'r')\n    sq401m_closeremov()\n    if hasattr(state['tfil'], 'close'): state['tfil'].close()\n    if hasattr(state['tfil2'], 'close'): state['tfil2'].close()\n    return\n\ndef sq401m_closeremov() -> None:\n    if hasattr(state['tfil'], 'close'): state['tfil'].close()\n    if hasattr(state['reel'], 'close'): state['reel'].close()\n    if hasattr(state['for_'], 'close'): state['for_'].close()\n    if hasattr(state['removal'], 'close'): state['removal'].close()\n\ndef sq401m_closenrw() -> None:\n    state['tfil'] = open('tfil', 'r')\n    if hasattr(state['tfil'], 'close'): state['tfil'].close()\n    if hasattr(state['with_'], 'close'): state['with_'].close()\n    if hasattr(state['no'], 'close'): state['no'].close()\n    if hasattr(state['rewind'], 'close'): state['rewind'].close()\n\ndef sq401m_closelock() -> None:\n    state['tfil'] = open('tfil', 'r')\n    if hasattr(state['tfil'], 'close'): state['tfil'].close()\n    if hasattr(state['with_'], 'close'): state['with_'].close()\n    if hasattr(state['lock'], 'close'): state['lock'].close()\n\ndef sq401m_openrev() -> None:\n    state['tfil'] = open('tfil', 'r')\n    state['reversed'] = open('reversed', 'r')\n\ndef sq401m_opennorew() -> None:\n    if hasattr(state['tfil'], 'close'): state['tfil'].close()\n    state['tfil'] = open('tfil', 'r')\n    state['with_'] = open('with_', 'r')\n    state['no'] = open('no', 'r')\n    state['rewind'] = open('rewind', 'r')\n\ndef sq401m_extend() -> None:\n    if hasattr(state['tfil'], 'close'): state['tfil'].close()\n    state['tfil3'] = open('tfil3', 'a')\n\ndef sq401m_readnext() -> None:\n    state['tfil'] = open('tfil', 'r')\n    state['tfil'] = state['tfil'].readline() if hasattr(state['tfil'], 'readline') else ''\n    print(\"__AT_END__\")\n    if hasattr(state['tfil'], 'close'): state['tfil'].close()\n\ndef sq401m_writeeop() -> None:\n    state['tfil'] = open('tfil', 'w')\n    print(state['frec'])\n    print(\"HELLO\")\n\nif __name__ == \"__main__\":\n    try:\n        sq401m_control()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_warnings": [],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": false,
+  "stage3_refined_code": "",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "",
+  "stage3_error": "",
+  "verdict": "STRUCTURAL_PASS",
+  "verdict_summary": "4 structural check(s) passed; behavioural checks skipped due to environment (python_smoke, llm_judge).",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "9/9 paragraphs found as Python functions",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "SQ401M-CONTROL",
+          "SQ401M-CLOSEREMOV",
+          "SQ401M-CLOSENRW",
+          "SQ401M-CLOSELOCK",
+          "SQ401M-OPENREV",
+          "SQ401M-OPENNOREW",
+          "SQ401M-EXTEND",
+          "SQ401M-READNEXT",
+          "SQ401M-WRITEEOP"
+        ],
+        "missing": [],
+        "total": 9
+      }
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "8/8 identifiers traced into the Python",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "FREC",
+          "RKEY",
+          "FREC2",
+          "RKEY2",
+          "FREC3",
+          "RKEY3",
+          "VARIABLES",
+          "VKEY"
+        ],
+        "missing": [],
+        "total": 8
+      }
+    },
+    {
+      "name": "body_non_trivial",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "7/7 paragraphs have non-trivial bodies",
+      "skipped_reason": "",
+      "extra": {
+        "non_trivial": [
+          "SQ401M-CONTROL",
+          "SQ401M-CLOSENRW",
+          "SQ401M-CLOSELOCK",
+          "SQ401M-OPENNOREW",
+          "SQ401M-EXTEND",
+          "SQ401M-READNEXT",
+          "SQ401M-WRITEEOP"
+        ],
+        "trivial": [],
+        "exempt": [
+          "SQ401M-CLOSEREMOV",
+          "SQ401M-OPENREV"
+        ],
+        "total_eligible": 7
+      }
+    },
+    {
+      "name": "python_smoke",
+      "ran": false,
+      "passed": null,
+      "score": null,
+      "detail": "skipped: uses I/O verbs requiring environment (CLOSE, OPEN, READ, WRITE)",
+      "skipped_reason": "uses I/O verbs requiring environment (CLOSE, OPEN, READ, WRITE)",
+      "extra": {}
+    },
+    {
+      "name": "llm_judge",
+      "ran": false,
+      "passed": null,
+      "score": null,
+      "detail": "skipped: openai: no API key in env | anthropic: no API key in env",
+      "skipped_reason": "openai: no API key in env | anthropic: no API key in env",
+      "extra": {
+        "providers_tried": [
+          "openai: no API key in env",
+          "anthropic: no API key in env"
+        ]
+      }
+    }
+  ],
+  "timestamp": 1779991925.453439
+}

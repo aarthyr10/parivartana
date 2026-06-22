@@ -1,0 +1,317 @@
+{
+  "program_id": "IX302M",
+  "record_id": "IX302M",
+  "cobol_source": "      *HEADER,COBOL,IX302M                                                            \n000100 IDENTIFICATION DIVISION.                                         IX3024.2\n000200 PROGRAM-ID.                                                      IX3024.2\n000300     IX302M.                                                      IX3024.2\n000400*THE FOLLOWING PROGRAM TESTS THE FLAGGING OF                      IX3024.2\n000500*OBSOLETE FEATURES THAT ARE USED IN INTERMEDIATE SUBSET INDEXED   IX3024.2\n000600*INPUT-OUTPUT.                                                    IX3024.2\n000700 ENVIRONMENT DIVISION.                                            IX3024.2\n000800 CONFIGURATION SECTION.                                           IX3024.2\n000900 SOURCE-COMPUTER.                                                 IX3024.2\n001000     XXXXX082.                                                    IX3024.2\n001100 OBJECT-COMPUTER.                                                 IX3024.2\n001200     XXXXX083.                                                    IX3024.2\n001300 INPUT-OUTPUT SECTION.                                            IX3024.2\n001400 FILE-CONTROL.                                                    IX3024.2\n001500     SELECT TFIL ASSIGN                                           IX3024.2\n001600     XXXXX024                                                     IX3024.2\n001700         ORGANIZATION IS INDEXED                                  IX3024.2\n001800         ACCESS MODE IS SEQUENTIAL                                IX3024.2\n001900         RECORD KEY IS RKEY.                                      IX3024.2\n002000                                                                  IX3024.2\n002100     SELECT SQ-FRR ASSIGN                                         IX3024.2\n002200     XXXXX013.                                                    IX3024.2\n002300                                                                  IX3024.2\n002400                                                                  IX3024.2\n002500     SELECT RR-FS1 ASSIGN                                         IX3024.2\n002600     XXXXX024                                                     IX3024.2\n002700         ORGANIZATION IS INDEXED                                  IX3024.2\n002800         RECORD KEY IS FKEY.                                      IX3024.2\n002900 I-O-CONTROL.                                                     IX3024.2\n003000     XXXXX053.                                                    IX3024.2\n003100*Message expected for above statement: OBSOLETE                   IX3024.2\n003200                                                                  IX3024.2\n003300 DATA DIVISION.                                                   IX3024.2\n003400 FILE SECTION.                                                    IX3024.2\n003500 FD TFIL                                                          IX3024.2\n003600     LABEL RECORDS STANDARD                                       IX3024.2\n003700*Message expected for above statement: OBSOLETE                   IX3024.2\n003800                                                                  IX3024.2\n003900     VALUE OF                                                     IX3024.2\n004000     XXXXX074                                                     IX3024.2\n004100     IS                                                           IX3024.2\n004200     XXXXX075                                                     IX3024.2\n004300*Message expected for above statement: OBSOLETE                   IX3024.2\n004400                                                                  IX3024.2\n004500     DATA RECORDS ARE FREC.                                       IX3024.2\n004600*Message expected for above statement: OBSOLETE                   IX3024.2\n004700                                                                  IX3024.2\n004800 01 FREC.                                                         IX3024.2\n004900     03 RKEY PIC X(8).                                            IX3024.2\n005000                                                                  IX3024.2\n005100 FD SQ-FRR.                                                       IX3024.2\n005200    01 SREC.                                                      IX3024.2\n005300     03 SKEY PIC X(8).                                            IX3024.2\n005400                                                                  IX3024.2\n005500                                                                  IX3024.2\n005600 FD RR-FS1.                                                       IX3024.2\n005700    01 RREC.                                                      IX3024.2\n005800     03 FKEY PIC X(8).                                            IX3024.2\n005900                                                                  IX3024.2\n006000 WORKING-STORAGE SECTION.                                         IX3024.2\n006100 01 VARIABLES.                                                    IX3024.2\n006200     03 VKEY PIC 9(8) VALUE ZERO.                                 IX3024.2\n006300     03 DKEY PIC 9(8) VALUE ZERO.                                 IX3024.2\n006400                                                                  IX3024.2\n006500 PROCEDURE DIVISION.                                              IX3024.2\n006600                                                                  IX3024.2\n006700 IX302M-CONTROL.                                                  IX3024.2\n006800     DISPLAY \"THIS IS A DUMMY PARAGRAPH\".                         IX3024.2\n006900     STOP RUN.                                                    IX3024.2\n007000                                                                  IX3024.2\n007100*TOTAL NUMBER OF FLAGS EXPECTED = 4.                              IX3024.2\n      *END-OF,IX302M                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "IX302M",
+  "stage1_division_count": 4,
+  "stage1_paragraph_count": 1,
+  "stage1_token_count": 161,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {
+      "program_id": "IX302M"
+    },
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 4,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 29,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "DATA"
+        },
+        "children": [
+          {
+            "node_type": "DataItem",
+            "line": 41,
+            "attributes": {
+              "level": 1,
+              "name": "FREC"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 42,
+            "attributes": {
+              "level": 3,
+              "name": "RKEY",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 45,
+            "attributes": {
+              "level": 1,
+              "name": "SREC"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 46,
+            "attributes": {
+              "level": 3,
+              "name": "SKEY",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 50,
+            "attributes": {
+              "level": 1,
+              "name": "RREC"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 51,
+            "attributes": {
+              "level": 3,
+              "name": "FKEY",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 54,
+            "attributes": {
+              "level": 1,
+              "name": "VARIABLES"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 55,
+            "attributes": {
+              "level": 3,
+              "name": "VKEY",
+              "pic": "9",
+              "value": "ZERO"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 56,
+            "attributes": {
+              "level": 3,
+              "name": "DKEY",
+              "pic": "9",
+              "value": "ZERO"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 58,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 60,
+            "attributes": {
+              "name": "IX302M-CONTROL"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 61,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\"THIS IS A DUMMY PARAGRAPH\""
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 62,
+                "attributes": {
+                  "verb": "STOP",
+                  "operands": [
+                    "RUN"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "stage1_cobc_status": "",
+  "stage1_cobc_stderr": "",
+  "complexity_tier": "simple",
+  "complexity_score": 1.9,
+  "ast_depth": 4,
+  "unique_verbs": 2,
+  "cross_refs": 0,
+  "stage2_source": "neural",
+  "stage2_rule_based_code": "/*\n * Licensed to the Apache Software Foundation (ASF) under one\n * or more contributor license agreements.  See the NOTICE file\n * distributed with this work for additional information\n * regarding copyright ownership.  The ASF licenses this file\n * to you under the Apache License, Version 2.0 (the\n * \"License\"); you may not use this file except in compliance\n * with the License.  You may obtain a copy of the License at\n *\n *   http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing,\n * software distributed under the License is distributed on an\n * \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY\n * KIND, either express or implied.  See the License for the\n * specific language governing permissions and limitations\n * under the License.\n */\npackage org.apache.asterix.runtime.evaluators.functions;\n\nimport org.apache.asterix.om.functions.BuiltinFunctions;\nimport org.apache.asterix.om.functions.IFunctionDescriptor;",
+  "stage2_neural_code": "",
+  "stage2_final_code": "/*\n * Licensed to the Apache Software Foundation (ASF) under one\n * or more contributor license agreements.  See the NOTICE file\n * distributed with this work for additional information\n * regarding copyright ownership.  The ASF licenses this file\n * to you under the Apache License, Version 2.0 (the\n * \"License\"); you may not use this file except in compliance\n * with the License.  You may obtain a copy of the License at\n *\n *   http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing,\n * software distributed under the License is distributed on an\n * \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY\n * KIND, either express or implied.  See the License for the\n * specific language governing permissions and limitations\n * under the License.\n */\npackage org.apache.asterix.runtime.evaluators.functions;\n\nimport org.apache.asterix.om.functions.BuiltinFunctions;\nimport org.apache.asterix.om.functions.IFunctionDescriptor;",
+  "stage2_warnings": [],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": true,
+  "stage3_refined_code": "def main():\n    pass",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "openai",
+  "stage3_error": "",
+  "verdict": "FAIL",
+  "verdict_summary": "4 check(s) failed: paragraph_coverage, identifier_coverage, body_non_trivial, llm_judge.",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": false,
+      "score": 0.0,
+      "detail": "0/1 paragraphs found as Python functions; missing: IX302M-CONTROL",
+      "skipped_reason": "",
+      "extra": {
+        "found": [],
+        "missing": [
+          "IX302M-CONTROL"
+        ],
+        "total": 1
+      }
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": false,
+      "score": 0.0,
+      "detail": "0/9 identifiers traced into the Python; missing: FREC, RKEY, SREC, SKEY, RREC",
+      "skipped_reason": "",
+      "extra": {
+        "found": [],
+        "missing": [
+          "FREC",
+          "RKEY",
+          "SREC",
+          "SKEY",
+          "RREC",
+          "FKEY",
+          "VARIABLES",
+          "VKEY",
+          "DKEY"
+        ],
+        "total": 9
+      }
+    },
+    {
+      "name": "body_non_trivial",
+      "ran": true,
+      "passed": false,
+      "score": 0.0,
+      "detail": "0/1 paragraphs have non-trivial bodies; stubbed: IX302M-CONTROL",
+      "skipped_reason": "",
+      "extra": {
+        "non_trivial": [],
+        "trivial": [
+          "IX302M-CONTROL"
+        ],
+        "exempt": [],
+        "total_eligible": 1
+      }
+    },
+    {
+      "name": "python_smoke",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "ran cleanly",
+      "skipped_reason": "",
+      "extra": {
+        "exit_code": 0,
+        "stdout_bytes": 0,
+        "stderr_bytes": 0,
+        "stderr_head": ""
+      }
+    },
+    {
+      "name": "execution_match",
+      "ran": false,
+      "passed": null,
+      "score": null,
+      "detail": "skipped: cobol side could not be executed (stdout_mismatch; rc=1)",
+      "skipped_reason": "cobol side could not be executed (stdout_mismatch; rc=1)",
+      "extra": {
+        "cobol_stdout": "/var/folders/rl/r9ygvg0x7_l7sdtfq9pq99fm0000gn/T/tmpm7ym999t/program.cob:16: error: missing file description for FILE TFIL\n   14 | 001300 INPUT-OUTPUT SECTION.                                            I..\n   15 | 001400 FILE-CONTROL.                                                    I..\n   16 > 001500     SELECT TFIL ASSIGN                                           I..\n   17 | 001600     XXXXX0",
+        "cobol_returncode": 1
+      }
+    },
+    {
+      "name": "llm_judge",
+      "ran": true,
+      "passed": false,
+      "score": 0.19,
+      "detail": "[openai] correctness=0.00, readability=0.20, pep8=1.00, pythonic=0.00, types=0.00",
+      "skipped_reason": "",
+      "extra": {
+        "rationale": "The translation does not implement any of the COBOL program's functionality, resulting in a correctness score of 0.0. Readability is low due to the lack of meaningful code or comments, but the function name 'main' is a common convention in Python, giving it a slight score. The code is PEP 8 compliant as it follows the style guide, but it does not utilize any Python idioms or type annotations, leading to scores of 0.0 in those categories.",
+        "components": {
+          "correctness": 0.0,
+          "readability": 0.2,
+          "pep8_compliance": 1.0,
+          "pythonic_idioms": 0.0,
+          "type_annotations": 0.0,
+          "rationale": "The translation does not implement any of the COBOL program's functionality, resulting in a correctness score of 0.0. Readability is low due to the lack of meaningful code or comments, but the function name 'main' is a common convention in Python, giving it a slight score. The code is PEP 8 compliant as it follows the style guide, but it does not utilize any Python idioms or type annotations, leading to scores of 0.0 in those categories.",
+          "weighted": 0.19
+        },
+        "provider_used": "openai",
+        "providers_tried": [
+          "openai: ok"
+        ]
+      }
+    }
+  ],
+  "timestamp": 1780244629.2676852
+}

@@ -1,0 +1,221 @@
+{
+  "program_id": "DB305M",
+  "record_id": "DB305M",
+  "cobol_source": "      *HEADER,COBOL,DB305M                                                            \n000100 IDENTIFICATION DIVISION.                                         DB3054.2\n000200 PROGRAM-ID.                                                      DB3054.2\n000300     DB305M.                                                      DB3054.2\n000400*THE FOLLOWING PROGRAM TESTS THE FLAGGING OF LEVEL 1              DB3054.2\n000500*OBSOLETE FEATURES THAT ARE USED IN DEBUGGING.                    DB3054.2\n000600 ENVIRONMENT DIVISION.                                            DB3054.2\n000700 CONFIGURATION SECTION.                                           DB3054.2\n000800 SOURCE-COMPUTER.                                                 DB3054.2\n000900     XXXXX082                                                     DB3054.2\n001000     WITH DEBUGGING MODE.                                         DB3054.2\n001100 OBJECT-COMPUTER.                                                 DB3054.2\n001200     XXXXX083.                                                    DB3054.2\n001300                                                                  DB3054.2\n001400 INPUT-OUTPUT SECTION.                                            DB3054.2\n001500 FILE-CONTROL.                                                    DB3054.2\n001600     SELECT TFIL ASSIGN                                           DB3054.2\n001700     XXXXX014                                                     DB3054.2\n001800         ORGANIZATION IS SEQUENTIAL                               DB3054.2\n001900         ACCESS MODE IS SEQUENTIAL.                               DB3054.2\n002000                                                                  DB3054.2\n002100 DATA DIVISION.                                                   DB3054.2\n002200 FILE SECTION.                                                    DB3054.2\n002300 FD TFIL.                                                         DB3054.2\n002400 01 FREC.                                                         DB3054.2\n002500     03 RKEY  PIC 9(8).                                           DB3054.2\n002600                                                                  DB3054.2\n002700 PROCEDURE DIVISION.                                              DB3054.2\n002800                                                                  DB3054.2\n002900 DECLARATIVES.                                                    DB3054.2\n003000                                                                  DB3054.2\n003100 BUGGING SECTION.                                                 DB3054.2\n003200                                                                  DB3054.2\n003300     USE FOR DEBUGGING ON ALL PROCEDURES.                         DB3054.2\n003400*Message expected for above statement: OBSOLETE                   DB3054.2\n003500                                                                  DB3054.2\n003600 END DECLARATIVES.                                                DB3054.2\n003700                                                                  DB3054.2\n003800 DB305-FLAGS SECTION.                                             DB3054.2\n003900                                                                  DB3054.2\n004000 DB305M-CONTROL.                                                  DB3054.2\n004100     DISPLAY \"THIS IS A DUMMY PROCEDURE\".                         DB3054.2\n004200     STOP RUN.                                                    DB3054.2\n004300                                                                  DB3054.2\n004400*TOTAL NUMBER OF FLAGS EXPECTED = 1.                              DB3054.2\n      *END-OF,DB305M                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "DB305M",
+  "stage1_division_count": 4,
+  "stage1_paragraph_count": 3,
+  "stage1_token_count": 91,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {
+      "program_id": "DB305M"
+    },
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 4,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 19,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "DATA"
+        },
+        "children": [
+          {
+            "node_type": "DataItem",
+            "line": 22,
+            "attributes": {
+              "level": 1,
+              "name": "FREC"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 23,
+            "attributes": {
+              "level": 3,
+              "name": "RKEY",
+              "pic": "9"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 25,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 27,
+            "attributes": {
+              "name": "DECLARATIVES"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 31,
+                "attributes": {
+                  "verb": "USE",
+                  "operands": [
+                    "FOR",
+                    "DEBUGGING",
+                    "ON",
+                    "ALL",
+                    "PROCEDURES"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 33,
+            "attributes": {
+              "name": "DECLARATIVES"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 37,
+            "attributes": {
+              "name": "DB305M-CONTROL"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 38,
+                "attributes": {
+                  "verb": "DISPLAY",
+                  "operands": [
+                    "\"THIS IS A DUMMY PROCEDURE\""
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 39,
+                "attributes": {
+                  "verb": "STOP",
+                  "operands": [
+                    "RUN"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "complexity_tier": "simple",
+  "complexity_score": 2.15,
+  "ast_depth": 4,
+  "unique_verbs": 3,
+  "cross_refs": 0,
+  "stage2_source": "rule-based",
+  "stage2_rule_based_code": "\"\"\"Translated from COBOL program DB305M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'frec': None,\n    'rkey': 0,\n})\n\ndef declaratives() -> None:\n    pass  # USE (declarative — out of scope)\n\ndef declaratives() -> None:\n    pass\n\ndef db305m_control() -> None:\n    print(\"THIS IS A DUMMY PROCEDURE\")\n    return\n\nif __name__ == \"__main__\":\n    try:\n        declaratives()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_neural_code": "",
+  "stage2_final_code": "\"\"\"Translated from COBOL program DB305M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'frec': None,\n    'rkey': 0,\n})\n\ndef declaratives() -> None:\n    pass  # USE (declarative — out of scope)\n\ndef declaratives() -> None:\n    pass\n\ndef db305m_control() -> None:\n    print(\"THIS IS A DUMMY PROCEDURE\")\n    return\n\nif __name__ == \"__main__\":\n    try:\n        declaratives()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_warnings": [],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": true,
+  "stage3_refined_code": "\"\"\"Translated from COBOL program DB305M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'frec': None,\n    'rkey': 0,\n})\n\ndef declaratives() -> None:\n    pass\n\ndef declaratives() -> None:\n    pass\n\ndef db305m_control() -> None:\n    print(\"THIS IS A DUMMY PROCEDURE\")\n    return\n\nif __name__ == \"__main__\":\n    try:\n        declaratives()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "openai",
+  "stage3_error": "",
+  "verdict": "INCONCLUSIVE",
+  "verdict_summary": "3 structural check(s) passed, but no behavioural signal (execution_match / llm_judge) was available. llm_judge skipped: openai: judge call failed (Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}) | anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CbPfemGKHfihoff82gZtB'})",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "3/3 paragraphs found as Python functions",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "DECLARATIVES",
+          "DECLARATIVES",
+          "DB305M-CONTROL"
+        ],
+        "missing": [],
+        "total": 3
+      }
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "2/2 identifiers traced into the Python",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "FREC",
+          "RKEY"
+        ],
+        "missing": [],
+        "total": 2
+      }
+    },
+    {
+      "name": "llm_judge",
+      "ran": false,
+      "passed": null,
+      "score": null,
+      "detail": "skipped: openai: judge call failed (Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}) | anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-",
+      "skipped_reason": "openai: judge call failed (Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}) | anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CbPfemGKHfihoff82gZtB'})",
+      "extra": {
+        "providers_tried": [
+          "openai: judge call failed (Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}})",
+          "anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CbPfemGKHfihoff82gZtB'})"
+        ]
+      }
+    }
+  ],
+  "timestamp": 1779729446.345768
+}

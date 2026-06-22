@@ -1,0 +1,11 @@
+idx,program_id,record_id,tier,complexity,stage1_ok,stage2_source,stage3_ran,verdict,verdict_summary,syntax_ok,paragraph_score,identifier_score,judge_ran,judge_score,judge_detail
+1,K1SEA,K1SEA,simple,0.35,True,rule-based,False,INCONCLUSIVE,"3 structural check(s) passed, but no behavioural signal (execution_match / llm_judge) was available.",True,1.0,1.0,,,
+2,K1WKY,K1WKY,simple,0.35,True,rule-based,False,INCONCLUSIVE,"3 structural check(s) passed, but no behavioural signal (execution_match / llm_judge) was available.",True,1.0,1.0,,,
+3,IC217A,IC217A,simple,1.90,True,rule-based,False,INCONCLUSIVE,"3 structural check(s) passed, but no behavioural signal (execution_match / llm_judge) was available.",True,1.0,1.0,,,
+4,IC104A,IC104A,simple,2.15,True,rule-based,False,INCONCLUSIVE,"3 structural check(s) passed, but no behavioural signal (execution_match / llm_judge) was available.",True,1.0,1.0,,,
+5,ST120A,ST120A,simple,6.40,True,rule-based,False,INCONCLUSIVE,"3 structural check(s) passed, but no behavioural signal (execution_match / llm_judge) was available.",True,1.0,1.0,,,
+6,CM103M,CM103M,medium,12.15,True,rule-based,False,INCONCLUSIVE,"3 structural check(s) passed, but no behavioural signal (execution_match / llm_judge) was available.",True,1.0,1.0,,,
+7,SQ209M,SQ209M,medium,16.65,True,rule-based,False,INCONCLUSIVE,"3 structural check(s) passed, but no behavioural signal (execution_match / llm_judge) was available.",True,1.0,1.0,,,
+8,IF107A,IF107A,medium,17.15,True,rule-based,False,INCONCLUSIVE,"3 structural check(s) passed, but no behavioural signal (execution_match / llm_judge) was available.",True,1.0,1.0,,,
+9,SQ230A,SQ230A,medium,17.65,True,rule-based,False,INCONCLUSIVE,"3 structural check(s) passed, but no behavioural signal (execution_match / llm_judge) was available.",True,1.0,1.0,,,
+10,NC210A,NC210A,medium,17.90,True,rule-based,False,INCONCLUSIVE,"3 structural check(s) passed, but no behavioural signal (execution_match / llm_judge) was available.",True,1.0,1.0,,,

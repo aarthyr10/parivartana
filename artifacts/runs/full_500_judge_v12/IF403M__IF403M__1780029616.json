@@ -1,0 +1,694 @@
+{
+  "program_id": "IF403M",
+  "record_id": "IF403M",
+  "cobol_source": "      *HEADER,COBOL,IF403M                                                            \n000100 IDENTIFICATION DIVISION.                                         IF4034.2\n000200 PROGRAM-ID.                                                      IF4034.2\n000300      IF403M.                                                     IF4034.2\n000400                                                                  IF4034.2\n000500                                                                  IF4034.2\n000600*THIS PROGRAM TESTS THE FLAGGING OF HIGH SUBSET INTRINSIC FUNCTIONIF4034.2\n000700*FEATURES.                                                        IF4034.2\n000800******************************************************************IF4034.2\n000900*    THIS PROGRAMS CONTAINS TESTS FOR THE FOLLOWING INTRINSIC    *IF4034.2\n001000*    FUNCTIONS:  PRESENT-VALUE, RANDOM, RANGE, REM, REVERSE,     *IF4034.2\n001100*                SIN, SQRT, STANDARD-DEVIATION, SUM, TAN,        *IF4034.2\n001200*                UPPER-CASE, VARIANCE AND WHEN-COMPILED.         *IF4034.2\n001300******************************************************************IF4034.2\n001400                                                                  IF4034.2\n001500 ENVIRONMENT DIVISION.                                            IF4034.2\n001600 CONFIGURATION SECTION.                                           IF4034.2\n001700 SOURCE-COMPUTER.                                                 IF4034.2\n001800     XXXXX082.                                                    IF4034.2\n001900 OBJECT-COMPUTER.                                                 IF4034.2\n002000     XXXXX083.                                                    IF4034.2\n002100                                                                  IF4034.2\n002200 DATA DIVISION.                                                   IF4034.2\n002300 FILE SECTION.                                                    IF4034.2\n002400 WORKING-STORAGE SECTION.                                         IF4034.2\n002500 01  WS-AN-TEMP   PICTURE    X(21).                               IF4034.2\n002600                                                                  IF4034.2\n002700 PROCEDURE DIVISION.                                              IF4034.2\n002800 IF403M-PRESENT-VALUE.                                            IF4034.2\n002900     IF FUNCTION PRESENT-VALUE (0, 23, 12, 9) =                   IF4034.2\n003000        FUNCTION PRESENT-VALUE (0, 23, 12, 9)                     IF4034.2\n003100                 CONTINUE.                                        IF4034.2\n003200*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4034.2\n003300                                                                  IF4034.2\n003400 IF403M-RANDOM.                                                   IF4034.2\n003500     IF FUNCTION RANDOM (1) = FUNCTION RANDOM (1)                 IF4034.2\n003600                 CONTINUE.                                        IF4034.2\n003700*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4034.2\n003800                                                                  IF4034.2\n003900 IF403M-RANGE.                                                    IF4034.2\n004000     IF FUNCTION RANGE (5, -2, -14, 0) =                          IF4034.2\n004100        FUNCTION RANGE (5, -2, -14, 0)                            IF4034.2\n004200                 CONTINUE.                                        IF4034.2\n004300*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4034.2\n004400                                                                  IF4034.2\n004500 IF403M-REM.                                                      IF4034.2\n004600     IF FUNCTION REM (0, 20) = FUNCTION REM (0, 20)               IF4034.2\n004700                 CONTINUE.                                        IF4034.2\n004800*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4034.2\n004900                                                                  IF4034.2\n005000 IF403M-REVERSE.                                                  IF4034.2\n005100     MOVE FUNCTION REVERSE (\"ABC\") TO WS-AN-TEMP.                 IF4034.2\n005200*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4034.2\n005300                                                                  IF4034.2\n005400 IF403M-SIN.                                                      IF4034.2\n005500     IF FUNCTION SIN (1.0) = FUNCTION SIN (1.0)                   IF4034.2\n005600                 CONTINUE.                                        IF4034.2\n005700*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4034.2\n005800                                                                  IF4034.2\n005900 IF403M-SQRT.                                                     IF4034.2\n006000     IF FUNCTION SQRT (0) = FUNCTION SQRT (0)                     IF4034.2\n006100                 CONTINUE.                                        IF4034.2\n006200*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4034.2\n006300                                                                  IF4034.2\n006400 IF403M-STANDARD-DEVIATION.                                       IF4034.2\n006500     IF FUNCTION STANDARD-DEVIATION (5, -2, -14, 0) =             IF4034.2\n006600        FUNCTION STANDARD-DEVIATION (5, -2, -14, 0)               IF4034.2\n006700                 CONTINUE.                                        IF4034.2\n006800*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4034.2\n006900                                                                  IF4034.2\n007000 IF403M-SUM.                                                      IF4034.2\n007100     IF FUNCTION SUM (5, -2, -14, 0) =                            IF4034.2\n007200        FUNCTION SUM (5, -2, -14, 0)                              IF4034.2\n007300                 CONTINUE.                                        IF4034.2\n007400*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4034.2\n007500                                                                  IF4034.2\n007600 IF403M-TAN.                                                      IF4034.2\n007700     IF FUNCTION TAN (1.0) = FUNCTION TAN (1.0)                   IF4034.2\n007800                 CONTINUE.                                        IF4034.2\n007900*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4034.2\n008000                                                                  IF4034.2\n008100 IF403M-UPPER-CASE.                                               IF4034.2\n008200     MOVE FUNCTION UPPER-CASE (\"abc\") TO WS-AN-TEMP.              IF4034.2\n008300*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4034.2\n008400                                                                  IF4034.2\n008500 IF403M-VARIANCE.                                                 IF4034.2\n008600     IF FUNCTION VARIANCE (5, -2, -14, 0) =                       IF4034.2\n008700        FUNCTION VARIANCE (5, -2, -14, 0)                         IF4034.2\n008800                 CONTINUE.                                        IF4034.2\n008900*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4034.2\n009000                                                                  IF4034.2\n009100 IF403M-WHEN-COMPILED.                                            IF4034.2\n009200     MOVE FUNCTION WHEN-COMPILED TO WS-AN-TEMP.                   IF4034.2\n009300*MESSAGE EXPECTED FOR ABOVE STATEMENT: NON-CONFORMING STANDARD    IF4034.2\n009400                                                                  IF4034.2\n009500 IF403M-END.                                                      IF4034.2\n009600                                                                  IF4034.2\n009700*TOTAL NUMBER OF FLAGS EXPECTED = 13.                             IF4034.2\n      *END-OF,IF403M                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "IF403M",
+  "stage1_division_count": 4,
+  "stage1_paragraph_count": 14,
+  "stage1_token_count": 306,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {
+      "program_id": "IF403M"
+    },
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 7,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 14,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "DATA"
+        },
+        "children": [
+          {
+            "node_type": "DataItem",
+            "line": 17,
+            "attributes": {
+              "level": 1,
+              "name": "WS-AN-TEMP",
+              "pic": "X"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 19,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 20,
+            "attributes": {
+              "name": "IF403M-PRESENT-VALUE"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 21,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "FUNCTION",
+                    "PRESENT-VALUE",
+                    "(",
+                    "0",
+                    "23",
+                    "12",
+                    "9",
+                    ")",
+                    "=",
+                    "FUNCTION",
+                    "PRESENT-VALUE",
+                    "(",
+                    "0",
+                    "23",
+                    "12",
+                    "9",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 23,
+                "attributes": {
+                  "verb": "CONTINUE",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 25,
+            "attributes": {
+              "name": "IF403M-RANDOM"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 26,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "FUNCTION",
+                    "RANDOM",
+                    "(",
+                    "1",
+                    ")",
+                    "=",
+                    "FUNCTION",
+                    "RANDOM",
+                    "(",
+                    "1",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 27,
+                "attributes": {
+                  "verb": "CONTINUE",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 29,
+            "attributes": {
+              "name": "IF403M-RANGE"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 30,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "FUNCTION",
+                    "RANGE",
+                    "(",
+                    "5",
+                    "-2",
+                    "-14",
+                    "0",
+                    ")",
+                    "=",
+                    "FUNCTION",
+                    "RANGE",
+                    "(",
+                    "5",
+                    "-2",
+                    "-14",
+                    "0",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 32,
+                "attributes": {
+                  "verb": "CONTINUE",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 34,
+            "attributes": {
+              "name": "IF403M-REM"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 35,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "FUNCTION",
+                    "REM",
+                    "(",
+                    "0",
+                    "20",
+                    ")",
+                    "=",
+                    "FUNCTION",
+                    "REM",
+                    "(",
+                    "0",
+                    "20",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 36,
+                "attributes": {
+                  "verb": "CONTINUE",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 38,
+            "attributes": {
+              "name": "IF403M-REVERSE"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 39,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "FUNCTION",
+                    "REVERSE",
+                    "(",
+                    "\"ABC\"",
+                    ")",
+                    "TO",
+                    "WS-AN-TEMP"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 41,
+            "attributes": {
+              "name": "IF403M-SIN"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 42,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "FUNCTION",
+                    "SIN",
+                    "(",
+                    "1"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 43,
+                "attributes": {
+                  "verb": "CONTINUE",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 45,
+            "attributes": {
+              "name": "IF403M-SQRT"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 46,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "FUNCTION",
+                    "SQRT",
+                    "(",
+                    "0",
+                    ")",
+                    "=",
+                    "FUNCTION",
+                    "SQRT",
+                    "(",
+                    "0",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 47,
+                "attributes": {
+                  "verb": "CONTINUE",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 49,
+            "attributes": {
+              "name": "IF403M-STANDARD-DEVIATION"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 50,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "FUNCTION",
+                    "STANDARD-DEVIATION",
+                    "(",
+                    "5",
+                    "-2",
+                    "-14",
+                    "0",
+                    ")",
+                    "=",
+                    "FUNCTION",
+                    "STANDARD-DEVIATION",
+                    "(",
+                    "5",
+                    "-2",
+                    "-14",
+                    "0",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 52,
+                "attributes": {
+                  "verb": "CONTINUE",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 54,
+            "attributes": {
+              "name": "IF403M-SUM"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 55,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "FUNCTION",
+                    "SUM",
+                    "(",
+                    "5",
+                    "-2",
+                    "-14",
+                    "0",
+                    ")",
+                    "=",
+                    "FUNCTION",
+                    "SUM",
+                    "(",
+                    "5",
+                    "-2",
+                    "-14",
+                    "0",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 57,
+                "attributes": {
+                  "verb": "CONTINUE",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 59,
+            "attributes": {
+              "name": "IF403M-TAN"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 60,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "FUNCTION",
+                    "TAN",
+                    "(",
+                    "1"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 61,
+                "attributes": {
+                  "verb": "CONTINUE",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 63,
+            "attributes": {
+              "name": "IF403M-UPPER-CASE"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 64,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "FUNCTION",
+                    "UPPER-CASE",
+                    "(",
+                    "\"abc\"",
+                    ")",
+                    "TO",
+                    "WS-AN-TEMP"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 66,
+            "attributes": {
+              "name": "IF403M-VARIANCE"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 67,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "FUNCTION",
+                    "VARIANCE",
+                    "(",
+                    "5",
+                    "-2",
+                    "-14",
+                    "0",
+                    ")",
+                    "=",
+                    "FUNCTION",
+                    "VARIANCE",
+                    "(",
+                    "5",
+                    "-2",
+                    "-14",
+                    "0",
+                    ")"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 69,
+                "attributes": {
+                  "verb": "CONTINUE",
+                  "operands": []
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 71,
+            "attributes": {
+              "name": "IF403M-WHEN-COMPILED"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 72,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "FUNCTION",
+                    "WHEN-COMPILED",
+                    "TO",
+                    "WS-AN-TEMP"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 74,
+            "attributes": {
+              "name": "IF403M-END"
+            },
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "stage1_cobc_status": "",
+  "stage1_cobc_stderr": "",
+  "complexity_tier": "simple",
+  "complexity_score": 2.15,
+  "ast_depth": 4,
+  "unique_verbs": 3,
+  "cross_refs": 0,
+  "stage2_source": "rule-based",
+  "stage2_rule_based_code": "\"\"\"Translated from COBOL program IF403M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'ws_an_temp': '',\n})\n\ndef if403m_present_value() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['present_value'] ( 0 23 12 9 ) == state['function'] state['present_val...)\ndef if403m_random() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] random ( 1 ) == state['function'] random ( 1 ):)\ndef if403m_range() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] range ( 5 -2 -14 0 ) == state['function'] range ( 5 -2 -14 0 ):)\ndef if403m_rem() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['rem'] ( 0 20 ) == state['function'] state['rem'] ( 0 20 ):)\ndef if403m_reverse() -> None:\n    state['ws_an_temp'] = \"ABC\"\n\ndef if403m_sin() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['sin'] ( 1:)\ndef if403m_sqrt() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['sqrt'] ( 0 ) == state['function'] state['sqrt'] ( 0 ):)\ndef if403m_standard_deviation() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['standard_deviation'] ( 5 -2 -14 0 ) == state['function'] state['stand...)\ndef if403m_sum() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] sum ( 5 -2 -14 0 ) == state['function'] sum ( 5 -2 -14 0 ):)\ndef if403m_tan() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['tan'] ( 1:)\ndef if403m_upper_case() -> None:\n    state['ws_an_temp'] = \"abc\"\n\ndef if403m_variance() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['variance'] ( 5 -2 -14 0 ) == state['function'] state['variance'] ( 5 ...)\ndef if403m_when_compiled() -> None:\n    state['ws_an_temp'] = state['when_compiled']\n\ndef if403m_end() -> None:\n    pass\n\nif __name__ == \"__main__\":\n    try:\n        if403m_present_value()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_neural_code": "",
+  "stage2_final_code": "\"\"\"Translated from COBOL program IF403M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'ws_an_temp': '',\n})\n\ndef if403m_present_value() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['present_value'] ( 0 23 12 9 ) == state['function'] state['present_val...)\ndef if403m_random() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] random ( 1 ) == state['function'] random ( 1 ):)\ndef if403m_range() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] range ( 5 -2 -14 0 ) == state['function'] range ( 5 -2 -14 0 ):)\ndef if403m_rem() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['rem'] ( 0 20 ) == state['function'] state['rem'] ( 0 20 ):)\ndef if403m_reverse() -> None:\n    state['ws_an_temp'] = \"ABC\"\n\ndef if403m_sin() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['sin'] ( 1:)\ndef if403m_sqrt() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['sqrt'] ( 0 ) == state['function'] state['sqrt'] ( 0 ):)\ndef if403m_standard_deviation() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['standard_deviation'] ( 5 -2 -14 0 ) == state['function'] state['stand...)\ndef if403m_sum() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] sum ( 5 -2 -14 0 ) == state['function'] sum ( 5 -2 -14 0 ):)\ndef if403m_tan() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['tan'] ( 1:)\ndef if403m_upper_case() -> None:\n    state['ws_an_temp'] = \"abc\"\n\ndef if403m_variance() -> None:\n    pass  # TODO: malformed Stage-1 output (if state['function'] state['variance'] ( 5 -2 -14 0 ) == state['function'] state['variance'] ( 5 ...)\ndef if403m_when_compiled() -> None:\n    state['ws_an_temp'] = state['when_compiled']\n\ndef if403m_end() -> None:\n    pass\n\nif __name__ == \"__main__\":\n    try:\n        if403m_present_value()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_warnings": [
+    "function 'def if403m_present_value() -> None:': body replaced with pass+TODO",
+    "function 'def if403m_random() -> None:': body replaced with pass+TODO",
+    "function 'def if403m_range() -> None:': body replaced with pass+TODO",
+    "function 'def if403m_rem() -> None:': body replaced with pass+TODO",
+    "function 'def if403m_sin() -> None:': body replaced with pass+TODO",
+    "function 'def if403m_sqrt() -> None:': body replaced with pass+TODO",
+    "function 'def if403m_standard_deviation() -> None:': body replaced with pass+TODO",
+    "function 'def if403m_sum() -> None:': body replaced with pass+TODO",
+    "function 'def if403m_tan() -> None:': body replaced with pass+TODO",
+    "function 'def if403m_variance() -> None:': body replaced with pass+TODO",
+    "repaired 10 unparseable line(s)"
+  ],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": false,
+  "stage3_refined_code": "",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "",
+  "stage3_error": "",
+  "verdict": "PASS",
+  "verdict_summary": "All 5 active check(s) passed.",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "14/14 paragraphs found as Python functions",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "IF403M-PRESENT-VALUE",
+          "IF403M-RANDOM",
+          "IF403M-RANGE",
+          "IF403M-REM",
+          "IF403M-REVERSE",
+          "IF403M-SIN",
+          "IF403M-SQRT",
+          "IF403M-STANDARD-DEVIATION",
+          "IF403M-SUM",
+          "IF403M-TAN",
+          "IF403M-UPPER-CASE",
+          "IF403M-VARIANCE",
+          "IF403M-WHEN-COMPILED",
+          "IF403M-END"
+        ],
+        "missing": [],
+        "total": 14
+      }
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "1/1 identifiers traced into the Python",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "WS-AN-TEMP"
+        ],
+        "missing": [],
+        "total": 1
+      }
+    },
+    {
+      "name": "body_non_trivial",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "10/10 paragraphs have non-trivial bodies",
+      "skipped_reason": "",
+      "extra": {
+        "non_trivial": [
+          "IF403M-PRESENT-VALUE",
+          "IF403M-RANDOM",
+          "IF403M-RANGE",
+          "IF403M-REM",
+          "IF403M-SIN",
+          "IF403M-SQRT",
+          "IF403M-STANDARD-DEVIATION",
+          "IF403M-SUM",
+          "IF403M-TAN",
+          "IF403M-VARIANCE"
+        ],
+        "trivial": [],
+        "exempt": [
+          "IF403M-REVERSE",
+          "IF403M-UPPER-CASE",
+          "IF403M-WHEN-COMPILED",
+          "IF403M-END"
+        ],
+        "total_eligible": 10
+      }
+    },
+    {
+      "name": "python_smoke",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "ran cleanly",
+      "skipped_reason": "",
+      "extra": {
+        "exit_code": 0,
+        "stdout_bytes": 0,
+        "stderr_bytes": 0,
+        "stderr_head": ""
+      }
+    }
+  ],
+  "timestamp": 1780029616.4050796
+}

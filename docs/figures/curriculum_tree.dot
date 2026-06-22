@@ -1,0 +1,17 @@
+digraph curriculum {
+  rankdir=TB; node [shape=box, style="rounded,filled", fontname="Helvetica"];
+  root [label="Two-dimensional curriculum", fillcolor="#1f2937", fontcolor=white];
+  axisL [label="Axis 1: language similarity\l(high-resource source -> Python)\l", fillcolor="#dbeafe"];
+  axisC [label="Axis 2: AST complexity tier\l(easy -> hard, gated on val plateau)\l", fillcolor="#dcfce7"];
+  root -> axisL; root -> axisC;
+  p1 [label="Phase 1: transfer warm-start\lhigh-resource code/NL -> Python\l", fillcolor="#eff6ff"];
+  p2 [label="Phase 2: COBOL adaptation\l(curriculum over tiers)\l", fillcolor="#f0fdf4"];
+  axisL -> p1; axisC -> p2;
+  t1 [label="Tier: SIMPLE\l~62 progs, 94-97% auto\l", fillcolor="#f0fdf4"];
+  t2 [label="Tier: MEDIUM\l~220 progs, 78-85%\l", fillcolor="#fef9c3"];
+  t3 [label="Tier: HIGH\l~177 progs, 52-65%, review\l", fillcolor="#fee2e2"];
+  p2 -> t1 -> t2 -> t3 [label="release on plateau"];
+  gold [label="gold: execution-verified pairs\l(GnuCOBOL stdout match)\l", fillcolor="#bbf7d0"];
+  silver [label="silver: LLM targets (unverified)\learly tiers only\l", fillcolor="#fde68a"];
+  t1 -> gold; t1 -> silver;
+}

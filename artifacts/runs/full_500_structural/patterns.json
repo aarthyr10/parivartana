@@ -1,0 +1,8 @@
+{
+  "failed_paragraph_coverage": [
+    {
+      "reason": "5/6 paragraphs found as Python functions; missing: PASS",
+      "count": 1
+    }
+  ]
+}

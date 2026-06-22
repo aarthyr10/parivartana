@@ -1,0 +1,785 @@
+{
+  "program_id": "IC107A",
+  "record_id": "IC107A",
+  "cobol_source": "      *HEADER,COBOL,IC106A,SUBRTN,IC107A                                              \n000100 IDENTIFICATION DIVISION.                                         IC1074.2\n000200 PROGRAM-ID.                                                      IC1074.2\n000300     IC107A.                                                      IC1074.2\n000400****************************************************************  IC1074.2\n000500*                                                              *  IC1074.2\n000600*    VALIDATION FOR:-                                          *  IC1074.2\n000700*                                                              *  IC1074.2\n000800*    \"ON-SITE VALIDATION, NATIONAL INSTITUTE OF STD & TECH.     \".IC1074.2\n000900*                                                              *  IC1074.2\n001000*    \"COBOL 85 VERSION 4.2, Apr  1993 SSVG                      \".IC1074.2\n001100*                                                              *  IC1074.2\n001200****************************************************************  IC1074.2\n001300*                                                              *  IC1074.2\n001400*      X-CARDS USED BY THIS PROGRAM ARE :-                     *  IC1074.2\n001500*                                                              *  IC1074.2\n001600*        X-55  - SYSTEM PRINTER NAME.                          *  IC1074.2\n001700*        X-82  - SOURCE COMPUTER NAME.                         *  IC1074.2\n001800*        X-83  - OBJECT COMPUTER NAME.                         *  IC1074.2\n001900*                                                              *  IC1074.2\n002000****************************************************************  IC1074.2\n002100*        THE SUBPROGRAM IC107 CONTAINS TABLES AND AN INDEX        IC1074.2\n002200*    DATA ITEM WHICH ARE DEFINED IN THE LINKAGE SECTION AND       IC1074.2\n002300*    NAMED AS OPERANDS IN THE USING PHRASE OF THE PROCEDURE       IC1074.2\n002400*    DIVISION HEADER.  ONE OF THE TABLES HAS AN INDEX DEFINED     IC1074.2\n002500*    FOR IT.  THIS INDEX SHOULD BE SEPARATE FROM THE INDEX        IC1074.2\n002600*    DEFINED FOR THE SAME TABLE IN THE MAIN PROGRAM IC106,        IC1074.2\n002700*    BUT NO SPACE SHOULD BE ALLOCATED FOR THE TABLES DEFINED      IC1074.2\n002800*    IN THE LINKAGE SECTION.  THE INDEX DATA ITEM IS SET IN       IC1074.2\n002900*    THE MAIN PROGRAM PRIOR TO CALLING IC107, AND IT IS USED      IC1074.2\n003000*    IN THIS SUBPROGRAM TO SET AN INDEX FOR REFERENCING THE       IC1074.2\n003100*    TABLE IN THE SUBPROGRAM.                                     IC1074.2\n003200 ENVIRONMENT DIVISION.                                            IC1074.2\n003300 CONFIGURATION SECTION.                                           IC1074.2\n003400 SOURCE-COMPUTER.                                                 IC1074.2\n003500     XXXXX082.                                                    IC1074.2\n003600 OBJECT-COMPUTER.                                                 IC1074.2\n003700     XXXXX083.                                                    IC1074.2\n003800 INPUT-OUTPUT SECTION.                                            IC1074.2\n003900 FILE-CONTROL.                                                    IC1074.2\n004000     SELECT PRINT-FILE ASSIGN TO                                  IC1074.2\n004100     XXXXX055.                                                    IC1074.2\n004200 DATA DIVISION.                                                   IC1074.2\n004300 FILE SECTION.                                                    IC1074.2\n004400 FD  PRINT-FILE.                                                  IC1074.2\n004500 01  PRINT-REC PICTURE X(120).                                    IC1074.2\n004600 01  DUMMY-RECORD PICTURE X(120).                                 IC1074.2\n004700 WORKING-STORAGE SECTION.                                         IC1074.2\n004800 77  IDN3  USAGE IS INDEX.                                        IC1074.2\n004900 77  S1  PICTURE 99.                                              IC1074.2\n005000 77  AL-CON PICTURE XXX  VALUE \"XYZ\".                             IC1074.2\n005100 LINKAGE SECTION.                                                 IC1074.2\n005200 77  IDN2  USAGE IS INDEX.                                        IC1074.2\n005300 01  GROUP-1.                                                     IC1074.2\n005400     02  DN1 PICTURE X OCCURS 10 TIMES                            IC1074.2\n005500                       INDEXED BY IN3.                            IC1074.2\n005600 01  GROUP-2.                                                     IC1074.2\n005700     02    GROUP-21.                                              IC1074.2\n005800         06 DN2 PIC X OCCURS 10 TIMES.                            IC1074.2\n005900     02     GROUP-2-1 REDEFINES GROUP-21.                         IC1074.2\n006000         03  FILLER  PICTURE X(7).                                IC1074.2\n006100         03  DN3     PICTURE XXX.                                 IC1074.2\n006200 PROCEDURE DIVISION USING IDN2 GROUP-1 GROUP-2.                   IC1074.2\n006300 SECT-IC107-0001 SECTION.                                         IC1074.2\n006400 LINK-TEST-02-01.                                                 IC1074.2\n006500     SET IN3 TO IDN2.                                             IC1074.2\n006600     IF DN1 (IN3) EQUAL TO \"F\"                                    IC1074.2\n006700         MOVE \"G\" TO DN2 (7).                                     IC1074.2\n006800 LINK-TEST-02-02.                                                 IC1074.2\n006900     SET IDN3 TO IDN2.                                            IC1074.2\n007000     SET IN3 TO IDN3.                                             IC1074.2\n007100     IF IN3 EQUAL TO 6                                            IC1074.2\n007200         MOVE \"F\" TO DN2 (6).                                     IC1074.2\n007300*        THE TESTS IN LINK-TEST-02 USE THE INDEX DATA ITEM        IC1074.2\n007400*    WHICH IS DEFINED IN THE LINKAGE SECTION AND WAS SET IN       IC1074.2\n007500*    THE MAIN PROGRAM BEFORE THIS SUBPROGRAM WAS CALLED.          IC1074.2\n007600 LINK-TEST-03-01.                                                 IC1074.2\n007700     SET IN3 TO 1.                                                IC1074.2\n007800     MOVE 1 TO S1.                                                IC1074.2\n007900     MOVE DN1 (IN3) TO DN2 (S1).                                  IC1074.2\n008000 LINK-TEST-03-02.                                                 IC1074.2\n008100     SET IN3 UP BY 1.                                             IC1074.2\n008200     ADD 1 TO S1.                                                 IC1074.2\n008300     MOVE DN1 (IN3) TO DN2 (S1).                                  IC1074.2\n008400*        THE TESTS IN LINK-TEST-03 SET THE INDEX DEFINED IN THE   IC1074.2\n008500*    TABLE IN THE LINKAGE SECTION AND USE THE INDEX TO REFERENCE  IC1074.2\n008600*    THE TABLE ITEMS.                                             IC1074.2\n008700 LINK-TEST-04-01.                                                 IC1074.2\n008800     SET IN3 TO 3.                                                IC1074.2\n008900     SET IDN2 TO IN3.                                             IC1074.2\n009000 LINK-TEST-04-02.                                                 IC1074.2\n009100     IF IDN2 IS EQUAL TO IN3                                      IC1074.2\n009200         MOVE \"C\" TO DN2 (3).                                     IC1074.2\n009300*        THE TESTS IN LINK-TEST-04 RESET THE INDEX DATA ITEM      IC1074.2\n009400*    TO CORRESPOND TO TABLE POSITION 3, AND COMPARES THE          IC1074.2\n009500*    INDEX DATA ITEM TO THE INDEX.                                IC1074.2\n009600 LINK-TEST-05-01.                                                 IC1074.2\n009700     MOVE 4 TO S1.                                                IC1074.2\n009800     SET IN3 TO S1.                                               IC1074.2\n009900     MOVE DN1 (IN3) TO DN2 (S1).                                  IC1074.2\n010000 LINK-TEST-05-02.                                                 IC1074.2\n010100     MOVE DN1 (5) TO DN2 (5).                                     IC1074.2\n010200*        THE TESTS IN LINK-TEST-05 MOVE DATA FROM THE FIRST       IC1074.2\n010300*    TABLE DEFINED IN THE LINKAGE SECTION TO THE SECOND TABLE.    IC1074.2\n010400 LINK-TEST-06.                                                    IC1074.2\n010500     MOVE AL-CON TO DN3.                                          IC1074.2\n010600*        THIS TEST MOVES DATA TO THE REDEFINED FIELD IN A TABLE   IC1074.2\n010700*    IN THE LINKAGE SECTION.                                      IC1074.2\n010800 EXIT-IC107.                                                      IC1074.2\n010900     EXIT PROGRAM.                                                IC1074.2\n      *END-OF,IC107A                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "IC107A",
+  "stage1_division_count": 4,
+  "stage1_paragraph_count": 11,
+  "stage1_token_count": 309,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {
+      "program_id": "IC107A"
+    },
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 4,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 14,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "DATA"
+        },
+        "children": [
+          {
+            "node_type": "DataItem",
+            "line": 17,
+            "attributes": {
+              "level": 1,
+              "name": "PRINT-REC",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 18,
+            "attributes": {
+              "level": 1,
+              "name": "DUMMY-RECORD",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 20,
+            "attributes": {
+              "level": 77,
+              "name": "IDN3",
+              "usage": "IS"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 21,
+            "attributes": {
+              "level": 77,
+              "name": "S1",
+              "pic": "99"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 22,
+            "attributes": {
+              "level": 77,
+              "name": "AL-CON",
+              "pic": "XXX",
+              "value": "\"XYZ\""
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 24,
+            "attributes": {
+              "level": 77,
+              "name": "IDN2",
+              "usage": "IS"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 25,
+            "attributes": {
+              "level": 1,
+              "name": "GROUP-1"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 26,
+            "attributes": {
+              "level": 2,
+              "name": "DN1",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 28,
+            "attributes": {
+              "level": 1,
+              "name": "GROUP-2"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 29,
+            "attributes": {
+              "level": 2,
+              "name": "GROUP-21"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 30,
+            "attributes": {
+              "level": 6,
+              "name": "DN2",
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 31,
+            "attributes": {
+              "level": 2,
+              "name": "GROUP-2-1"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 32,
+            "attributes": {
+              "level": 3,
+              "pic": "X"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 33,
+            "attributes": {
+              "level": 3,
+              "name": "DN3",
+              "pic": "XXX"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 34,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 34,
+            "attributes": {
+              "name": "GROUP-2"
+            },
+            "children": []
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 36,
+            "attributes": {
+              "name": "LINK-TEST-02-01"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 37,
+                "attributes": {
+                  "verb": "SET",
+                  "operands": [
+                    "IN3",
+                    "TO",
+                    "IDN2"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 38,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "DN1",
+                    "(",
+                    "IN3",
+                    ")",
+                    "EQUAL",
+                    "TO",
+                    "\"F\""
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 39,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"G\"",
+                    "TO",
+                    "DN2",
+                    "(",
+                    "7",
+                    ")"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 40,
+            "attributes": {
+              "name": "LINK-TEST-02-02"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 41,
+                "attributes": {
+                  "verb": "SET",
+                  "operands": [
+                    "IDN3",
+                    "TO",
+                    "IDN2"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 42,
+                "attributes": {
+                  "verb": "SET",
+                  "operands": [
+                    "IN3",
+                    "TO",
+                    "IDN3"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 43,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "IN3",
+                    "EQUAL",
+                    "TO",
+                    "6"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 44,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"F\"",
+                    "TO",
+                    "DN2",
+                    "(",
+                    "6",
+                    ")"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 45,
+            "attributes": {
+              "name": "LINK-TEST-03-01"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 46,
+                "attributes": {
+                  "verb": "SET",
+                  "operands": [
+                    "IN3",
+                    "TO",
+                    "1"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 47,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "1",
+                    "TO",
+                    "S1"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 48,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "DN1",
+                    "(",
+                    "IN3",
+                    ")",
+                    "TO",
+                    "DN2",
+                    "(",
+                    "S1",
+                    ")"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 49,
+            "attributes": {
+              "name": "LINK-TEST-03-02"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 50,
+                "attributes": {
+                  "verb": "SET",
+                  "operands": [
+                    "IN3",
+                    "UP",
+                    "BY",
+                    "1"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 51,
+                "attributes": {
+                  "verb": "ADD",
+                  "operands": [
+                    "1",
+                    "TO",
+                    "S1"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 52,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "DN1",
+                    "(",
+                    "IN3",
+                    ")",
+                    "TO",
+                    "DN2",
+                    "(",
+                    "S1",
+                    ")"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 53,
+            "attributes": {
+              "name": "LINK-TEST-04-01"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 54,
+                "attributes": {
+                  "verb": "SET",
+                  "operands": [
+                    "IN3",
+                    "TO",
+                    "3"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 55,
+                "attributes": {
+                  "verb": "SET",
+                  "operands": [
+                    "IDN2",
+                    "TO",
+                    "IN3"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 56,
+            "attributes": {
+              "name": "LINK-TEST-04-02"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 57,
+                "attributes": {
+                  "verb": "IF",
+                  "operands": [
+                    "IDN2",
+                    "IS",
+                    "EQUAL",
+                    "TO",
+                    "IN3"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 58,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "\"C\"",
+                    "TO",
+                    "DN2",
+                    "(",
+                    "3",
+                    ")"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 59,
+            "attributes": {
+              "name": "LINK-TEST-05-01"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 60,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "4",
+                    "TO",
+                    "S1"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 61,
+                "attributes": {
+                  "verb": "SET",
+                  "operands": [
+                    "IN3",
+                    "TO",
+                    "S1"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 62,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "DN1",
+                    "(",
+                    "IN3",
+                    ")",
+                    "TO",
+                    "DN2",
+                    "(",
+                    "S1",
+                    ")"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 63,
+            "attributes": {
+              "name": "LINK-TEST-05-02"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 64,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "DN1",
+                    "(",
+                    "5",
+                    ")",
+                    "TO",
+                    "DN2",
+                    "(",
+                    "5",
+                    ")"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 65,
+            "attributes": {
+              "name": "LINK-TEST-06"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 66,
+                "attributes": {
+                  "verb": "MOVE",
+                  "operands": [
+                    "AL-CON",
+                    "TO",
+                    "DN3"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 67,
+            "attributes": {
+              "name": "EXIT-IC107"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 68,
+                "attributes": {
+                  "verb": "EXIT",
+                  "operands": [
+                    "PROGRAM"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "stage1_cobc_status": "accepted",
+  "stage1_cobc_stderr": "",
+  "complexity_tier": "simple",
+  "complexity_score": 2.65,
+  "ast_depth": 4,
+  "unique_verbs": 5,
+  "cross_refs": 0,
+  "stage2_source": "rule-based",
+  "stage2_rule_based_code": "\"\"\"Translated from COBOL program IC107A.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'print_rec': '',\n    'dummy_record': '',\n    'idn3': None,\n    's1': 0,\n    'al_con': \"XYZ\",\n    'idn2': None,\n    'group_1': None,\n    'dn1': '',\n    'group_2': None,\n    'group_21': None,\n    'dn2': '',\n    'group_2_1': None,\n    'dn3': '',\n})\n\ndef group_2() -> None:\n    pass\n\ndef link_test_02_01() -> None:\n    state['in3'] = state['idn2']\n    if state['dn1'] ( state['in3'] ) == \"F\":\n        state['dn2'] = \"G\"\n        state['p_7'] = \"G\"\n\ndef link_test_02_02() -> None:\n    state['idn3'] = state['idn2']\n    state['in3'] = state['idn3']\n    if state['in3'] == 6:\n        state['dn2'] = \"F\"\n        state['p_6'] = \"F\"\n\ndef link_test_03_01() -> None:\n    state['in3'] = 1\n    state['s1'] = 1\n    state['dn2'] = state['in3']\n    state['s1'] = state['in3']\n\ndef link_test_03_02() -> None:\n    pass  # SET IN3 UP BY 1\n    state['s1'] = state['s1'] + 1\n    state['dn2'] = state['in3']\n    state['s1'] = state['in3']\n\ndef link_test_04_01() -> None:\n    state['in3'] = 3\n    state['idn2'] = state['in3']\n\ndef link_test_04_02() -> None:\n    if state['idn2'] == state['in3']:\n        state['dn2'] = \"C\"\n        state['p_3'] = \"C\"\n\ndef link_test_05_01() -> None:\n    state['s1'] = 4\n    state['in3'] = state['s1']\n    state['dn2'] = state['in3']\n    state['s1'] = state['in3']\n\ndef link_test_05_02() -> None:\n    state['dn2'] = 5\n    state['p_5'] = 5\n\ndef link_test_06() -> None:\n    state['dn3'] = state['al_con']\n\ndef exit_ic107() -> None:\n    return\n\nif __name__ == \"__main__\":\n    try:\n        group_2()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_neural_code": "",
+  "stage2_final_code": "\"\"\"Translated from COBOL program IC107A.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'print_rec': '',\n    'dummy_record': '',\n    'idn3': None,\n    's1': 0,\n    'al_con': \"XYZ\",\n    'idn2': None,\n    'group_1': None,\n    'dn1': '',\n    'group_2': None,\n    'group_21': None,\n    'dn2': '',\n    'group_2_1': None,\n    'dn3': '',\n})\n\ndef group_2() -> None:\n    pass\n\ndef link_test_02_01() -> None:\n    state['in3'] = state['idn2']\n    if state['dn1'] ( state['in3'] ) == \"F\":\n        state['dn2'] = \"G\"\n        state['p_7'] = \"G\"\n\ndef link_test_02_02() -> None:\n    state['idn3'] = state['idn2']\n    state['in3'] = state['idn3']\n    if state['in3'] == 6:\n        state['dn2'] = \"F\"\n        state['p_6'] = \"F\"\n\ndef link_test_03_01() -> None:\n    state['in3'] = 1\n    state['s1'] = 1\n    state['dn2'] = state['in3']\n    state['s1'] = state['in3']\n\ndef link_test_03_02() -> None:\n    pass  # SET IN3 UP BY 1\n    state['s1'] = state['s1'] + 1\n    state['dn2'] = state['in3']\n    state['s1'] = state['in3']\n\ndef link_test_04_01() -> None:\n    state['in3'] = 3\n    state['idn2'] = state['in3']\n\ndef link_test_04_02() -> None:\n    if state['idn2'] == state['in3']:\n        state['dn2'] = \"C\"\n        state['p_3'] = \"C\"\n\ndef link_test_05_01() -> None:\n    state['s1'] = 4\n    state['in3'] = state['s1']\n    state['dn2'] = state['in3']\n    state['s1'] = state['in3']\n\ndef link_test_05_02() -> None:\n    state['dn2'] = 5\n    state['p_5'] = 5\n\ndef link_test_06() -> None:\n    state['dn3'] = state['al_con']\n\ndef exit_ic107() -> None:\n    return\n\nif __name__ == \"__main__\":\n    try:\n        group_2()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_warnings": [],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": false,
+  "stage3_refined_code": "",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "",
+  "stage3_error": "",
+  "verdict": "PASS",
+  "verdict_summary": "All 5 active check(s) passed.",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "11/11 paragraphs found as Python functions",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "GROUP-2",
+          "LINK-TEST-02-01",
+          "LINK-TEST-02-02",
+          "LINK-TEST-03-01",
+          "LINK-TEST-03-02",
+          "LINK-TEST-04-01",
+          "LINK-TEST-04-02",
+          "LINK-TEST-05-01",
+          "LINK-TEST-05-02",
+          "LINK-TEST-06",
+          "EXIT-IC107"
+        ],
+        "missing": [],
+        "total": 11
+      }
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "13/13 identifiers traced into the Python",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "PRINT-REC",
+          "DUMMY-RECORD",
+          "IDN3",
+          "S1",
+          "AL-CON",
+          "IDN2",
+          "GROUP-1",
+          "DN1",
+          "GROUP-2",
+          "GROUP-21",
+          "DN2",
+          "GROUP-2-1",
+          "DN3"
+        ],
+        "missing": [],
+        "total": 13
+      }
+    },
+    {
+      "name": "body_non_trivial",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "7/7 paragraphs have non-trivial bodies",
+      "skipped_reason": "",
+      "extra": {
+        "non_trivial": [
+          "LINK-TEST-02-01",
+          "LINK-TEST-02-02",
+          "LINK-TEST-03-01",
+          "LINK-TEST-03-02",
+          "LINK-TEST-04-01",
+          "LINK-TEST-04-02",
+          "LINK-TEST-05-01"
+        ],
+        "trivial": [],
+        "exempt": [
+          "GROUP-2",
+          "LINK-TEST-05-02",
+          "LINK-TEST-06",
+          "EXIT-IC107"
+        ],
+        "total_eligible": 7
+      }
+    },
+    {
+      "name": "python_smoke",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "ran cleanly",
+      "skipped_reason": "",
+      "extra": {
+        "exit_code": 0,
+        "stdout_bytes": 0,
+        "stderr_bytes": 0,
+        "stderr_head": ""
+      }
+    },
+    {
+      "name": "execution_match",
+      "ran": false,
+      "passed": null,
+      "score": null,
+      "detail": "skipped: cobol side could not be executed (stdout_mismatch; rc=1)",
+      "skipped_reason": "cobol side could not be executed (stdout_mismatch; rc=1)",
+      "extra": {
+        "cobol_stdout": "/var/folders/rl/r9ygvg0x7_l7sdtfq9pq99fm0000gn/T/tmpmt2xxg4s/program.cob:64: error: executable program requested but PROCEDURE/ENTRY has USING clause\n   62 | 006100         03  DN3     PICTURE XXX.                                 I..\n   63 | 006200 PROCEDURE DIVISION USING IDN2 GROUP-1 GROUP-2.                   I..\n   64 > 006300 SECT-IC107-0001 SECTION.                                         I.",
+        "cobol_returncode": 1
+      }
+    },
+    {
+      "name": "llm_judge",
+      "ran": false,
+      "passed": null,
+      "score": null,
+      "detail": "skipped: openai: judge call failed (Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}) | anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-",
+      "skipped_reason": "openai: judge call failed (Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}) | anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CbVZZU7854D3vxwcya2DP'})",
+      "extra": {
+        "providers_tried": [
+          "openai: judge call failed (Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}})",
+          "anthropic: judge call failed (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CbVZZU7854D3vxwcya2DP'})"
+        ]
+      }
+    }
+  ],
+  "timestamp": 1779998469.245304
+}

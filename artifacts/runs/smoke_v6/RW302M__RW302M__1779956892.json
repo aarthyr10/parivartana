@@ -1,0 +1,324 @@
+{
+  "program_id": "RW302M",
+  "record_id": "RW302M",
+  "cobol_source": "      *HEADER,COBOL,RW302M                                                            \n000100 IDENTIFICATION DIVISION.                                         RW3024.2\n000200 PROGRAM-ID.                                                      RW3024.2\n000300     RW302M.                                                      RW3024.2\n000400*THE FOLLOWING PROGRAM TESTS THE FLAGGING OF                      RW3024.2\n000500*OBSOLETE FEATURES THAT ARE USED IN REPORT                        RW3024.2\n000600*WRITING.                                                         RW3024.2\n000700 ENVIRONMENT DIVISION.                                            RW3024.2\n000800 CONFIGURATION SECTION.                                           RW3024.2\n000900 SOURCE-COMPUTER.                                                 RW3024.2\n001000     XXXXX082.                                                    RW3024.2\n001100 OBJECT-COMPUTER.                                                 RW3024.2\n001200     XXXXX083.                                                    RW3024.2\n001300 INPUT-OUTPUT SECTION.                                            RW3024.2\n001400 FILE-CONTROL.                                                    RW3024.2\n001500     SELECT TFIL ASSIGN                                           RW3024.2\n001600     XXXXX001                                                     RW3024.2\n001700         ORGANIZATION IS SEQUENTIAL                               RW3024.2\n001800         ACCESS MODE IS SEQUENTIAL.                               RW3024.2\n001900                                                                  RW3024.2\n002000     SELECT TFIL2 ASSIGN                                          RW3024.2\n002100     XXXXX002                                                     RW3024.2\n002200     ORGANIZATION IS SEQUENTIAL                                   RW3024.2\n002300     ACCESS MODE IS SEQUENTIAL.                                   RW3024.2\n002400                                                                  RW3024.2\n002500                                                                  RW3024.2\n002600 I-O-CONTROL.                                                     RW3024.2\n002700     MULTIPLE FILE TAPE CONTAINS TFIL.                            RW3024.2\n002800*Message expected for above statement: OBSOLETE                   RW3024.2\n002900                                                                  RW3024.2\n003000                                                                  RW3024.2\n003100 DATA DIVISION.                                                   RW3024.2\n003200 FILE SECTION.                                                    RW3024.2\n003300 FD TFIL                                                          RW3024.2\n003400     LABEL RECORDS STANDARD                                       RW3024.2\n003500*Message expected for above statement: OBSOLETE                   RW3024.2\n003600     VALUE OF                                                     RW3024.2\n003700     XXXXX074                                                     RW3024.2\n003800     IS                                                           RW3024.2\n003900     XXXXX075.                                                    RW3024.2\n004000*Message expected for above statement: OBSOLETE                   RW3024.2\n004100                                                                  RW3024.2\n004200                                                                  RW3024.2\n004300 01 FREC.                                                         RW3024.2\n004400     03 RKEY PIC 9(8).                                            RW3024.2\n004500                                                                  RW3024.2\n004600 FD TFIL2                                                         RW3024.2\n004700        REPORT IS RFIL2.                                          RW3024.2\n004800                                                                  RW3024.2\n004900 WORKING-STORAGE SECTION.                                         RW3024.2\n005000                                                                  RW3024.2\n005100 01 VARIABLES.                                                    RW3024.2\n005200     03 VKEY PIC 9(8) VALUE ZERO.                                 RW3024.2\n005300                                                                  RW3024.2\n005400 REPORT SECTION.                                                  RW3024.2\n005500 RD  RFIL2.                                                       RW3024.2\n005600 01  RREC                                                         RW3024.2\n005700             TYPE IS DETAIL.                                      RW3024.2\n005800     02  PIC 9(8)                                                 RW3024.2\n005900             SOURCE IS RKEY                                       RW3024.2\n006000             LINE NUMBER IS PLUS 1                                RW3024.2\n006100             COLUMN NUMBER IS 1.                                  RW3024.2\n006200                                                                  RW3024.2\n006300 PROCEDURE DIVISION.                                              RW3024.2\n006400                                                                  RW3024.2\n006500 RW302M-CONTROL.                                                  RW3024.2\n006600     OPEN INPUT TFIL.                                             RW3024.2\n006700     READ TFIL                                                    RW3024.2\n006800         AT END                                                   RW3024.2\n006900             GO TO RW302M-END.                                    RW3024.2\n007000     OPEN OUTPUT TFIL2.                                           RW3024.2\n007100     INITIATE RFIL2.                                              RW3024.2\n007200     GENERATE RREC.                                               RW3024.2\n007300     TERMINATE RFIL2.                                             RW3024.2\n007400 RW302M-END.                                                      RW3024.2\n007500     CLOSE TFIL, TFIL2.                                           RW3024.2\n007600     STOP RUN.                                                    RW3024.2\n007700                                                                  RW3024.2\n007800                                                                  RW3024.2\n007900*TOTAL NUMBER OF FLAGS EXPECTED = 3.                              RW3024.2\n      *END-OF,RW302M                                                                  \n",
+  "stage1_ok": true,
+  "stage1_program_id": "RW302M",
+  "stage1_division_count": 4,
+  "stage1_paragraph_count": 2,
+  "stage1_token_count": 178,
+  "stage1_ast": {
+    "node_type": "Program",
+    "line": 1,
+    "attributes": {
+      "program_id": "RW302M"
+    },
+    "children": [
+      {
+        "node_type": "Division",
+        "line": 1,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "IDENTIFICATION"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 4,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "ENVIRONMENT"
+        },
+        "children": []
+      },
+      {
+        "node_type": "Division",
+        "line": 27,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "DATA"
+        },
+        "children": [
+          {
+            "node_type": "DataItem",
+            "line": 37,
+            "attributes": {
+              "level": 1,
+              "name": "FREC"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 38,
+            "attributes": {
+              "level": 3,
+              "name": "RKEY",
+              "pic": "9"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 45,
+            "attributes": {
+              "level": 1,
+              "name": "VARIABLES"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 46,
+            "attributes": {
+              "level": 3,
+              "name": "VKEY",
+              "pic": "9",
+              "value": "ZERO"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 50,
+            "attributes": {
+              "level": 1,
+              "name": "RREC"
+            },
+            "children": []
+          },
+          {
+            "node_type": "DataItem",
+            "line": 52,
+            "attributes": {
+              "level": 2,
+              "pic": "9"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "node_type": "Division",
+        "line": 57,
+        "attributes": {
+          "name": "DIVISION",
+          "kind": "PROCEDURE"
+        },
+        "children": [
+          {
+            "node_type": "Paragraph",
+            "line": 59,
+            "attributes": {
+              "name": "RW302M-CONTROL"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 60,
+                "attributes": {
+                  "verb": "OPEN",
+                  "operands": [
+                    "INPUT",
+                    "TFIL"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 61,
+                "attributes": {
+                  "verb": "READ",
+                  "operands": [
+                    "TFIL"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 63,
+                "attributes": {
+                  "verb": "GO",
+                  "operands": [
+                    "TO",
+                    "RW302M-END"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 64,
+                "attributes": {
+                  "verb": "OPEN",
+                  "operands": [
+                    "OUTPUT",
+                    "TFIL2"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 65,
+                "attributes": {
+                  "verb": "INITIATE",
+                  "operands": [
+                    "RFIL2"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 66,
+                "attributes": {
+                  "verb": "GENERATE",
+                  "operands": [
+                    "RREC"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 67,
+                "attributes": {
+                  "verb": "TERMINATE",
+                  "operands": [
+                    "RFIL2"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "node_type": "Paragraph",
+            "line": 68,
+            "attributes": {
+              "name": "RW302M-END"
+            },
+            "children": [
+              {
+                "node_type": "Statement",
+                "line": 69,
+                "attributes": {
+                  "verb": "CLOSE",
+                  "operands": [
+                    "TFIL",
+                    "TFIL2"
+                  ]
+                },
+                "children": []
+              },
+              {
+                "node_type": "Statement",
+                "line": 70,
+                "attributes": {
+                  "verb": "STOP",
+                  "operands": [
+                    "RUN"
+                  ]
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "stage1_warnings": [],
+  "stage1_errors": [],
+  "stage1_cobc_status": "skipped",
+  "stage1_cobc_stderr": "",
+  "complexity_tier": "simple",
+  "complexity_score": 7.9,
+  "ast_depth": 4,
+  "unique_verbs": 8,
+  "cross_refs": 0,
+  "stage2_source": "rule-based",
+  "stage2_rule_based_code": "\"\"\"Translated from COBOL program RW302M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'frec': None,\n    'rkey': 0,\n    'variables': None,\n    'vkey': 0,\n    'rrec': None,\n})\n\ndef rw302m_control() -> None:\n    state['tfil'] = open('tfil', 'r')\n    state['tfil'] = state['tfil'].readline() if hasattr(state['tfil'], 'readline') else ''\n    rw302m_end()\n    return\n    state['tfil2'] = open('tfil2', 'w')\n    pass  # INITIATE (Report Writer)\n    pass  # GENERATE (Report Writer)\n    pass  # TERMINATE (Report Writer)\n\ndef rw302m_end() -> None:\n    if hasattr(state['tfil'], 'close'): state['tfil'].close()\n    if hasattr(state['tfil2'], 'close'): state['tfil2'].close()\n    return\n\nif __name__ == \"__main__\":\n    try:\n        rw302m_control()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_neural_code": "",
+  "stage2_final_code": "\"\"\"Translated from COBOL program RW302M.\n\nGenerated by parivartana Stage 2 (rule-based baseline).\n\"\"\"\n\nclass _State(dict):\n    def __missing__(self, key):\n        value = 0 if key.startswith(('ws_num', 'ws_count', 'ws_idx', 'ws_i', 'ws_n', 'ws_total', 'ws_sum', 'sub')) else ''\n        self[key] = value\n        return value\n\n\nstate: _State = _State({\n    'frec': None,\n    'rkey': 0,\n    'variables': None,\n    'vkey': 0,\n    'rrec': None,\n})\n\ndef rw302m_control() -> None:\n    state['tfil'] = open('tfil', 'r')\n    state['tfil'] = state['tfil'].readline() if hasattr(state['tfil'], 'readline') else ''\n    rw302m_end()\n    return\n    state['tfil2'] = open('tfil2', 'w')\n    pass  # INITIATE (Report Writer)\n    pass  # GENERATE (Report Writer)\n    pass  # TERMINATE (Report Writer)\n\ndef rw302m_end() -> None:\n    if hasattr(state['tfil'], 'close'): state['tfil'].close()\n    if hasattr(state['tfil2'], 'close'): state['tfil2'].close()\n    return\n\nif __name__ == \"__main__\":\n    try:\n        rw302m_control()\n    except Exception as _exc:\n        import sys\n        print(f\"runtime: {type(_exc).__name__}: {_exc}\", file=sys.stderr)\n\n",
+  "stage2_warnings": [],
+  "stage2_rescue_status": "",
+  "stage2_todo_count": 0,
+  "stage3_ran": false,
+  "stage3_refined_code": "",
+  "stage3_rename_map": {},
+  "stage3_docstrings_added": 0,
+  "stage3_semantic_label": "",
+  "stage3_provider": "",
+  "stage3_error": "",
+  "verdict": "INCONCLUSIVE",
+  "verdict_summary": "4 structural check(s) passed, but no behavioural signal (execution_match / llm_judge) was available.",
+  "verdict_checks": [
+    {
+      "name": "python_syntax_valid",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "Python source parses cleanly.",
+      "skipped_reason": "",
+      "extra": {}
+    },
+    {
+      "name": "paragraph_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "2/2 paragraphs found as Python functions",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "RW302M-CONTROL",
+          "RW302M-END"
+        ],
+        "missing": [],
+        "total": 2
+      }
+    },
+    {
+      "name": "identifier_coverage",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "5/5 identifiers traced into the Python",
+      "skipped_reason": "",
+      "extra": {
+        "found": [
+          "FREC",
+          "RKEY",
+          "VARIABLES",
+          "VKEY",
+          "RREC"
+        ],
+        "missing": [],
+        "total": 5
+      }
+    },
+    {
+      "name": "body_non_trivial",
+      "ran": true,
+      "passed": true,
+      "score": 1.0,
+      "detail": "2/2 paragraphs have non-trivial bodies",
+      "skipped_reason": "",
+      "extra": {
+        "non_trivial": [
+          "RW302M-CONTROL",
+          "RW302M-END"
+        ],
+        "trivial": [],
+        "exempt": [],
+        "total_eligible": 2
+      }
+    }
+  ],
+  "timestamp": 1779956892.387054
+}
