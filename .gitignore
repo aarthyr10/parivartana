@@ -62,6 +62,8 @@ data/external/**
 !data/external/**/
 !data/**/.gitkeep
 !data/samples/**
+# Curated lookup that ships with the repo (see configs/datasets.yaml)
+!data/raw/cobol_identifier_dict/dictionary.jsonl
 
 # ---------------------------------------------------------------------------
 # Models, checkpoints, generated outputs (download / regenerate — see README)
